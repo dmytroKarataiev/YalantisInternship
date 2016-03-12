@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Yalantis Internship</string>
     <string name="action_settings">Settings</string>
+    <string name="task_asctionbar_title">Task: </string>
 
     <!-- Task Detailed Fragment Strings -->
     <string name="task_title_text">Public utilities</string>

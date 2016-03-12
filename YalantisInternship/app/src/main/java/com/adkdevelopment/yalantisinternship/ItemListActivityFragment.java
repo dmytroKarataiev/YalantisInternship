@@ -24,12 +24,12 @@
 package com.adkdevelopment.yalantisinternship;
 
 import android.app.ActivityOptions;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -42,22 +42,27 @@ import com.adkdevelopment.yalantisinternship.remote.RSSNewsItem;
 import com.adkdevelopment.yalantisinternship.remote.RemoteEndpointUtil;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.BlockingQueue;
+import java.util.Locale;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
- * A placeholder fragment containing a simple view.
+ * Fragment of the main activity, which populates a recycler view
+ * with task items. Each item leads to the detailed view.
  */
 public class ItemListActivityFragment extends Fragment {
 
     private final String TAG = ItemListActivityFragment.class.getSimpleName();
 
+    @Bind(R.id.my_recycler_view) RecyclerView mRecyclerView;
+    @Bind(R.id.swipe_refresh_layout) SwipeRefreshLayout mSwipeRefreshLayout;
+
     // List of tasks
-    ArrayList<RSSNewsItem> itemsList;
+    ArrayList<RSSNewsItem> mItemList;
 
     // Global Variables
-    RecyclerView recyclerView;
-    MyAdapter myAdapter;
+    MyAdapter mAdapter;
 
     public ItemListActivityFragment() {
     }
@@ -67,29 +72,43 @@ public class ItemListActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_item_list, container, false);
 
+        // Bind views to variables
+        ButterKnife.bind(this, rootView);
+
+        // Fetch data on background task through Retrofit
         FetchData fetchData = new FetchData();
         fetchData.execute();
 
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
-        recyclerView.setHasFixedSize(true);
+        // To improve the performance
+        mRecyclerView.setHasFixedSize(true);
 
+        // Refresh data on scroll down
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+            }
+        });
+
+        // RecyclerView with vertical scroll
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
-        recyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setLayoutManager(layoutManager);
 
-        myAdapter = new MyAdapter(itemsList, getContext());
+        mAdapter = new MyAdapter(mItemList);
 
-        recyclerView.setAdapter(myAdapter);
+        mRecyclerView.setAdapter(mAdapter);
 
         return rootView;
     }
 
+    /**
+     * Creates RecyclerView adapter which populates task items in ItemListActivityFragment
+     * Each element has an onClickListener
+     */
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         private ArrayList<RSSNewsItem> mDataset;
-        private Context mContext;
 
         // Provide a reference to the views for each data item
-        // Complex data items may need more than one view per item, and
-        // you provide access to all the views for a data item in a view holder
         public class ViewHolder extends RecyclerView.ViewHolder {
             // each data item is just a string in this case
             public TextView mImageView;
@@ -100,8 +119,7 @@ public class ItemListActivityFragment extends Fragment {
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)
-        public MyAdapter(ArrayList<RSSNewsItem> itemsList, Context context) {
-            mContext = context;
+        public MyAdapter(ArrayList<RSSNewsItem> itemsList) {
             mDataset = itemsList;
         }
 
@@ -112,12 +130,13 @@ public class ItemListActivityFragment extends Fragment {
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.list_item, parent, false);
 
+            // Adds a listener in each element in the recyclerview
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     Intent intent = new Intent(getActivity(), DetailActivity.class);
-                    intent.putExtra(RSSNewsItem.TASKITEM, mDataset.get(recyclerView.getChildAdapterPosition(v)));
+                    intent.putExtra(RSSNewsItem.TASKITEM, mDataset.get(mRecyclerView.getChildAdapterPosition(v)));
 
                     // Shared Transitions for SDK >= 21
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -154,24 +173,34 @@ public class ItemListActivityFragment extends Fragment {
         }
     }
 
+    /**
+     * Class which helps to transfer Network connections to the background thread
+     */
     private class FetchData extends AsyncTask<Void, Void, ArrayList<RSSNewsItem>> {
 
         @Override
         protected ArrayList<RSSNewsItem> doInBackground(Void... params) {
 
-            try {
-                BlockingQueue<List<RSSNewsItem>> blockingQueue = RemoteEndpointUtil.fetchItems();
-                itemsList = (ArrayList<RSSNewsItem>) blockingQueue.take();
-            } catch (InterruptedException e) {
-                Log.e(TAG, "Error downloading content.", e);
-            }
-            return itemsList;
+            Locale locale = getResources().getConfiguration().locale;
+            if (BuildConfig.DEBUG) Log.d("FetchData", locale.toString());
+
+            mItemList = (ArrayList<RSSNewsItem>) RemoteEndpointUtil.fetchItems(locale);
+
+            return mItemList;
         }
 
         @Override
         protected void onPostExecute(ArrayList<RSSNewsItem> rssList) {
-            myAdapter = new MyAdapter(itemsList, getContext());
-            recyclerView.swapAdapter(myAdapter, false);
+            // Swap data in the adapter on finish
+            mAdapter = new MyAdapter(mItemList);
+            mRecyclerView.swapAdapter(mAdapter, false);
+            mSwipeRefreshLayout.setRefreshing(false);
         }
+    }
+
+    private void refresh() {
+        // Fetch data on background task through Retrofit
+        FetchData fetchData = new FetchData();
+        fetchData.execute();
     }
 }

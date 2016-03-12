@@ -33,5 +33,8 @@ import retrofit2.http.GET;
  */
 public interface RSSService {
     @GET("download/photos/data.json")
-    Call<List<RSSNewsItem>> getRSS();
+    Call<List<RSSNewsItem>> getData();
+
+    @GET("download/photos/dataua.json")
+    Call<List<RSSNewsItem>> getUaData();
 }

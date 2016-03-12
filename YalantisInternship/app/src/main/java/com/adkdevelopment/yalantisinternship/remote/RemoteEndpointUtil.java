@@ -23,17 +23,12 @@
  */
 package com.adkdevelopment.yalantisinternship.remote;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
+import java.util.Locale;
 
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Response;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -53,42 +48,34 @@ public class RemoteEndpointUtil {
      * Method to connect and download data, works on background thread and is called from AsyncTask
      * @return List of RSSNewsItems
      */
-    public static BlockingQueue<List<RSSNewsItem>> fetchItems() {
-        final BlockingQueue<List<RSSNewsItem>> blockingQueue = new ArrayBlockingQueue<List<RSSNewsItem>>(1);
-        Retrofit client = getRetrofitClient();
-        RSSService service  = client.create(RSSService.class);
-        Call<List<RSSNewsItem>> call = service.getRSS();
+    public static List<RSSNewsItem> fetchItems(Locale locale) {
 
+        Retrofit client = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RSSService service  = client.create(RSSService.class);
+
+        Call<List<RSSNewsItem>> call;
+
+        if (locale.toString().contains("UA")) {
+            call = service.getUaData();
+        } else {
+            call = service.getData();
+        }
+
+
+        List<RSSNewsItem> list = null;
         try {
             retrofit2.Response<List<RSSNewsItem>> response = call.execute();
-            List<RSSNewsItem> list = response.body();
-            blockingQueue.add(list);
+            list = response.body();
         } catch (IOException e) {
             Log.e(TAG, "fetchItems: " + e);
         }
 
-        return blockingQueue;
+        return list;
 
     }
 
-    /**
-     * Retrofit client build method
-     * @return set up Retrofit client
-     */
-    @NonNull
-    private static Retrofit getRetrofitClient() {
-        OkHttpClient okClient = new OkHttpClient
-                .Builder().addInterceptor(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                return chain.proceed(chain.request());
-            }
-        }).build();
-
-        return new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(okClient)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-    }
 }

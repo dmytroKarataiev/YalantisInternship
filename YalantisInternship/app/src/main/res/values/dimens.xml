@@ -20,5 +20,7 @@
     <dimen name="list_item_height">56dp</dimen>
     <dimen name="list_item_padding">16dp</dimen>
 
+    <!-- Item in Details activity RecyclerView -->
+    <dimen name="poster_height">300dp</dimen>
 
 </resources>

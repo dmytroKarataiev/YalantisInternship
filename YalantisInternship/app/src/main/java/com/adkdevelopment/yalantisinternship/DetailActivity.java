@@ -52,7 +52,10 @@ public class DetailActivity extends AppCompatActivity {
 
         if (getIntent().hasExtra(RSSNewsItem.TASKITEM)) {
             rssNewsItem = getIntent().getParcelableExtra(RSSNewsItem.TASKITEM);
-            getSupportActionBar().setTitle(rssNewsItem.getTitle());
+
+            String actionbarTitle = getString(R.string.task_asctionbar_title) + " " + rssNewsItem.getTitle();
+
+            getSupportActionBar().setTitle(actionbarTitle);
         }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

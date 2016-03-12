@@ -52,7 +52,7 @@ import butterknife.ButterKnife;
  */
 public class DetailActivityFragment extends Fragment {
 
-    @Bind(R.id.task_title_text) TextView tast_title_text;
+    @Bind(R.id.task_title_text) TextView task_title_text;
     @Bind(R.id.task_status) TextView task_status;
     @Bind(R.id.task_created_date) TextView task_created_date;
     @Bind(R.id.task_registered_date) TextView task_registered_date;
@@ -61,7 +61,7 @@ public class DetailActivityFragment extends Fragment {
     @Bind(R.id.task_responsible_name) TextView task_responsible_name;
 
     // Global variable to get links to the photos from the fragment
-    RSSNewsItem rssNewsItem;
+    RSSNewsItem mNewsItem;
 
     public DetailActivityFragment() {
     }
@@ -75,32 +75,32 @@ public class DetailActivityFragment extends Fragment {
 
         Intent intent = getActivity().getIntent();
         if (intent.hasExtra(RSSNewsItem.TASKITEM)) {
-            rssNewsItem = intent.getParcelableExtra(RSSNewsItem.TASKITEM);
+            mNewsItem = intent.getParcelableExtra(RSSNewsItem.TASKITEM);
 
             // Time parsing and creating a nice textual version (should be changed to Calendar()
             Time time = new Time();
-            time.parse3339(rssNewsItem.getCreated());
+            time.parse3339(mNewsItem.getCreated());
             String dateCreated = DateUtils
                     .getRelativeTimeSpanString(time.toMillis(false))
                     .toString();
 
-            time.parse3339(rssNewsItem.getRegistered());
+            time.parse3339(mNewsItem.getRegistered());
             String dateRegistered = DateUtils
                     .getRelativeTimeSpanString(time.toMillis(false))
                     .toString();
 
-            time.parse3339(rssNewsItem.getAssigned());
+            time.parse3339(mNewsItem.getAssigned());
             String dateAssigned = DateUtils
                     .getRelativeTimeSpanString(time.toMillis(false))
                     .toString();
 
-            tast_title_text.setText(rssNewsItem.getOwner());
-            task_status.setText(rssNewsItem.getStatus());
+            task_title_text.setText(mNewsItem.getOwner());
+            task_status.setText(mNewsItem.getStatus());
             task_created_date.setText(dateCreated);
             task_registered_date.setText(dateRegistered);
             task_assigned_date.setText(dateAssigned);
-            task_responsible_name.setText(rssNewsItem.getResponsible());
-            task_description.setText(Html.fromHtml(rssNewsItem.getDescription()));
+            task_responsible_name.setText(mNewsItem.getResponsible());
+            task_description.setText(Html.fromHtml(mNewsItem.getDescription()));
 
         }
 
@@ -112,7 +112,7 @@ public class DetailActivityFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         // Adapter with data about different activities
-        MyAdapter myAdapter = new MyAdapter(rssNewsItem.getPhoto(), getContext());
+        MyAdapter myAdapter = new MyAdapter(mNewsItem.getPhoto(), getContext());
         recyclerView.setAdapter(myAdapter);
 
         return rootView;
@@ -125,7 +125,7 @@ public class DetailActivityFragment extends Fragment {
         private List<String> mDataset;
         private Context mContext;
 
-        // Simple version of the vieholder with only one view
+        // Simple version of the viewholder with only one view
         public class ViewHolder extends RecyclerView.ViewHolder {
 
             public ImageView mImageView;
@@ -157,7 +157,7 @@ public class DetailActivityFragment extends Fragment {
         public void onBindViewHolder(ViewHolder holder, final int position) {
 
             // Download image from the internet, onError - use a drawable
-            Picasso.with(mContext).load(rssNewsItem.getPhoto().get(position)).error(R.drawable.m100).into(holder.mImageView);
+            Picasso.with(mContext).load(mNewsItem.getPhoto().get(position)).error(R.drawable.m100).into(holder.mImageView);
 
             // Click on each image in the recyclerview shows a toast
             holder.mImageView.setOnClickListener(new View.OnClickListener() {
