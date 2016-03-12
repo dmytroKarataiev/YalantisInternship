@@ -1,4 +1,28 @@
 <resources>
     <string name="app_name">Yalantis Internship</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Task Detailed Fragment Strings -->
+    <string name="task_title_text">Public utilities</string>
+    <string name="task_status">In progress</string>
+    <string name="task_created_text">Created </string>
+    <string name="task_registered_text">Registered </string>
+    <string name="task_assigned_text">Assigned </string>
+    <string name="task_responsible_text">Responsible </string>
+    <string name="task_responsible_name">Dnipropetrovsk MVK</string>
+
+
+    <string name="task_description">Color in material design is inspired by bold hues juxtaposed
+        with muted environments, deep shadows, and bright highlights. Material takes cues from
+        contemporary architecture, road signs, pavement marking tape, and athletic courts.
+        Color should be unexpected and vibrant.</string>
+
+    <string name="task_created_date">Jan. 27th 2016</string>
+    <string name="task_registered_date">Jan. 27th 2016</string>
+    <string name="task_assigned_date">Jan. 27th 2016</string>
+    <string name="title_activity_item_list">Task List</string>
+
+    <string name="button_new_task">Send a new task!</string>
+    <string name="share_task">Share with your friend this task</string>
+
 </resources>
