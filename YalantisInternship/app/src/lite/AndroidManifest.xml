@@ -22,18 +22,29 @@
   ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   ~ SOFTWARE.
   -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="@dimen/poster_height"
-    android:orientation="vertical"
-    android:padding="@dimen/recycler_padding">
 
-    <ImageView
-        android:id="@+id/poster_image"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:src="@drawable/m100" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.adkdevelopment.yalantisinternship">
 
-</LinearLayout>
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".DetailActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

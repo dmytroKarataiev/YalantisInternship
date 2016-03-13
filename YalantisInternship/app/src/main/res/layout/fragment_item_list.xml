@@ -34,11 +34,11 @@
     <android.support.v7.widget.RecyclerView
 
         android:id="@+id/my_recycler_view"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minHeight="@dimen/recycler_minheight"
         android:scrollbars="horizontal"
-        tools:context="com.adkdevelopment.yalantisinternship.ItemListActivityFragment"
+        tools:context=".ItemListActivityFragment"
         tools:showIn="@layout/activity_item_list" />
 
 </android.support.v4.widget.SwipeRefreshLayout>

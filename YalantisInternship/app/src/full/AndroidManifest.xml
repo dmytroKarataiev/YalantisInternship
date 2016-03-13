@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!--
   ~ The MIT License (MIT)
   ~
@@ -22,18 +23,32 @@
   ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   ~ SOFTWARE.
   -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="@dimen/poster_height"
-    android:orientation="vertical"
-    android:padding="@dimen/recycler_padding">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.adkdevelopment.yalantisinternship">
 
-    <ImageView
-        android:id="@+id/poster_image"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:src="@drawable/m100" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
-</LinearLayout>
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".ItemListActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".DetailActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".ItemListActivity">
+        </activity>
+    </application>
+
+</manifest>

@@ -33,9 +33,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.adkdevelopment.yalantisinternship.remote.RSSNewsItem;
 
+/**
+ * Launches the window with detailed information about a task
+ * If there is no outside data - shows "dummy data" from resources
+ */
 public class DetailActivity extends AppCompatActivity {
 
     @Override
@@ -46,20 +51,35 @@ public class DetailActivity extends AppCompatActivity {
         // Initialize a custom toolbar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        RSSNewsItem rssNewsItem = null;
-
-        if (getIntent().hasExtra(RSSNewsItem.TASKITEM)) {
-            rssNewsItem = getIntent().getParcelableExtra(RSSNewsItem.TASKITEM);
-
-            String actionbarTitle = getString(R.string.task_asctionbar_title) + " " + rssNewsItem.getTitle();
-
-            getSupportActionBar().setTitle(actionbarTitle);
+        // Add back button to the actionbar if the app is full version
+        if (getApplication().getPackageName()
+                .contains(getString(R.string.app_name_full))) {
+            //noinspection ConstantConditions
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        RSSNewsItem rssNewsItem;
+        String actionbarTitle;
+
+        // If launched from the List Activity - get data from the intent
+        if (getIntent().hasExtra(RSSNewsItem.TASKITEM)) {
+            rssNewsItem = getIntent().getParcelableExtra(RSSNewsItem.TASKITEM);
+        } else {
+            // Example data
+            rssNewsItem = new RSSNewsItem();
+            rssNewsItem.setTitle(getString(R.string.task_title_example));
+            rssNewsItem.setOwner(getString(R.string.task_owner));
+            rssNewsItem.setStatus(getString(R.string.task_status));
+        }
+
+        // Set the title bar with Task title
+        actionbarTitle = getString(R.string.task_asctionbar_title) + " " + rssNewsItem.getTitle();
+        getSupportActionBar().setTitle(actionbarTitle);
+
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        if (fab != null && rssNewsItem != null) {
+        if (fab != null) {
             final String shareText = rssNewsItem.getTitle() + " - " + rssNewsItem.getOwner() + " - " + rssNewsItem.getStatus();
 
             // Share info about the task on FAB click
@@ -92,6 +112,7 @@ public class DetailActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         switch (id) {
             case R.id.action_settings:
+                Toast.makeText(this, R.string.action_settings, Toast.LENGTH_SHORT).show();
                 return true;
         }
 

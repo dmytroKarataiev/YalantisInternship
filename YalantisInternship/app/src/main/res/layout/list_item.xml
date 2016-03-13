@@ -33,7 +33,6 @@
         android:padding="@dimen/list_item_padding"
         android:id="@+id/title"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Problem #1" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

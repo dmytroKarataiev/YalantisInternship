@@ -46,5 +46,7 @@
 
     <string name="button_new_task">Відправити нове завдання!</string>
     <string name="share_task">Поділитися з другом </string>
+    <string name="task_image_text">Зображення: </string>
+    <string name="task_owner">Комунальне господарство</string>
 
 </resources>

@@ -39,14 +39,14 @@ import java.util.List;
  */
 public class RSSNewsItem implements Parcelable {
 
-    public static String TASKITEM = "task";
+    public static final String TASKITEM = "task";
 
     @SerializedName("id")
     @Expose
     private String id;
     @SerializedName("photo")
     @Expose
-    private List<String> photo = new ArrayList<String>();
+    private List<String> photo = new ArrayList<>();
     @SerializedName("title")
     @Expose
     private String title;
@@ -287,7 +287,7 @@ public class RSSNewsItem implements Parcelable {
         this.description = in.readString();
     }
 
-    public static final Parcelable.Creator<RSSNewsItem> CREATOR = new Parcelable.Creator<RSSNewsItem>() {
+    public static final Creator<RSSNewsItem> CREATOR = new Creator<RSSNewsItem>() {
         public RSSNewsItem createFromParcel(Parcel source) {
             return new RSSNewsItem(source);
         }
