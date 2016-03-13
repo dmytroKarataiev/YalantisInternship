@@ -57,19 +57,19 @@ import butterknife.OnClick;
 public class DetailActivityFragment extends Fragment {
 
     @Bind(R.id.task_title_text)
-    private TextView task_title_text;
+    TextView task_title_text;
     @Bind(R.id.task_status)
-    private TextView task_status;
+    TextView task_status;
     @Bind(R.id.task_created_date)
-    private TextView task_created_date;
+    TextView task_created_date;
     @Bind(R.id.task_registered_date)
-    private TextView task_registered_date;
+    TextView task_registered_date;
     @Bind(R.id.task_assigned_date)
-    private TextView task_assigned_date;
+    TextView task_assigned_date;
     @Bind(R.id.task_description)
-    private TextView task_description;
+    TextView task_description;
     @Bind(R.id.task_responsible_name)
-    private TextView task_responsible_name;
+    TextView task_responsible_name;
 
     // As per specification - each element (or button? or what?) should have an onClickListener
     // which shows a toast with element name

@@ -57,9 +57,9 @@ public class ItemListActivityFragment extends Fragment {
     private final String TAG = ItemListActivityFragment.class.getSimpleName();
 
     @Bind(R.id.my_recycler_view)
-    private RecyclerView mRecyclerView;
+    RecyclerView mRecyclerView;
     @Bind(R.id.swipe_refresh_layout)
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     // List of tasks
     private ArrayList<RSSNewsItem> mItemList;
