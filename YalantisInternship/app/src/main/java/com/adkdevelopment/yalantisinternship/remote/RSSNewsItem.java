@@ -274,7 +274,7 @@ public class RSSNewsItem implements Parcelable {
     public RSSNewsItem() {
     }
 
-    protected RSSNewsItem(Parcel in) {
+    private RSSNewsItem(Parcel in) {
         this.id = in.readString();
         this.photo = in.createStringArrayList();
         this.title = in.readString();

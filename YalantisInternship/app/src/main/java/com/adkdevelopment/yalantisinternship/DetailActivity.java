@@ -26,13 +26,13 @@ package com.adkdevelopment.yalantisinternship;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ShareCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.adkdevelopment.yalantisinternship.remote.RSSNewsItem;
@@ -46,8 +46,9 @@ import butterknife.ButterKnife;
  */
 public class DetailActivity extends AppCompatActivity {
 
+    private final String TAG = DetailActivity.class.getSimpleName();
+
     @Bind(R.id.toolbar) Toolbar toolbar;
-    @Bind(R.id.fab) FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,25 +73,26 @@ public class DetailActivity extends AppCompatActivity {
         String actionbarTitle = getString(R.string.task_asctionbar_title) + " " + rssNewsItem.getTitle();
         getSupportActionBar().setTitle(actionbarTitle);
 
-        if (fab != null) {
-            final String shareText = rssNewsItem.getTitle() + " - " + rssNewsItem.getOwner() + " - " + rssNewsItem.getStatus();
-            // Share info about the task on FAB click
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(DetailActivity.this)
-                            .setType("text/plain")
-                            .setText(shareText)
-                            .getIntent(), getString(R.string.share_task)));
-                }
-            });
-        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_detail, menu);
+
+        // Retrieve the share menu item
+        MenuItem item = menu.findItem(R.id.share);
+
+        // Get the provider and hold onto it to set/change the share intent.
+        ShareActionProvider mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
+
+        if (mShareActionProvider != null) {
+            mShareActionProvider.setShareIntent(shareIntent());
+        }
+        else {
+            Log.e(TAG, "ShareActionProvider is null");
+        }
+
         return true;
     }
 
@@ -130,5 +132,23 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         return rssNewsItem;
+    }
+
+    /**
+     * Method to populate Intent with data
+     * @return Intent with data to external apps
+     */
+    private Intent shareIntent() {
+        RSSNewsItem rssNewsItem = getData();
+
+        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        sendIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        sendIntent.setType("text/plain");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, rssNewsItem.getTitle() + " - "
+                + rssNewsItem.getOwner() + " - "
+                + rssNewsItem.getStatus() + " - "
+                + "\n#Yalantis App");
+
+        return sendIntent;
     }
 }

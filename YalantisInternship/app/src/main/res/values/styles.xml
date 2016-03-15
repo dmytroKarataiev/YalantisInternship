@@ -63,4 +63,11 @@
         <item name="android:layout_marginBottom">@dimen/status_sign_margin</item>
 
     </style>
+
+    <style name="EmptyListInfo">
+        <item name="android:textAppearance">?android:textAppearance</item>
+        <item name="android:textSize">@dimen/task_text_size</item>
+        <item name="android:padding">@dimen/list_item_padding</item>
+    </style>
+
 </resources>

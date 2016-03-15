@@ -29,6 +29,7 @@
     android:padding="@dimen/recycler_padding">
 
     <ImageView
+        android:contentDescription="@string/task_image_text"
         android:id="@+id/poster_image"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
