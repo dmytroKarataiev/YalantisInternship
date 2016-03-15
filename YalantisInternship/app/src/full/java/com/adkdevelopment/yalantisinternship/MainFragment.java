@@ -33,7 +33,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,14 +51,12 @@ import butterknife.ButterKnife;
  * Fragment of the main activity, which populates a recycler view
  * with task items. Each item leads to the detailed view.
  */
-public class ItemListActivityFragment extends Fragment {
+public class MainFragment extends Fragment {
 
-    private final String TAG = ItemListActivityFragment.class.getSimpleName();
+    private final String TAG = MainFragment.class.getSimpleName();
 
-    @Bind(R.id.my_recycler_view)
-    RecyclerView mRecyclerView;
-    @Bind(R.id.swipe_refresh_layout)
-    SwipeRefreshLayout mSwipeRefreshLayout;
+    @Bind(R.id.my_recycler_view) RecyclerView mRecyclerView;
+    @Bind(R.id.swipe_refresh_layout) SwipeRefreshLayout mSwipeRefreshLayout;
 
     // List of tasks
     private ArrayList<RSSNewsItem> mItemList;
@@ -67,13 +64,13 @@ public class ItemListActivityFragment extends Fragment {
     // Global Variables
     private MyAdapter mAdapter;
 
-    public ItemListActivityFragment() {
+    public MainFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_item_list, container, false);
+        View rootView = inflater.inflate(R.layout.main_fragment_list, container, false);
 
         // Bind views to variables
         ButterKnife.bind(this, rootView);
@@ -105,19 +102,21 @@ public class ItemListActivityFragment extends Fragment {
     }
 
     /**
-     * Creates RecyclerView adapter which populates task items in ItemListActivityFragment
+     * Creates RecyclerView adapter which populates task items in MainFragment
      * Each element has an onClickListener
      */
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+
         private ArrayList<RSSNewsItem> mDataset;
 
         // Provide a reference to the views for each data item
         public class ViewHolder extends RecyclerView.ViewHolder {
             // each data item is just a string in this case
-            public TextView mImageView;
+            @Bind(R.id.title) TextView mImageView;
+
             public ViewHolder(View v) {
                 super(v);
-                mImageView = (TextView) v.findViewById(R.id.title);
+                ButterKnife.bind(this, v);
             }
         }
 
@@ -131,7 +130,7 @@ public class ItemListActivityFragment extends Fragment {
         public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                        int viewType) {
             View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.list_item, parent, false);
+                    .inflate(R.layout.main_fragment_list_item, parent, false);
 
             // Adds a listener in each element in the recyclerview
             v.setOnClickListener(new View.OnClickListener() {
@@ -185,7 +184,6 @@ public class ItemListActivityFragment extends Fragment {
         protected ArrayList<RSSNewsItem> doInBackground(Void... params) {
 
             Locale locale = getResources().getConfiguration().locale;
-            if (BuildConfig.DEBUG) Log.d("FetchData", locale.toString());
 
             mItemList = (ArrayList<RSSNewsItem>) RemoteEndpointUtil.fetchItems(locale);
 
@@ -205,5 +203,11 @@ public class ItemListActivityFragment extends Fragment {
         // Fetch data on background task through Retrofit
         FetchData fetchData = new FetchData();
         fetchData.execute();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }

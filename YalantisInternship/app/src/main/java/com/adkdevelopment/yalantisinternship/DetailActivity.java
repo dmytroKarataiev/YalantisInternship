@@ -37,20 +37,26 @@ import android.widget.Toast;
 
 import com.adkdevelopment.yalantisinternship.remote.RSSNewsItem;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Launches the window with detailed information about a task
  * If there is no outside data - shows "dummy data" from resources
  */
 public class DetailActivity extends AppCompatActivity {
 
+    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.fab) FloatingActionButton fab;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.detail_activity);
+        ButterKnife.bind(this);
 
         // Initialize a custom toolbar
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(myToolbar);
+        setSupportActionBar(toolbar);
 
         // Add back button to the actionbar if the app is full version
         if (getApplication().getPackageName()
@@ -59,29 +65,15 @@ public class DetailActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        RSSNewsItem rssNewsItem;
-        String actionbarTitle;
-
-        // If launched from the List Activity - get data from the intent
-        if (getIntent().hasExtra(RSSNewsItem.TASKITEM)) {
-            rssNewsItem = getIntent().getParcelableExtra(RSSNewsItem.TASKITEM);
-        } else {
-            // Example data
-            rssNewsItem = new RSSNewsItem();
-            rssNewsItem.setTitle(getString(R.string.task_title_example));
-            rssNewsItem.setOwner(getString(R.string.task_owner));
-            rssNewsItem.setStatus(getString(R.string.task_status));
-        }
+        // populate the item with data
+        RSSNewsItem rssNewsItem = getData();
 
         // Set the title bar with Task title
-        actionbarTitle = getString(R.string.task_asctionbar_title) + " " + rssNewsItem.getTitle();
+        String actionbarTitle = getString(R.string.task_asctionbar_title) + " " + rssNewsItem.getTitle();
         getSupportActionBar().setTitle(actionbarTitle);
 
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         if (fab != null) {
             final String shareText = rssNewsItem.getTitle() + " - " + rssNewsItem.getOwner() + " - " + rssNewsItem.getStatus();
-
             // Share info about the task on FAB click
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -117,5 +109,26 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Gets RSSNewsItem from the intent or creates it from the internal data
+     * @return RSSNewsItem object with the data
+     */
+    private RSSNewsItem getData() {
+        // If launched from the List Activity - get data from the intent
+        RSSNewsItem rssNewsItem;
+
+        if (getIntent().hasExtra(RSSNewsItem.TASKITEM)) {
+            rssNewsItem = getIntent().getParcelableExtra(RSSNewsItem.TASKITEM);
+        } else {
+            // Example data
+            rssNewsItem = new RSSNewsItem();
+            rssNewsItem.setTitle(getString(R.string.task_title_example));
+            rssNewsItem.setOwner(getString(R.string.task_owner));
+            rssNewsItem.setStatus(getString(R.string.task_status));
+        }
+
+        return rssNewsItem;
     }
 }

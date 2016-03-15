@@ -24,8 +24,8 @@
   -->
 
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#547BAE</color>
+    <color name="colorPrimaryDark">#43638B</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="orange">#FFAB00</color>
+    <color name="orange">#F99900</color>
 </resources>

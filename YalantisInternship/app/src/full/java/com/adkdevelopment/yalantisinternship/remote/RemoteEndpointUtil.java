@@ -40,7 +40,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RemoteEndpointUtil {
     private static final String TAG = "RemoteEndpointUtil";
-    private static final String BASE_URL = "http://adkdevelopment.com";
+    private static final String BASE_URL = "http://adkdevelopment.com/";
 
     private RemoteEndpointUtil() {
     }

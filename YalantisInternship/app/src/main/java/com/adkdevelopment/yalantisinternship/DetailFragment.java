@@ -54,22 +54,16 @@ import butterknife.OnClick;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class DetailActivityFragment extends Fragment {
+public class DetailFragment extends Fragment {
 
-    @Bind(R.id.task_title_text)
-    TextView task_title_text;
-    @Bind(R.id.task_status)
-    TextView task_status;
-    @Bind(R.id.task_created_date)
-    TextView task_created_date;
-    @Bind(R.id.task_registered_date)
-    TextView task_registered_date;
-    @Bind(R.id.task_assigned_date)
-    TextView task_assigned_date;
-    @Bind(R.id.task_description)
-    TextView task_description;
-    @Bind(R.id.task_responsible_name)
-    TextView task_responsible_name;
+    @Bind(R.id.task_title_text) TextView task_title_text;
+    @Bind(R.id.task_status) TextView task_status;
+    @Bind(R.id.task_created_date) TextView task_created_date;
+    @Bind(R.id.task_registered_date) TextView task_registered_date;
+    @Bind(R.id.task_assigned_date) TextView task_assigned_date;
+    @Bind(R.id.task_description) TextView task_description;
+    @Bind(R.id.task_responsible_name) TextView task_responsible_name;
+    @Bind(R.id.my_recycler_view) RecyclerView recyclerView;
 
     // As per specification - each element (or button? or what?) should have an onClickListener
     // which shows a toast with element name
@@ -91,14 +85,14 @@ public class DetailActivityFragment extends Fragment {
     // Global variable to get links to the photos from the fragment
     private RSSNewsItem mNewsItem;
 
-    public DetailActivityFragment() {
+    public DetailFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        View rootView = inflater.inflate(R.layout.detail_fragment_task, container, false);
         ButterKnife.bind(this, rootView);
 
         Intent intent = getActivity().getIntent();
@@ -121,19 +115,14 @@ public class DetailActivityFragment extends Fragment {
         } else {
             // If there is no outside intent - fetch example photos
             ArrayList<String> dummyPhotos = new ArrayList<>();
-
-            String[] photos = {
-                    "http://adkdevelopment.com/download/photos/DSC_2729.jpg",
-                    "http://adkdevelopment.com/download/photos/DSC_2730.jpg",
-                    "http://adkdevelopment.com/download/photos/DSC_2733.jpg" };
-
-            dummyPhotos.addAll(Arrays.asList(photos));
+            dummyPhotos.addAll(Arrays.asList(getResources()
+                    .getStringArray(R.array.task_image_links)));
 
             mNewsItem = new RSSNewsItem();
             mNewsItem.setPhoto(dummyPhotos);
         }
 
-        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
+        // To boost performance as we know that size won't change
         recyclerView.setHasFixedSize(true);
 
         // Horizontal LayoutManager
@@ -177,7 +166,7 @@ public class DetailActivityFragment extends Fragment {
                                                        int viewType) {
             // create a new view
             View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_task, parent, false);
+                    .inflate(R.layout.detail_fragment_task_item, parent, false);
 
             return new ViewHolder(v);
         }
@@ -194,7 +183,10 @@ public class DetailActivityFragment extends Fragment {
             holder.mImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext, getString(R.string.task_image_text) + " " + position, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,
+                            getString(R.string.task_image_text) + " " + position,
+                            Toast.LENGTH_SHORT)
+                            .show();
                 }
             });
 
@@ -220,5 +212,11 @@ public class DetailActivityFragment extends Fragment {
         return DateUtils
                 .getRelativeTimeSpanString(time.toMillis(false))
                 .toString();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }
