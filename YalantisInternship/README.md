@@ -1,7 +1,7 @@
 # Yalantis Android Internship Task #1
 * Simple static application with a ScrollView, RecyclerView.
 
-<img src="http://adkdevelopment.com/download/photos/yalantis_1task.gif" alt="alt text" style="width:200;height:200">
+<img src="http://adkdevelopment.com/download/photos/yalantis_1_task.gif" alt="alt text" style="width:200;height:200">
 
 ## Required behaviour - (build variant: lite version)
 * Dimensions, Styles in XML (/res)
