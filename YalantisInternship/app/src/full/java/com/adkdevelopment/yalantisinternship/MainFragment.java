@@ -60,7 +60,7 @@ public class MainFragment extends Fragment {
     @Bind(R.id.list_empty_text) TextView mListEmpty;
 
     // List of tasks
-    private ArrayList<RSSNewsItem> mItemList;
+    private ArrayList<RSSNewsItem> mItemList; // [Comment] Use abstraction instead of realizations List<RssNewsItem>
 
     // Global Variables
     private ListAdapter mAdapter;
@@ -139,7 +139,7 @@ public class MainFragment extends Fragment {
         } else {
             ApiManager.getService().getData().enqueue(callback);
         }
-
+        // [COMMENT] Лишний метод
     }
 
     @Override

@@ -32,6 +32,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class ApiManager {
 
+    // [Comment] Singleton is incorrect. You should create Application class. There you can create single instance of ApiManager
+
+
     private static final String BASE_URL = "http://adkdevelopment.com/";
 
     private static final Retrofit REST_ADAPTER = new retrofit2.Retrofit.Builder()
@@ -44,5 +47,7 @@ public class ApiManager {
     public static RSSService getService() {
         return RSS_SERVICE;
     }
+
+    // [Comment] Remove all static
 
 }

@@ -48,7 +48,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private final String TAG = DetailActivity.class.getSimpleName();
 
-    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.toolbar) Toolbar toolbar; // [Comment] By google convension Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
