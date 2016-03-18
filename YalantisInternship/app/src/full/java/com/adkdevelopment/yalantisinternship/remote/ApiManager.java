@@ -45,4 +45,6 @@ public class ApiManager {
         return RSS_SERVICE;
     }
 
+    // [Comment] Remove all static
+
 }

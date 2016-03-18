@@ -137,7 +137,7 @@ public class MainFragment extends Fragment {
         } else {
             App.getApiManager().getService().getData().enqueue(callback);
         }
-
+        // [COMMENT] Лишний метод
     }
 
     @Override
