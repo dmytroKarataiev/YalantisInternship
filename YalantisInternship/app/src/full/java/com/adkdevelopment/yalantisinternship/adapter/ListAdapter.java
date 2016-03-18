@@ -46,7 +46,7 @@ import com.adkdevelopment.yalantisinternship.DetailActivity;
 import com.adkdevelopment.yalantisinternship.R;
 import com.adkdevelopment.yalantisinternship.remote.RSSNewsItem;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -57,7 +57,7 @@ import butterknife.ButterKnife;
  */
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
-    private final ArrayList<RSSNewsItem> mDataset;
+    private final List<RSSNewsItem> mDataset;
     private final Context mContext;
 
     // Provide a reference to the views for each data item
@@ -89,7 +89,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ListAdapter(ArrayList<RSSNewsItem> itemsList, Activity activity) {
+    public ListAdapter(List<RSSNewsItem> itemsList, Activity activity) {
         mContext = activity;
         mDataset = itemsList;
     }

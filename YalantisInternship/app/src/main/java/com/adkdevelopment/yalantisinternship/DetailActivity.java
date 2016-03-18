@@ -48,7 +48,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private final String TAG = DetailActivity.class.getSimpleName();
 
-    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.toolbar) Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +56,8 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.detail_activity);
         ButterKnife.bind(this);
 
-        // Initialize a custom toolbar
-        setSupportActionBar(toolbar);
+        // Initialize a custom Toolbar
+        setSupportActionBar(mToolbar);
 
         // Add back button to the actionbar if the app is full version
         if (getApplication().getPackageName()

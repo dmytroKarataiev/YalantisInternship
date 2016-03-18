@@ -21,28 +21,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package com.adkdevelopment.yalantisinternship;
 
-package com.adkdevelopment.yalantisinternship.remote;
-
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import com.adkdevelopment.yalantisinternship.remote.ApiManager;
 
 /**
- * REST Manager using Singleton Pattern
+ * Retrofit as a singleton initialization
+ * Created by karataev on 3/17/16.
  */
-public class ApiManager {
+public class App extends android.app.Application {
 
-    private final String BASE_URL = "http://adkdevelopment.com/";
+    private static ApiManager sApiManager;
 
-    private final Retrofit REST_ADAPTER = new retrofit2.Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-
-    private final RSSService RSS_SERVICE = REST_ADAPTER.create(RSSService.class);
-
-    public RSSService getService() {
-        return RSS_SERVICE;
+    public static ApiManager getApiManager() {
+        if (sApiManager == null) {
+            sApiManager = new ApiManager();
+        }
+        return sApiManager;
     }
-
 }

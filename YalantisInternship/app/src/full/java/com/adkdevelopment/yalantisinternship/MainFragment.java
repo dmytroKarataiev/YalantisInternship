@@ -35,11 +35,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.adkdevelopment.yalantisinternship.adapter.ListAdapter;
-import com.adkdevelopment.yalantisinternship.remote.ApiManager;
 import com.adkdevelopment.yalantisinternship.remote.RSSNewsItem;
 import com.adkdevelopment.yalantisinternship.utils.Utilities;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -60,7 +58,7 @@ public class MainFragment extends Fragment {
     @Bind(R.id.list_empty_text) TextView mListEmpty;
 
     // List of tasks
-    private ArrayList<RSSNewsItem> mItemList;
+    private List<RSSNewsItem> mItemList;
 
     // Global Variables
     private ListAdapter mAdapter;
@@ -118,7 +116,7 @@ public class MainFragment extends Fragment {
         Callback<List<RSSNewsItem>> callback = new Callback<List<RSSNewsItem>>() {
             @Override
             public void onResponse(Call<List<RSSNewsItem>> call, Response<List<RSSNewsItem>> response) {
-                mItemList = (ArrayList<RSSNewsItem>) response.body();
+                mItemList = response.body();
                 mAdapter = new ListAdapter(mItemList, getActivity());
                 mRecyclerView.swapAdapter(mAdapter, false);
                 mSwipeRefreshLayout.setRefreshing(false);
@@ -135,9 +133,9 @@ public class MainFragment extends Fragment {
         };
 
         if (locale.toString().contains("UA")) {
-            ApiManager.getService().getUaData().enqueue(callback);
+            App.getApiManager().getService().getUaData().enqueue(callback);
         } else {
-            ApiManager.getService().getData().enqueue(callback);
+            App.getApiManager().getService().getData().enqueue(callback);
         }
 
     }
