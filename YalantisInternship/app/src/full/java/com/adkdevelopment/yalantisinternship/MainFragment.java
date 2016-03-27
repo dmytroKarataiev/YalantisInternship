@@ -104,41 +104,42 @@ public class MainFragment extends Fragment {
         return rootView;
     }
 
-
-
     /**
      * Fetch data from the Internet with Retrofit Client
+     * Considering the fact that data is also refreshed on swipe down this method is necessary
      */
     private void refresh() {
 
         Locale locale = getResources().getConfiguration().locale;
-
-        Callback<List<RSSNewsItem>> callback = new Callback<List<RSSNewsItem>>() {
-            @Override
-            public void onResponse(Call<List<RSSNewsItem>> call, Response<List<RSSNewsItem>> response) {
-                mItemList = response.body();
-                mAdapter = new ListAdapter(mItemList, getActivity());
-                mRecyclerView.swapAdapter(mAdapter, false);
-                mSwipeRefreshLayout.setRefreshing(false);
-
-                if (mItemList == null) {
-                    mListEmpty.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<RSSNewsItem>> call, Throwable t) {
-                mListEmpty.setVisibility(View.VISIBLE);
-            }
-        };
 
         if (locale.toString().contains("UA")) {
             App.getApiManager().getService().getUaData().enqueue(callback);
         } else {
             App.getApiManager().getService().getData().enqueue(callback);
         }
-        // [COMMENT] Лишний метод
     }
+
+    /**
+     * Custom callback to perform actions on data update
+     */
+    private Callback<List<RSSNewsItem>> callback = new Callback<List<RSSNewsItem>>() {
+        @Override
+        public void onResponse(Call<List<RSSNewsItem>> call, Response<List<RSSNewsItem>> response) {
+            mItemList = response.body();
+            mAdapter = new ListAdapter(mItemList, getActivity());
+            mRecyclerView.swapAdapter(mAdapter, false);
+            mSwipeRefreshLayout.setRefreshing(false);
+
+            if (mItemList == null) {
+                mListEmpty.setVisibility(View.VISIBLE);
+            }
+        }
+
+        @Override
+        public void onFailure(Call<List<RSSNewsItem>> call, Throwable t) {
+            mListEmpty.setVisibility(View.VISIBLE);
+        }
+    };
 
     @Override
     public void onDestroyView() {
