@@ -88,8 +88,7 @@ public class DetailActivity extends AppCompatActivity {
 
         if (mShareActionProvider != null) {
             mShareActionProvider.setShareIntent(shareIntent());
-        }
-        else {
+        } else {
             Log.e(TAG, "ShareActionProvider is null");
         }
 

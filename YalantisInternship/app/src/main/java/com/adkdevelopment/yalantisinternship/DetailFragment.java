@@ -60,17 +60,25 @@ public class DetailFragment extends Fragment {
     @Bind(R.id.task_description) TextView task_description;
     @Bind(R.id.task_responsible_name) TextView task_responsible_name;
     @Bind(R.id.my_recycler_view) RecyclerView recyclerView;
+    @Bind(R.id.task_created_text) TextView task_created_text;
+    @Bind(R.id.task_registered_text) TextView task_registered_text;
+    @Bind(R.id.task_assigned_text) TextView task_assigned_text;
+    @Bind(R.id.task_responsible_text) TextView task_responsible_text;
 
     // As per specification - each element (or button? or what?) should have an onClickListener
     // which shows a toast with element name
-    // Listener set only for elements, which change on download
     @OnClick({ R.id.task_title_text,
             R.id.task_status,
             R.id.task_created_date,
             R.id.task_registered_date,
             R.id.task_assigned_date,
             R.id.task_description,
-            R.id.task_responsible_name })
+            R.id.task_responsible_name,
+            R.id.task_created_text,
+            R.id.task_registered_text,
+            R.id.task_assigned_text,
+            R.id.task_responsible_text
+    })
 
     // Shows a Toast on each element click
     public void showToast(View view) {
