@@ -45,7 +45,7 @@ import butterknife.ButterKnife;
  * If there is no outside data - shows "dummy data" from resources
  */
 public class DetailActivity extends AppCompatActivity {
-
+    //[Comment] Please remove all menu items, .idea still in git repo
     private final String TAG = DetailActivity.class.getSimpleName();
 
     @Bind(R.id.toolbar) Toolbar mToolbar;
