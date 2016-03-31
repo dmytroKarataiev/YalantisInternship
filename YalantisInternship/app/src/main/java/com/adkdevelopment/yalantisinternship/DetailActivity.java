@@ -24,16 +24,9 @@
 
 package com.adkdevelopment.yalantisinternship;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.adkdevelopment.yalantisinternship.remote.RSSNewsItem;
 
@@ -75,43 +68,6 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_detail, menu);
-
-        // Retrieve the share menu item
-        MenuItem item = menu.findItem(R.id.share);
-
-        // Get the provider and hold onto it to set/change the share intent.
-        ShareActionProvider mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
-
-        if (mShareActionProvider != null) {
-            mShareActionProvider.setShareIntent(shareIntent());
-        } else {
-            Log.e(TAG, "ShareActionProvider is null");
-        }
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        switch (id) {
-            case R.id.action_settings:
-                Toast.makeText(this, R.string.action_settings, Toast.LENGTH_SHORT).show();
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     /**
      * Gets RSSNewsItem from the intent or creates it from the internal data
      * @return RSSNewsItem object with the data
@@ -131,23 +87,5 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         return rssNewsItem;
-    }
-
-    /**
-     * Method to populate Intent with data
-     * @return Intent with data to external apps
-     */
-    private Intent shareIntent() {
-        RSSNewsItem rssNewsItem = getData();
-
-        Intent sendIntent = new Intent(Intent.ACTION_SEND);
-        sendIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        sendIntent.setType("text/plain");
-        sendIntent.putExtra(Intent.EXTRA_TEXT, rssNewsItem.getTitle() + " - "
-                + rssNewsItem.getOwner() + " - "
-                + rssNewsItem.getStatus() + " - "
-                + "\n#Yalantis App");
-
-        return sendIntent;
     }
 }
