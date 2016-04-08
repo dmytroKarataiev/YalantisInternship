@@ -1,7 +1,7 @@
 /*
- * The MIT License (MIT)
+ * MIT License
  *
- * Copyright (c) 2016.  Dmytro Karataiev
+ * Copyright (c) 2016. Dmytro Karataiev
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,26 +22,28 @@
  * SOFTWARE.
  */
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+package com.adkdevelopment.e_contact;
 
-buildscript {
-    repositories {
-        jcenter()
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+
+/**
+ * Created by karataev on 4/8/16.
+ */
+public class PagerAdapter extends FragmentPagerAdapter {
+
+    public PagerAdapter(FragmentManager fm) {
+        super(fm);
     }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.0.0'
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+    @Override
+    public Fragment getItem(int position) {
+        return new TempFragment();
     }
-}
 
-allprojects {
-    repositories {
-        jcenter()
+    @Override
+    public int getCount() {
+        return 3;
     }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }
