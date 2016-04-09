@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact;
+package com.adkdevelopment.e_contact.utils;
 
 import android.content.Context;
 import android.database.Cursor;

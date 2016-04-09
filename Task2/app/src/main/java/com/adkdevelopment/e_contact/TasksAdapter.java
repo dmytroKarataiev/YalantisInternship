@@ -36,6 +36,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.adkdevelopment.e_contact.provider.tasks.TasksColumns;
+import com.adkdevelopment.e_contact.utils.CursorRecyclerViewAdapter;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -68,7 +69,7 @@ public class TasksAdapter extends CursorRecyclerViewAdapter<TasksAdapter.ViewHol
     @Override
     public void onBindViewHolder(TasksAdapter.ViewHolder viewHolder, Cursor cursor) {
 
-        int status = cursor.getInt(cursor.getColumnIndex(TasksColumns.TYPE));
+        int status = cursor.getInt(cursor.getColumnIndex(TasksColumns.STATUS));
         int likes = cursor.getInt(cursor.getColumnIndex(TasksColumns.LIKES));
         String address = cursor.getString(cursor.getColumnIndex(TasksColumns.ADDRESS));
         final long registered = cursor.getLong(cursor.getColumnIndex(TasksColumns.DATE_REGISTERED));

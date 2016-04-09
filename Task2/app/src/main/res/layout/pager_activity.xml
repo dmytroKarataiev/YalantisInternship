@@ -22,7 +22,7 @@
   ~ SOFTWARE.
   -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_content"
     android:layout_width="match_parent"
@@ -40,19 +40,23 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways|snap"
+            app:layout_scrollFlags="enterAlways|snap"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    </android.support.design.widget.AppBarLayout>
+        <android.support.design.widget.TabLayout
+            android:layout_below="@+id/appbar"
+            android:id="@+id/tabs"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            app:tabIndicatorColor="@android:color/white"
+            app:tabSelectedTextColor="@android:color/white"
+            app:tabTextColor="@color/text.unselected"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <android.support.design.widget.TabLayout
-        android:layout_below="@+id/appbar"
-        android:id="@+id/tabs"
-        app:tabIndicatorColor="@android:color/white"
-        app:tabSelectedTextColor="@android:color/white"
-        app:tabTextColor="@color/text.unselected"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize" />
+    </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
         android:layout_below="@id/tabs"
@@ -65,10 +69,9 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_margin="@dimen/fab.margin"
-        android:src="@drawable/ic_add_black_24dp" />
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/ic_add_black_24dp"
+        app:layout_behavior="com.adkdevelopment.e_contact.utils.FabHideOnScroll" />
 
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

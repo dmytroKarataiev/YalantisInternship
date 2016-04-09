@@ -31,15 +31,14 @@
 
     <include layout="@layout/pager_activity" />
 
-
     <android.support.design.widget.NavigationView
         android:id="@+id/drawer_view_navigation"
         android:layout_width="@dimen/drawer.view.width"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:itemTextColor="@android:color/black"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/drawer_header"
+        app:itemTextColor="@android:color/black"
         app:menu="@menu/menu_drawer">
 
         <LinearLayout
@@ -64,11 +63,11 @@
 
             <TextView
                 android:id="@+id/drawer_footer_links"
-                android:paddingLeft="@dimen/padding.default"
-                android:paddingRight="@dimen/padding.default"
-                android:paddingBottom="@dimen/padding.default"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/padding.default"
+                android:paddingLeft="@dimen/padding.default"
+                android:paddingRight="@dimen/padding.default" />
 
         </LinearLayout>
 

@@ -24,8 +24,10 @@
 
 package com.adkdevelopment.e_contact;
 
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -37,9 +39,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.adkdevelopment.e_contact.provider.tasks.TasksColumns;
+import com.adkdevelopment.e_contact.utils.Utilities;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -47,71 +52,114 @@ import butterknife.ButterKnife;
 /**
  * Created by karataev on 4/8/16.
  */
-public class TasksFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class TasksFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, SharedPreferences.OnSharedPreferenceChangeListener {
+
+    private static final String ARG_SECTION_NUMBER = "section_number";
 
     private static final String TAG = TasksFragment.class.getSimpleName();
     private static final int CURSOR_LOADER_ID = 0;
     private Cursor mCursor;
     private TasksAdapter mTasksAdapter;
+    private ListviewAdapter mListviewAdapter;
     private LinearLayoutManager mLayoutManager;
 
     @Bind(R.id.recyclerview) RecyclerView mRecyclerView;
+    @Bind(R.id.listview) ListView mListview;
     @Bind(R.id.swipe_refresh_layout) SwipeRefreshLayout mSwipeRefreshLayout;
     @Bind(R.id.list_empty_text) TextView mListEmpty;
 
     public TasksFragment() {
     }
 
+    /**
+     * Returns a new instance of this fragment for the given section
+     * number.
+     */
+    public static TasksFragment newInstance(int sectionNumber) {
+        TasksFragment fragment = new TasksFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
+        getLoaderManager().initLoader(CURSOR_LOADER_ID, this.getArguments(), this);
         super.onActivityCreated(savedInstanceState);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.tasks_layout, container, false);
 
+        View rootView = inflater.inflate(R.layout.tasks_layout, container, false);
         ButterKnife.bind(this, rootView);
+
+        if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
+            mRecyclerView.setVisibility(View.GONE);
+
+            mListviewAdapter = new ListviewAdapter(getContext(), mCursor, 0);
+            mListview.setAdapter(mListviewAdapter);
+
+            mListview.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+                @Override
+                public void onScrollStateChanged(AbsListView view, int scrollState) {}
+
+                @Override
+                public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+                    int topRowVerticalPosition =
+                            (mListview == null || mListview.getChildCount() == 0) ?
+                                    0 : mListview.getChildAt(0).getTop();
+                    mSwipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+
+                }
+            });
+
+        } else {
+            mListview.setVisibility(View.GONE);
+
+            mLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+            mTasksAdapter = new TasksAdapter(getActivity(), mCursor);
+
+            mRecyclerView.setHasFixedSize(true);
+            mRecyclerView.setLayoutManager(mLayoutManager);
+            mRecyclerView.setAdapter(mTasksAdapter);
+
+            // Prevent Swipe to refresh if recyclerview isn't in top position
+            mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+                @Override
+                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+                    int visible = mLayoutManager.findFirstCompletelyVisibleItemPosition();
+
+                    if (mSwipeRefreshLayout != null) {
+                        if (visible != 0) {
+                            mSwipeRefreshLayout.setEnabled(false);
+                        } else {
+                            mSwipeRefreshLayout.setEnabled(true);
+                        }
+                    }
+                }
+            });
+        }
 
         mListEmpty.setVisibility(View.INVISIBLE);
 
-        mLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
-        mTasksAdapter = new TasksAdapter(getActivity(), mCursor);
-
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mTasksAdapter);
-
-        // Prevent Swipe to refresh if recyclerview isn't in top position
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                int visible = mLayoutManager.findFirstCompletelyVisibleItemPosition();
-
-                if (mSwipeRefreshLayout != null) {
-                    if (visible != 0) {
-                        mSwipeRefreshLayout.setEnabled(false);
-                    } else {
-                        mSwipeRefreshLayout.setEnabled(true);
-                    }
+            public void onRefresh() {
+                if (Utilities.isOnline(getContext())) {
+                    mSwipeRefreshLayout.setRefreshing(false);
+                } else {
+                    // todo: change later to true
+                    mSwipeRefreshLayout.setRefreshing(false);
                 }
             }
         });
-
-        /*
-        mSwipeRefreshLayout.setOnRefreshListener(() -> {
-            if (Utilities.isOnline(getContext())) {
-                SyncAdapter.syncImmediately(getContext());
-                mSwipeRefreshLayout.setRefreshing(false);
-            } else {
-                mSwipeRefreshLayout.setRefreshing(false);
-            }
-        });
-        */
 
         return rootView;
     }
@@ -124,11 +172,40 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+
+        // depending on the argument - query the contentprovider to receive relevant data
+        // that's how we can reuse this fragment for different purposes
+        int request = args.getInt(ARG_SECTION_NUMBER);
+        String statusArgument = "0";
+        switch (request) {
+            case 0:
+                statusArgument = "1";
+                break;
+            case 1:
+                statusArgument = "2";
+                break;
+            case 2:
+                statusArgument = "3";
+                break;
+        }
+
+        String selection;
+        String[] selectionArgs;
+
+        int sortingPreference = Utilities.getSortingPreference(getContext());
+        if (sortingPreference == 0) {
+            selection = TasksColumns.STATUS + " = ?";
+            selectionArgs = new String[]{ statusArgument };
+        } else {
+            selection = TasksColumns.STATUS + " = ? AND " + TasksColumns.TYPE + " = ?";
+            selectionArgs = new String[]{ statusArgument, "" + sortingPreference };
+        }
+
         return new CursorLoader(getActivity(),
                 TasksColumns.CONTENT_URI,
                 null,
-                TasksColumns.STATUS + " >= ?",
-                new String[]{ "1" },
+                selection,
+                selectionArgs,
                 null);
     }
 
@@ -141,12 +218,52 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
         }
 
         mCursor = data;
-        mTasksAdapter.swapCursor(mCursor);
+        if (mTasksAdapter != null) {
+            mTasksAdapter.swapCursor(mCursor);
+        } else if (mListviewAdapter != null) {
+            mListviewAdapter.swapCursor(mCursor);
+        }
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mCursor = null;
-        mTasksAdapter.swapCursor(null);
+        if (mTasksAdapter != null) {
+            mTasksAdapter.swapCursor(null);
+        } else if (mListviewAdapter != null) {
+            mListviewAdapter.swapCursor(null);
+        }
+    }
+
+    /**
+     * Helper method which is called from PagerActivity when press on TabLayout twice
+     * Scrolls the screen to the top
+     */
+    public void scrollToTop() {
+        if (mRecyclerView != null) {
+            mRecyclerView.smoothScrollToPosition(0);
+        }
+        if (mListview != null) {
+            mListview.smoothScrollToPosition(0);
+        }
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(getString(R.string.sharedprefs_key_sort))) {
+            getLoaderManager().restartLoader(CURSOR_LOADER_ID, getArguments(), this);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        PreferenceManager.getDefaultSharedPreferences(getContext()).unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        PreferenceManager.getDefaultSharedPreferences(getContext()).registerOnSharedPreferenceChangeListener(this);
     }
 }

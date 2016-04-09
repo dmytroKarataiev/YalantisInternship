@@ -47,4 +47,8 @@
     <string name="title.completed">Completed</string>
     <string name="title.waiting">Waiting</string>
 
+    <!-- Shared Preferences Values -->
+    <string name="sharedprefs.key.sort" translatable="false">sort</string>
+
+
 </resources>

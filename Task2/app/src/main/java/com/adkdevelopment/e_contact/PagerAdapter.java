@@ -28,7 +28,10 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.SparseArray;
 import android.view.ViewGroup;
+
+import java.lang.ref.WeakReference;
 
 /**
  * Basic Pager for the fragments
@@ -36,6 +39,9 @@ import android.view.ViewGroup;
 public class PagerAdapter extends FragmentPagerAdapter {
 
     private Context mContext;
+
+    // Keeps references to the fragment so not to recreate them and being able to communicated without problems
+    SparseArray<WeakReference<Fragment>> registeredFragments = new SparseArray<WeakReference<Fragment>>();
 
     public PagerAdapter(FragmentManager fm, Context context) {
         super(fm);
@@ -47,11 +53,11 @@ public class PagerAdapter extends FragmentPagerAdapter {
 
         switch (position) {
             case 0:
-                return new TempFragment();
+                return TasksFragment.newInstance(position);
             case 1:
-                return new TempFragment2();
+                return TasksFragment.newInstance(position);
             case 2:
-                return new TasksFragment();
+                return TasksFragment.newInstance(position);
             default:
                 return null;
         }
@@ -60,16 +66,6 @@ public class PagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return 3;
-    }
-
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-        super.destroyItem(container, position, object);
-    }
-
-    @Override
-    public Object instantiateItem(ViewGroup container, int position) {
-        return super.instantiateItem(container, position);
     }
 
     @Override
@@ -83,6 +79,32 @@ public class PagerAdapter extends FragmentPagerAdapter {
                 return mContext.getString(R.string.title_waiting);
             default:
                 return null;
+        }
+    }
+
+    @Override
+    public Object instantiateItem(ViewGroup container, int position) {
+        Fragment fragment = (Fragment) super.instantiateItem(container, position);
+        registeredFragments.put(position, new WeakReference<>(fragment));
+        return fragment;
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        registeredFragments.remove(position);
+        super.destroyItem(container, position, object);
+    }
+
+    /**
+     * Returns fragment from the Array if it was created before
+     * @param position of the Pager
+     * @return either a new fragment, or an instance of a saved
+     */
+    public Fragment getRegisteredFragment(int position) {
+        if (registeredFragments.valueAt(position) != null) {
+            return registeredFragments.valueAt(position).get();
+        } else {
+            return getItem(position);
         }
     }
 }

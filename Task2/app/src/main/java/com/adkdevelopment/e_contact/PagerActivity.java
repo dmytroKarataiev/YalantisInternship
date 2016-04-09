@@ -24,11 +24,16 @@
 
 package com.adkdevelopment.e_contact;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -36,14 +41,26 @@ import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.adkdevelopment.e_contact.provider.tasks.TasksColumns;
+import com.adkdevelopment.e_contact.remote.RSSNewsItem;
+import com.adkdevelopment.e_contact.utils.Utilities;
+import com.adkdevelopment.e_contact.utils.ZoomOutPageTransformer;
+
+import java.util.List;
+import java.util.Vector;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Main screen with a Pager and a Navigation Drawer
@@ -53,11 +70,16 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
     @Bind(R.id.layout_drawer) DrawerLayout mDrawerLayout;
     @Bind(R.id.drawer_view_navigation) NavigationView mNavigationView;
     @Bind(R.id.toolbar) Toolbar mToolbar;
+    @Bind(R.id.appbar) AppBarLayout mAppBar;
     @Bind(R.id.tabs) TabLayout mTabLayout;
     @Bind(R.id.viewpager) ViewPager mViewPager;
     @Bind(R.id.drawer_footer_links) TextView mFooterLinks;
+    @Bind(R.id.fab) FloatingActionButton mFab;
 
     private PagerAdapter mPagerAdapter;
+
+    // List of tasks
+    private List<RSSNewsItem> mItemList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +87,8 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
         setContentView(R.layout.main_activity);
 
         ButterKnife.bind(this);
+
+        App.getApiManager().getService().getData().enqueue(callback);
 
         // Set up ActionBar and corresponding icons
         setSupportActionBar(mToolbar);
@@ -89,6 +113,12 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
         // Set custom font to the Drawer Header
         Typeface typeface = Typeface.createFromAsset(getAssets(), getString(R.string.font_roboto_bold));
         ((TextView) mNavigationView.getHeaderView(0).findViewById(R.id.drawer_header_text)).setTypeface(typeface);
+
+        // set correct elevation
+        if (mAppBar != null) {
+            ViewCompat.setElevation(mAppBar, 0f);
+            ViewCompat.setElevation(mToolbar, 16f);
+        }
 
     }
 
@@ -128,18 +158,73 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
+
         switch (item.getItemId()) {
             case R.id.popup_filter_all:
-                Toast.makeText(this, "all", Toast.LENGTH_SHORT).show();
+                Utilities.setSortingPreference(this, 0);
+                Toast.makeText(this, "all " + Utilities.getSortingPreference(this), Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.popup_filter_public:
-                Toast.makeText(this, "public", Toast.LENGTH_SHORT).show();
+                Utilities.setSortingPreference(this, 1);
+                Toast.makeText(this, "public " + Utilities.getSortingPreference(this), Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.popup_filter_improvement:
-                Toast.makeText(this, "improvement", Toast.LENGTH_SHORT).show();
+                Utilities.setSortingPreference(this, 2);
+                Toast.makeText(this, "improvement " + Utilities.getSortingPreference(this), Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return false;
         }
     }
+
+    /**
+     * Custom callback to perform actions on data update
+     */
+    private Callback<List<RSSNewsItem>> callback = new Callback<List<RSSNewsItem>>() {
+        @Override
+        public void onResponse(Call<List<RSSNewsItem>> call, Response<List<RSSNewsItem>> response) {
+            mItemList = response.body();
+            Log.d("TempFragment2", "mItemList:" + mItemList.size());
+
+            Vector<ContentValues> cVVTasks = new Vector<>(mItemList.size());
+
+            for (RSSNewsItem each : mItemList) {
+
+                Log.d("TempFragment2", "each.getStatus():" + each.getStatus());
+                ContentValues tasksItems = new ContentValues();
+
+                tasksItems.put(TasksColumns.ID_TASK, each.getId());
+                tasksItems.put(TasksColumns.STATUS, each.getStatus());
+                tasksItems.put(TasksColumns.TYPE, each.getType());
+                tasksItems.put(TasksColumns.DESCRIPTION, each.getDescription());
+                tasksItems.put(TasksColumns.ADDRESS, each.getAddress());
+                tasksItems.put(TasksColumns.RESPONSIBLE, each.getResponsible());
+                tasksItems.put(TasksColumns.DATE_CREATED, each.getCreated());
+                tasksItems.put(TasksColumns.DATE_REGISTERED, each.getRegistered());
+                tasksItems.put(TasksColumns.DATE_ASSIGNED, each.getAssigned());
+                tasksItems.put(TasksColumns.LONGITUDE, each.getLongitude());
+                tasksItems.put(TasksColumns.LATITUDE, each.getLatitude());
+                tasksItems.put(TasksColumns.LIKES, each.getLikes());
+
+                cVVTasks.add(tasksItems);
+            }
+
+            int inserted = 0;
+            ContentResolver resolver = getContentResolver();
+
+            if (cVVTasks.size() > 0) {
+                ContentValues[] cvArray = new ContentValues[cVVTasks.size()];
+                cVVTasks.toArray(cvArray);
+                inserted = resolver.bulkInsert(TasksColumns.CONTENT_URI, cvArray);
+            }
+            Log.d("TempFragment2", "inserted:" + inserted);
+
+            getContentResolver().notifyChange(TasksColumns.CONTENT_URI, null, false);
+        }
+
+        @Override
+        public void onFailure(Call<List<RSSNewsItem>> call, Throwable t) {
+            Log.d("TempFragment2", "error " + t.toString());
+        }
+    };
 }
