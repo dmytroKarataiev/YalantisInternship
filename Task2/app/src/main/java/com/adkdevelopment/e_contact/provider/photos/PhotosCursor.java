@@ -150,6 +150,16 @@ public class PhotosCursor extends AbstractCursor implements PhotosModel {
     }
 
     /**
+     * Latitude
+     * Can be {@code null}.
+     */
+    @Nullable
+    public Double getTasksLatitude() {
+        Double res = getDoubleOrNull(TasksColumns.LATITUDE);
+        return res;
+    }
+
+    /**
      * Likes
      * Can be {@code null}.
      */

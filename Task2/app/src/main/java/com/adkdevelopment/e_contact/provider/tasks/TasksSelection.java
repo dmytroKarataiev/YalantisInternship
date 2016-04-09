@@ -478,6 +478,46 @@ public class TasksSelection extends AbstractSelection<TasksSelection> {
         return this;
     }
 
+    public TasksSelection latitude(Double... value) {
+        addEquals(TasksColumns.LATITUDE, value);
+        return this;
+    }
+
+    public TasksSelection latitudeNot(Double... value) {
+        addNotEquals(TasksColumns.LATITUDE, value);
+        return this;
+    }
+
+    public TasksSelection latitudeGt(double value) {
+        addGreaterThan(TasksColumns.LATITUDE, value);
+        return this;
+    }
+
+    public TasksSelection latitudeGtEq(double value) {
+        addGreaterThanOrEquals(TasksColumns.LATITUDE, value);
+        return this;
+    }
+
+    public TasksSelection latitudeLt(double value) {
+        addLessThan(TasksColumns.LATITUDE, value);
+        return this;
+    }
+
+    public TasksSelection latitudeLtEq(double value) {
+        addLessThanOrEquals(TasksColumns.LATITUDE, value);
+        return this;
+    }
+
+    public TasksSelection orderByLatitude(boolean desc) {
+        orderBy(TasksColumns.LATITUDE, desc);
+        return this;
+    }
+
+    public TasksSelection orderByLatitude() {
+        orderBy(TasksColumns.LATITUDE, false);
+        return this;
+    }
+
     public TasksSelection likes(Integer... value) {
         addEquals(TasksColumns.LIKES, value);
         return this;

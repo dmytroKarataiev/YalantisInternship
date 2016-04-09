@@ -24,6 +24,8 @@
 
 package com.adkdevelopment.e_contact;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -33,9 +35,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.adkdevelopment.e_contact.provider.tasks.TasksColumns;
 import com.adkdevelopment.e_contact.remote.RSSNewsItem;
 
 import java.util.List;
+import java.util.Vector;
 
 import butterknife.Bind;
 import retrofit2.Call;
@@ -74,12 +78,39 @@ public class TempFragment2 extends Fragment {
             mItemList = response.body();
             Log.d("TempFragment2", "mItemList:" + mItemList.size());
 
-            if (mItemList.size() > 0) {
-                Log.d("TempFragment2", mItemList.get(0).getAddress());
-                for (RSSNewsItem each : mItemList) {
-                    Log.d("TempFragment2", each.getAddress());
-                }
+            Vector<ContentValues> cVVTasks = new Vector<>(mItemList.size());
+
+            for (RSSNewsItem each : mItemList) {
+
+                ContentValues tasksItems = new ContentValues();
+
+                tasksItems.put(TasksColumns.ID_TASK, each.getId());
+                tasksItems.put(TasksColumns.STATUS, each.getStatus());
+                tasksItems.put(TasksColumns.TYPE, each.getType());
+                tasksItems.put(TasksColumns.DESCRIPTION, each.getDescription());
+                tasksItems.put(TasksColumns.ADDRESS, each.getAddress());
+                tasksItems.put(TasksColumns.RESPONSIBLE, each.getResponsible());
+                tasksItems.put(TasksColumns.DATE_CREATED, each.getCreated());
+                tasksItems.put(TasksColumns.DATE_REGISTERED, each.getRegistered());
+                tasksItems.put(TasksColumns.DATE_ASSIGNED, each.getAssigned());
+                tasksItems.put(TasksColumns.LONGITUDE, each.getLongitude());
+                tasksItems.put(TasksColumns.LATITUDE, each.getLatitude());
+                tasksItems.put(TasksColumns.LIKES, each.getLikes());
+
+                cVVTasks.add(tasksItems);
             }
+
+            int inserted = 0;
+            ContentResolver resolver = getContext().getContentResolver();
+
+            if (cVVTasks.size() > 0) {
+                ContentValues[] cvArray = new ContentValues[cVVTasks.size()];
+                cVVTasks.toArray(cvArray);
+                inserted = resolver.bulkInsert(TasksColumns.CONTENT_URI, cvArray);
+            }
+            Log.d("TempFragment2", "inserted:" + inserted);
+
+            getContext().getContentResolver().notifyChange(TasksColumns.CONTENT_URI, null, false);
         }
 
         @Override

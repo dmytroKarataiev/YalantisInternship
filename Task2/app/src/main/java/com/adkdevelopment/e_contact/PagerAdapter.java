@@ -51,7 +51,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
             case 1:
                 return new TempFragment2();
             case 2:
-                return new TempFragment();
+                return new TasksFragment();
             default:
                 return null;
         }

@@ -127,6 +127,16 @@ public class TasksCursor extends AbstractCursor implements TasksModel {
     }
 
     /**
+     * Latitude
+     * Can be {@code null}.
+     */
+    @Nullable
+    public Double getLatitude() {
+        Double res = getDoubleOrNull(TasksColumns.LATITUDE);
+        return res;
+    }
+
+    /**
      * Likes
      * Can be {@code null}.
      */

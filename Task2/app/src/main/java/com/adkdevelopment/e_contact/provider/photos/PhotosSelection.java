@@ -559,6 +559,46 @@ public class PhotosSelection extends AbstractSelection<PhotosSelection> {
         return this;
     }
 
+    public PhotosSelection tasksLatitude(Double... value) {
+        addEquals(TasksColumns.LATITUDE, value);
+        return this;
+    }
+
+    public PhotosSelection tasksLatitudeNot(Double... value) {
+        addNotEquals(TasksColumns.LATITUDE, value);
+        return this;
+    }
+
+    public PhotosSelection tasksLatitudeGt(double value) {
+        addGreaterThan(TasksColumns.LATITUDE, value);
+        return this;
+    }
+
+    public PhotosSelection tasksLatitudeGtEq(double value) {
+        addGreaterThanOrEquals(TasksColumns.LATITUDE, value);
+        return this;
+    }
+
+    public PhotosSelection tasksLatitudeLt(double value) {
+        addLessThan(TasksColumns.LATITUDE, value);
+        return this;
+    }
+
+    public PhotosSelection tasksLatitudeLtEq(double value) {
+        addLessThanOrEquals(TasksColumns.LATITUDE, value);
+        return this;
+    }
+
+    public PhotosSelection orderByTasksLatitude(boolean desc) {
+        orderBy(TasksColumns.LATITUDE, desc);
+        return this;
+    }
+
+    public PhotosSelection orderByTasksLatitude() {
+        orderBy(TasksColumns.LATITUDE, false);
+        return this;
+    }
+
     public PhotosSelection tasksLikes(Integer... value) {
         addEquals(TasksColumns.LIKES, value);
         return this;

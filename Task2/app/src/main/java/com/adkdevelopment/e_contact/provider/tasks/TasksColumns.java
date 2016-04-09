@@ -70,6 +70,11 @@ public class TasksColumns implements BaseColumns {
     public static final String LONGITUDE = "longitude";
 
     /**
+     * Latitude
+     */
+    public static final String LATITUDE = "latitude";
+
+    /**
      * Likes
      */
     public static final String LIKES = "likes";
@@ -90,6 +95,7 @@ public class TasksColumns implements BaseColumns {
             DATE_REGISTERED,
             DATE_ASSIGNED,
             LONGITUDE,
+            LATITUDE,
             LIKES
     };
     // @formatter:on
@@ -107,6 +113,7 @@ public class TasksColumns implements BaseColumns {
             if (c.equals(DATE_REGISTERED) || c.contains("." + DATE_REGISTERED)) return true;
             if (c.equals(DATE_ASSIGNED) || c.contains("." + DATE_ASSIGNED)) return true;
             if (c.equals(LONGITUDE) || c.contains("." + LONGITUDE)) return true;
+            if (c.equals(LATITUDE) || c.contains("." + LATITUDE)) return true;
             if (c.equals(LIKES) || c.contains("." + LIKES)) return true;
         }
         return false;

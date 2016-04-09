@@ -23,24 +23,31 @@
   ~ SOFTWARE.
   -->
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/drawer.header.height"
-    android:background="@color/colorPrimary"
-    android:gravity="bottom" >
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/drawer_header_text"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/text.unselected"
-        android:paddingLeft="@dimen/padding.default"
-        android:paddingRight="@dimen/padding.default"
-        android:paddingBottom="@dimen/drawer.header.text.padding"
-        android:text="@string/app_name"
-        android:textSize="@dimen/drawer.header.text.size"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:layout_height="match_parent">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/list_empty_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding.default"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/recyclerview.empty.text" />
+
+        <android.support.v7.widget.RecyclerView
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical" />
+
+    </FrameLayout>
+
+</android.support.v4.widget.SwipeRefreshLayout>

@@ -81,6 +81,13 @@ public interface TasksModel extends BaseModel {
     Double getLongitude();
 
     /**
+     * Latitude
+     * Can be {@code null}.
+     */
+    @Nullable
+    Double getLatitude();
+
+    /**
      * Likes
      * Can be {@code null}.
      */

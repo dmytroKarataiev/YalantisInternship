@@ -35,6 +35,6 @@
 
     <dimen name="fab.margin">16dp</dimen>
 
-    <dimen name="default.padding">16dp</dimen>
+    <dimen name="padding.default">16dp</dimen>
 
 </resources>

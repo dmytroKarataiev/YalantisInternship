@@ -58,15 +58,15 @@
                 android:id="@+id/drawer_footer_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/default.padding"
-                android:paddingRight="@dimen/default.padding"
+                android:paddingLeft="@dimen/padding.default"
+                android:paddingRight="@dimen/padding.default"
                 android:text="@string/drawer.footer.yalantis" />
 
             <TextView
                 android:id="@+id/drawer_footer_links"
-                android:paddingLeft="@dimen/default.padding"
-                android:paddingRight="@dimen/default.padding"
-                android:paddingBottom="@dimen/default.padding"
+                android:paddingLeft="@dimen/padding.default"
+                android:paddingRight="@dimen/padding.default"
+                android:paddingBottom="@dimen/padding.default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

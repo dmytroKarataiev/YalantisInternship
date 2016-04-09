@@ -166,6 +166,19 @@ public class TasksContentValues extends AbstractContentValues {
     }
 
     /**
+     * Latitude
+     */
+    public TasksContentValues putLatitude(@Nullable Double value) {
+        mContentValues.put(TasksColumns.LATITUDE, value);
+        return this;
+    }
+
+    public TasksContentValues putLatitudeNull() {
+        mContentValues.putNull(TasksColumns.LATITUDE);
+        return this;
+    }
+
+    /**
      * Likes
      */
     public TasksContentValues putLikes(@Nullable Integer value) {

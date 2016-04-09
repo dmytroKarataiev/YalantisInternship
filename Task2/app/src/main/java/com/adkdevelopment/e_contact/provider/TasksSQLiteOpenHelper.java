@@ -37,7 +37,7 @@ public class TasksSQLiteOpenHelper extends SQLiteOpenHelper {
             + TasksColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + TasksColumns.ID_TASK + " INTEGER NOT NULL, "
             + TasksColumns.STATUS + " INTEGER, "
-            + TasksColumns.TYPE + " TEXT, "
+            + TasksColumns.TYPE + " INTEGER, "
             + TasksColumns.DESCRIPTION + " TEXT, "
             + TasksColumns.ADDRESS + " TEXT, "
             + TasksColumns.RESPONSIBLE + " TEXT, "
@@ -45,6 +45,7 @@ public class TasksSQLiteOpenHelper extends SQLiteOpenHelper {
             + TasksColumns.DATE_REGISTERED + " INTEGER, "
             + TasksColumns.DATE_ASSIGNED + " INTEGER, "
             + TasksColumns.LONGITUDE + " REAL, "
+            + TasksColumns.LATITUDE + " REAL, "
             + TasksColumns.LIKES + " INTEGER "
             + ", CONSTRAINT unique_id UNIQUE (id_task) ON CONFLICT REPLACE"
             + " );";
