@@ -22,38 +22,30 @@
  * SOFTWARE.
  */
 
-apply plugin: 'com.android.application'
+package com.adkdevelopment.e_contact.remote;
 
-android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-    defaultConfig {
-        applicationId "com.adkdevelopment.e_contact"
-        minSdkVersion 16
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+/**
+ * REST Manager using Singleton Pattern
+ */
+public class ApiManager {
+
+    private final String BASE_URL = "http://adkdevelopment.com/";
+
+    private final Retrofit REST_ADAPTER = new retrofit2.Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+
+    private final RSSService RSS_SERVICE = REST_ADAPTER.create(RSSService.class);
+
+    public RSSService getService() {
+        return RSS_SERVICE;
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
 
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.android.support:design:23.3.0'
-    compile 'com.android.support:cardview-v7:23.3.0'
 
-    // life simplifiers
-    compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.squareup.picasso:picasso:2.5.2'
 
-    // data fetching and converting to objects
-    compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+
 }

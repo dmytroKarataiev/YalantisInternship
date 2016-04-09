@@ -76,7 +76,10 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
         mPagerAdapter = new PagerAdapter(getSupportFragmentManager(), this);
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setOffscreenPageLimit(mPagerAdapter.getCount());
+
+        // zoom effect on swipe
         mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+
         mTabLayout.setupWithViewPager(mViewPager);
 
         // Add links to the footer in the Drawer
@@ -84,7 +87,7 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
         mFooterLinks.setMovementMethod(LinkMovementMethod.getInstance());
 
         // Set custom font to the Drawer Header
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "Roboto-Bold.ttf");
+        Typeface typeface = Typeface.createFromAsset(getAssets(), getString(R.string.font_roboto_bold));
         ((TextView) mNavigationView.getHeaderView(0).findViewById(R.id.drawer_header_text)).setTypeface(typeface);
 
     }

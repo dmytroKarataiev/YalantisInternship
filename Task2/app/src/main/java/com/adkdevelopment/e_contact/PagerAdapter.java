@@ -49,7 +49,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return new TempFragment();
             case 1:
-                return new TempFragment();
+                return new TempFragment2();
             case 2:
                 return new TempFragment();
             default:

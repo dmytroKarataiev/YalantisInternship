@@ -27,21 +27,32 @@ package com.adkdevelopment.e_contact;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.adkdevelopment.e_contact.remote.RSSNewsItem;
+
+import java.util.List;
+
 import butterknife.Bind;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by karataev on 4/8/16.
  */
-public class TempFragment extends Fragment {
+public class TempFragment2 extends Fragment {
 
     @Bind(R.id.temp_title_text) TextView mTempTitle;
 
-    public TempFragment() {
+    // List of tasks
+    private List<RSSNewsItem> mItemList;
+
+    public TempFragment2() {
     }
 
     @Nullable
@@ -49,6 +60,31 @@ public class TempFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.temp_layout, container, false);
 
+        App.getApiManager().getService().getData().enqueue(callback);
+
         return rootView;
     }
+
+    /**
+     * Custom callback to perform actions on data update
+     */
+    private Callback<List<RSSNewsItem>> callback = new Callback<List<RSSNewsItem>>() {
+        @Override
+        public void onResponse(Call<List<RSSNewsItem>> call, Response<List<RSSNewsItem>> response) {
+            mItemList = response.body();
+            Log.d("TempFragment2", "mItemList:" + mItemList.size());
+
+            if (mItemList.size() > 0) {
+                Log.d("TempFragment2", mItemList.get(0).getAddress());
+                for (RSSNewsItem each : mItemList) {
+                    Log.d("TempFragment2", each.getAddress());
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<List<RSSNewsItem>> call, Throwable t) {
+            Log.d("TempFragment2", "error " + t.toString());
+        }
+    };
 }

@@ -24,6 +24,9 @@
 
 <resources>
     <string name="app_name">e-contact</string>
+    <string name="font.roboto.bold">Roboto-Bold.ttf</string>
+
+    <string name="contentprovider.authority">com.adkdevelopment.e_contact.provider</string>
 
     <!-- Navigation Drawer Strings -->
     <string name="drawer.title">@string/app_name</string>
