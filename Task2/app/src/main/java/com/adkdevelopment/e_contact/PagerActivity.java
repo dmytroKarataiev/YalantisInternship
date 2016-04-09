@@ -25,6 +25,7 @@
 package com.adkdevelopment.e_contact;
 
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -48,13 +49,14 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.adkdevelopment.e_contact.provider.photos.PhotosColumns;
 import com.adkdevelopment.e_contact.provider.tasks.TasksColumns;
+import com.adkdevelopment.e_contact.remote.FetchData;
 import com.adkdevelopment.e_contact.remote.RSSNewsItem;
 import com.adkdevelopment.e_contact.utils.Utilities;
 import com.adkdevelopment.e_contact.utils.ZoomOutPageTransformer;
 
 import java.util.List;
-import java.util.Vector;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -77,9 +79,7 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
     @Bind(R.id.fab) FloatingActionButton mFab;
 
     private PagerAdapter mPagerAdapter;
-
-    // List of tasks
-    private List<RSSNewsItem> mItemList;
+    private static final String TAG = PagerActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +88,8 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
 
         ButterKnife.bind(this);
 
-        App.getApiManager().getService().getData().enqueue(callback);
+        // Fetch data on Create
+        new FetchData(this).execute();
 
         // Set up ActionBar and corresponding icons
         setSupportActionBar(mToolbar);
@@ -114,11 +115,18 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
         Typeface typeface = Typeface.createFromAsset(getAssets(), getString(R.string.font_roboto_bold));
         ((TextView) mNavigationView.getHeaderView(0).findViewById(R.id.drawer_header_text)).setTypeface(typeface);
 
-        // set correct elevation
+        // set correct elevations
         if (mAppBar != null) {
             ViewCompat.setElevation(mAppBar, 0f);
             ViewCompat.setElevation(mToolbar, 16f);
         }
+
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(PagerActivity.this, "click", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -162,15 +170,12 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
         switch (item.getItemId()) {
             case R.id.popup_filter_all:
                 Utilities.setSortingPreference(this, 0);
-                Toast.makeText(this, "all " + Utilities.getSortingPreference(this), Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.popup_filter_public:
                 Utilities.setSortingPreference(this, 1);
-                Toast.makeText(this, "public " + Utilities.getSortingPreference(this), Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.popup_filter_improvement:
                 Utilities.setSortingPreference(this, 2);
-                Toast.makeText(this, "improvement " + Utilities.getSortingPreference(this), Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return false;
@@ -178,19 +183,17 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
     }
 
     /**
-     * Custom callback to perform actions on data update
+     * Callback for the retrofit service, which updated ContentProvider
      */
-    private Callback<List<RSSNewsItem>> callback = new Callback<List<RSSNewsItem>>() {
+    private Callback<List<RSSNewsItem>> mCallback = new Callback<List<RSSNewsItem>>() {
         @Override
         public void onResponse(Call<List<RSSNewsItem>> call, Response<List<RSSNewsItem>> response) {
-            mItemList = response.body();
-            Log.d("TempFragment2", "mItemList:" + mItemList.size());
+            List<RSSNewsItem> mItemList = response.body();
 
-            Vector<ContentValues> cVVTasks = new Vector<>(mItemList.size());
+            ContentResolver resolver = getContentResolver();
 
             for (RSSNewsItem each : mItemList) {
 
-                Log.d("TempFragment2", "each.getStatus():" + each.getStatus());
                 ContentValues tasksItems = new ContentValues();
 
                 tasksItems.put(TasksColumns.ID_TASK, each.getId());
@@ -206,25 +209,31 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
                 tasksItems.put(TasksColumns.LATITUDE, each.getLatitude());
                 tasksItems.put(TasksColumns.LIKES, each.getLikes());
 
-                cVVTasks.add(tasksItems);
+                // retrieve id of just inserted row and put it in a table, where it is a foreign key for photos
+                long id = ContentUris.parseId(resolver.insert(TasksColumns.CONTENT_URI, tasksItems));
+                for (String photo : each.getPhoto()) {
+                    ContentValues photoValues = new ContentValues();
+                    photoValues.put(PhotosColumns.TASK_ID, id);
+                    photoValues.put(PhotosColumns.URL, photo);
+                    resolver.insert(PhotosColumns.CONTENT_URI, photoValues);
+                }
             }
-
-            int inserted = 0;
-            ContentResolver resolver = getContentResolver();
-
-            if (cVVTasks.size() > 0) {
-                ContentValues[] cvArray = new ContentValues[cVVTasks.size()];
-                cVVTasks.toArray(cvArray);
-                inserted = resolver.bulkInsert(TasksColumns.CONTENT_URI, cvArray);
-            }
-            Log.d("TempFragment2", "inserted:" + inserted);
 
             getContentResolver().notifyChange(TasksColumns.CONTENT_URI, null, false);
         }
 
         @Override
         public void onFailure(Call<List<RSSNewsItem>> call, Throwable t) {
-            Log.d("TempFragment2", "error " + t.toString());
+            Log.d(TAG, "error " + t.toString());
         }
     };
+
+    /**
+     * Helper method to be called from fragments to fetch data
+     * Not the most elegant way, but it works ok for now
+     */
+    public void fetchData() {
+        new FetchData(this).execute();
+    }
+
 }

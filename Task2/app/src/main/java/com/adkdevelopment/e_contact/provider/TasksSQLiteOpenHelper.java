@@ -29,13 +29,13 @@ public class TasksSQLiteOpenHelper extends SQLiteOpenHelper {
             + PhotosColumns.URL + " TEXT NOT NULL, "
             + PhotosColumns.TASK_ID + " INTEGER NOT NULL "
             + ", CONSTRAINT fk_task_id FOREIGN KEY (" + PhotosColumns.TASK_ID + ") REFERENCES tasks (_id) ON DELETE CASCADE"
-            + ", CONSTRAINT unique_id UNIQUE (URL) ON CONFLICT REPLACE"
+            + ", CONSTRAINT unique_id UNIQUE (task_id, url) ON CONFLICT REPLACE"
             + " );";
 
     public static final String SQL_CREATE_TABLE_TASKS = "CREATE TABLE IF NOT EXISTS "
             + TasksColumns.TABLE_NAME + " ( "
             + TasksColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + TasksColumns.ID_TASK + " INTEGER NOT NULL, "
+            + TasksColumns.ID_TASK + " INTEGER NOT NULL UNIQUE, "
             + TasksColumns.STATUS + " INTEGER, "
             + TasksColumns.TYPE + " INTEGER, "
             + TasksColumns.DESCRIPTION + " TEXT, "

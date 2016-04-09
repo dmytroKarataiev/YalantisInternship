@@ -26,7 +26,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -42,23 +43,23 @@
             android:text="@string/recyclerview.empty.text" />
 
         <ListView
-            android:padding="@dimen/padding.default"
             android:id="@+id/listview"
-            android:dividerHeight="@dimen/padding.default"
-            android:divider="@android:color/transparent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="@dimen/padding.default"
+            android:padding="@dimen/padding.default"
             android:scrollbars="vertical"
-            android:clipToPadding="false" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <android.support.v7.widget.RecyclerView
-            android:clipToPadding="false"
-            android:padding="@dimen/padding.default"
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:clipToPadding="false"
+            android:padding="@dimen/padding.default"
+            android:scrollbars="vertical" />
 
     </FrameLayout>
 

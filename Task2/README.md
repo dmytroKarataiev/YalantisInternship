@@ -18,6 +18,5 @@
 * Only portrait orientation.
 
 ## Possible improvements
-* Use Coordinator layout as a main layout (but then we'll get elevation on TabLayout).
 * Make Navigation Drawer narrower (wrap_content).
 * Change icons to density independent (place, list, menu)

@@ -33,6 +33,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -55,9 +56,9 @@ import butterknife.ButterKnife;
 public class TasksFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
+    private static final int CURSOR_LOADER_ID = 0;
 
     private static final String TAG = TasksFragment.class.getSimpleName();
-    private static final int CURSOR_LOADER_ID = 0;
     private Cursor mCursor;
     private TasksAdapter mTasksAdapter;
     private ListviewAdapter mListviewAdapter;
@@ -101,6 +102,8 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
 
             mListviewAdapter = new ListviewAdapter(getContext(), mCursor, 0);
             mListview.setAdapter(mListviewAdapter);
+
+            ViewCompat.setNestedScrollingEnabled(mListview, true);
 
             mListview.setOnScrollListener(new AbsListView.OnScrollListener() {
 
@@ -154,8 +157,9 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
             public void onRefresh() {
                 if (Utilities.isOnline(getContext())) {
                     mSwipeRefreshLayout.setRefreshing(false);
+                    // call PagerActivity to refetch data
+                    ((PagerActivity) getActivity()).fetchData();
                 } else {
-                    // todo: change later to true
                     mSwipeRefreshLayout.setRefreshing(false);
                 }
             }

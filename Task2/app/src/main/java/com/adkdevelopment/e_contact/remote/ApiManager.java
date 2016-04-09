@@ -32,6 +32,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class ApiManager {
 
+    private static final String TAG = ApiManager.class.getSimpleName();
+
     private final String BASE_URL = "http://adkdevelopment.com/";
 
     private final Retrofit REST_ADAPTER = new retrofit2.Retrofit.Builder()
@@ -44,8 +46,5 @@ public class ApiManager {
     public RSSService getService() {
         return RSS_SERVICE;
     }
-
-
-
 
 }
