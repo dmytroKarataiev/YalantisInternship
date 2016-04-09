@@ -28,8 +28,13 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <!-- Drawer Layout Dimensions -->
-    <dimen name="drawer.header.height">112dp</dimen>
+    <dimen name="drawer.header.height">134dp</dimen>
+    <dimen name="drawer.view.width">346dp</dimen>
+    <dimen name="drawer.header.text.size">26sp</dimen>
+    <dimen name="drawer.header.text.padding">26dp</dimen>
 
     <dimen name="fab.margin">16dp</dimen>
+
+    <dimen name="default.padding">16dp</dimen>
 
 </resources>

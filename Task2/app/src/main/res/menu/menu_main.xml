@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ MIT License
   ~
   ~ Copyright (c) 2016. Dmytro Karataiev
@@ -22,23 +23,12 @@
   ~ SOFTWARE.
   -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/drawer_all"
-            android:icon="@mipmap/ic_launcher"
-            android:title="@string/drawer.item.all" />
-        <item
-            android:id="@+id/drawer_map"
-            android:icon="@mipmap/ic_launcher"
-            android:title="@string/drawer.item.map" />
-    </group>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:title="@string/drawer.item.login">
-        <menu>
-            <!-- Later we will populate this part -->
-            <item />
-        </menu>
-    </item>
-
+    <item
+        android:id="@+id/menu_action_sort"
+        app:showAsAction="ifRoom"
+        android:title="@string/menu.item.sort"
+        android:icon="@drawable/filter" />
 </menu>

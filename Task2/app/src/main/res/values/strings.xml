@@ -23,12 +23,25 @@
   -->
 
 <resources>
-    <string name="app_name">E-Contact</string>
+    <string name="app_name">e-contact</string>
 
     <!-- Navigation Drawer Strings -->
     <string name="drawer.title">@string/app_name</string>
     <string name="drawer.item.all">All inquiries</string>
     <string name="drawer.item.map">Inquiries on a map</string>
     <string name="drawer.item.login">Login</string>
+    <string name="drawer.footer.yalantis">Made with love</string>
+    <string name="drawer.footer.links"><![CDATA[<a href="http://www.itruh.dp.ua/">IT Ruh Dnipro</a> and <a href="https://yalantis.com/">Yalantis</a>]]></string>
+
+    <!-- Menu Items -->
+    <string name="menu.item.sort">Sort</string>
+    <string name="menu.item.sort.public">Public Utilities</string>
+    <string name="menu.item.sort.improvement">Construction and Improvements</string>
+    <string name="menu.item.sort.all">All</string>
+
+    <!-- Fragments -->
+    <string name="title.inprogress">In progress</string>
+    <string name="title.completed">Completed</string>
+    <string name="title.waiting">Waiting</string>
 
 </resources>

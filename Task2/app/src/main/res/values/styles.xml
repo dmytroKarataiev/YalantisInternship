@@ -30,6 +30,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:actionMenuTextAppearance">@style/BoldText</item>
     </style>
 
+    <style name="BoldText">
+        
+        <item name="android:textStyle">bold</item>
+        <item name="android:color">@android:color/black</item>
+        
+    </style>
 </resources>

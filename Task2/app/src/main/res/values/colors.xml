@@ -30,6 +30,8 @@
     <color name="colorPrimaryDark">#43628a</color>
     <color name="colorAccent">#f99d1c</color>
 
+    <color name="text.unselected">#ccd8e7</color>
+
     <!-- Background Gradient -->
     <color name="background_gradient_start">#537BAE</color>
     <color name="background_gradient_end">#42ADC2</color>

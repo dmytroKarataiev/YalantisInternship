@@ -24,26 +24,65 @@
 
 package com.adkdevelopment.e_contact;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.ViewGroup;
 
 /**
- * Created by karataev on 4/8/16.
+ * Basic Pager for the fragments
  */
 public class PagerAdapter extends FragmentPagerAdapter {
 
-    public PagerAdapter(FragmentManager fm) {
+    private Context mContext;
+
+    public PagerAdapter(FragmentManager fm, Context context) {
         super(fm);
+        mContext = context;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return new TempFragment();
+
+        switch (position) {
+            case 0:
+                return new TempFragment();
+            case 1:
+                return new TempFragment();
+            case 2:
+                return new TempFragment();
+            default:
+                return null;
+        }
     }
 
     @Override
     public int getCount() {
         return 3;
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        super.destroyItem(container, position, object);
+    }
+
+    @Override
+    public Object instantiateItem(ViewGroup container, int position) {
+        return super.instantiateItem(container, position);
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        switch (position) {
+            case 0:
+                return mContext.getString(R.string.title_inprogress);
+            case 1:
+                return mContext.getString(R.string.title_completed);
+            case 2:
+                return mContext.getString(R.string.title_waiting);
+            default:
+                return null;
+        }
     }
 }

@@ -23,13 +23,11 @@
   ~ SOFTWARE.
   -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-
-    <TextView
-        android:textSize="78sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name" />
-
-</RelativeLayout>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/popup_filter_all"
+        android:title="@string/menu.item.sort.all" />
+    <item android:id="@+id/popup_filter_public"
+        android:title="@string/menu.item.sort.public" />
+    <item android:id="@+id/popup_filter_improvement"
+        android:title="@string/menu.item.sort.improvement" />
+</menu>
