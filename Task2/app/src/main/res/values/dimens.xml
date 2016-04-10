@@ -37,4 +37,20 @@
 
     <dimen name="padding.default">16dp</dimen>
 
+    <!-- RecycerView dimensions -->
+    <dimen name="recycler_minheight">200dp</dimen>
+    <dimen name="recycler_padding">8dp</dimen>
+
+    <dimen name="task_text_size">16sp</dimen>
+    <dimen name="task_text_padding">8dp</dimen>
+    <dimen name="task_text_padding_side">8dp</dimen>
+    <dimen name="status_sign_margin">8dp</dimen>
+
+    <!-- List Item Dimensions -->
+    <dimen name="list_item_height">56dp</dimen>
+    <dimen name="list_item_padding">16dp</dimen>
+
+    <!-- Item in Details activity RecyclerView -->
+    <dimen name="poster_height">300dp</dimen>
+
 </resources>

@@ -46,7 +46,8 @@ public class TasksSQLiteOpenHelper extends SQLiteOpenHelper {
             + TasksColumns.DATE_ASSIGNED + " INTEGER, "
             + TasksColumns.LONGITUDE + " REAL, "
             + TasksColumns.LATITUDE + " REAL, "
-            + TasksColumns.LIKES + " INTEGER "
+            + TasksColumns.LIKES + " INTEGER, "
+            + TasksColumns.TITLE + " TEXT"
             + ", CONSTRAINT unique_id UNIQUE (id_task) ON CONFLICT REPLACE"
             + " );";
 

@@ -24,45 +24,35 @@
 
 package com.adkdevelopment.e_contact;
 
-import android.content.ContentResolver;
-import android.content.ContentUris;
-import android.content.ContentValues;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.adkdevelopment.e_contact.provider.photos.PhotosColumns;
-import com.adkdevelopment.e_contact.provider.tasks.TasksColumns;
 import com.adkdevelopment.e_contact.remote.FetchData;
-import com.adkdevelopment.e_contact.remote.RSSNewsItem;
 import com.adkdevelopment.e_contact.utils.Utilities;
 import com.adkdevelopment.e_contact.utils.ZoomOutPageTransformer;
 
-import java.util.List;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Main screen with a Pager and a Navigation Drawer
@@ -88,14 +78,21 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
 
         ButterKnife.bind(this);
 
-        // Fetch data on Create
-        new FetchData(this).execute();
+        // Fetch data on Create only on first launch
+        if (App.firstLaunch) {
+            new FetchData(this).execute();
+            App.firstLaunch = false;
+        }
 
         // Set up ActionBar and corresponding icons
         setSupportActionBar(mToolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar supportActionBar = getSupportActionBar();
+
+        if (supportActionBar != null) {
+            supportActionBar.setHomeAsUpIndicator(R.drawable.menu);
+            supportActionBar.setDisplayHomeAsUpEnabled(true);
+            supportActionBar.setTitle(Utilities
+                            .getActionbarTitle(this, Utilities.getSortingPreference(this)));
         }
 
         mPagerAdapter = new PagerAdapter(getSupportFragmentManager(), this);
@@ -113,7 +110,8 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
 
         // Set custom font to the Drawer Header
         Typeface typeface = Typeface.createFromAsset(getAssets(), getString(R.string.font_roboto_bold));
-        ((TextView) mNavigationView.getHeaderView(0).findViewById(R.id.drawer_header_text)).setTypeface(typeface);
+        ((TextView) mNavigationView.getHeaderView(0)
+                .findViewById(R.id.drawer_header_text)).setTypeface(typeface);
 
         // set correct elevations
         if (mAppBar != null) {
@@ -128,6 +126,26 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
             }
         });
 
+        // on second click on tab - scroll to the top if in TasksFragment
+        mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mViewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                Fragment fragment = mPagerAdapter.getRegisteredFragment(tab.getPosition());
+                if (fragment instanceof TasksFragment) {
+                    ((TasksFragment) fragment).scrollToTop();
+                }
+            }
+        });
     }
 
     @Override
@@ -166,7 +184,6 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-
         switch (item.getItemId()) {
             case R.id.popup_filter_all:
                 Utilities.setSortingPreference(this, 0);
@@ -181,52 +198,6 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
                 return false;
         }
     }
-
-    /**
-     * Callback for the retrofit service, which updated ContentProvider
-     */
-    private Callback<List<RSSNewsItem>> mCallback = new Callback<List<RSSNewsItem>>() {
-        @Override
-        public void onResponse(Call<List<RSSNewsItem>> call, Response<List<RSSNewsItem>> response) {
-            List<RSSNewsItem> mItemList = response.body();
-
-            ContentResolver resolver = getContentResolver();
-
-            for (RSSNewsItem each : mItemList) {
-
-                ContentValues tasksItems = new ContentValues();
-
-                tasksItems.put(TasksColumns.ID_TASK, each.getId());
-                tasksItems.put(TasksColumns.STATUS, each.getStatus());
-                tasksItems.put(TasksColumns.TYPE, each.getType());
-                tasksItems.put(TasksColumns.DESCRIPTION, each.getDescription());
-                tasksItems.put(TasksColumns.ADDRESS, each.getAddress());
-                tasksItems.put(TasksColumns.RESPONSIBLE, each.getResponsible());
-                tasksItems.put(TasksColumns.DATE_CREATED, each.getCreated());
-                tasksItems.put(TasksColumns.DATE_REGISTERED, each.getRegistered());
-                tasksItems.put(TasksColumns.DATE_ASSIGNED, each.getAssigned());
-                tasksItems.put(TasksColumns.LONGITUDE, each.getLongitude());
-                tasksItems.put(TasksColumns.LATITUDE, each.getLatitude());
-                tasksItems.put(TasksColumns.LIKES, each.getLikes());
-
-                // retrieve id of just inserted row and put it in a table, where it is a foreign key for photos
-                long id = ContentUris.parseId(resolver.insert(TasksColumns.CONTENT_URI, tasksItems));
-                for (String photo : each.getPhoto()) {
-                    ContentValues photoValues = new ContentValues();
-                    photoValues.put(PhotosColumns.TASK_ID, id);
-                    photoValues.put(PhotosColumns.URL, photo);
-                    resolver.insert(PhotosColumns.CONTENT_URI, photoValues);
-                }
-            }
-
-            getContentResolver().notifyChange(TasksColumns.CONTENT_URI, null, false);
-        }
-
-        @Override
-        public void onFailure(Call<List<RSSNewsItem>> call, Throwable t) {
-            Log.d(TAG, "error " + t.toString());
-        }
-    };
 
     /**
      * Helper method to be called from fragments to fetch data

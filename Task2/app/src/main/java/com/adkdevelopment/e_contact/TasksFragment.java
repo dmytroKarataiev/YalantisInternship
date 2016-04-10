@@ -35,6 +35,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -244,11 +245,13 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
      * Scrolls the screen to the top
      */
     public void scrollToTop() {
-        if (mRecyclerView != null) {
+        if (mLayoutManager != null) {
             mRecyclerView.smoothScrollToPosition(0);
         }
         if (mListview != null) {
+            // not the most elegant solution, but listview is a huuuge pain
             mListview.smoothScrollToPosition(0);
+            mListview.setSelection(0);
         }
     }
 
@@ -256,6 +259,11 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals(getString(R.string.sharedprefs_key_sort))) {
             getLoaderManager().restartLoader(CURSOR_LOADER_ID, getArguments(), this);
+            ActionBar actionBar = ((PagerActivity) getActivity()).getSupportActionBar();
+            if (actionBar != null) {
+                actionBar.setTitle(Utilities.getActionbarTitle(getContext(),
+                        Utilities.getSortingPreference(getContext())));
+            }
         }
     }
 

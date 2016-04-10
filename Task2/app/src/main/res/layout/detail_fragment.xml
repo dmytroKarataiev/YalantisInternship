@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<!--
   ~ MIT License
   ~
   ~ Copyright (c) 2016. Dmytro Karataiev
@@ -22,23 +22,12 @@
   ~ SOFTWARE.
   -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/drawer_all"
-            android:icon="@drawable/books"
-            android:title="@string/drawer.item.all" />
-        <item
-            android:id="@+id/drawer_map"
-            android:icon="@drawable/place_marker"
-            android:title="@string/drawer.item.map" />
-    </group>
-
-    <item android:title="@string/drawer.item.login">
-        <menu>
-            <!-- Later we will populate this part -->
-            <item />
-        </menu>
-    </item>
-
-</menu>
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment"
+    android:name="com.adkdevelopment.e_contact.DetailFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:layout="@layout/detail_fragment_task" />

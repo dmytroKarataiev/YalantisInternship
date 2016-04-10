@@ -25,6 +25,7 @@
 package com.adkdevelopment.e_contact;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -33,10 +34,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.adkdevelopment.e_contact.provider.tasks.TasksColumns;
+import com.adkdevelopment.e_contact.remote.RSSNewsItem;
 import com.adkdevelopment.e_contact.utils.CursorRecyclerViewAdapter;
+import com.adkdevelopment.e_contact.utils.Utilities;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -69,22 +71,45 @@ public class TasksAdapter extends CursorRecyclerViewAdapter<TasksAdapter.ViewHol
     @Override
     public void onBindViewHolder(TasksAdapter.ViewHolder viewHolder, Cursor cursor) {
 
-        int status = cursor.getInt(cursor.getColumnIndex(TasksColumns.STATUS));
+        // TODO: 4/9/16 add constants
+        final int uniqueId = cursor.getInt(cursor.getColumnIndex(TasksColumns._ID));
+        final String title = cursor.getString(cursor.getColumnIndex(TasksColumns.TITLE));
+        final int type = cursor.getInt(cursor.getColumnIndex(TasksColumns.TYPE));
+        final int status = cursor.getInt(cursor.getColumnIndex(TasksColumns.STATUS));
+        final long created = cursor.getLong(cursor.getColumnIndex(TasksColumns.DATE_REGISTERED));
+        final long registered = cursor.getLong(cursor.getColumnIndex(TasksColumns.DATE_REGISTERED));
+        final long assigned = cursor.getLong(cursor.getColumnIndex(TasksColumns.DATE_REGISTERED));
+        final String responsible = cursor.getString(cursor.getColumnIndex(TasksColumns.RESPONSIBLE));
+        final String description = cursor.getString(cursor.getColumnIndex(TasksColumns.DESCRIPTION));
+
         int likes = cursor.getInt(cursor.getColumnIndex(TasksColumns.LIKES));
         String address = cursor.getString(cursor.getColumnIndex(TasksColumns.ADDRESS));
-        final long registered = cursor.getLong(cursor.getColumnIndex(TasksColumns.DATE_REGISTERED));
 
-        // TODO: 4/8/16 add helper methods
-        viewHolder.mTypeText.setText("Status " + status);
-        viewHolder.mLikesText.setText("Likes " + likes);
+        // TODO: fix likes
+        viewHolder.mTypeText.setText(Utilities.getType(mActivity, type));
+        viewHolder.mLikesText.setText("" + likes);
         viewHolder.mAddress.setText(address);
-        viewHolder.mRegistered.setText("Reg: " + registered);
-        viewHolder.mElapsed.setText("Reg: " + registered);
+        viewHolder.mRegistered.setText(Utilities.getFormattedDate(registered));
+        viewHolder.mElapsed.setText(Utilities.getRelativeDate(registered));
 
         viewHolder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mActivity, "registered:" + registered, Toast.LENGTH_SHORT).show();
+                RSSNewsItem rssNewsItem = new RSSNewsItem();
+                rssNewsItem.setDatabaseId(uniqueId);
+                rssNewsItem.setTitle(title);
+                rssNewsItem.setType(type);
+                rssNewsItem.setStatus(status);
+                rssNewsItem.setCreated(created);
+                rssNewsItem.setRegistered(registered);
+                rssNewsItem.setAssigned(assigned);
+                rssNewsItem.setResponsible(responsible);
+                rssNewsItem.setDescription(description);
+
+                Intent intent = new Intent(mActivity, DetailActivity.class);
+                intent.putExtra(RSSNewsItem.TASKITEM, rssNewsItem);
+
+                mActivity.startActivity(intent);
             }
         });
 
@@ -100,7 +125,7 @@ public class TasksAdapter extends CursorRecyclerViewAdapter<TasksAdapter.ViewHol
 
     public TasksAdapter(Activity activity, Cursor cursor) {
         super(activity, cursor);
-        // to support SharedTransitions
+        // to support SharedTransitions we need activity
         mActivity = activity;
     }
 

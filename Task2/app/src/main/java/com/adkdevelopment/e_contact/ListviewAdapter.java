@@ -25,17 +25,20 @@
 package com.adkdevelopment.e_contact;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.adkdevelopment.e_contact.provider.tasks.TasksColumns;
+import com.adkdevelopment.e_contact.remote.RSSNewsItem;
+import com.adkdevelopment.e_contact.utils.Utilities;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -67,22 +70,46 @@ public class ListviewAdapter extends CursorAdapter {
     public void bindView(View view, final Context context, Cursor cursor) {
         ButterKnife.bind(this, view);
 
-        int status = cursor.getInt(cursor.getColumnIndex(TasksColumns.STATUS));
+        // todo add id's constants
+        final int uniqueId = cursor.getInt(cursor.getColumnIndex(TasksColumns._ID));
+        final String title = cursor.getString(cursor.getColumnIndex(TasksColumns.TITLE));
+        final int type = cursor.getInt(cursor.getColumnIndex(TasksColumns.TYPE));
+        final int status = cursor.getInt(cursor.getColumnIndex(TasksColumns.STATUS));
+        final long created = cursor.getLong(cursor.getColumnIndex(TasksColumns.DATE_REGISTERED));
+        final long registered = cursor.getLong(cursor.getColumnIndex(TasksColumns.DATE_REGISTERED));
+        final long assigned = cursor.getLong(cursor.getColumnIndex(TasksColumns.DATE_REGISTERED));
+        final String responsible = cursor.getString(cursor.getColumnIndex(TasksColumns.RESPONSIBLE));
+        final String description = cursor.getString(cursor.getColumnIndex(TasksColumns.DESCRIPTION));
+
         int likes = cursor.getInt(cursor.getColumnIndex(TasksColumns.LIKES));
         String address = cursor.getString(cursor.getColumnIndex(TasksColumns.ADDRESS));
-        final long registered = cursor.getLong(cursor.getColumnIndex(TasksColumns.DATE_REGISTERED));
 
-        // TODO: 4/8/16 add helper methods
-        mTypeText.setText("Status " + status);
-        mLikesText.setText("Likes " + likes);
+        // TODO: fix likes, add address helper method
+        mTypeText.setText(Utilities.getType(context, type));
+        mLikesText.setText("" + likes);
         mAddress.setText(address);
-        mRegistered.setText("Reg: " + registered);
-        mElapsed.setText("Reg: " + registered);
+        mRegistered.setText(Utilities.getFormattedDate(registered));
+        mElapsed.setText(Utilities.getRelativeDate(registered));
 
         mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "registered:" + registered, Toast.LENGTH_SHORT).show();
+                RSSNewsItem rssNewsItem = new RSSNewsItem();
+
+                rssNewsItem.setDatabaseId(uniqueId);
+                rssNewsItem.setTitle(title);
+                rssNewsItem.setType(type);
+                rssNewsItem.setStatus(status);
+                rssNewsItem.setCreated(created);
+                rssNewsItem.setRegistered(registered);
+                rssNewsItem.setAssigned(assigned);
+                rssNewsItem.setResponsible(responsible);
+                rssNewsItem.setDescription(description);
+
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra(RSSNewsItem.TASKITEM, rssNewsItem);
+
+                context.startActivity(intent);
             }
         });
     }

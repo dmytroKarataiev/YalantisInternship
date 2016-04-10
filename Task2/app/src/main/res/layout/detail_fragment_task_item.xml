@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ MIT License
   ~
   ~ Copyright (c) 2016. Dmytro Karataiev
@@ -21,24 +22,19 @@
   ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   ~ SOFTWARE.
   -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/poster_height"
+    android:orientation="vertical"
+    android:padding="@dimen/recycler_padding">
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/drawer_all"
-            android:icon="@drawable/books"
-            android:title="@string/drawer.item.all" />
-        <item
-            android:id="@+id/drawer_map"
-            android:icon="@drawable/place_marker"
-            android:title="@string/drawer.item.map" />
-    </group>
+    <ImageView
+        android:contentDescription="@string/task_image_text"
+        android:id="@+id/poster_image"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@drawable/image_placeholder" />
 
-    <item android:title="@string/drawer.item.login">
-        <menu>
-            <!-- Later we will populate this part -->
-            <item />
-        </menu>
-    </item>
-
-</menu>
+</LinearLayout>

@@ -33,6 +33,8 @@ import com.adkdevelopment.e_contact.remote.ApiManager;
  */
 public class App extends Application {
 
+    public static boolean firstLaunch = true;
+
     private static ApiManager sApiManager;
 
     public static ApiManager getApiManager() {

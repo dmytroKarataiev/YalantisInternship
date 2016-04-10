@@ -50,6 +50,12 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".DetailActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".PagerActivity">
+        </activity>
     </application>
 
 </manifest>

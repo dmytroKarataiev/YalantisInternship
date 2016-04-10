@@ -4,8 +4,6 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 
 import com.adkdevelopment.e_contact.provider.TasksProvider;
-import com.adkdevelopment.e_contact.provider.photos.PhotosColumns;
-import com.adkdevelopment.e_contact.provider.tasks.TasksColumns;
 
 /**
  * A task object
@@ -28,7 +26,7 @@ public class TasksColumns implements BaseColumns {
      * Status
      */
     public static final String STATUS = "status";
-
+    public static final String TITLE = "title";
     /**
      * Type
      */
@@ -96,7 +94,8 @@ public class TasksColumns implements BaseColumns {
             DATE_ASSIGNED,
             LONGITUDE,
             LATITUDE,
-            LIKES
+            LIKES,
+            TITLE
     };
     // @formatter:on
 
@@ -115,6 +114,7 @@ public class TasksColumns implements BaseColumns {
             if (c.equals(LONGITUDE) || c.contains("." + LONGITUDE)) return true;
             if (c.equals(LATITUDE) || c.contains("." + LATITUDE)) return true;
             if (c.equals(LIKES) || c.contains("." + LIKES)) return true;
+            if (c.equals(TITLE) || c.contains("." + TITLE)) return true;
         }
         return false;
     }

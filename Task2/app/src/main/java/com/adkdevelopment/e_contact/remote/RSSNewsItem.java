@@ -24,13 +24,18 @@
 
 package com.adkdevelopment.e_contact.remote;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RSSNewsItem {
+public class RSSNewsItem implements Parcelable {
+
+    public static final String TASKITEM = "task";
 
     @SerializedName("id")
     @Expose
@@ -43,19 +48,19 @@ public class RSSNewsItem {
     private String title;
     @SerializedName("type")
     @Expose
-    private String type;
+    private int type;
     @SerializedName("status")
     @Expose
     private int status;
     @SerializedName("created")
     @Expose
-    private String created;
+    private long created;
     @SerializedName("registered")
     @Expose
-    private String registered;
+    private long registered;
     @SerializedName("assigned")
     @Expose
-    private String assigned;
+    private long assigned;
     @SerializedName("responsible")
     @Expose
     private String responsible;
@@ -70,10 +75,21 @@ public class RSSNewsItem {
     private String address;
     @SerializedName("latitude")
     @Expose
-    private Double latitude;
+    private double latitude;
     @SerializedName("longitude")
     @Expose
-    private Double longitude;
+    private double longitude;
+
+    // unique database id to retrieve photos for the object
+    private int databaseId;
+
+    public int getDatabaseId() {
+        return databaseId;
+    }
+
+    public void setDatabaseId(int databaseId) {
+        this.databaseId = databaseId;
+    }
 
     /**
      *
@@ -134,7 +150,7 @@ public class RSSNewsItem {
      * @return
      * The type
      */
-    public String getType() {
+    public int getType() {
         return type;
     }
 
@@ -143,7 +159,7 @@ public class RSSNewsItem {
      * @param type
      * The type
      */
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 
@@ -170,7 +186,7 @@ public class RSSNewsItem {
      * @return
      * The created
      */
-    public String getCreated() {
+    public long getCreated() {
         return created;
     }
 
@@ -179,7 +195,7 @@ public class RSSNewsItem {
      * @param created
      * The created
      */
-    public void setCreated(String created) {
+    public void setCreated(long created) {
         this.created = created;
     }
 
@@ -188,7 +204,7 @@ public class RSSNewsItem {
      * @return
      * The registered
      */
-    public String getRegistered() {
+    public long getRegistered() {
         return registered;
     }
 
@@ -197,7 +213,7 @@ public class RSSNewsItem {
      * @param registered
      * The registered
      */
-    public void setRegistered(String registered) {
+    public void setRegistered(long registered) {
         this.registered = registered;
     }
 
@@ -206,7 +222,7 @@ public class RSSNewsItem {
      * @return
      * The assigned
      */
-    public String getAssigned() {
+    public Long getAssigned() {
         return assigned;
     }
 
@@ -215,7 +231,7 @@ public class RSSNewsItem {
      * @param assigned
      * The assigned
      */
-    public void setAssigned(String assigned) {
+    public void setAssigned(Long assigned) {
         this.assigned = assigned;
     }
 
@@ -296,7 +312,7 @@ public class RSSNewsItem {
      * @return
      * The latitude
      */
-    public Double getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
@@ -305,7 +321,7 @@ public class RSSNewsItem {
      * @param latitude
      * The latitude
      */
-    public void setLatitude(Double latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
@@ -314,7 +330,7 @@ public class RSSNewsItem {
      * @return
      * The longitude
      */
-    public Double getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
@@ -323,8 +339,64 @@ public class RSSNewsItem {
      * @param longitude
      * The longitude
      */
-    public void setLongitude(Double longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
+    public RSSNewsItem() {
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeStringList(this.photo);
+        dest.writeString(this.title);
+        dest.writeInt(this.type);
+        dest.writeInt(this.status);
+        dest.writeLong(this.created);
+        dest.writeLong(this.registered);
+        dest.writeLong(this.assigned);
+        dest.writeString(this.responsible);
+        dest.writeString(this.description);
+        dest.writeInt(this.likes);
+        dest.writeString(this.address);
+        dest.writeDouble(this.latitude);
+        dest.writeDouble(this.longitude);
+        dest.writeInt(this.databaseId);
+    }
+
+    protected RSSNewsItem(Parcel in) {
+        this.id = in.readString();
+        this.photo = in.createStringArrayList();
+        this.title = in.readString();
+        this.type = in.readInt();
+        this.status = in.readInt();
+        this.created = in.readLong();
+        this.registered = in.readLong();;
+        this.assigned = in.readLong();;
+        this.responsible = in.readString();
+        this.description = in.readString();
+        this.likes = in.readInt();
+        this.address = in.readString();
+        this.latitude = in.readDouble();
+        this.longitude = in.readDouble();
+        this.databaseId = in.readInt();
+    }
+
+    public static final Creator<RSSNewsItem> CREATOR = new Creator<RSSNewsItem>() {
+        @Override
+        public RSSNewsItem createFromParcel(Parcel source) {
+            return new RSSNewsItem(source);
+        }
+
+        @Override
+        public RSSNewsItem[] newArray(int size) {
+            return new RSSNewsItem[size];
+        }
+    };
 }

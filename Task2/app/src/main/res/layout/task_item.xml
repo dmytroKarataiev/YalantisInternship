@@ -50,7 +50,7 @@
                 android:paddingBottom="48dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_library_books_black_24dp"/>
+                android:src="@drawable/books"/>
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -62,7 +62,7 @@
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_library_books_black_24dp"/>
+                    android:src="@drawable/thumb_up"/>
 
                 <TextView
                     android:id="@+id/task_item_likes_text"

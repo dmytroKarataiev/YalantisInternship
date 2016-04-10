@@ -33,13 +33,17 @@ import android.text.format.DateUtils;
 
 import com.adkdevelopment.e_contact.R;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Helper class with additional static funtions
  * Created by karataev on 4/9/16.
  */
 public class Utilities {
+
+    private static final String TAG = Utilities.class.getSimpleName();
 
     /**
      * Method to check if device is connected to the internet
@@ -87,5 +91,80 @@ public class Utilities {
     public static int getSortingPreference(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         return sharedPreferences.getInt(context.getString(R.string.sharedprefs_key_sort), 0);
+    }
+
+    /**
+     * Returns formatted date in a String
+     * @param unformattedDate in millis
+     * @return String formatted in "MMM d, yyyy", Locale aware
+     */
+    public static String getFormattedDate(long unformattedDate) {
+
+        Date date = new Date(unformattedDate);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM d, yyyy", Locale.getDefault());
+
+        return simpleDateFormat.format(date);
+    }
+
+    /**
+     * Returns String with a name of current sorting preference
+     * @param context from which call is made
+     * @param position sort preference
+     * @return String representation of a sort preference
+     */
+    public static String getActionbarTitle(Context context, int position) {
+
+        switch (position) {
+            case 0:
+                return context.getString(R.string.menu_item_sort_all);
+            case 1:
+                return context.getString(R.string.menu_item_sort_public);
+            case 2:
+                return context.getString(R.string.menu_item_sort_improvement);
+            default:
+                return context.getString(R.string.app_name);
+        }
+    }
+
+    /**
+     * Helper class to get String representation of work types according to a database schema
+     * @param context from which call is made
+     * @param type int status representation
+     * @return String representation of the status
+     */
+    public static String getType(Context context, int type) {
+        switch (type) {
+            case 0:
+                return context.getString(R.string.type_other);
+            case 1:
+                return context.getString(R.string.type_public);
+            case 2:
+                return context.getString(R.string.type_improvement);
+            case 3:
+                return context.getString(R.string.type_repair);
+            default:
+                return context.getString(R.string.type_unknown);
+
+        }
+    }
+
+    /**
+     * Helper class to get String representation of statuses according to a database schema
+     * @param context from which call is made
+     * @param status int status representation
+     * @return String representation of the status
+     */
+    public static String getStatus(Context context, int status) {
+        switch (status) {
+            case 1:
+                return context.getString(R.string.status_progress);
+            case 2:
+                return context.getString(R.string.status_completed);
+            case 3:
+                return context.getString(R.string.status_waiting);
+            default:
+                return context.getString(R.string.status_unknown);
+
+        }
     }
 }

@@ -40,7 +40,7 @@
     <string name="menu.item.sort">Sort</string>
     <string name="menu.item.sort.public">Public Utilities</string>
     <string name="menu.item.sort.improvement">Construction and Improvements</string>
-    <string name="menu.item.sort.all">All</string>
+    <string name="menu.item.sort.all">All inquiries</string>
 
     <!-- Fragments -->
     <string name="title.inprogress">In progress</string>
@@ -50,5 +50,44 @@
     <!-- Shared Preferences Values -->
     <string name="sharedprefs.key.sort" translatable="false">sort</string>
 
+    <!-- Task Detailed Fragment Strings for the test purposes-->
+    <string name="task_title_text">Public utilities</string>
+    <string name="task_title_example" translatable="false">CE-1257218</string>
+    <string name="task_status">In progress</string>
+    <string name="task_owner">Public Utilities</string>
+    <string name="task_responsible_name">Dnipropetrovsk MVK</string>
+    <string name="task_description">Color in material design is inspired by bold hues juxtaposed
+        with muted environments, deep shadows, and bright highlights. Material takes cues from
+        contemporary architecture, road signs, pavement marking tape, and athletic courts.
+        Color should be unexpected and vibrant.</string>
+    <string name="task_created_date">Jan. 27th 2016</string>
+    <string name="task_registered_date">Jan. 27th 2016</string>
+    <string name="task_assigned_date">Jan. 27th 2016</string>
+
+    <string-array name="task_image_links" translatable="false">
+        <item>http://adkdevelopment.com/download/photos/DSC_2729.jpg</item>
+        <item>http://adkdevelopment.com/download/photos/DSC_2730.jpg</item>
+        <item>http://adkdevelopment.com/download/photos/DSC_2733.jpg</item>
+    </string-array>
+
+    <!-- Task Deatiled View -->
+    <string name="task_asctionbar_title">Task: </string>
+    <string name="task_created_text">Created </string>
+    <string name="task_registered_text">Registered </string>
+    <string name="task_assigned_text">Assigned </string>
+    <string name="task_responsible_text">Responsible </string>
+    <string name="task_image_text">Image: </string>
+    <string name="button_new_task">Send a new task!</string>
+
+    <!-- Statuses and types according to database schema -->
+    <string name="type.public">Public utilities</string>
+    <string name="type.improvement">Construction and improvement</string>
+    <string name="type.other">Other</string>
+    <string name="type.unknown">Unknown</string>
+    <string name="type.repair">Repairs</string>
+    <string name="status.unknown">Unknown</string>
+    <string name="status.progress">In progress</string>
+    <string name="status.completed">Completed</string>
+    <string name="status.waiting">Waiting</string>
 
 </resources>

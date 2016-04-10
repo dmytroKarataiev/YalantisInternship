@@ -82,6 +82,7 @@ public class FetchData extends AsyncTask<Void, Void, Void> {
                 tasksItems.put(TasksColumns.LONGITUDE, each.getLongitude());
                 tasksItems.put(TasksColumns.LATITUDE, each.getLatitude());
                 tasksItems.put(TasksColumns.LIKES, each.getLikes());
+                tasksItems.put(TasksColumns.TITLE, each.getTitle());
 
                 // retrieve id of just inserted row and put it in a table, where it is a foreign key for photos
                 long id = ContentUris.parseId(resolver.insert(TasksColumns.CONTENT_URI, tasksItems));

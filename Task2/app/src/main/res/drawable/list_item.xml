@@ -1,7 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ~ MIT License
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ The MIT License (MIT)
   ~
-  ~ Copyright (c) 2016. Dmytro Karataiev
+  ~ Copyright (c) 2016.  Dmytro Karataiev
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining a copy
   ~ of this software and associated documentation files (the "Software"), to deal
@@ -21,24 +23,19 @@
   ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   ~ SOFTWARE.
   -->
-
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/drawer_all"
-            android:icon="@drawable/books"
-            android:title="@string/drawer.item.all" />
-        <item
-            android:id="@+id/drawer_map"
-            android:icon="@drawable/place_marker"
-            android:title="@string/drawer.item.map" />
-    </group>
-
-    <item android:title="@string/drawer.item.login">
-        <menu>
-            <!-- Later we will populate this part -->
-            <item />
-        </menu>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item >
+        <shape
+            android:shape="rectangle">
+            <solid android:color="@android:color/darker_gray" />
+            <corners android:radius="0dp"/>
+        </shape>
     </item>
-
-</menu>
+    <item android:right="1dp" android:left="1dp" android:bottom="2dp">
+        <shape
+            android:shape="rectangle">
+            <solid android:color="@android:color/white"/>
+            <corners android:radius="0dp"/>
+        </shape>
+    </item>
+</layer-list>
