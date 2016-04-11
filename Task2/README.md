@@ -32,6 +32,6 @@
 * For the MapsActivity to work you must add api key to res/values/google_maps_api.xml as a
 \<string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">API KEY\</string>
 
-## Link to used resources
+## Links to used resources
 * Launcher icon: http://gsg.usc.edu/sites/gsg.usc.edu/files/yellow_arrow_circle.png
 * Gear icon: http://plainicon.com/download-icon/45939/wrench-gear

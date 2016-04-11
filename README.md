@@ -2,7 +2,7 @@
 Projects from the online part of Yalantis Internship.
 
 ## Project #1 
-* [Simple static application with 1 activity](https://github.com/dmytroKarataiev/YalantisInternship/tree/master/YalantisInternship)
+* [Simple static application with 1 activity](Task1/)
 
 ## Project #2
 * [Application with a Pager Activity and a Navigation Drawer](Task2/)
