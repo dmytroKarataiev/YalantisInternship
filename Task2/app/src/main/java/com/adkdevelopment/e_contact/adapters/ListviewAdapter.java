@@ -24,10 +24,15 @@
 
 package com.adkdevelopment.e_contact.adapters;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
+import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,8 +63,11 @@ public class ListviewAdapter extends CursorAdapter {
     @Bind(R.id.task_item_elapsed) TextView mElapsed;
     @Bind(R.id.task_item_card) CardView mCardView;
 
-    public ListviewAdapter(Context context, Cursor c, int flags) {
-        super(context, c, flags);
+    Activity mActivity;
+
+    public ListviewAdapter(Activity activity, Cursor c, int flags) {
+        super(activity, c, flags);
+        mActivity = activity;
     }
 
     @Override
@@ -68,7 +76,7 @@ public class ListviewAdapter extends CursorAdapter {
     }
 
     @Override
-    public void bindView(View view, final Context context, Cursor cursor) {
+    public void bindView(final View view, final Context context, Cursor cursor) {
         ButterKnife.bind(this, view);
 
         final int uniqueId = cursor.getInt(TasksFragment.COL_TASKS_ID);
@@ -108,7 +116,20 @@ public class ListviewAdapter extends CursorAdapter {
                 Intent intent = new Intent(context, DetailActivity.class);
                 intent.putExtra(RSSNewsItem.TASKITEM, rssNewsItem);
 
-                context.startActivity(intent);
+                // Check if a phone supports shared transitions
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    //noinspection unchecked always true
+                    Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(
+                            mActivity,
+                            Pair.create(view.findViewById(R.id.task_item_type_text),
+                                    view.findViewById(R.id.task_item_type_text).getTransitionName()),
+                            Pair.create(view.findViewById(R.id.task_item_registered),
+                                    view.findViewById(R.id.task_item_registered).getTransitionName()))
+                            .toBundle();
+                    mActivity.startActivity(intent, bundle);
+                } else {
+                    mActivity.startActivity(intent);
+                }
             }
         });
     }

@@ -1,7 +1,5 @@
 package com.adkdevelopment.e_contact.provider.photos;
 
-import java.util.Date;
-
 import android.content.Context;
 import android.content.ContentResolver;
 import android.database.Cursor;

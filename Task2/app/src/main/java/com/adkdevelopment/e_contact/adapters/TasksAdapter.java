@@ -25,10 +25,14 @@
 package com.adkdevelopment.e_contact.adapters;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
+import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,7 +75,7 @@ public class TasksAdapter extends CursorRecyclerViewAdapter<TasksAdapter.ViewHol
     }
 
     @Override
-    public void onBindViewHolder(TasksAdapter.ViewHolder viewHolder, Cursor cursor) {
+    public void onBindViewHolder(final TasksAdapter.ViewHolder viewHolder, Cursor cursor) {
 
         final int uniqueId = cursor.getInt(TasksFragment.COL_TASKS_ID);
         final String title = cursor.getString(TasksFragment.COL_TASKS_TITLE);
@@ -109,7 +113,20 @@ public class TasksAdapter extends CursorRecyclerViewAdapter<TasksAdapter.ViewHol
                 Intent intent = new Intent(mActivity, DetailActivity.class);
                 intent.putExtra(RSSNewsItem.TASKITEM, rssNewsItem);
 
-                mActivity.startActivity(intent);
+                // Check if a phone supports shared transitions
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    //noinspection unchecked always true
+                    Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(
+                            mActivity,
+                            Pair.create(viewHolder.itemView.findViewById(R.id.task_item_type_text),
+                                    viewHolder.itemView.findViewById(R.id.task_item_type_text).getTransitionName()),
+                            Pair.create(viewHolder.itemView.findViewById(R.id.task_item_registered),
+                                    viewHolder.itemView.findViewById(R.id.task_item_registered).getTransitionName()))
+                            .toBundle();
+                    mActivity.startActivity(intent, bundle);
+                } else {
+                    mActivity.startActivity(intent);
+                }
             }
         });
 
@@ -126,9 +143,8 @@ public class TasksAdapter extends CursorRecyclerViewAdapter<TasksAdapter.ViewHol
     }
 
     public TasksAdapter(Activity activity, Cursor cursor) {
-        super(activity, cursor);
-        // TODO: 4/11/16 shared transitions 
-        // to support SharedTransitions we need activity
+        super(cursor);
+        // to support SharedTransitions we need an activity
         mActivity = activity;
     }
 

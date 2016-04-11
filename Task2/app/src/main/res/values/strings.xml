@@ -24,33 +24,32 @@
 
 <resources>
     <string name="app_name">e-contact</string>
-    <string name="font.roboto.bold">Roboto-Bold.ttf</string>
-    <string name="recyclerview.empty.text">Oops! Something is wrong. Please check your internet connection and try again.</string>
-    <string name="contentprovider.authority">com.adkdevelopment.e_contact.provider</string>
+    <string name="font_roboto_bold" translatable="false">Roboto-Bold.ttf</string>
+    <string name="recyclerview_empty_text">Oops! Something is wrong. Please check your internet connection and try again.</string>
+    <string name="contentprovider_authority" translatable="false">com.adkdevelopment.e_contact.provider</string>
     <string name="title_activity_maps">Map</string>
-    <string name="map.marker">Marker in Dnipropetrovsk</string>
+    <string name="map_marker">Marker in Dnipropetrovsk</string>
 
     <!-- Navigation Drawer Strings -->
-    <string name="drawer.title">@string/app_name</string>
-    <string name="drawer.item.all">All inquiries</string>
-    <string name="drawer.item.map">Inquiries on a map</string>
-    <string name="drawer.item.login">Login</string>
-    <string name="drawer.footer.yalantis">Made with love</string>
-    <string name="drawer.footer.links"><![CDATA[<a href="http://www.itruh.dp.ua/">IT Ruh Dnipro</a> and <a href="https://yalantis.com/">Yalantis</a>]]></string>
+    <string name="drawer_title">@string/app_name</string>
+    <string name="drawer_item_all">All inquiries</string>
+    <string name="drawer_item_map">Inquiries on a map</string>
+    <string name="drawer_item_login">Login</string>
+    <string name="drawer_footer_links">Made with love\n<a href="http://www.itruh.dp.ua/">IT Ruh Dnipro</a> and <a href="https://yalantis.com/">Yalantis</a></string>
 
     <!-- Menu Items -->
-    <string name="menu.item.sort">Sort</string>
-    <string name="menu.item.sort.public">Public Utilities</string>
-    <string name="menu.item.sort.improvement">Improvement and construction</string>
-    <string name="menu.item.sort.all">All inquiries</string>
+    <string name="menu_item_sort">Sort</string>
+    <string name="menu_item_sort_public">Public Utilities</string>
+    <string name="menu_item_sort_improvement">Improvement and construction</string>
+    <string name="menu_item_sort_all">All inquiries</string>
 
     <!-- Fragments -->
-    <string name="title.inprogress">In progress</string>
-    <string name="title.completed">Completed</string>
-    <string name="title.waiting">Waiting</string>
+    <string name="title_inprogress">In progress</string>
+    <string name="title_completed">Completed</string>
+    <string name="title_waiting">Waiting</string>
 
     <!-- Shared Preferences Values -->
-    <string name="sharedprefs.key.sort" translatable="false">sort</string>
+    <string name="sharedprefs_key_sort" translatable="false">sort</string>
 
     <!-- Task Detailed Fragment Strings for the test purposes-->
     <string name="task_title_text">Public utilities</string>
@@ -58,10 +57,7 @@
     <string name="task_status">In progress</string>
     <string name="task_owner">Public Utilities</string>
     <string name="task_responsible_name">Dnipropetrovsk MVK</string>
-    <string name="task_description">Color in material design is inspired by bold hues juxtaposed
-        with muted environments, deep shadows, and bright highlights. Material takes cues from
-        contemporary architecture, road signs, pavement marking tape, and athletic courts.
-        Color should be unexpected and vibrant.</string>
+    <string name="task_description">Open drainage near billboard, close to a turn of 18th and 19th trolleys to the Peace avenue of Donetsk Highway.</string>
     <string name="task_created_date">Jan. 27th 2016</string>
     <string name="task_registered_date">Jan. 27th 2016</string>
     <string name="task_assigned_date">Jan. 27th 2016</string>
@@ -73,28 +69,30 @@
     </string-array>
 
     <!-- Task Deatiled View -->
-    <string name="task_asctionbar_title">Task: </string>
+    <string name="task_actionbar_title">Task: </string>
     <string name="task_created_text">Created </string>
     <string name="task_registered_text">Registered </string>
     <string name="task_assigned_text">Assigned </string>
     <string name="task_responsible_text">Responsible </string>
     <string name="task_image_text">Image: </string>
-    <string name="button_new_task">Send a new task!</string>
 
     <!-- Statuses and types according to database schema -->
-    <string name="type.public">Public utilities</string>
-    <string name="type.improvement">Improvement and construction</string>
-    <string name="type.other">Other</string>
-    <string name="type.unknown">Unknown</string>
-    <string name="type.repair">Repairs</string>
-    <string name="status.unknown">Unknown</string>
-    <string name="status.progress">In progress</string>
-    <string name="status.completed">Completed</string>
-    <string name="status.waiting">Waiting</string>
+    <string name="type_public">Public utilities</string>
+    <string name="type_improvement">Improvement and construction</string>
+    <string name="type_other">Other</string>
+    <string name="type_unknown">Unknown</string>
+    <string name="type_repair">Repairs</string>
+    <string name="status_unknown">Unknown</string>
+    <string name="status_progress">In progress</string>
+    <string name="status_completed">Completed</string>
+    <string name="status_waiting">Waiting</string>
 
-    <!-- Acessibility strings for images -->
-    <string name="image.description.type">Type of the inquiry</string>
-    <string name="image.description.like">Thumbs Up image</string>
+    <!-- Accessibility strings for images -->
+    <string name="image_description_type">Type of the inquiry</string>
+    <string name="image_description_like">Thumbs Up image</string>
 
+    <!-- SharedTransitions -->
+    <string name="transition_registered" translatable="false">registered</string>
+    <string name="transition_type" translatable="false">type</string>
 
 </resources>

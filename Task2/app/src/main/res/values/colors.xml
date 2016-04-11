@@ -30,10 +30,10 @@
     <color name="colorPrimaryDark">#43628a</color>
     <color name="colorAccent">#f99d1c</color>
 
-    <color name="default.unselected">#ccd8e7</color>
-    <color name="text.grey.light">#bfbfbf</color>
-    <color name="text.grey">#828282</color>
-    <color name="text.black">#191919</color>
+    <color name="default_unselected">#ccd8e7</color>
+    <color name="text_grey_light">#bfbfbf</color>
+    <color name="text_grey">#828282</color>
+    <color name="text_black">#191919</color>
 
     <!-- Background Gradient -->
     <color name="background_gradient_start">#537BAE</color>

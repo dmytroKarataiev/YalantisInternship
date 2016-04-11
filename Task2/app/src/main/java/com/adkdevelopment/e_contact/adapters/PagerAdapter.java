@@ -41,10 +41,10 @@ import java.lang.ref.WeakReference;
  */
 public class PagerAdapter extends FragmentPagerAdapter {
 
-    private Context mContext;
+    private final Context mContext;
 
     // Keeps references to the fragment so not to recreate them and being able to communicated without problems
-    SparseArray<WeakReference<Fragment>> registeredFragments = new SparseArray<WeakReference<Fragment>>();
+    final SparseArray<WeakReference<Fragment>> registeredFragments = new SparseArray<>();
 
     public PagerAdapter(FragmentManager fm, Context context) {
         super(fm);

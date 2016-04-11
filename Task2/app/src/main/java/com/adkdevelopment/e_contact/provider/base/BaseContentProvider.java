@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.provider.BaseColumns;
+import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -60,16 +61,19 @@ public abstract class BaseContentProvider extends ContentProvider {
         return false;
     }
 
-
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         String table = uri.getLastPathSegment();
         long rowId = mSqLiteOpenHelper.getWritableDatabase().insertOrThrow(table, null, values);
         if (rowId == -1) return null;
+
+        /* to prevent multiple calls onLoadFinished of a Loader -
+         * we must notify inserts manually after data fetching
         String notify;
         if (((notify = uri.getQueryParameter(QUERY_NOTIFY)) == null || "true".equals(notify))) {
             getContext().getContentResolver().notifyChange(uri, null);
         }
+        */
         return uri.buildUpon().appendEncodedPath(String.valueOf(rowId)).build();
     }
 
@@ -93,6 +97,7 @@ public abstract class BaseContentProvider extends ContentProvider {
         }
         String notify;
         if (res != 0 && ((notify = uri.getQueryParameter(QUERY_NOTIFY)) == null || "true".equals(notify))) {
+            //noinspection ConstantConditions
             getContext().getContentResolver().notifyChange(uri, null);
         }
 
@@ -105,6 +110,7 @@ public abstract class BaseContentProvider extends ContentProvider {
         int res = mSqLiteOpenHelper.getWritableDatabase().update(queryParams.table, values, queryParams.selection, selectionArgs);
         String notify;
         if (res != 0 && ((notify = uri.getQueryParameter(QUERY_NOTIFY)) == null || "true".equals(notify))) {
+            //noinspection ConstantConditions
             getContext().getContentResolver().notifyChange(uri, null);
         }
         return res;
@@ -116,6 +122,7 @@ public abstract class BaseContentProvider extends ContentProvider {
         int res = mSqLiteOpenHelper.getWritableDatabase().delete(queryParams.table, queryParams.selection, selectionArgs);
         String notify;
         if (res != 0 && ((notify = uri.getQueryParameter(QUERY_NOTIFY)) == null || "true".equals(notify))) {
+            //noinspection ConstantConditions
             getContext().getContentResolver().notifyChange(uri, null);
         }
         return res;
@@ -130,6 +137,7 @@ public abstract class BaseContentProvider extends ContentProvider {
         projection = ensureIdIsFullyQualified(projection, queryParams.table, queryParams.idColumn);
         Cursor res = mSqLiteOpenHelper.getReadableDatabase().query(queryParams.tablesWithJoins, projection, queryParams.selection, selectionArgs, groupBy,
                 having, sortOrder == null ? queryParams.orderBy : sortOrder, limit);
+        //noinspection ConstantConditions
         res.setNotificationUri(getContext().getContentResolver(), uri);
         return res;
     }
@@ -147,9 +155,10 @@ public abstract class BaseContentProvider extends ContentProvider {
         return res;
     }
 
+    @NonNull
     @Override
     public ContentProviderResult[] applyBatch(ArrayList<ContentProviderOperation> operations) throws OperationApplicationException {
-        HashSet<Uri> urisToNotify = new HashSet<Uri>(operations.size());
+        HashSet<Uri> urisToNotify = new HashSet<>(operations.size());
         for (ContentProviderOperation operation : operations) {
             urisToNotify.add(operation.getUri());
         }
@@ -168,6 +177,7 @@ public abstract class BaseContentProvider extends ContentProvider {
             }
             db.setTransactionSuccessful();
             for (Uri uri : urisToNotify) {
+                //noinspection ConstantConditions
                 getContext().getContentResolver().notifyChange(uri, null);
             }
             return results;

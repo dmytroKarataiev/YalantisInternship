@@ -42,7 +42,7 @@ public class RSSNewsItem implements Parcelable {
     private String id;
     @SerializedName("photo")
     @Expose
-    private List<String> photo = new ArrayList<String>();
+    private List<String> photo = new ArrayList<>();
     @SerializedName("title")
     @Expose
     private String title;
@@ -377,8 +377,8 @@ public class RSSNewsItem implements Parcelable {
         this.type = in.readInt();
         this.status = in.readInt();
         this.created = in.readLong();
-        this.registered = in.readLong();;
-        this.assigned = in.readLong();;
+        this.registered = in.readLong();
+        this.assigned = in.readLong();
         this.responsible = in.readString();
         this.description = in.readString();
         this.likes = in.readInt();

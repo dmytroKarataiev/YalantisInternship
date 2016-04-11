@@ -29,6 +29,7 @@ import android.app.Application;
 import com.adkdevelopment.e_contact.remote.ApiManager;
 
 /**
+ * Class to keep reference to the Retrofit client
  * Created by karataev on 4/8/16.
  */
 public class App extends Application {

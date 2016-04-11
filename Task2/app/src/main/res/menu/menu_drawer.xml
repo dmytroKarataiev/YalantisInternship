@@ -30,17 +30,17 @@
         <item
             android:id="@+id/drawer_all"
             android:icon="@drawable/books"
-            android:title="@string/drawer.item.all" />
+            android:title="@string/drawer_item_all" />
         <item
             android:id="@+id/drawer_map"
             android:icon="@drawable/place_marker"
-            android:title="@string/drawer.item.map" />
+            android:title="@string/drawer_item_map" />
     </group>
 
     <group
         android:id="@+id/menu_login"
         android:checkableBehavior="none">
-        <item android:title="@string/drawer.item.login" />
+        <item android:title="@string/drawer_item_login" />
     </group>
 
 

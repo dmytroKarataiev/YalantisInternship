@@ -40,7 +40,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -105,8 +104,7 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
 
         mTabLayout.setupWithViewPager(mViewPager);
 
-        // Add links to the footer in the Drawer
-        mFooterLinks.setText(Html.fromHtml(getString(R.string.drawer_footer_links)));
+        // Make links work in the Drawer
         mFooterLinks.setMovementMethod(LinkMovementMethod.getInstance());
 
         // Set custom font to the Drawer Header
@@ -156,9 +154,14 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
                 if (item.getItemId() == R.id.drawer_map) {
                     item.setChecked(false);
                     mDrawerLayout.closeDrawers();
-                    Intent intent = new Intent(PagerActivity.this, MapsActivity.class);
-                    startActivity(intent);
-                    return true;
+                    if (Utilities.checkPlayServices(PagerActivity.this)) {
+                        Intent intent = new Intent(PagerActivity.this, MapsActivity.class);
+                        startActivity(intent);
+                        return true;
+                    } else {
+                        item.setChecked(false);
+                        return true;
+                    }
                 } else {
                     item.setChecked(true);
                     mDrawerLayout.closeDrawers();

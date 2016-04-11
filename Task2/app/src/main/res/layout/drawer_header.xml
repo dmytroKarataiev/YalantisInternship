@@ -27,7 +27,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/drawer.header.height"
+    android:layout_height="@dimen/drawer_header_height"
     android:background="@color/colorPrimary"
     android:gravity="bottom" >
 
@@ -35,12 +35,12 @@
         android:id="@+id/drawer_header_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/default.unselected"
-        android:paddingLeft="@dimen/padding.default"
-        android:paddingRight="@dimen/padding.default"
-        android:paddingBottom="@dimen/drawer.header.text.padding"
-        android:text="@string/app_name"
-        android:textSize="@dimen/drawer.header.text.size"
+        android:textColor="@color/default_unselected"
+        android:paddingLeft="@dimen/padding_default"
+        android:paddingRight="@dimen/padding_default"
+        android:paddingBottom="@dimen/drawer_header_text_padding"
+        android:text="@string/drawer_title"
+        android:textSize="@dimen/drawer_header_text_size"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
 </LinearLayout>

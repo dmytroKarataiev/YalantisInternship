@@ -25,10 +25,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/task_item_card"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/cardview.height"
-    android:layout_marginBottom="@dimen/padding.default"
+    android:layout_height="@dimen/cardview_height"
+    android:layout_marginBottom="@dimen/padding_default"
     android:background="@android:color/white"
-    app:cardCornerRadius="@dimen/cardview.corner.radius">
+    app:cardCornerRadius="@dimen/cardview_corner_radius">
 
     <GridLayout
         android:layout_width="match_parent"
@@ -39,13 +39,13 @@
         <ImageView
             android:id="@+id/task_item_type_image"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/gridlayout.height"
+            android:layout_height="@dimen/gridlayout_height"
             android:layout_column="0"
             android:layout_row="0"
             android:layout_rowSpan="2"
-            android:contentDescription="@string/image.description.type"
-            android:paddingLeft="@dimen/gridlayout.image.padding"
-            android:paddingRight="@dimen/gridlayout.image.padding" />
+            android:contentDescription="@string/image_description_type"
+            android:paddingLeft="@dimen/gridlayout_image_padding"
+            android:paddingRight="@dimen/gridlayout_image_padding" />
 
         <TextView
             android:id="@+id/task_item_likes_text"
@@ -54,12 +54,13 @@
             android:layout_column="0"
             android:layout_gravity="center_horizontal"
             android:layout_row="3"
+            android:contentDescription="@string/image_description_like"
             android:drawableLeft="@drawable/thumb_up"
-            android:drawablePadding="@dimen/cardview.likes.padding"
+            android:drawablePadding="@dimen/cardview_likes_padding"
             android:drawableStart="@drawable/thumb_up"
             android:gravity="center"
-            android:textSize="@dimen/cardview.text.size"
-            android:textColor="@color/text.grey.light" />
+            android:textColor="@color/text_grey_light"
+            android:textSize="@dimen/cardview_text_size" />
 
         <View
             android:layout_width="1dp"
@@ -67,24 +68,25 @@
             android:layout_column="1"
             android:layout_row="0"
             android:layout_rowSpan="4"
-            android:background="@color/default.unselected" />
+            android:background="@color/default_unselected" />
 
         <TextView
             android:id="@+id/task_item_type_text"
             android:layout_width="1dp"
-            android:layout_gravity="fill_horizontal"
-            android:layout_height="@dimen/gridlayout.height"
+            android:layout_height="@dimen/gridlayout_height"
             android:layout_column="2"
             android:layout_columnSpan="2"
+            android:layout_gravity="fill_horizontal"
             android:layout_row="0"
             android:layout_rowSpan="2"
             android:gravity="center_vertical"
-            android:paddingLeft="@dimen/padding.default"
-            android:paddingStart="@dimen/padding.default"
-            android:paddingRight="@dimen/padding.default"
-            android:paddingEnd="@dimen/padding.default"
-            android:textColor="@color/text.black"
-            android:textSize="@dimen/cardview.text.type.size" />
+            android:paddingEnd="@dimen/padding_default"
+            android:paddingLeft="@dimen/padding_default"
+            android:paddingRight="@dimen/padding_default"
+            android:paddingStart="@dimen/padding_default"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/cardview_text_type_size"
+            android:transitionName="@string/transition_type" />
 
         <TextView
             android:id="@+id/task_item_address"
@@ -97,13 +99,13 @@
             android:ellipsize="end"
             android:gravity="bottom"
             android:maxLines="1"
-            android:textSize="@dimen/cardview.text.size"
-            android:paddingBottom="@dimen/cardview.task.padding"
-            android:paddingEnd="@dimen/padding.default"
-            android:paddingLeft="@dimen/padding.default"
-            android:paddingRight="@dimen/padding.default"
-            android:paddingStart="@dimen/padding.default"
-            android:textColor="@color/text.grey"/>
+            android:paddingBottom="@dimen/cardview_task_padding"
+            android:paddingEnd="@dimen/padding_default"
+            android:paddingLeft="@dimen/padding_default"
+            android:paddingRight="@dimen/padding_default"
+            android:paddingStart="@dimen/padding_default"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/cardview_text_size" />
 
         <TextView
             android:id="@+id/task_item_registered"
@@ -111,22 +113,28 @@
             android:layout_height="wrap_content"
             android:layout_column="2"
             android:layout_row="3"
-            android:paddingLeft="@dimen/padding.default"
-            android:paddingStart="@dimen/padding.default"
-            android:paddingEnd="@dimen/gridlayout.padding.extra"
-            android:paddingRight="@dimen/gridlayout.padding.extra"
-            android:textSize="@dimen/cardview.text.size"
-            android:textColor="@color/text.grey"
-            android:textStyle="bold" />
+            android:paddingEnd="@dimen/gridlayout_padding_extra"
+            android:paddingLeft="@dimen/padding_default"
+            android:paddingRight="@dimen/gridlayout_padding_extra"
+            android:paddingStart="@dimen/padding_default"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/cardview_text_size"
+            android:textStyle="bold"
+            android:transitionName="@string/transition_registered" />
 
         <TextView
             android:id="@+id/task_item_elapsed"
-            android:layout_width="wrap_content"
+            android:layout_width="1dp"
             android:layout_height="wrap_content"
             android:layout_column="3"
+            android:layout_gravity="fill_horizontal"
             android:layout_row="3"
-            android:textSize="@dimen/cardview.text.size"
-            android:textColor="@color/text.grey"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/padding_default"
+            android:paddingRight="@dimen/padding_default"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/cardview_text_size"
             android:textStyle="bold" />
 
     </GridLayout>

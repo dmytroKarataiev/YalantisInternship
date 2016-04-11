@@ -24,16 +24,16 @@
 
 <resources>
     <!-- Different not grouped dimensions -->
-    <dimen name="fab.margin">16dp</dimen>
-    <dimen name="padding.default">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="padding_default">16dp</dimen>
 
     <!-- Drawer Layout Dimensions -->
-    <dimen name="drawer.header.height">134dp</dimen>
-    <dimen name="drawer.view.width">346dp</dimen>
-    <dimen name="drawer.header.text.size">26sp</dimen>
-    <dimen name="drawer.header.text.padding">26dp</dimen>
+    <dimen name="drawer_header_height">134dp</dimen>
+    <dimen name="drawer_view_width">346dp</dimen>
+    <dimen name="drawer_header_text_size">26sp</dimen>
+    <dimen name="drawer_header_text_padding">26dp</dimen>
 
-    <!-- RecycerView dimensions -->
+    <!-- RecyclerView dimensions -->
     <dimen name="recycler_minheight">200dp</dimen>
     <dimen name="recycler_padding">8dp</dimen>
 
@@ -51,22 +51,21 @@
     <dimen name="poster_height">300dp</dimen>
 
     <!-- Task Item Dimensions -->
-    <dimen name="cardview.height">153dp</dimen>
-    <dimen name="cardview.corner.radius">16dp</dimen>
-    <dimen name="cardview.likes.padding">8dp</dimen>
-    <dimen name="cardview.image.paddingBottom">64dp</dimen>
-    <dimen name="cardview.image.paddingTop">18dp</dimen>
-    <dimen name="cardview.text.type.paddingBottom">36dp</dimen>
-    <dimen name="cardview.task.padding">8dp</dimen>
-    <dimen name="cardview.registered.paddingRight">70dp</dimen>
-    <dimen name="cardview.padding">16dp</dimen>
-    <dimen name="cardview.text.type.size">18sp</dimen>
-    <dimen name="cardview.text.size">17sp</dimen>
+    <dimen name="cardview_height">153dp</dimen>
+    <dimen name="cardview_corner_radius">16dp</dimen>
+    <dimen name="cardview_likes_padding">8dp</dimen>
+    <dimen name="cardview_image_paddingBottom">64dp</dimen>
+    <dimen name="cardview_image_paddingTop">18dp</dimen>
+    <dimen name="cardview_text_type_paddingBottom">36dp</dimen>
+    <dimen name="cardview_task_padding">8dp</dimen>
+    <dimen name="cardview_registered_paddingRight">70dp</dimen>
+    <dimen name="cardview_padding">16dp</dimen>
+    <dimen name="cardview_text_type_size">18sp</dimen>
+    <dimen name="cardview_text_size">17sp</dimen>
 
     <!-- Task Item Dimensions GridLayout -->
-    <dimen name="gridlayout.image.padding">35dp</dimen>
-    <dimen name="gridlayout.height">75dp</dimen>
-    <dimen name="gridlayout.text.height">25dp</dimen>
-    <dimen name="gridlayout.padding.extra">75dp</dimen>
+    <dimen name="gridlayout_image_padding">35dp</dimen>
+    <dimen name="gridlayout_height">75dp</dimen>
+    <dimen name="gridlayout_padding_extra">45dp</dimen>
 
 </resources>

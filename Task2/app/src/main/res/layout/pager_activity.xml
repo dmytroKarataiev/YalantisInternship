@@ -52,7 +52,7 @@
             app:tabMode="fixed"
             app:tabIndicatorColor="@android:color/white"
             app:tabSelectedTextColor="@android:color/white"
-            app:tabTextColor="@color/default.unselected"
+            app:tabTextColor="@color/default_unselected"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize" />
 
@@ -69,7 +69,7 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab.margin"
+        android:layout_margin="@dimen/fab_margin"
         android:layout_gravity="end|bottom"
         android:src="@drawable/plus"
         app:layout_behavior="com.adkdevelopment.e_contact.utils.FabHideOnScroll" />

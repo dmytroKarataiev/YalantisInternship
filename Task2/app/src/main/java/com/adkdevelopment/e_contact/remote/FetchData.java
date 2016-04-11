@@ -44,7 +44,7 @@ import java.util.List;
  */
 public class FetchData extends AsyncTask<Void, Void, Void> {
 
-    private Context mContext;
+    private final Context mContext;
     private static final String TAG = FetchData.class.getSimpleName();
 
     public FetchData(Context context) {
@@ -54,7 +54,6 @@ public class FetchData extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
-
         List<RSSNewsItem> mItemList = null;
 
         try {
@@ -86,15 +85,18 @@ public class FetchData extends AsyncTask<Void, Void, Void> {
 
                 // retrieve id of just inserted row and put it in a table, where it is a foreign key for photos
                 long id = ContentUris.parseId(resolver.insert(TasksColumns.CONTENT_URI, tasksItems));
+
                 for (String photo : each.getPhoto()) {
                     ContentValues photoValues = new ContentValues();
                     photoValues.put(PhotosColumns.TASK_ID, id);
                     photoValues.put(PhotosColumns.URL, photo);
                     resolver.insert(PhotosColumns.CONTENT_URI, photoValues);
                 }
+
             }
             mContext.getContentResolver().notifyChange(TasksColumns.CONTENT_URI, null, false);
         }
+
         return null;
     }
 }

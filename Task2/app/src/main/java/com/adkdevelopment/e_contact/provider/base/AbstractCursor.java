@@ -1,23 +1,22 @@
 package com.adkdevelopment.e_contact.provider.base;
 
-import java.util.Date;
-import java.util.HashMap;
-
 import android.database.Cursor;
 import android.database.CursorWrapper;
-import android.provider.BaseColumns;
+
+import java.util.Date;
+import java.util.HashMap;
 
 public abstract class AbstractCursor extends CursorWrapper {
     private final HashMap<String, Integer> mColumnIndexes;
 
-    public AbstractCursor(Cursor cursor) {
+    protected AbstractCursor(Cursor cursor) {
         super(cursor);
-        mColumnIndexes = new HashMap<String, Integer>(cursor.getColumnCount() * 4 / 3, .75f);
+        mColumnIndexes = new HashMap<>(cursor.getColumnCount() * 4 / 3, .75f);
     }
 
     public abstract long getId();
 
-    protected int getCachedColumnIndexOrThrow(String colName) {
+    private int getCachedColumnIndexOrThrow(String colName) {
         Integer index = mColumnIndexes.get(colName);
         if (index == null) {
             index = getColumnIndexOrThrow(colName);
@@ -26,19 +25,19 @@ public abstract class AbstractCursor extends CursorWrapper {
         return index;
     }
 
-    public String getStringOrNull(String colName) {
+    protected String getStringOrNull(String colName) {
         int index = getCachedColumnIndexOrThrow(colName);
         if (isNull(index)) return null;
         return getString(index);
     }
 
-    public Integer getIntegerOrNull(String colName) {
+    protected Integer getIntegerOrNull(String colName) {
         int index = getCachedColumnIndexOrThrow(colName);
         if (isNull(index)) return null;
         return getInt(index);
     }
 
-    public Long getLongOrNull(String colName) {
+    protected Long getLongOrNull(String colName) {
         int index = getCachedColumnIndexOrThrow(colName);
         if (isNull(index)) return null;
         return getLong(index);
@@ -50,7 +49,7 @@ public abstract class AbstractCursor extends CursorWrapper {
         return getFloat(index);
     }
 
-    public Double getDoubleOrNull(String colName) {
+    protected Double getDoubleOrNull(String colName) {
         int index = getCachedColumnIndexOrThrow(colName);
         if (isNull(index)) return null;
         return getDouble(index);

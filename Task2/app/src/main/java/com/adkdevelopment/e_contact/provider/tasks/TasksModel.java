@@ -1,11 +1,8 @@
 package com.adkdevelopment.e_contact.provider.tasks;
 
-import com.adkdevelopment.e_contact.provider.base.BaseModel;
-
-import java.util.Date;
-
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import com.adkdevelopment.e_contact.provider.base.BaseModel;
 
 /**
  * A task object

@@ -1,0 +1,52 @@
+<!--
+  ~ The MIT License (MIT)
+  ~
+  ~ Copyright (c) 2016.  Dmytro Karataiev
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<resources>
+    <string name="app_name">Стажування в Yalantis </string>
+    <string name="action_settings">Налаштування</string>
+    <string name="task_asctionbar_title">Завдання:</string>
+
+    <!-- Task Detailed Fragment Strings -->
+    <string name="task_title_text">Комунальне господарство</string>
+    <string name="task_status">В роботі</string>
+    <string name="task_created_text">Створено</string>
+    <string name="task_registered_text">Зареєстровано</string>
+    <string name="task_assigned_text">Виконати до</string>
+    <string name="task_responsible_text">Відподівальний</string>
+    <string name="task_responsible_name">Дніпропетровський МВК </string>
+
+
+    <string name="task_description">Колись-то давно, не з моєї пам\'яті, мабуть, ще й батьків і дідів наших не було на світі, жив собі убогий чоловік з жінкою, а у них був одним один син, та й той не такий як треба: таке ледащо той одинчик, що господи!</string>
+
+    <string name="task_created_date">27 січня 2016</string>
+    <string name="task_registered_date">27 січня 2016</string>
+    <string name="task_assigned_date">27 січня 2016</string>
+
+    <string name="button_new_task">Відправити нове завдання!</string>
+    <string name="task_image_text">Зображення: </string>
+    <string name="task_owner">Комунальне господарство</string>
+    <string name="list_empty">Упс! Щось пішло не так. Будь ласка перевірте з\'єднання з інтернетом та спробуйте ще раз.</string>
+    <string name="action_share">Поділитись</string>
+
+</resources>

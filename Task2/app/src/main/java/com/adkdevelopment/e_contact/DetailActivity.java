@@ -60,7 +60,7 @@ public class DetailActivity extends AppCompatActivity {
         RSSNewsItem rssNewsItem = getData();
 
         // Set the title bar with Task title
-        String actionbarTitle = getString(R.string.task_asctionbar_title) + " " + rssNewsItem.getTitle();
+        String actionbarTitle = getString(R.string.task_actionbar_title) + " " + rssNewsItem.getTitle();
         getSupportActionBar().setTitle(actionbarTitle);
 
     }

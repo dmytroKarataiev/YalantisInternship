@@ -42,7 +42,6 @@ import butterknife.ButterKnife;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
     @Bind(R.id.toolbar) Toolbar mToolbar;
 
     @Override
@@ -73,20 +72,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
         // Add a marker in Dnipropetrovsk (Yalantis office) and move the camera
         LatLng dnipr = new LatLng(48.4517867, 35.0669826);
         int defaultZoom = 12;
 
-        mMap.addMarker(new MarkerOptions().position(dnipr).title(getString(R.string.map_marker)));
+        googleMap.addMarker(new MarkerOptions().position(dnipr).title(getString(R.string.map_marker)));
 
         CameraPosition cameraPosition = CameraPosition.builder()
                 .target(dnipr)
                 .zoom(defaultZoom)
                 .build();
 
-        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
     @Override

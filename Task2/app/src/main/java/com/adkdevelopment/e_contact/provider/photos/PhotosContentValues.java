@@ -1,11 +1,8 @@
 package com.adkdevelopment.e_contact.provider.photos;
 
-import java.util.Date;
-
-import android.content.Context;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.adkdevelopment.e_contact.provider.base.AbstractContentValues;
@@ -32,7 +29,7 @@ public class PhotosContentValues extends AbstractContentValues {
     /**
      * Update row(s) using the values stored by this object and the given selection.
      *
-     * @param contentResolver The content resolver to use.
+     * @param context contentResolver The content resolver to use.
      * @param where The selection to use (can be {@code null}).
      */
     public int update(Context context, @Nullable PhotosSelection where) {
@@ -42,8 +39,8 @@ public class PhotosContentValues extends AbstractContentValues {
     /**
      * URL
      */
-    public PhotosContentValues putUrl(@NonNull String value) {
-        if (value == null) throw new IllegalArgumentException("url must not be null");
+    public PhotosContentValues putUrl(String value) {
+        if (value.length() < 1) throw new IllegalArgumentException("url must not be null");
         mContentValues.put(PhotosColumns.URL, value);
         return this;
     }

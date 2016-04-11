@@ -1,6 +1,5 @@
 package com.adkdevelopment.e_contact.provider.photos;
 
-import java.util.Date;
 
 import android.database.Cursor;
 import android.support.annotation.NonNull;
@@ -65,8 +64,7 @@ public class PhotosCursor extends AbstractCursor implements PhotosModel {
      */
     @Nullable
     public Integer getTasksStatus() {
-        Integer res = getIntegerOrNull(TasksColumns.STATUS);
-        return res;
+        return getIntegerOrNull(TasksColumns.STATUS);
     }
 
     /**
@@ -75,8 +73,7 @@ public class PhotosCursor extends AbstractCursor implements PhotosModel {
      */
     @Nullable
     public Integer getTasksType() {
-        Integer res = getIntegerOrNull(TasksColumns.TYPE);
-        return res;
+        return getIntegerOrNull(TasksColumns.TYPE);
     }
 
     /**
@@ -85,8 +82,7 @@ public class PhotosCursor extends AbstractCursor implements PhotosModel {
      */
     @Nullable
     public String getTasksDescription() {
-        String res = getStringOrNull(TasksColumns.DESCRIPTION);
-        return res;
+        return getStringOrNull(TasksColumns.DESCRIPTION);
     }
 
     /**
@@ -95,8 +91,7 @@ public class PhotosCursor extends AbstractCursor implements PhotosModel {
      */
     @Nullable
     public String getTasksAddress() {
-        String res = getStringOrNull(TasksColumns.ADDRESS);
-        return res;
+        return getStringOrNull(TasksColumns.ADDRESS);
     }
 
     /**
@@ -105,8 +100,7 @@ public class PhotosCursor extends AbstractCursor implements PhotosModel {
      */
     @Nullable
     public String getTasksResponsible() {
-        String res = getStringOrNull(TasksColumns.RESPONSIBLE);
-        return res;
+        return getStringOrNull(TasksColumns.RESPONSIBLE);
     }
 
     /**
@@ -115,8 +109,7 @@ public class PhotosCursor extends AbstractCursor implements PhotosModel {
      */
     @Nullable
     public Long getTasksDateCreated() {
-        Long res = getLongOrNull(TasksColumns.DATE_CREATED);
-        return res;
+        return getLongOrNull(TasksColumns.DATE_CREATED);
     }
 
     /**
@@ -125,8 +118,7 @@ public class PhotosCursor extends AbstractCursor implements PhotosModel {
      */
     @Nullable
     public Long getTasksDateRegistered() {
-        Long res = getLongOrNull(TasksColumns.DATE_REGISTERED);
-        return res;
+        return getLongOrNull(TasksColumns.DATE_REGISTERED);
     }
 
     /**
@@ -135,8 +127,7 @@ public class PhotosCursor extends AbstractCursor implements PhotosModel {
      */
     @Nullable
     public Long getTasksDateAssigned() {
-        Long res = getLongOrNull(TasksColumns.DATE_ASSIGNED);
-        return res;
+        return getLongOrNull(TasksColumns.DATE_ASSIGNED);
     }
 
     /**
@@ -145,8 +136,7 @@ public class PhotosCursor extends AbstractCursor implements PhotosModel {
      */
     @Nullable
     public Double getTasksLongitude() {
-        Double res = getDoubleOrNull(TasksColumns.LONGITUDE);
-        return res;
+        return getDoubleOrNull(TasksColumns.LONGITUDE);
     }
 
     /**
@@ -155,8 +145,7 @@ public class PhotosCursor extends AbstractCursor implements PhotosModel {
      */
     @Nullable
     public Double getTasksLatitude() {
-        Double res = getDoubleOrNull(TasksColumns.LATITUDE);
-        return res;
+        return getDoubleOrNull(TasksColumns.LATITUDE);
     }
 
     /**
@@ -165,7 +154,6 @@ public class PhotosCursor extends AbstractCursor implements PhotosModel {
      */
     @Nullable
     public Integer getTasksLikes() {
-        Integer res = getIntegerOrNull(TasksColumns.LIKES);
-        return res;
+        return getIntegerOrNull(TasksColumns.LIKES);
     }
 }

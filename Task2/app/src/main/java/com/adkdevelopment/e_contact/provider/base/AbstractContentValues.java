@@ -11,12 +11,12 @@ public abstract class AbstractContentValues {
     /**
      * Returns the {@code uri} argument to pass to the {@code ContentResolver} methods.
      */
-    public abstract Uri uri();
+    protected abstract Uri uri();
 
     /**
      * Returns the {@code ContentValues} wrapped by this object.
      */
-    public ContentValues values() {
+    protected ContentValues values() {
         return mContentValues;
     }
 

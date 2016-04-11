@@ -1,9 +1,6 @@
 package com.adkdevelopment.e_contact.provider.tasks;
 
-import java.util.Date;
-
 import android.database.Cursor;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.adkdevelopment.e_contact.provider.base.AbstractCursor;
@@ -42,8 +39,7 @@ public class TasksCursor extends AbstractCursor implements TasksModel {
      */
     @Nullable
     public Integer getStatus() {
-        Integer res = getIntegerOrNull(TasksColumns.STATUS);
-        return res;
+        return getIntegerOrNull(TasksColumns.STATUS);
     }
 
     /**
@@ -52,8 +48,7 @@ public class TasksCursor extends AbstractCursor implements TasksModel {
      */
     @Nullable
     public Integer getType() {
-        Integer res = getIntegerOrNull(TasksColumns.TYPE);
-        return res;
+        return getIntegerOrNull(TasksColumns.TYPE);
     }
 
     /**
@@ -62,8 +57,7 @@ public class TasksCursor extends AbstractCursor implements TasksModel {
      */
     @Nullable
     public String getDescription() {
-        String res = getStringOrNull(TasksColumns.DESCRIPTION);
-        return res;
+        return getStringOrNull(TasksColumns.DESCRIPTION);
     }
 
     /**
@@ -72,8 +66,7 @@ public class TasksCursor extends AbstractCursor implements TasksModel {
      */
     @Nullable
     public String getAddress() {
-        String res = getStringOrNull(TasksColumns.ADDRESS);
-        return res;
+        return getStringOrNull(TasksColumns.ADDRESS);
     }
 
     /**
@@ -82,8 +75,7 @@ public class TasksCursor extends AbstractCursor implements TasksModel {
      */
     @Nullable
     public String getResponsible() {
-        String res = getStringOrNull(TasksColumns.RESPONSIBLE);
-        return res;
+        return getStringOrNull(TasksColumns.RESPONSIBLE);
     }
 
     /**
@@ -92,8 +84,7 @@ public class TasksCursor extends AbstractCursor implements TasksModel {
      */
     @Nullable
     public Long getDateCreated() {
-        Long res = getLongOrNull(TasksColumns.DATE_CREATED);
-        return res;
+        return getLongOrNull(TasksColumns.DATE_CREATED);
     }
 
     /**
@@ -102,8 +93,7 @@ public class TasksCursor extends AbstractCursor implements TasksModel {
      */
     @Nullable
     public Long getDateRegistered() {
-        Long res = getLongOrNull(TasksColumns.DATE_REGISTERED);
-        return res;
+        return getLongOrNull(TasksColumns.DATE_REGISTERED);
     }
 
     /**
@@ -112,8 +102,7 @@ public class TasksCursor extends AbstractCursor implements TasksModel {
      */
     @Nullable
     public Long getDateAssigned() {
-        Long res = getLongOrNull(TasksColumns.DATE_ASSIGNED);
-        return res;
+        return getLongOrNull(TasksColumns.DATE_ASSIGNED);
     }
 
     /**
@@ -122,8 +111,7 @@ public class TasksCursor extends AbstractCursor implements TasksModel {
      */
     @Nullable
     public Double getLongitude() {
-        Double res = getDoubleOrNull(TasksColumns.LONGITUDE);
-        return res;
+        return getDoubleOrNull(TasksColumns.LONGITUDE);
     }
 
     /**
@@ -132,8 +120,7 @@ public class TasksCursor extends AbstractCursor implements TasksModel {
      */
     @Nullable
     public Double getLatitude() {
-        Double res = getDoubleOrNull(TasksColumns.LATITUDE);
-        return res;
+        return getDoubleOrNull(TasksColumns.LATITUDE);
     }
 
     /**
@@ -142,7 +129,6 @@ public class TasksCursor extends AbstractCursor implements TasksModel {
      */
     @Nullable
     public Integer getLikes() {
-        Integer res = getIntegerOrNull(TasksColumns.LIKES);
-        return res;
+        return getIntegerOrNull(TasksColumns.LIKES);
     }
 }

@@ -28,7 +28,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -54,9 +53,12 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
+ * Fragment with two adapters to show that I can handle both RecyclerView and ListView.
+ * I didn't want to separate it in two different classes as they would've had too many repetitive code
  * Created by karataev on 4/8/16.
  */
-public class TasksFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, SharedPreferences.OnSharedPreferenceChangeListener {
+public class TasksFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>,
+        SharedPreferences.OnSharedPreferenceChangeListener {
 
     // indices tied to the Tasks Columns, if they change - these must change
     public static final int COL_TASKS_ID = 0;
@@ -74,7 +76,6 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
     private static final String ARG_SECTION_NUMBER = "section_number";
     private static final int CURSOR_LOADER_ID = 0;
 
-    private static final String TAG = TasksFragment.class.getSimpleName();
     private Cursor mCursor;
     private TasksAdapter mTasksAdapter;
     private ListviewAdapter mListviewAdapter;
@@ -106,9 +107,8 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
         super.onActivityCreated(savedInstanceState);
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.tasks_layout, container, false);
         ButterKnife.bind(this, rootView);
@@ -116,7 +116,7 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
         if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
             mRecyclerView.setVisibility(View.GONE);
 
-            mListviewAdapter = new ListviewAdapter(getContext(), mCursor, 0);
+            mListviewAdapter = new ListviewAdapter(getActivity(), mCursor, 0);
             mListview.setAdapter(mListviewAdapter);
 
             ViewCompat.setNestedScrollingEnabled(mListview, true);
@@ -127,13 +127,12 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
                 public void onScrollStateChanged(AbsListView view, int scrollState) {}
 
                 @Override
-                public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
+                public void onScroll(AbsListView view, int firstVisibleItem,
+                                     int visibleItemCount, int totalItemCount) {
                     int topRowVerticalPosition =
                             (mListview == null || mListview.getChildCount() == 0) ?
                                     0 : mListview.getChildAt(0).getTop();
                     mSwipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
-
                 }
             });
 
@@ -192,7 +191,6 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-
         // depending on the argument - query the contentprovider to receive relevant data
         // that's how we can reuse this fragment for different purposes
         int request = args.getInt(ARG_SECTION_NUMBER);
@@ -285,12 +283,14 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
     @Override
     public void onDestroy() {
         super.onDestroy();
-        PreferenceManager.getDefaultSharedPreferences(getContext()).unregisterOnSharedPreferenceChangeListener(this);
+        PreferenceManager.getDefaultSharedPreferences(getContext())
+                .unregisterOnSharedPreferenceChangeListener(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        PreferenceManager.getDefaultSharedPreferences(getContext()).registerOnSharedPreferenceChangeListener(this);
+        PreferenceManager.getDefaultSharedPreferences(getContext())
+                .registerOnSharedPreferenceChangeListener(this);
     }
 }

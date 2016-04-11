@@ -30,11 +30,11 @@
     tools:showIn="@layout/detail_activity">
 
     <RelativeLayout
-        android:focusableInTouchMode="true"
         android:id="@+id/relative_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding.default">
+        android:focusableInTouchMode="true"
+        android:padding="@dimen/padding_default">
 
         <RelativeLayout
             android:id="@+id/task_title"
@@ -44,25 +44,26 @@
             <TextView
                 android:id="@+id/task_title_text"
                 style="@style/TaskNames"
-                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
-                android:text="@string/task_title_text" />
+                android:text="@string/task_title_text"
+                android:textStyle="bold"
+                android:transitionName="@string/transition_type" />
 
             <TextView
                 android:id="@+id/task_status"
+                style="@style/StatusSign"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/toolbar"
+                android:layout_centerInParent="true"
                 android:background="@drawable/oval"
-                android:text="@string/task_status"
-                style="@style/StatusSign" />
+                android:text="@string/task_status" />
 
         </RelativeLayout>
 
@@ -118,7 +119,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@id/divider2"
-            android:text="@string/task_registered_date" />
+            android:text="@string/task_registered_date"
+            android:transitionName="@string/transition_registered" />
 
         <View
             android:id="@+id/divider3"
@@ -193,11 +195,11 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/my_recycler_view"
-            android:paddingTop="@dimen/recycler_padding"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/task_description"
             android:minHeight="@dimen/recycler_minheight"
+            android:paddingTop="@dimen/recycler_padding"
             android:scrollbars="horizontal" />
 
 

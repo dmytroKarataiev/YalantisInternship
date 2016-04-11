@@ -33,7 +33,7 @@
 
     <android.support.design.widget.NavigationView
         android:id="@+id/drawer_view_navigation"
-        android:layout_width="@dimen/drawer.view.width"
+        android:layout_width="@dimen/drawer_view_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
@@ -41,35 +41,16 @@
         app:itemTextColor="@android:color/black"
         app:menu="@menu/menu_drawer">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/drawer_footer_links"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/empty_spacer"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:clickable="false" />
-
-            <TextView
-                android:id="@+id/drawer_footer_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/padding.default"
-                android:paddingRight="@dimen/padding.default"
-                android:text="@string/drawer.footer.yalantis" />
-
-            <TextView
-                android:id="@+id/drawer_footer_links"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/padding.default"
-                android:paddingLeft="@dimen/padding.default"
-                android:paddingRight="@dimen/padding.default" />
-
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:linksClickable="true"
+            android:paddingBottom="@dimen/padding_default"
+            android:paddingLeft="@dimen/padding_default"
+            android:paddingRight="@dimen/padding_default"
+            android:text="@string/drawer_footer_links" />
 
     </android.support.design.widget.NavigationView>
 

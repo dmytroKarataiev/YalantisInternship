@@ -25,6 +25,7 @@
 package com.adkdevelopment.e_contact.remote;
 
 /**
+ * Basic interface to the Retrofit
  * Created by karataev on 4/8/16.
  */
 
@@ -39,7 +40,4 @@ import retrofit2.http.GET;
 public interface RSSService {
     @GET("download/photos/data.json")
     Call<List<RSSNewsItem>> getData();
-
-    @GET("download/photos/dataua.json")
-    Call<List<RSSNewsItem>> getUaData();
 }

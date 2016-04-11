@@ -29,6 +29,6 @@
     <item
         android:id="@+id/menu_action_sort"
         app:showAsAction="ifRoom"
-        android:title="@string/menu.item.sort"
+        android:title="@string/menu_item_sort"
         android:icon="@drawable/filter" />
 </menu>

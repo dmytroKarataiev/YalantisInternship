@@ -1,10 +1,10 @@
 # Yalantis Android Internship Task #2
 * Application with a Pager and a Navigation Drawer.
 
-## Screen Design from Specifications
-![Initial Screen Design](task2_screen_initial.png)
+![Animated final screen](yalantis_task2.gif)
 
 ## Requirements
+* [Screen Design from Specifications](task2_screen_initial.png)
 * Create a screen with controls according to the specification.
 * The Application should contain 3 Tabs and a Navigation Drawer.
 * App should have at least 10 data entries.
@@ -20,12 +20,13 @@
 * ContentProvider, Loader to store data.
 * Retrofit client (singleton) to fetch data.
 * MapsActivity (don't forget to add Google Maps API key).
-* Filtering of the tasks.
+* Filtering of tasks.
 * ZoomOut transitions between Fragments.
+* SharedTransitions between activities.
 
 ## Possible improvements
 * Make Navigation Drawer narrower (wrap_content).
-* Change icons to density independent (place, list, menu)
+* Change icons to density independent (place, list, menu).
 
 ## Important
 * For the MapsActivity to work you must add api key to res/values/google_maps_api.xml as a

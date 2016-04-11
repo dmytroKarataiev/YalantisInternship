@@ -25,9 +25,9 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/popup_filter_all"
-        android:title="@string/menu.item.sort.all" />
+        android:title="@string/menu_item_sort_all" />
     <item android:id="@+id/popup_filter_public"
-        android:title="@string/menu.item.sort.public" />
+        android:title="@string/menu_item_sort_public" />
     <item android:id="@+id/popup_filter_improvement"
-        android:title="@string/menu.item.sort.improvement" />
+        android:title="@string/menu_item_sort_improvement" />
 </menu>

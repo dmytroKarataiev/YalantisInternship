@@ -38,7 +38,7 @@
         <!-- Content Provider -->
         <provider
             android:name=".provider.TasksProvider"
-            android:authorities="@string/contentprovider.authority"
+            android:authorities="@string/contentprovider_authority"
             android:exported="false" />
 
         <activity

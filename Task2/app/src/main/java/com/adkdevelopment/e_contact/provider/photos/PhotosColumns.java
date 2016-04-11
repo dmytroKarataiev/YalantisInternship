@@ -4,7 +4,6 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 
 import com.adkdevelopment.e_contact.provider.TasksProvider;
-import com.adkdevelopment.e_contact.provider.photos.PhotosColumns;
 import com.adkdevelopment.e_contact.provider.tasks.TasksColumns;
 
 /**

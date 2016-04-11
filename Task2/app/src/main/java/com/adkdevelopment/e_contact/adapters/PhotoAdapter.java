@@ -77,12 +77,13 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
 
+        final int imagePosition = position;
         // Download image from the internet, onError - use a drawable
         Picasso
                 .with(mContext)
-                .load(mDataset.get(position))
+                .load(mDataset.get(imagePosition))
                 .error(R.drawable.image_placeholder)
                 .into(holder.mImageView);
         holder.mImageView.setContentDescription(mContext.getString(R.string.task_image_text));
@@ -92,7 +93,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
             @Override
             public void onClick(View v) {
                 Toast.makeText(mContext,
-                        mContext.getString(R.string.task_image_text) + " " + position,
+                        mContext.getString(R.string.task_image_text) + " " + imagePosition,
                         Toast.LENGTH_SHORT)
                         .show();
             }
