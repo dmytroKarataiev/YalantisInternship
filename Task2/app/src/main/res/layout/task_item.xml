@@ -51,8 +51,7 @@
                 android:paddingBottom="@dimen/cardview.image.paddingBottom"
                 android:paddingLeft="@dimen/cardview.padding"
                 android:paddingRight="@dimen/cardview.padding"
-                android:paddingTop="@dimen/cardview.image.paddingTop"
-                android:src="@drawable/books" />
+                android:paddingTop="@dimen/cardview.image.paddingTop" />
 
             <TextView
                 android:id="@+id/task_item_likes_text"

@@ -23,9 +23,9 @@
   -->
 
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- Different not grouped dimensions -->
+    <dimen name="fab.margin">16dp</dimen>
+    <dimen name="padding.default">16dp</dimen>
 
     <!-- Drawer Layout Dimensions -->
     <dimen name="drawer.header.height">134dp</dimen>
@@ -33,14 +33,11 @@
     <dimen name="drawer.header.text.size">26sp</dimen>
     <dimen name="drawer.header.text.padding">26dp</dimen>
 
-    <dimen name="fab.margin">16dp</dimen>
-
-    <dimen name="padding.default">16dp</dimen>
-
     <!-- RecycerView dimensions -->
     <dimen name="recycler_minheight">200dp</dimen>
     <dimen name="recycler_padding">8dp</dimen>
 
+    <!-- Details View Dimensions -->
     <dimen name="task_text_size">16sp</dimen>
     <dimen name="task_text_padding">8dp</dimen>
     <dimen name="task_text_padding_side">8dp</dimen>
@@ -70,7 +67,6 @@
     <dimen name="gridlayout.image.padding">35dp</dimen>
     <dimen name="gridlayout.height">75dp</dimen>
     <dimen name="gridlayout.text.height">25dp</dimen>
-
     <dimen name="gridlayout.padding.extra">75dp</dimen>
 
 </resources>

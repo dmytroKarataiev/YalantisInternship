@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact;
+package com.adkdevelopment.e_contact.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -32,6 +32,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.adkdevelopment.e_contact.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

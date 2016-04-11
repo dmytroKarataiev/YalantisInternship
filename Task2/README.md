@@ -1,7 +1,6 @@
 # Yalantis Android Internship Task #2
 * Application with a Pager and a Navigation Drawer.
 
-
 ## Screen Design from Specifications
 ![Initial Screen Design](task2_screen_initial.png)
 
@@ -17,9 +16,21 @@
 * Floating Action Button hide on swipe with animation.
 * Only portrait orientation.
 
+## Additionally implemented
+* ContentProvider, Loader to store data.
+* Retrofit client (singleton) to fetch data.
+* MapsActivity (don't forget to add Google Maps API key).
+* Filtering of the tasks.
+* ZoomOut transitions between Fragments.
+
 ## Possible improvements
 * Make Navigation Drawer narrower (wrap_content).
 * Change icons to density independent (place, list, menu)
 
+## Important
+* For the MapsActivity to work you must add api key to res/values/google_maps_api.xml as a
+\<string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">API KEY\</string>
+
 ## Link to used resources
-* Launcher icon was taken from here: http://gsg.usc.edu/sites/gsg.usc.edu/files/yellow_arrow_circle.png
+* Launcher icon: http://gsg.usc.edu/sites/gsg.usc.edu/files/yellow_arrow_circle.png
+* Gear icon: http://plainicon.com/download-icon/45939/wrench-gear

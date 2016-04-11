@@ -144,7 +144,26 @@ public class Utilities {
                 return context.getString(R.string.type_repair);
             default:
                 return context.getString(R.string.type_unknown);
+        }
+    }
 
+    /**
+     * Helper class to get int of a Drawable of work types according to a database schema
+     * @param type int status representation
+     * @return int Drawable of the status
+     */
+    public static int getTypeIcon(int type) {
+        switch (type) {
+            case 0:
+                return R.drawable.other;
+            case 1:
+                return R.drawable.gear;
+            case 2:
+                return R.drawable.paint;
+            case 3:
+                return R.drawable.paint;
+            default:
+                return R.drawable.other;
         }
     }
 
@@ -164,7 +183,6 @@ public class Utilities {
                 return context.getString(R.string.status_waiting);
             default:
                 return context.getString(R.string.status_unknown);
-
         }
     }
 }

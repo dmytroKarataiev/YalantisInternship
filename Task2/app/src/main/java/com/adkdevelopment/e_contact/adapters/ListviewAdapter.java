@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact;
+package com.adkdevelopment.e_contact.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -35,7 +35,9 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.adkdevelopment.e_contact.provider.tasks.TasksColumns;
+import com.adkdevelopment.e_contact.DetailActivity;
+import com.adkdevelopment.e_contact.R;
+import com.adkdevelopment.e_contact.TasksFragment;
 import com.adkdevelopment.e_contact.remote.RSSNewsItem;
 import com.adkdevelopment.e_contact.utils.Utilities;
 
@@ -43,6 +45,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
+ * Simple CursorAdapter which populates ListView from the database
  * Created by karataev on 4/9/16.
  */
 public class ListviewAdapter extends CursorAdapter {
@@ -61,30 +64,28 @@ public class ListviewAdapter extends CursorAdapter {
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        return LayoutInflater.from(context).inflate(R.layout.task_item, parent, false);
+        return LayoutInflater.from(context).inflate(R.layout.task_item_grid, parent, false);
     }
 
     @Override
     public void bindView(View view, final Context context, Cursor cursor) {
         ButterKnife.bind(this, view);
 
-        // todo add id's constants
-        final int uniqueId = cursor.getInt(cursor.getColumnIndex(TasksColumns._ID));
-        final String title = cursor.getString(cursor.getColumnIndex(TasksColumns.TITLE));
-        final int type = cursor.getInt(cursor.getColumnIndex(TasksColumns.TYPE));
-        final int status = cursor.getInt(cursor.getColumnIndex(TasksColumns.STATUS));
-        final long created = cursor.getLong(cursor.getColumnIndex(TasksColumns.DATE_REGISTERED));
-        final long registered = cursor.getLong(cursor.getColumnIndex(TasksColumns.DATE_REGISTERED));
-        final long assigned = cursor.getLong(cursor.getColumnIndex(TasksColumns.DATE_REGISTERED));
-        final String responsible = cursor.getString(cursor.getColumnIndex(TasksColumns.RESPONSIBLE));
-        final String description = cursor.getString(cursor.getColumnIndex(TasksColumns.DESCRIPTION));
+        final int uniqueId = cursor.getInt(TasksFragment.COL_TASKS_ID);
+        final String title = cursor.getString(TasksFragment.COL_TASKS_TITLE);
+        final int type = cursor.getInt(TasksFragment.COL_TASKS_TYPE);
+        final int status = cursor.getInt(TasksFragment.COL_TASKS_STATUS);
+        final long created = cursor.getLong(TasksFragment.COL_TASKS_CREATED);
+        final long registered = cursor.getLong(TasksFragment.COL_TASKS_REGISTERED);
+        final long assigned = cursor.getLong(TasksFragment.COL_TASKS_ASSIGNED);
+        final String responsible = cursor.getString(TasksFragment.COL_TASKS_RESPONSIBLE);
+        final String description = cursor.getString(TasksFragment.COL_TASKS_DESCRIPTION);
+        int likes = cursor.getInt(TasksFragment.COL_TASKS_LIKES);
+        String address = cursor.getString(TasksFragment.COL_TASKS_ADDRESS);
 
-        int likes = cursor.getInt(cursor.getColumnIndex(TasksColumns.LIKES));
-        String address = cursor.getString(cursor.getColumnIndex(TasksColumns.ADDRESS));
-
-        // TODO: fix likes, add address helper method
+        mTypeImage.setImageResource(Utilities.getTypeIcon(type));
         mTypeText.setText(Utilities.getType(context, type));
-        mLikesText.setText("" + likes);
+        mLikesText.setText(String.valueOf(likes));
         mAddress.setText(address);
         mRegistered.setText(Utilities.getFormattedDate(registered));
         mElapsed.setText(Utilities.getRelativeDate(registered));

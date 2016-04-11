@@ -57,4 +57,8 @@ dependencies {
     // data fetching and converting to objects
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+
+    // Maps dependency
+    compile 'com.google.android.gms:play-services-maps:8.4.0'
+
 }

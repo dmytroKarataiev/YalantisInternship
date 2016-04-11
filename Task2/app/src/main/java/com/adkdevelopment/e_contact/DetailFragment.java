@@ -37,6 +37,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.adkdevelopment.e_contact.adapters.PhotoAdapter;
 import com.adkdevelopment.e_contact.provider.photos.PhotosColumns;
 import com.adkdevelopment.e_contact.remote.RSSNewsItem;
 import com.adkdevelopment.e_contact.utils.Utilities;

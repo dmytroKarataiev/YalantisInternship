@@ -34,7 +34,7 @@
         android:id="@+id/relative_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/activity_vertical_margin">
+        android:padding="@dimen/padding.default">
 
         <RelativeLayout
             android:id="@+id/task_title"
@@ -65,7 +65,6 @@
                 style="@style/StatusSign" />
 
         </RelativeLayout>
-
 
         <View
             android:id="@+id/divider1"

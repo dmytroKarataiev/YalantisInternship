@@ -86,3 +86,5 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+# Google Maps API Key
+google_maps_api.xml

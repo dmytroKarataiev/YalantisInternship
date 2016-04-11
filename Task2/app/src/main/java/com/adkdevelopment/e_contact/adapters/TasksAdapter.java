@@ -19,10 +19,10 @@
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * SOFTWARE. 
  */
 
-package com.adkdevelopment.e_contact;
+package com.adkdevelopment.e_contact.adapters;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -35,7 +35,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.adkdevelopment.e_contact.provider.tasks.TasksColumns;
+import com.adkdevelopment.e_contact.DetailActivity;
+import com.adkdevelopment.e_contact.R;
+import com.adkdevelopment.e_contact.TasksFragment;
 import com.adkdevelopment.e_contact.remote.RSSNewsItem;
 import com.adkdevelopment.e_contact.utils.CursorRecyclerViewAdapter;
 import com.adkdevelopment.e_contact.utils.Utilities;
@@ -44,12 +46,13 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
+ * Improved RecyclerViewAdapter to be able to get data from the cursor
  * Created by karataev on 4/8/16.
  */
 public class TasksAdapter extends CursorRecyclerViewAdapter<TasksAdapter.ViewHolder> {
 
     private final Activity mActivity;
-
+    
     // Provide a reference to the views for each data item
     public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
@@ -70,23 +73,21 @@ public class TasksAdapter extends CursorRecyclerViewAdapter<TasksAdapter.ViewHol
     @Override
     public void onBindViewHolder(TasksAdapter.ViewHolder viewHolder, Cursor cursor) {
 
-        // TODO: 4/9/16 add constants
-        final int uniqueId = cursor.getInt(cursor.getColumnIndex(TasksColumns._ID));
-        final String title = cursor.getString(cursor.getColumnIndex(TasksColumns.TITLE));
-        final int type = cursor.getInt(cursor.getColumnIndex(TasksColumns.TYPE));
-        final int status = cursor.getInt(cursor.getColumnIndex(TasksColumns.STATUS));
-        final long created = cursor.getLong(cursor.getColumnIndex(TasksColumns.DATE_REGISTERED));
-        final long registered = cursor.getLong(cursor.getColumnIndex(TasksColumns.DATE_REGISTERED));
-        final long assigned = cursor.getLong(cursor.getColumnIndex(TasksColumns.DATE_REGISTERED));
-        final String responsible = cursor.getString(cursor.getColumnIndex(TasksColumns.RESPONSIBLE));
-        final String description = cursor.getString(cursor.getColumnIndex(TasksColumns.DESCRIPTION));
+        final int uniqueId = cursor.getInt(TasksFragment.COL_TASKS_ID);
+        final String title = cursor.getString(TasksFragment.COL_TASKS_TITLE);
+        final int type = cursor.getInt(TasksFragment.COL_TASKS_TYPE);
+        final int status = cursor.getInt(TasksFragment.COL_TASKS_STATUS);
+        final long created = cursor.getLong(TasksFragment.COL_TASKS_CREATED);
+        final long registered = cursor.getLong(TasksFragment.COL_TASKS_REGISTERED);
+        final long assigned = cursor.getLong(TasksFragment.COL_TASKS_ASSIGNED);
+        final String responsible = cursor.getString(TasksFragment.COL_TASKS_RESPONSIBLE);
+        final String description = cursor.getString(TasksFragment.COL_TASKS_DESCRIPTION);
+        int likes = cursor.getInt(TasksFragment.COL_TASKS_LIKES);
+        String address = cursor.getString(TasksFragment.COL_TASKS_ADDRESS);
 
-        int likes = cursor.getInt(cursor.getColumnIndex(TasksColumns.LIKES));
-        String address = cursor.getString(cursor.getColumnIndex(TasksColumns.ADDRESS));
-
-        // TODO: fix likes
+        viewHolder.mTypeImage.setImageResource(Utilities.getTypeIcon(type));
         viewHolder.mTypeText.setText(Utilities.getType(mActivity, type));
-        viewHolder.mLikesText.setText("" + likes);
+        viewHolder.mLikesText.setText(String.valueOf(likes));
         viewHolder.mAddress.setText(address);
         viewHolder.mRegistered.setText(Utilities.getFormattedDate(registered));
         viewHolder.mElapsed.setText(Utilities.getRelativeDate(registered));
@@ -126,6 +127,7 @@ public class TasksAdapter extends CursorRecyclerViewAdapter<TasksAdapter.ViewHol
 
     public TasksAdapter(Activity activity, Cursor cursor) {
         super(activity, cursor);
+        // TODO: 4/11/16 shared transitions 
         // to support SharedTransitions we need activity
         mActivity = activity;
     }

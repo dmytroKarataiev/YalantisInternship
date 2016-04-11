@@ -27,6 +27,8 @@
     <string name="font.roboto.bold">Roboto-Bold.ttf</string>
     <string name="recyclerview.empty.text">Oops! Something is wrong. Please check your internet connection and try again.</string>
     <string name="contentprovider.authority">com.adkdevelopment.e_contact.provider</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="map.marker">Marker in Dnipropetrovsk</string>
 
     <!-- Navigation Drawer Strings -->
     <string name="drawer.title">@string/app_name</string>

@@ -45,8 +45,7 @@
             android:layout_rowSpan="2"
             android:contentDescription="@string/image.description.type"
             android:paddingLeft="@dimen/gridlayout.image.padding"
-            android:paddingRight="@dimen/gridlayout.image.padding"
-            android:src="@drawable/books" />
+            android:paddingRight="@dimen/gridlayout.image.padding" />
 
         <TextView
             android:id="@+id/task_item_likes_text"
@@ -90,7 +89,7 @@
         <TextView
             android:id="@+id/task_item_address"
             android:layout_width="1dp"
-            android:layout_height="@dimen/gridlayout.text.height"
+            android:layout_height="wrap_content"
             android:layout_column="2"
             android:layout_columnSpan="2"
             android:layout_gravity="fill_horizontal"
@@ -99,6 +98,7 @@
             android:gravity="bottom"
             android:maxLines="1"
             android:textSize="@dimen/cardview.text.size"
+            android:paddingBottom="@dimen/cardview.task.padding"
             android:paddingEnd="@dimen/padding.default"
             android:paddingLeft="@dimen/padding.default"
             android:paddingRight="@dimen/padding.default"

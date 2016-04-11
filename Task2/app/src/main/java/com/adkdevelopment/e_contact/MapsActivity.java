@@ -29,61 +29,64 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.adkdevelopment.e_contact.remote.RSSNewsItem;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Launches the window with detailed information about a task
- * If there is no outside data - shows "dummy data" from resources
- */
-public class DetailActivity extends AppCompatActivity {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
+    private GoogleMap mMap;
     @Bind(R.id.toolbar) Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.detail_activity);
+        setContentView(R.layout.maps_activity);
+
         ButterKnife.bind(this);
 
-        // Initialize a custom Toolbar
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
         setSupportActionBar(mToolbar);
 
         // Add back button to the actionbar
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
-        // populate the item with data
-        RSSNewsItem rssNewsItem = getData();
-
-        // Set the title bar with Task title
-        String actionbarTitle = getString(R.string.task_asctionbar_title) + " " + rssNewsItem.getTitle();
-        getSupportActionBar().setTitle(actionbarTitle);
-
     }
 
+
     /**
-     * Gets RSSNewsItem from the intent or creates it from the internal data
-     * @return RSSNewsItem object with the data
+     * Manipulates the map once available.
+     * Here we just put camera to Yalantis office position
+     * But we can call ContentProvider and populate map with markers...
      */
-    private RSSNewsItem getData() {
-        // If launched from the List Activity - get data from the intent
-        RSSNewsItem rssNewsItem;
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
 
-        if (getIntent().hasExtra(RSSNewsItem.TASKITEM)) {
-            rssNewsItem = getIntent().getParcelableExtra(RSSNewsItem.TASKITEM);
-        } else {
-            // Example data
-            rssNewsItem = new RSSNewsItem();
-            rssNewsItem.setTitle(getString(R.string.task_title_example));
-            rssNewsItem.setResponsible(getString(R.string.task_owner));
-            rssNewsItem.setStatus(1);
-        }
+        // Add a marker in Dnipropetrovsk (Yalantis office) and move the camera
+        LatLng dnipr = new LatLng(48.4517867, 35.0669826);
+        int defaultZoom = 12;
 
-        return rssNewsItem;
+        mMap.addMarker(new MarkerOptions().position(dnipr).title(getString(R.string.map_marker)));
+
+        CameraPosition cameraPosition = CameraPosition.builder()
+                .target(dnipr)
+                .zoom(defaultZoom)
+                .build();
+
+        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
     @Override

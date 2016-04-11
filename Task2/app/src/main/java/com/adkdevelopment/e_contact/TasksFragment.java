@@ -45,6 +45,8 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.adkdevelopment.e_contact.adapters.ListviewAdapter;
+import com.adkdevelopment.e_contact.adapters.TasksAdapter;
 import com.adkdevelopment.e_contact.provider.tasks.TasksColumns;
 import com.adkdevelopment.e_contact.utils.Utilities;
 
@@ -55,6 +57,19 @@ import butterknife.ButterKnife;
  * Created by karataev on 4/8/16.
  */
 public class TasksFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, SharedPreferences.OnSharedPreferenceChangeListener {
+
+    // indices tied to the Tasks Columns, if they change - these must change
+    public static final int COL_TASKS_ID = 0;
+    public static final int COL_TASKS_TITLE = 13;
+    public static final int COL_TASKS_TYPE = 3;
+    public static final int COL_TASKS_STATUS = 2;
+    public static final int COL_TASKS_CREATED = 7;
+    public static final int COL_TASKS_REGISTERED = 8;
+    public static final int COL_TASKS_ASSIGNED = 9;
+    public static final int COL_TASKS_RESPONSIBLE = 6;
+    public static final int COL_TASKS_DESCRIPTION = 4;
+    public static final int COL_TASKS_LIKES = 12;
+    public static final int COL_TASKS_ADDRESS = 5;
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     private static final int CURSOR_LOADER_ID = 0;
@@ -216,7 +231,7 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        if (mCursor == null || mCursor.getCount() < 1) {
+        if (data == null || data.getCount() < 1) {
             mListEmpty.setVisibility(View.VISIBLE);
         } else {
             mListEmpty.setVisibility(View.INVISIBLE);

@@ -24,6 +24,7 @@
 
 package com.adkdevelopment.e_contact;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -47,6 +48,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.adkdevelopment.e_contact.adapters.PagerAdapter;
 import com.adkdevelopment.e_contact.remote.FetchData;
 import com.adkdevelopment.e_contact.utils.Utilities;
 import com.adkdevelopment.e_contact.utils.ZoomOutPageTransformer;
@@ -69,7 +71,6 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
     @Bind(R.id.fab) FloatingActionButton mFab;
 
     private PagerAdapter mPagerAdapter;
-    private static final String TAG = PagerActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,16 +148,22 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
             }
         });
 
-        // select first item in navigation drawer on startup
-        mNavigationView.getMenu().getItem(0).setChecked(true);
-
         // add listener to the buttons in the navigation drawer
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
-                item.setChecked(true);
-                mDrawerLayout.closeDrawers();
-                return true;
+
+                if (item.getItemId() == R.id.drawer_map) {
+                    item.setChecked(false);
+                    mDrawerLayout.closeDrawers();
+                    Intent intent = new Intent(PagerActivity.this, MapsActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else {
+                    item.setChecked(true);
+                    mDrawerLayout.closeDrawers();
+                    return true;
+                }
             }
         });
     }
@@ -220,4 +227,10 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
         new FetchData(this).execute();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // select first item in navigation drawer on startup
+        mNavigationView.getMenu().getItem(0).setChecked(true);
+    }
 }
