@@ -39,7 +39,7 @@
     <!-- Menu Items -->
     <string name="menu.item.sort">Sort</string>
     <string name="menu.item.sort.public">Public Utilities</string>
-    <string name="menu.item.sort.improvement">Construction and Improvements</string>
+    <string name="menu.item.sort.improvement">Improvement and construction</string>
     <string name="menu.item.sort.all">All inquiries</string>
 
     <!-- Fragments -->
@@ -81,7 +81,7 @@
 
     <!-- Statuses and types according to database schema -->
     <string name="type.public">Public utilities</string>
-    <string name="type.improvement">Construction and improvement</string>
+    <string name="type.improvement">Improvement and construction</string>
     <string name="type.other">Other</string>
     <string name="type.unknown">Unknown</string>
     <string name="type.repair">Repairs</string>
@@ -89,5 +89,10 @@
     <string name="status.progress">In progress</string>
     <string name="status.completed">Completed</string>
     <string name="status.waiting">Waiting</string>
+
+    <!-- Acessibility strings for images -->
+    <string name="image.description.type">Type of the inquiry</string>
+    <string name="image.description.like">Thumbs Up image</string>
+
 
 </resources>

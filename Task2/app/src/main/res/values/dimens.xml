@@ -53,4 +53,24 @@
     <!-- Item in Details activity RecyclerView -->
     <dimen name="poster_height">300dp</dimen>
 
+    <!-- Task Item Dimensions -->
+    <dimen name="cardview.height">153dp</dimen>
+    <dimen name="cardview.corner.radius">16dp</dimen>
+    <dimen name="cardview.likes.padding">8dp</dimen>
+    <dimen name="cardview.image.paddingBottom">64dp</dimen>
+    <dimen name="cardview.image.paddingTop">18dp</dimen>
+    <dimen name="cardview.text.type.paddingBottom">36dp</dimen>
+    <dimen name="cardview.task.padding">8dp</dimen>
+    <dimen name="cardview.registered.paddingRight">70dp</dimen>
+    <dimen name="cardview.padding">16dp</dimen>
+    <dimen name="cardview.text.type.size">18sp</dimen>
+    <dimen name="cardview.text.size">17sp</dimen>
+
+    <!-- Task Item Dimensions GridLayout -->
+    <dimen name="gridlayout.image.padding">35dp</dimen>
+    <dimen name="gridlayout.height">75dp</dimen>
+    <dimen name="gridlayout.text.height">25dp</dimen>
+
+    <dimen name="gridlayout.padding.extra">75dp</dimen>
+
 </resources>

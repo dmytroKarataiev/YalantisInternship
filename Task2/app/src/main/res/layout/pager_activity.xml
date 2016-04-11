@@ -52,9 +52,9 @@
             app:tabMode="fixed"
             app:tabIndicatorColor="@android:color/white"
             app:tabSelectedTextColor="@android:color/white"
-            app:tabTextColor="@color/text.unselected"
+            app:tabTextColor="@color/default.unselected"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="?attr/actionBarSize" />
 
     </android.support.design.widget.AppBarLayout>
 

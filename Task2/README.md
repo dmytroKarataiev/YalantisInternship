@@ -20,3 +20,6 @@
 ## Possible improvements
 * Make Navigation Drawer narrower (wrap_content).
 * Change icons to density independent (place, list, menu)
+
+## Link to used resources
+* Launcher icon was taken from here: http://gsg.usc.edu/sites/gsg.usc.edu/files/yellow_arrow_circle.png

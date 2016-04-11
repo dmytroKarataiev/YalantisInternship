@@ -23,7 +23,10 @@
   -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
+
+    <group
+        android:id="@+id/menu_actions"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/drawer_all"
             android:icon="@drawable/books"
@@ -34,11 +37,11 @@
             android:title="@string/drawer.item.map" />
     </group>
 
-    <item android:title="@string/drawer.item.login">
-        <menu>
-            <!-- Later we will populate this part -->
-            <item />
-        </menu>
-    </item>
+    <group
+        android:id="@+id/menu_login"
+        android:checkableBehavior="none">
+        <item android:title="@string/drawer.item.login" />
+    </group>
+
 
 </menu>

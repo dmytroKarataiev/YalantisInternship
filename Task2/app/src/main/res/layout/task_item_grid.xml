@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2016. Dmytro Karataiev
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/task_item_card"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/cardview.height"
+    android:layout_marginBottom="@dimen/padding.default"
+    android:background="@android:color/white"
+    app:cardCornerRadius="@dimen/cardview.corner.radius">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="4"
+        android:rowCount="4">
+
+        <ImageView
+            android:id="@+id/task_item_type_image"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/gridlayout.height"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:layout_rowSpan="2"
+            android:contentDescription="@string/image.description.type"
+            android:paddingLeft="@dimen/gridlayout.image.padding"
+            android:paddingRight="@dimen/gridlayout.image.padding"
+            android:src="@drawable/books" />
+
+        <TextView
+            android:id="@+id/task_item_likes_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_gravity="center_horizontal"
+            android:layout_row="3"
+            android:drawableLeft="@drawable/thumb_up"
+            android:drawablePadding="@dimen/cardview.likes.padding"
+            android:drawableStart="@drawable/thumb_up"
+            android:gravity="center"
+            android:textSize="@dimen/cardview.text.size"
+            android:textColor="@color/text.grey.light" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_column="1"
+            android:layout_row="0"
+            android:layout_rowSpan="4"
+            android:background="@color/default.unselected" />
+
+        <TextView
+            android:id="@+id/task_item_type_text"
+            android:layout_width="1dp"
+            android:layout_gravity="fill_horizontal"
+            android:layout_height="@dimen/gridlayout.height"
+            android:layout_column="2"
+            android:layout_columnSpan="2"
+            android:layout_row="0"
+            android:layout_rowSpan="2"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/padding.default"
+            android:paddingStart="@dimen/padding.default"
+            android:paddingRight="@dimen/padding.default"
+            android:paddingEnd="@dimen/padding.default"
+            android:textColor="@color/text.black"
+            android:textSize="@dimen/cardview.text.type.size" />
+
+        <TextView
+            android:id="@+id/task_item_address"
+            android:layout_width="1dp"
+            android:layout_height="@dimen/gridlayout.text.height"
+            android:layout_column="2"
+            android:layout_columnSpan="2"
+            android:layout_gravity="fill_horizontal"
+            android:layout_row="2"
+            android:ellipsize="end"
+            android:gravity="bottom"
+            android:maxLines="1"
+            android:textSize="@dimen/cardview.text.size"
+            android:paddingEnd="@dimen/padding.default"
+            android:paddingLeft="@dimen/padding.default"
+            android:paddingRight="@dimen/padding.default"
+            android:paddingStart="@dimen/padding.default"
+            android:textColor="@color/text.grey"/>
+
+        <TextView
+            android:id="@+id/task_item_registered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_row="3"
+            android:paddingLeft="@dimen/padding.default"
+            android:paddingStart="@dimen/padding.default"
+            android:paddingEnd="@dimen/gridlayout.padding.extra"
+            android:paddingRight="@dimen/gridlayout.padding.extra"
+            android:textSize="@dimen/cardview.text.size"
+            android:textColor="@color/text.grey"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/task_item_elapsed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="3"
+            android:layout_row="3"
+            android:textSize="@dimen/cardview.text.size"
+            android:textColor="@color/text.grey"
+            android:textStyle="bold" />
+
+    </GridLayout>
+
+</android.support.v7.widget.CardView>

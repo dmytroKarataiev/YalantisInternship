@@ -28,7 +28,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +49,6 @@ public class ListviewAdapter extends CursorAdapter {
 
     @Bind(R.id.task_item_type_image) ImageView mTypeImage;
     @Bind(R.id.task_item_type_text) TextView mTypeText;
-    @Bind(R.id.task_item_likes_image) ImageView mLikesImage;
     @Bind(R.id.task_item_likes_text) TextView mLikesText;
     @Bind(R.id.task_item_address) TextView mAddress;
     @Bind(R.id.task_item_registered) TextView mRegistered;

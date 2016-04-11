@@ -55,7 +55,6 @@ public class TasksAdapter extends CursorRecyclerViewAdapter<TasksAdapter.ViewHol
         // each data item is just a string in this case
         @Bind(R.id.task_item_type_image) ImageView mTypeImage;
         @Bind(R.id.task_item_type_text) TextView mTypeText;
-        @Bind(R.id.task_item_likes_image) ImageView mLikesImage;
         @Bind(R.id.task_item_likes_text) TextView mLikesText;
         @Bind(R.id.task_item_address) TextView mAddress;
         @Bind(R.id.task_item_registered) TextView mRegistered;
@@ -118,7 +117,9 @@ public class TasksAdapter extends CursorRecyclerViewAdapter<TasksAdapter.ViewHol
     @Override
     public TasksAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.task_item, parent, false);
+                // you have a choice hear: efficient grid-based layout with some problems in log
+                // or inefficient linear+relative layout without errors in log
+                .inflate(R.layout.task_item_grid, parent, false);
 
         return new ViewHolder(v);
     }

@@ -146,6 +146,19 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
                 }
             }
         });
+
+        // select first item in navigation drawer on startup
+        mNavigationView.getMenu().getItem(0).setChecked(true);
+
+        // add listener to the buttons in the navigation drawer
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                item.setChecked(true);
+                mDrawerLayout.closeDrawers();
+                return true;
+            }
+        });
     }
 
     @Override
