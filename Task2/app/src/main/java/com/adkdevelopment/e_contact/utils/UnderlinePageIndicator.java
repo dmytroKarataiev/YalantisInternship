@@ -105,6 +105,7 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             defaultSelectedColor = res.getColor(R.color.white, context.getTheme());
         } else {
+            //noinspection deprecation
             defaultSelectedColor = res.getColor(R.color.white);
         }
 
@@ -120,7 +121,7 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
 
         Drawable background = a.getDrawable(R.styleable.UnderlinePageIndicator_android_background);
         if (background != null) {
-            setBackgroundDrawable(background);
+            setBackground(background);
         }
 
         a.recycle();

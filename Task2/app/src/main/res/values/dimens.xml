@@ -48,7 +48,6 @@
     <dimen name="status_sign_margin">8dp</dimen>
 
     <!-- List Item Dimensions -->
-    <dimen name="list_item_height">56dp</dimen>
     <dimen name="list_item_padding">8dp</dimen>
     <dimen name="list_item_divider_height">8dp</dimen>
 
@@ -60,16 +59,8 @@
     <dimen name="cardview_height">136dp</dimen>
     <dimen name="cardview_corner_radius">16dp</dimen>
     <dimen name="cardview_likes_padding">8dp</dimen>
-    <dimen name="cardview_image_paddingBottom">64dp</dimen>
-    <dimen name="cardview_image_paddingTop">18dp</dimen>
-    <dimen name="cardview_text_type_paddingBottom">36dp</dimen>
     <dimen name="cardview_task_padding">8dp</dimen>
-    <dimen name="cardview_registered_paddingRight">70dp</dimen>
-    <dimen name="cardview_padding">16dp</dimen>
-    <dimen name="cardview_padding_bottom">4dp</dimen>
     <dimen name="cardview_likes_size">14sp</dimen>
-
-    <dimen name="cardview_text_type_size">18sp</dimen>
     <dimen name="cardview_text_size">16sp</dimen>
 
     <!-- Task Item Dimensions GridLayout -->
@@ -81,14 +72,5 @@
     <dimen name="indicator_margin">10dp</dimen>
     <dimen name="indicator_corners">10dp</dimen>
     <dimen name="indicator_height">4dp</dimen>
-
-    <!-- Task item Relative layout -->
-    <dimen name="task_relative_height">126dp</dimen>
-    <dimen name="task_relative_corner">8dp</dimen>
-
-    <dimen name="task_relative_padding">8dp</dimen>
-    <dimen name="task_relative_padding_bottom">4dp</dimen>
-
-
 
 </resources>

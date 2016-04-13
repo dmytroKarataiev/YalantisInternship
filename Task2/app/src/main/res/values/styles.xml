@@ -32,13 +32,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="BoldText">
-        
-        <item name="android:textStyle">bold</item>
-        <item name="android:color">@android:color/black</item>
-        
-    </style>
-
     <style name="TaskNames" parent="Base.TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/task_text_size</item>
         <item name="android:paddingTop">@dimen/task_text_padding</item>
@@ -68,5 +61,15 @@
         <item name="android:padding">@dimen/list_item_padding</item>
     </style>
 
+    <style name="CardView.Text">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">@dimen/cardview_likes_size</item>
+        <item name="android:textColor">@color/text_grey</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+    </style>
 
+    <style name="CardView.Text.Bold" parent="CardView.Text">
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>
