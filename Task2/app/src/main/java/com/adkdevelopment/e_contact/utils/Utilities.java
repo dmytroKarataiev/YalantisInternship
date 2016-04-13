@@ -125,6 +125,8 @@ public class Utilities {
                 return context.getString(R.string.type_public);
             case 2:
                 return context.getString(R.string.type_improvement);
+            case 3:
+                return context.getString(R.string.type_architecture);
             default:
                 return context.getString(R.string.app_name);
         }
@@ -145,7 +147,7 @@ public class Utilities {
             case 2:
                 return context.getString(R.string.type_improvement);
             case 3:
-                return context.getString(R.string.type_repair);
+                return context.getString(R.string.type_architecture);
             default:
                 return context.getString(R.string.type_unknown);
         }

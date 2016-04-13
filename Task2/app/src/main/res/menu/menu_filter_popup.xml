@@ -30,4 +30,6 @@
         android:title="@string/type_public" />
     <item android:id="@+id/popup_filter_improvement"
         android:title="@string/type_improvement" />
+    <item android:id="@+id/popup_filter_architecture"
+        android:title="@string/type_architecture" />
 </menu>

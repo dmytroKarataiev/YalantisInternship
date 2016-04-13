@@ -33,7 +33,7 @@
     <string name="drawer_item_all">Всі звернення</string>
     <string name="drawer_item_map">Звернення на мапі</string>
     <string name="drawer_item_login">Увійти в аккаунт</string>
-    <string name="drawer_footer_links">Зроблено за любов\'ю\n<a href="http://www.itruh.dp.ua/">IT Ruh Dnipro</a> та <a href="https://yalantis.com/">Yalantis</a></string>
+    <string name="drawer_footer_links">Зроблено з любов\'ю\n<a href="http://www.itruh.dp.ua/">IT Ruh Dnipro</a> та <a href="https://yalantis.com/">Yalantis</a></string>
 
     <!-- Menu Items -->
     <string name="menu_item_sort_all">Всі звернення</string>

@@ -221,6 +221,9 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
             case R.id.popup_filter_improvement:
                 Utilities.setSortingPreference(this, 2);
                 return true;
+            case R.id.popup_filter_architecture:
+                Utilities.setSortingPreference(this, 3);
+                return true;
             default:
                 return false;
         }
