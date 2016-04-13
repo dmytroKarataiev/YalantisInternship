@@ -26,6 +26,8 @@
     <!-- Different not grouped dimensions -->
     <dimen name="fab_margin">24dp</dimen>
     <dimen name="padding_default">16dp</dimen>
+    <dimen name="collpasing_layout_height">112dp</dimen>
+
 
     <!-- Drawer Layout Dimensions -->
     <dimen name="drawer_header_height">100dp</dimen>
