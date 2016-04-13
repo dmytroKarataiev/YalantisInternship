@@ -39,8 +39,6 @@
 
     <!-- Menu Items -->
     <string name="menu_item_sort">Sort</string>
-    <string name="menu_item_sort_public">Public Utilities</string>
-    <string name="menu_item_sort_improvement">Improvement and construction</string>
     <string name="menu_item_sort_all">All inquiries</string>
 
     <!-- Fragments -->
@@ -82,6 +80,8 @@
     <string name="type_other">Other</string>
     <string name="type_unknown">Unknown</string>
     <string name="type_repair">Repairs</string>
+    <string name="type_architecture">Small architecture objects</string>
+
     <string name="status_unknown">Unknown</string>
     <string name="status_progress">In progress</string>
     <string name="status_completed">Completed</string>

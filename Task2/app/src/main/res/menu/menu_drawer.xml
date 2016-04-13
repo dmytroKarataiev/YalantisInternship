@@ -29,11 +29,11 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/drawer_all"
-            android:icon="@drawable/books"
+            android:icon="@drawable/ic_issues"
             android:title="@string/drawer_item_all" />
         <item
             android:id="@+id/drawer_map"
-            android:icon="@drawable/place_marker"
+            android:icon="@drawable/ic_map"
             android:title="@string/drawer_item_map" />
     </group>
 

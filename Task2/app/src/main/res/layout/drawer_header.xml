@@ -40,7 +40,9 @@
         android:paddingRight="@dimen/padding_default"
         android:paddingBottom="@dimen/drawer_header_text_padding"
         android:text="@string/drawer_title"
+        android:textStyle="bold"
         android:textSize="@dimen/drawer_header_text_size"
+        android:fontFamily="sans-serif"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
 </LinearLayout>

@@ -27,7 +27,7 @@
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background" >
+    android:background="@drawable/gradient_background">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -44,34 +44,43 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
         <android.support.design.widget.TabLayout
-            android:layout_below="@+id/appbar"
             android:id="@+id/tabs"
-            android:layout_marginRight="8dp"
-            android:layout_marginLeft="8dp"
-            app:tabGravity="fill"
-            app:tabMode="fixed"
-            app:tabIndicatorColor="@android:color/white"
-            app:tabSelectedTextColor="@android:color/white"
-            app:tabTextColor="@color/default_unselected"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
+            android:layout_height="@dimen/tablayout_height"
+            android:layout_below="@+id/appbar"
+            android:layout_marginLeft="@dimen/tablayout_margin"
+            android:layout_marginRight="@dimen/tablayout_margin"
+            app:tabGravity="fill"
+            app:tabIndicatorHeight="0dp"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@android:color/white"
+            app:tabTextColor="@color/default_unselected" />
+
+        <com.adkdevelopment.e_contact.utils.UnderlinePageIndicator
+            android:id="@+id/indicator"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/indicator_height"
+            android:layout_marginLeft="@dimen/indicator_margin"
+            android:layout_marginRight="@dimen/indicator_margin"
+            app:vpi_corner_radius="@dimen/indicator_corners" />
 
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
-        android:layout_below="@id/tabs"
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/tabs"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
         android:layout_gravity="end|bottom"
-        android:src="@drawable/plus"
+        android:layout_margin="@dimen/fab_margin"
+        android:scaleType="center"
+        android:src="@drawable/f_a_b_2_x"
         app:layout_behavior="com.adkdevelopment.e_contact.utils.FabHideOnScroll" />
 
 </android.support.design.widget.CoordinatorLayout>

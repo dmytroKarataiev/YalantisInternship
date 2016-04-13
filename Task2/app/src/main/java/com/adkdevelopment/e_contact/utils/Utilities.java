@@ -122,9 +122,9 @@ public class Utilities {
             case 0:
                 return context.getString(R.string.menu_item_sort_all);
             case 1:
-                return context.getString(R.string.menu_item_sort_public);
+                return context.getString(R.string.type_public);
             case 2:
-                return context.getString(R.string.menu_item_sort_improvement);
+                return context.getString(R.string.type_improvement);
             default:
                 return context.getString(R.string.app_name);
         }
@@ -161,9 +161,9 @@ public class Utilities {
             case 0:
                 return R.drawable.other;
             case 1:
-                return R.drawable.gear;
+                return R.drawable.ic_trash;
             case 2:
-                return R.drawable.paint;
+                return R.drawable.ic_issues;
             case 3:
                 return R.drawable.paint;
             default:

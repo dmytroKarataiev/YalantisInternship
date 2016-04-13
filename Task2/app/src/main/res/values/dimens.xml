@@ -24,14 +24,18 @@
 
 <resources>
     <!-- Different not grouped dimensions -->
-    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="fab_margin">24dp</dimen>
     <dimen name="padding_default">16dp</dimen>
 
     <!-- Drawer Layout Dimensions -->
-    <dimen name="drawer_header_height">134dp</dimen>
-    <dimen name="drawer_view_width">346dp</dimen>
-    <dimen name="drawer_header_text_size">26sp</dimen>
-    <dimen name="drawer_header_text_padding">26dp</dimen>
+    <dimen name="drawer_header_height">100dp</dimen>
+    <dimen name="drawer_view_width">304dp</dimen>
+    <dimen name="drawer_header_text_size">24sp</dimen>
+    <dimen name="drawer_header_text_padding">24dp</dimen>
+
+    <!-- TabLayout -->
+    <dimen name="tablayout_height">48dp</dimen>
+    <dimen name="tablayout_margin">10dp</dimen>
 
     <!-- RecyclerView dimensions -->
     <dimen name="recycler_minheight">200dp</dimen>
@@ -45,13 +49,15 @@
 
     <!-- List Item Dimensions -->
     <dimen name="list_item_height">56dp</dimen>
-    <dimen name="list_item_padding">16dp</dimen>
+    <dimen name="list_item_padding">8dp</dimen>
+    <dimen name="list_item_divider_height">8dp</dimen>
+
 
     <!-- Item in Details activity RecyclerView -->
     <dimen name="poster_height">300dp</dimen>
 
     <!-- Task Item Dimensions -->
-    <dimen name="cardview_height">153dp</dimen>
+    <dimen name="cardview_height">136dp</dimen>
     <dimen name="cardview_corner_radius">16dp</dimen>
     <dimen name="cardview_likes_padding">8dp</dimen>
     <dimen name="cardview_image_paddingBottom">64dp</dimen>
@@ -60,12 +66,29 @@
     <dimen name="cardview_task_padding">8dp</dimen>
     <dimen name="cardview_registered_paddingRight">70dp</dimen>
     <dimen name="cardview_padding">16dp</dimen>
+    <dimen name="cardview_padding_bottom">4dp</dimen>
+    <dimen name="cardview_likes_size">14sp</dimen>
+
     <dimen name="cardview_text_type_size">18sp</dimen>
-    <dimen name="cardview_text_size">17sp</dimen>
+    <dimen name="cardview_text_size">16sp</dimen>
 
     <!-- Task Item Dimensions GridLayout -->
     <dimen name="gridlayout_image_padding">35dp</dimen>
     <dimen name="gridlayout_height">75dp</dimen>
     <dimen name="gridlayout_padding_extra">45dp</dimen>
+
+    <!-- TabLayout indicator -->
+    <dimen name="indicator_margin">10dp</dimen>
+    <dimen name="indicator_corners">10dp</dimen>
+    <dimen name="indicator_height">4dp</dimen>
+
+    <!-- Task item Relative layout -->
+    <dimen name="task_relative_height">126dp</dimen>
+    <dimen name="task_relative_corner">8dp</dimen>
+
+    <dimen name="task_relative_padding">8dp</dimen>
+    <dimen name="task_relative_padding_bottom">4dp</dimen>
+
+
 
 </resources>

@@ -36,8 +36,6 @@
     <string name="drawer_footer_links">Зроблено за любов\'ю\n<a href="http://www.itruh.dp.ua/">IT Ruh Dnipro</a> та <a href="https://yalantis.com/">Yalantis</a></string>
 
     <!-- Menu Items -->
-    <string name="menu_item_sort_public">Комунальне господарство</string>
-    <string name="menu_item_sort_improvement">Благоустрій та будівництво</string>
     <string name="menu_item_sort_all">Всі звернення</string>
 
     <!-- Fragments -->
@@ -81,4 +79,5 @@
     <string name="menu_item_sort">Фільтровати</string>
     <string name="task_assigned_date">Січ. 27, 2016</string>
     <string name="task_title_text">Комунальне господарство</string>
+    <string name="type_architecture">Демонтаж інших об’єктів, що входять до переліку малих архітектурних форм</string>
 </resources>

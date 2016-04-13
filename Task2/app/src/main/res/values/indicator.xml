@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ MIT License
   ~
   ~ Copyright (c) 2016. Dmytro Karataiev
@@ -24,23 +23,17 @@
   -->
 
 <resources>
-
-    <!-- Main Theme Colors -->
-    <color name="colorPrimary">#537bae</color>
-    <color name="colorPrimaryDark">#43628a</color>
-    <color name="colorAccent">#ff9c26</color>
-
-    <color name="default_unselected">#ccd8e7</color>
-    <color name="white">#FFFFFF</color>
-    <color name="text_grey_light">#bfbfbf</color>
-    <color name="text_grey">#828282</color>
-    <color name="text_black">#191919</color>
-
-    <!-- Background Gradient -->
-    <color name="background_gradient_start">#537BAE</color>
-    <color name="background_gradient_end">#42ADC2</color>
-
-
+    <declare-styleable name="UnderlinePageIndicator">
+        <!-- Whether or not the selected indicator fades. -->
+        <attr name="fades" format="boolean" />
+        <!-- Length of the delay to fade the indicator. -->
+        <attr name="fadeDelay" format="integer" />
+        <!-- Length of the indicator fade to transparent. -->
+        <attr name="fadeLength" format="integer" />
+        <!-- Color of the selected line that represents the current page. -->
+        <attr name="selectedColor" />
+        <!-- View background -->
+        <attr name="android:background"/>
+        <attr name="vpi_corner_radius" format="dimension" />
+    </declare-styleable>
 </resources>
-
-

@@ -25,7 +25,6 @@
 package com.adkdevelopment.e_contact;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -49,6 +48,7 @@ import android.widget.Toast;
 
 import com.adkdevelopment.e_contact.adapters.PagerAdapter;
 import com.adkdevelopment.e_contact.remote.FetchData;
+import com.adkdevelopment.e_contact.utils.UnderlinePageIndicator;
 import com.adkdevelopment.e_contact.utils.Utilities;
 import com.adkdevelopment.e_contact.utils.ZoomOutPageTransformer;
 
@@ -68,6 +68,9 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
     @Bind(R.id.viewpager) ViewPager mViewPager;
     @Bind(R.id.drawer_footer_links) TextView mFooterLinks;
     @Bind(R.id.fab) FloatingActionButton mFab;
+
+    // tab indicator
+    @Bind(R.id.indicator) UnderlinePageIndicator mTabIndicator;
 
     private PagerAdapter mPagerAdapter;
 
@@ -89,7 +92,7 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
         ActionBar supportActionBar = getSupportActionBar();
 
         if (supportActionBar != null) {
-            supportActionBar.setHomeAsUpIndicator(R.drawable.menu);
+            supportActionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
             supportActionBar.setDisplayHomeAsUpEnabled(true);
             supportActionBar.setTitle(Utilities
                             .getActionbarTitle(this, Utilities.getSortingPreference(this)));
@@ -99,6 +102,10 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setOffscreenPageLimit(mPagerAdapter.getCount());
 
+        //Bind the title indicator to the adapter
+        mTabIndicator.setViewPager(mViewPager);
+        mTabIndicator.setFades(false);
+
         // zoom effect on swipe
         mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
 
@@ -107,15 +114,11 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
         // Make links work in the Drawer
         mFooterLinks.setMovementMethod(LinkMovementMethod.getInstance());
 
-        // Set custom font to the Drawer Header
-        Typeface typeface = Typeface.createFromAsset(getAssets(), getString(R.string.font_roboto_bold));
-        ((TextView) mNavigationView.getHeaderView(0)
-                .findViewById(R.id.drawer_header_text)).setTypeface(typeface);
-
         // set correct elevations
         if (mAppBar != null) {
             ViewCompat.setElevation(mAppBar, 0f);
-            ViewCompat.setElevation(mToolbar, 16f);
+            // uncomment next line if you want to make elevations as in the first specification
+            // ViewCompat.setElevation(mToolbar, 16f);
         }
 
         mFab.setOnClickListener(new View.OnClickListener() {
@@ -169,6 +172,7 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
                 }
             }
         });
+
     }
 
     @Override

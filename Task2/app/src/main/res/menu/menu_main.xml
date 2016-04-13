@@ -30,5 +30,5 @@
         android:id="@+id/menu_action_sort"
         app:showAsAction="ifRoom"
         android:title="@string/menu_item_sort"
-        android:icon="@drawable/filter" />
+        android:icon="@drawable/ic_filter_menu" />
 </menu>

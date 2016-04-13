@@ -30,7 +30,6 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:actionMenuTextAppearance">@style/BoldText</item>
     </style>
 
     <style name="BoldText">
@@ -68,4 +67,6 @@
         <item name="android:textSize">@dimen/task_text_size</item>
         <item name="android:padding">@dimen/list_item_padding</item>
     </style>
+
+
 </resources>
