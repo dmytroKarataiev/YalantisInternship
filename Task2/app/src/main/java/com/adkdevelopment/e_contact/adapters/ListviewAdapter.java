@@ -121,10 +121,8 @@ public class ListviewAdapter extends CursorAdapter {
                     //noinspection unchecked always true
                     Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(
                             mActivity,
-                            Pair.create(view.findViewById(R.id.task_item_type_text),
-                                    view.findViewById(R.id.task_item_type_text).getTransitionName()),
-                            Pair.create(view.findViewById(R.id.task_item_registered),
-                                    view.findViewById(R.id.task_item_registered).getTransitionName()))
+                            Pair.create(view.findViewById(R.id.task_item_card),
+                                    view.findViewById(R.id.task_item_card).getTransitionName()))
                             .toBundle();
                     mActivity.startActivity(intent, bundle);
                 } else {

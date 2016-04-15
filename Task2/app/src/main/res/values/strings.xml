@@ -91,7 +91,6 @@
     <string name="image_description_like">Thumbs Up image</string>
 
     <!-- SharedTransitions -->
-    <string name="transition_registered" translatable="false">registered</string>
-    <string name="transition_type" translatable="false">type</string>
+    <string name="transition_card" translatable="false">card</string>
 
 </resources>

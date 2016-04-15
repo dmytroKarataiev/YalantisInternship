@@ -28,7 +28,8 @@
     android:layout_height="@dimen/cardview_height"
     android:layout_marginBottom="@dimen/cardview_task_padding"
     android:background="@android:color/white"
-    app:cardCornerRadius="@dimen/cardview_corner_radius">
+    app:cardCornerRadius="@dimen/cardview_corner_radius"
+    android:transitionName="@string/transition_card">
 
     <GridLayout
         android:layout_width="match_parent"
@@ -91,8 +92,7 @@
             android:paddingRight="@dimen/padding_default"
             android:paddingStart="@dimen/padding_default"
             android:textColor="@color/text_black"
-            android:textSize="@dimen/cardview_text_size"
-            android:transitionName="@string/transition_type" />
+            android:textSize="@dimen/cardview_text_size" />
 
         <TextView
             android:id="@+id/task_item_address"
@@ -120,8 +120,7 @@
             android:paddingEnd="@dimen/gridlayout_padding_extra"
             android:paddingLeft="@dimen/padding_default"
             android:paddingRight="@dimen/gridlayout_padding_extra"
-            android:paddingStart="@dimen/padding_default"
-            android:transitionName="@string/transition_registered" />
+            android:paddingStart="@dimen/padding_default" />
 
         <TextView
             android:id="@+id/task_item_elapsed"

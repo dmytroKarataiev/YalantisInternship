@@ -30,6 +30,8 @@
     tools:showIn="@layout/detail_activity">
 
     <RelativeLayout
+        android:transitionName="@string/transition_card"
+        android:background="@android:color/white"
         android:id="@+id/relative_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,7 +52,6 @@
                 android:layout_alignParentStart="true"
                 android:text="@string/task_title_text"
                 android:textStyle="bold"
-                android:transitionName="@string/transition_type"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/task_status"
                 android:layout_toStartOf="@+id/task_status" />
@@ -121,8 +122,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@id/divider2"
-            android:text="@string/task_registered_date"
-            android:transitionName="@string/transition_registered" />
+            android:text="@string/task_registered_date" />
 
         <View
             android:id="@+id/divider3"

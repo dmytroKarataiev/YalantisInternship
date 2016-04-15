@@ -118,10 +118,8 @@ public class TasksAdapter extends CursorRecyclerViewAdapter<TasksAdapter.ViewHol
                     //noinspection unchecked always true
                     Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(
                             mActivity,
-                            Pair.create(viewHolder.itemView.findViewById(R.id.task_item_type_text),
-                                    viewHolder.itemView.findViewById(R.id.task_item_type_text).getTransitionName()),
-                            Pair.create(viewHolder.itemView.findViewById(R.id.task_item_registered),
-                                    viewHolder.itemView.findViewById(R.id.task_item_registered).getTransitionName()))
+                            Pair.create(viewHolder.itemView.findViewById(R.id.task_item_card),
+                                    viewHolder.itemView.findViewById(R.id.task_item_card).getTransitionName()))
                             .toBundle();
                     mActivity.startActivity(intent, bundle);
                 } else {
