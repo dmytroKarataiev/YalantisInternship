@@ -93,4 +93,7 @@
     <!-- SharedTransitions -->
     <string name="transition_card" translatable="false">card</string>
 
+    <!-- Google maps todo key -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">DUMMY_KEY</string>
+
 </resources>
