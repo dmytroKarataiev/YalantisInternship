@@ -24,13 +24,9 @@
 
 package com.adkdevelopment.e_contact.adapters;
 
-import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -40,9 +36,9 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.adkdevelopment.e_contact.DetailActivity;
 import com.adkdevelopment.e_contact.R;
 import com.adkdevelopment.e_contact.TasksFragment;
+import com.adkdevelopment.e_contact.interfaces.OnAdapterClick;
 import com.adkdevelopment.e_contact.remote.RSSNewsItem;
 import com.adkdevelopment.e_contact.utils.Utilities;
 
@@ -63,11 +59,11 @@ public class ListviewAdapter extends CursorAdapter {
     @Bind(R.id.task_item_elapsed) TextView mElapsed;
     @Bind(R.id.task_item_card) CardView mCardView;
 
-    Activity mActivity;
+    private OnAdapterClick mOnAdapterClick;
 
-    public ListviewAdapter(Activity activity, Cursor c, int flags) {
-        super(activity, c, flags);
-        mActivity = activity;
+    public ListviewAdapter(Context context, Cursor c, int flags, OnAdapterClick listener) {
+        super(context, c, flags);
+        mOnAdapterClick = listener;
     }
 
     @Override
@@ -76,7 +72,7 @@ public class ListviewAdapter extends CursorAdapter {
     }
 
     @Override
-    public void bindView(final View view, final Context context, Cursor cursor) {
+    public void bindView(final View view, Context context, Cursor cursor) {
         ButterKnife.bind(this, view);
 
         final int uniqueId = cursor.getInt(TasksFragment.COL_TASKS_ID);
@@ -113,21 +109,16 @@ public class ListviewAdapter extends CursorAdapter {
                 rssNewsItem.setResponsible(responsible);
                 rssNewsItem.setDescription(description);
 
-                Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra(RSSNewsItem.TASKITEM, rssNewsItem);
-
                 // Check if a phone supports shared transitions
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     //noinspection unchecked always true
-                    Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(
-                            mActivity,
-                            Pair.create(view.findViewById(R.id.task_item_card),
-                                    view.findViewById(R.id.task_item_card).getTransitionName()))
-                            .toBundle();
-                    mActivity.startActivity(intent, bundle);
+                    Pair pair = Pair.create(view.findViewById(R.id.task_item_card),
+                            view.findViewById(R.id.task_item_card).getTransitionName());
+                    mOnAdapterClick.onTaskClickTransition(rssNewsItem, pair);
                 } else {
-                    mActivity.startActivity(intent);
+                    mOnAdapterClick.onTaskClick(rssNewsItem);
                 }
+
             }
         });
     }

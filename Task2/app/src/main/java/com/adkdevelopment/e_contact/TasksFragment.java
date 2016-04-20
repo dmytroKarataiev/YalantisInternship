@@ -24,8 +24,12 @@
 
 package com.adkdevelopment.e_contact;
 
+import android.annotation.TargetApi;
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -37,6 +41,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +51,9 @@ import android.widget.TextView;
 
 import com.adkdevelopment.e_contact.adapters.ListviewAdapter;
 import com.adkdevelopment.e_contact.adapters.TasksAdapter;
+import com.adkdevelopment.e_contact.interfaces.OnAdapterClick;
 import com.adkdevelopment.e_contact.provider.tasks.TasksColumns;
+import com.adkdevelopment.e_contact.remote.RSSNewsItem;
 import com.adkdevelopment.e_contact.utils.Utilities;
 
 import butterknife.Bind;
@@ -58,7 +65,7 @@ import butterknife.ButterKnife;
  * Created by karataev on 4/8/16.
  */
 public class TasksFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>,
-        SharedPreferences.OnSharedPreferenceChangeListener {
+        SharedPreferences.OnSharedPreferenceChangeListener, OnAdapterClick {
 
     // indices tied to the Tasks Columns, if they change - these must change
     public static final int COL_TASKS_ID = 0;
@@ -116,7 +123,7 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
         if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
             mRecyclerView.setVisibility(View.GONE);
 
-            mListviewAdapter = new ListviewAdapter(getActivity(), mCursor, 0);
+            mListviewAdapter = new ListviewAdapter(getActivity(), mCursor, 0, this);
             mListview.setAdapter(mListviewAdapter);
 
             ViewCompat.setNestedScrollingEnabled(mListview, true);
@@ -140,7 +147,7 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
             mListview.setVisibility(View.GONE);
 
             mLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
-            mTasksAdapter = new TasksAdapter(getActivity(), mCursor);
+            mTasksAdapter = new TasksAdapter(getActivity(), mCursor, this);
 
             mRecyclerView.setHasFixedSize(true);
             mRecyclerView.setLayoutManager(mLayoutManager);
@@ -292,5 +299,24 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
         super.onResume();
         PreferenceManager.getDefaultSharedPreferences(getContext())
                 .registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public void onTaskClickTransition(RSSNewsItem item, Pair pair) {
+        Intent intent = new Intent(getContext(), DetailActivity.class);
+        intent.putExtra(RSSNewsItem.TASKITEM, item);
+
+        Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(
+                getActivity(), pair)
+                .toBundle();
+        startActivity(intent, bundle);
+    }
+
+    @Override
+    public void onTaskClick(RSSNewsItem item) {
+        Intent intent = new Intent(getContext(), DetailActivity.class);
+        intent.putExtra(RSSNewsItem.TASKITEM, item);
+        startActivity(intent);
     }
 }

@@ -1,0 +1,42 @@
+<!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2016. Dmytro Karataiev
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="24dp"
+        android:height="24dp"
+        android:viewportWidth="24.0"
+        android:viewportHeight="24.0">
+    <path
+        android:pathData="M18.257,0L5.017,0C4.075,0 3.308,0.767 3.308,1.709L3.308,2.801L1.752,2.801C0.809,2.801 0.042,3.568 0.042,4.511L0.042,22.26C0.042,23.202 0.809,23.969 1.752,23.969L14.992,23.969C15.934,23.969 16.701,23.202 16.701,22.26L16.701,21.168L18.257,21.168C19.2,21.168 19.966,20.401 19.966,19.459L19.966,1.709C19.966,0.767 19.2,0 18.257,0L18.257,0ZM15.334,22.26C15.334,22.448 15.18,22.602 14.992,22.602L1.752,22.602C1.564,22.602 1.41,22.448 1.41,22.26L1.41,4.511C1.41,4.322 1.564,4.169 1.752,4.169L3.308,4.169L3.308,19.459C3.308,20.401 4.075,21.168 5.017,21.168L15.334,21.168L15.334,22.26L15.334,22.26ZM18.599,19.459C18.599,19.647 18.446,19.801 18.257,19.801L5.017,19.801C4.829,19.801 4.676,19.647 4.676,19.459L4.676,1.709C4.676,1.521 4.829,1.368 5.017,1.368L18.257,1.368C18.446,1.368 18.599,1.521 18.599,1.709L18.599,19.459L18.599,19.459Z"
+        android:strokeWidth="1"
+        android:fillAlpha="0.54"
+        android:fillColor="#000000"
+        android:strokeColor="#00000000"/>
+    <path
+        android:pathData="M16.651,7.501L6.623,7.501C6.245,7.501 5.939,7.808 5.939,8.185C5.939,8.563 6.245,8.869 6.623,8.869L16.651,8.869C17.029,8.869 17.335,8.563 17.335,8.185C17.335,7.808 17.029,7.501 16.651,7.501ZM16.651,4.247L6.623,4.247C6.245,4.247 5.939,4.553 5.939,4.931C5.939,5.309 6.245,5.614 6.623,5.614L16.651,5.614C17.029,5.614 17.335,5.309 17.335,4.931C17.335,4.553 17.029,4.247 16.651,4.247ZM16.651,10.756L6.623,10.756C6.245,10.756 5.939,11.062 5.939,11.44C5.939,11.818 6.245,12.124 6.623,12.124L16.651,12.124C17.029,12.124 17.335,11.818 17.335,11.44C17.335,11.062 17.029,10.756 16.651,10.756ZM16.651,14.011L6.623,14.011C6.245,14.011 5.939,14.317 5.939,14.694C5.939,15.072 6.245,15.378 6.623,15.378L16.651,15.378C17.029,15.378 17.335,15.072 17.335,14.694C17.335,14.317 17.029,14.011 16.651,14.011Z"
+        android:strokeWidth="1"
+        android:fillAlpha="0.54"
+        android:fillColor="#000000"
+        android:strokeColor="#00000000"/>
+</vector>

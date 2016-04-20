@@ -24,12 +24,9 @@
 
 package com.adkdevelopment.e_contact.adapters;
 
-import android.app.Activity;
-import android.app.ActivityOptions;
-import android.content.Intent;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
@@ -39,9 +36,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.adkdevelopment.e_contact.DetailActivity;
 import com.adkdevelopment.e_contact.R;
 import com.adkdevelopment.e_contact.TasksFragment;
+import com.adkdevelopment.e_contact.interfaces.OnAdapterClick;
 import com.adkdevelopment.e_contact.remote.RSSNewsItem;
 import com.adkdevelopment.e_contact.utils.CursorRecyclerViewAdapter;
 import com.adkdevelopment.e_contact.utils.Utilities;
@@ -55,7 +52,8 @@ import butterknife.ButterKnife;
  */
 public class TasksAdapter extends CursorRecyclerViewAdapter<TasksAdapter.ViewHolder> {
 
-    private final Activity mActivity;
+    private final Context mContext;
+    private OnAdapterClick mOnAdapterClick;
     
     // Provide a reference to the views for each data item
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -90,7 +88,7 @@ public class TasksAdapter extends CursorRecyclerViewAdapter<TasksAdapter.ViewHol
         String address = cursor.getString(TasksFragment.COL_TASKS_ADDRESS);
 
         viewHolder.mTypeImage.setImageResource(Utilities.getTypeIcon(type));
-        viewHolder.mTypeText.setText(Utilities.getType(mActivity, type));
+        viewHolder.mTypeText.setText(Utilities.getType(mContext, type));
         viewHolder.mLikesText.setText(String.valueOf(likes));
         viewHolder.mAddress.setText(address);
         viewHolder.mRegistered.setText(Utilities.getFormattedDate(registered));
@@ -110,20 +108,14 @@ public class TasksAdapter extends CursorRecyclerViewAdapter<TasksAdapter.ViewHol
                 rssNewsItem.setResponsible(responsible);
                 rssNewsItem.setDescription(description);
 
-                Intent intent = new Intent(mActivity, DetailActivity.class);
-                intent.putExtra(RSSNewsItem.TASKITEM, rssNewsItem);
-
                 // Check if a phone supports shared transitions
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     //noinspection unchecked always true
-                    Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(
-                            mActivity,
-                            Pair.create(viewHolder.itemView.findViewById(R.id.task_item_card),
-                                    viewHolder.itemView.findViewById(R.id.task_item_card).getTransitionName()))
-                            .toBundle();
-                    mActivity.startActivity(intent, bundle);
+                    Pair pair = Pair.create(viewHolder.itemView.findViewById(R.id.task_item_card),
+                            viewHolder.itemView.findViewById(R.id.task_item_card).getTransitionName());
+                    mOnAdapterClick.onTaskClickTransition(rssNewsItem, pair);
                 } else {
-                    mActivity.startActivity(intent);
+                    mOnAdapterClick.onTaskClick(rssNewsItem);
                 }
             }
         });
@@ -140,10 +132,11 @@ public class TasksAdapter extends CursorRecyclerViewAdapter<TasksAdapter.ViewHol
         return new ViewHolder(v);
     }
 
-    public TasksAdapter(Activity activity, Cursor cursor) {
+    public TasksAdapter(Context context, Cursor cursor, OnAdapterClick listener) {
         super(cursor);
         // to support SharedTransitions we need an activity
-        mActivity = activity;
+        mContext = context;
+        mOnAdapterClick = listener;
     }
 
     // Return the size of your dataset (invoked by the layout manager)
