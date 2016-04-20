@@ -59,7 +59,7 @@ public class ListviewAdapter extends CursorAdapter {
     @Bind(R.id.task_item_elapsed) TextView mElapsed;
     @Bind(R.id.task_item_card) CardView mCardView;
 
-    private OnAdapterClick mOnAdapterClick;
+    private final OnAdapterClick mOnAdapterClick;
 
     public ListviewAdapter(Context context, Cursor c, int flags, OnAdapterClick listener) {
         super(context, c, flags);

@@ -53,7 +53,7 @@ import butterknife.ButterKnife;
 public class TasksAdapter extends CursorRecyclerViewAdapter<TasksAdapter.ViewHolder> {
 
     private final Context mContext;
-    private OnAdapterClick mOnAdapterClick;
+    private final OnAdapterClick mOnAdapterClick;
     
     // Provide a reference to the views for each data item
     public class ViewHolder extends RecyclerView.ViewHolder {
