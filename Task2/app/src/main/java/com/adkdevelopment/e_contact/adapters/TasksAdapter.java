@@ -110,8 +110,7 @@ public class TasksAdapter extends CursorRecyclerViewAdapter<TasksAdapter.ViewHol
 
                 // Check if a phone supports shared transitions
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    //noinspection unchecked always true
-                    Pair pair = Pair.create(viewHolder.itemView.findViewById(R.id.task_item_card),
+                    Pair<View, String> pair = Pair.create(viewHolder.itemView.findViewById(R.id.task_item_card),
                             viewHolder.itemView.findViewById(R.id.task_item_card).getTransitionName());
                     mOnAdapterClick.onTaskClickTransition(rssNewsItem, pair);
                 } else {
@@ -125,8 +124,6 @@ public class TasksAdapter extends CursorRecyclerViewAdapter<TasksAdapter.ViewHol
     @Override
     public TasksAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                // you have a choice hear: efficient grid-based layout with some problems in log
-                // or inefficient linear+relative layout without errors in log
                 .inflate(R.layout.task_item_grid, parent, false);
 
         return new ViewHolder(v);
@@ -134,7 +131,6 @@ public class TasksAdapter extends CursorRecyclerViewAdapter<TasksAdapter.ViewHol
 
     public TasksAdapter(Context context, Cursor cursor, OnAdapterClick listener) {
         super(cursor);
-        // to support SharedTransitions we need an activity
         mContext = context;
         mOnAdapterClick = listener;
     }

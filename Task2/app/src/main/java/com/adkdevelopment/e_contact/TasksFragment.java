@@ -50,6 +50,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.adkdevelopment.e_contact.adapters.ListviewAdapter;
+import com.adkdevelopment.e_contact.adapters.PagerAdapter;
 import com.adkdevelopment.e_contact.adapters.TasksAdapter;
 import com.adkdevelopment.e_contact.interfaces.OnAdapterClick;
 import com.adkdevelopment.e_contact.provider.tasks.TasksColumns;
@@ -120,12 +121,14 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
         View rootView = inflater.inflate(R.layout.tasks_layout, container, false);
         ButterKnife.bind(this, rootView);
 
-        if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
+        // to reuse this fragment we check the argument and inflate corresponding view with an adapter
+        if (getArguments().getInt(ARG_SECTION_NUMBER) == PagerAdapter.LISTVIEW_FRAGMENT) {
             mRecyclerView.setVisibility(View.GONE);
 
             mListviewAdapter = new ListviewAdapter(getActivity(), mCursor, 0, this);
             mListview.setAdapter(mListviewAdapter);
 
+            // to allow FAB scrolling with the view
             ViewCompat.setNestedScrollingEnabled(mListview, true);
 
             mListview.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -201,16 +204,16 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
         // depending on the argument - query the contentprovider to receive relevant data
         // that's how we can reuse this fragment for different purposes
         int request = args.getInt(ARG_SECTION_NUMBER);
-        String statusArgument = "0";
+        String statusArgument = RSSNewsItem.STATUS_ALL;
         switch (request) {
             case 0:
-                statusArgument = "1";
+                statusArgument = RSSNewsItem.STATUS_PROGRESS;
                 break;
             case 1:
-                statusArgument = "2";
+                statusArgument = RSSNewsItem.STATUS_COMPLETED;
                 break;
             case 2:
-                statusArgument = "3";
+                statusArgument = RSSNewsItem.STATUS_WAITING;
                 break;
         }
 
@@ -303,10 +306,11 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public void onTaskClickTransition(RSSNewsItem item, Pair pair) {
+    public void onTaskClickTransition(RSSNewsItem item, Pair<View, String> pair) {
         Intent intent = new Intent(getContext(), DetailActivity.class);
         intent.putExtra(RSSNewsItem.TASKITEM, item);
 
+        //noinspection unchecked always true
         Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(
                 getActivity(), pair)
                 .toBundle();

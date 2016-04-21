@@ -38,24 +38,24 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
-            app:titleEnabled="false"
             android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed" >
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:titleEnabled="false">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
-                app:layout_collapseMode="parallax"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary" />
+                android:background="?attr/colorPrimary"
+                app:layout_collapseMode="parallax" />
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="bottom"
                 android:layout_marginLeft="@dimen/tablayout_margin"
                 android:layout_marginRight="@dimen/tablayout_margin"
-                android:layout_gravity="bottom"
                 android:background="@color/colorPrimary"
                 app:tabContentStart="0dp"
                 app:tabGravity="fill"
@@ -67,8 +67,8 @@
             <com.adkdevelopment.e_contact.utils.UnderlinePageIndicator
                 android:id="@+id/indicator"
                 android:layout_width="fill_parent"
-                android:layout_gravity="bottom"
                 android:layout_height="@dimen/indicator_height"
+                android:layout_gravity="bottom"
                 android:layout_marginLeft="@dimen/indicator_margin"
                 android:layout_marginRight="@dimen/indicator_margin"
                 app:vpi_corner_radius="@dimen/indicator_corners" />
@@ -90,6 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/fab_margin"
+        android:contentDescription="@string/fab_description"
         android:scaleType="center"
         android:src="@drawable/f_a_b_2_x"
         app:layout_behavior="com.adkdevelopment.e_contact.utils.FabHideOnScroll" />

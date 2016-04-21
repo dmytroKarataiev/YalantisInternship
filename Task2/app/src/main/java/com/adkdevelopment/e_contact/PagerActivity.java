@@ -124,7 +124,7 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(PagerActivity.this, "click", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PagerActivity.this, mFab.getContentDescription(), Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -80,4 +80,5 @@
     <string name="task_assigned_date">Січ. 27, 2016</string>
     <string name="task_title_text">Комунальне господарство</string>
     <string name="type_architecture">Демонтаж інших об’єктів, що входять до переліку малих архітектурних форм</string>
+    <string name="fab_description">Створити заявку</string>
 </resources>

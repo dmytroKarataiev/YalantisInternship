@@ -37,6 +37,13 @@ public class RSSNewsItem implements Parcelable {
 
     public static final String TASKITEM = "task";
 
+    // set according to the database schema
+    public static final String STATUS_ALL = "0";
+    public static final String STATUS_PROGRESS = "1";
+    public static final String STATUS_COMPLETED = "2";
+    public static final String STATUS_WAITING = "3";
+
+
     @SerializedName("id")
     @Expose
     private String id;

@@ -86,9 +86,10 @@
     <string name="status_completed">Completed</string>
     <string name="status_waiting">Waiting</string>
 
-    <!-- Accessibility strings for images -->
+    <!-- Accessibility strings -->
     <string name="image_description_type">Type of the inquiry</string>
     <string name="image_description_like">Thumbs Up image</string>
+    <string name="fab_description">Create an inquiry</string>
 
     <!-- SharedTransitions -->
     <string name="transition_card" translatable="false">card</string>

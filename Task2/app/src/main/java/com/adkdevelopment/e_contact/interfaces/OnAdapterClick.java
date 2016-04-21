@@ -25,6 +25,7 @@
 package com.adkdevelopment.e_contact.interfaces;
 
 import android.util.Pair;
+import android.view.View;
 
 import com.adkdevelopment.e_contact.remote.RSSNewsItem;
 
@@ -37,9 +38,9 @@ public interface OnAdapterClick {
     /**
      * Callback to start activity on devices with API >= 21 with shared transitions
      * @param item to pass to another activity
-     * @param pair details of a shared transition (View, shared transition name)
+     * @param pair details of a shared transition (View, String with a shared transition name)
      */
-    void onTaskClickTransition(RSSNewsItem item, Pair pair);
+    void onTaskClickTransition(RSSNewsItem item, Pair<View, String> pair);
 
     /**
      * Callback to start an activity

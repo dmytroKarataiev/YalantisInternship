@@ -111,8 +111,7 @@ public class ListviewAdapter extends CursorAdapter {
 
                 // Check if a phone supports shared transitions
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    //noinspection unchecked always true
-                    Pair pair = Pair.create(view.findViewById(R.id.task_item_card),
+                    Pair<View, String> pair = Pair.create(view.findViewById(R.id.task_item_card),
                             view.findViewById(R.id.task_item_card).getTransitionName());
                     mOnAdapterClick.onTaskClickTransition(rssNewsItem, pair);
                 } else {

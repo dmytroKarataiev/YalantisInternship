@@ -42,8 +42,9 @@ import java.lang.ref.WeakReference;
 public class PagerAdapter extends FragmentPagerAdapter {
 
     private final Context mContext;
+    public static final int LISTVIEW_FRAGMENT = 2;
 
-    // Keeps references to the fragment so not to recreate them and being able to communicated without problems
+    // Keeps references to the fragment so not to recreate them and being able to communicate without problems
     final SparseArray<WeakReference<Fragment>> registeredFragments = new SparseArray<>();
 
     public PagerAdapter(FragmentManager fm, Context context) {
@@ -53,17 +54,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-
-        switch (position) {
-            case 0:
-                return TasksFragment.newInstance(position);
-            case 1:
-                return TasksFragment.newInstance(position);
-            case 2:
-                return TasksFragment.newInstance(position);
-            default:
-                return null;
-        }
+        return TasksFragment.newInstance(position);
     }
 
     @Override
