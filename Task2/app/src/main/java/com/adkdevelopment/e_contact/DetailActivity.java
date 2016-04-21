@@ -94,7 +94,7 @@ public class DetailActivity extends AppCompatActivity {
         // copy the behavior of the hardware back button
         switch (id) {
             case android.R.id.home:
-                finish();
+                onBackPressed();
                 return true;
         }
 
