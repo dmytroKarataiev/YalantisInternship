@@ -27,7 +27,7 @@ package com.adkdevelopment.e_contact.interfaces;
 import android.util.Pair;
 import android.view.View;
 
-import com.adkdevelopment.e_contact.remote.RSSNewsItem;
+import com.adkdevelopment.e_contact.remote.TaskItem;
 
 /**
  * Interface to connect adapters and a fragment
@@ -40,12 +40,12 @@ public interface OnAdapterClick {
      * @param item to pass to another activity
      * @param pair details of a shared transition (View, String with a shared transition name)
      */
-    void onTaskClickTransition(RSSNewsItem item, Pair<View, String> pair);
+    void onTaskClickTransition(TaskItem item, Pair<View, String> pair);
 
     /**
      * Callback to start an activity
      * @param item to pass to another activity
      */
-    void onTaskClick(RSSNewsItem item);
+    void onTaskClick(TaskItem item);
 
 }

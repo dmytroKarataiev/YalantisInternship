@@ -92,7 +92,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:contentDescription="@string/fab_description"
         android:scaleType="center"
-        android:src="@drawable/f_a_b_2_x"
+        android:src="@drawable/ic_fab"
         app:layout_behavior="com.adkdevelopment.e_contact.utils.FabHideOnScroll" />
 
 </android.support.design.widget.CoordinatorLayout>

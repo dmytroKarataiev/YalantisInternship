@@ -54,7 +54,7 @@ public class FetchData extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
-        List<RSSNewsItem> mItemList = null;
+        List<TaskItem> mItemList = null;
 
         try {
         mItemList = App.getApiManager().getService().getData().execute().body();
@@ -65,7 +65,7 @@ public class FetchData extends AsyncTask<Void, Void, Void> {
         if (mItemList != null && mItemList.size() > 0) {
             ContentResolver resolver = mContext.getContentResolver();
 
-            for (RSSNewsItem each : mItemList) {
+            for (TaskItem each : mItemList) {
 
                 ContentValues tasksItems = new ContentValues();
 

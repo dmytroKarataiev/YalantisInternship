@@ -54,7 +54,7 @@ import com.adkdevelopment.e_contact.adapters.PagerAdapter;
 import com.adkdevelopment.e_contact.adapters.TasksAdapter;
 import com.adkdevelopment.e_contact.interfaces.OnAdapterClick;
 import com.adkdevelopment.e_contact.provider.tasks.TasksColumns;
-import com.adkdevelopment.e_contact.remote.RSSNewsItem;
+import com.adkdevelopment.e_contact.remote.TaskItem;
 import com.adkdevelopment.e_contact.utils.Utilities;
 
 import butterknife.Bind;
@@ -123,56 +123,9 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
 
         // to reuse this fragment we check the argument and inflate corresponding view with an adapter
         if (getArguments().getInt(ARG_SECTION_NUMBER) == PagerAdapter.LISTVIEW_FRAGMENT) {
-            mRecyclerView.setVisibility(View.GONE);
-
-            mListviewAdapter = new ListviewAdapter(getActivity(), mCursor, 0, this);
-            mListview.setAdapter(mListviewAdapter);
-
-            // to allow FAB scrolling with the view
-            ViewCompat.setNestedScrollingEnabled(mListview, true);
-
-            mListview.setOnScrollListener(new AbsListView.OnScrollListener() {
-
-                @Override
-                public void onScrollStateChanged(AbsListView view, int scrollState) {}
-
-                @Override
-                public void onScroll(AbsListView view, int firstVisibleItem,
-                                     int visibleItemCount, int totalItemCount) {
-                    int topRowVerticalPosition =
-                            (mListview == null || mListview.getChildCount() == 0) ?
-                                    0 : mListview.getChildAt(0).getTop();
-                    mSwipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
-                }
-            });
-
+            initListviewAdapter();
         } else {
-            mListview.setVisibility(View.GONE);
-
-            mLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
-            mTasksAdapter = new TasksAdapter(getActivity(), mCursor, this);
-
-            mRecyclerView.setHasFixedSize(true);
-            mRecyclerView.setLayoutManager(mLayoutManager);
-            mRecyclerView.setAdapter(mTasksAdapter);
-
-            // Prevent Swipe to refresh if recyclerview isn't in top position
-            mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
-                @Override
-                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                    super.onScrollStateChanged(recyclerView, newState);
-                    int visible = mLayoutManager.findFirstCompletelyVisibleItemPosition();
-
-                    if (mSwipeRefreshLayout != null) {
-                        if (visible != 0) {
-                            mSwipeRefreshLayout.setEnabled(false);
-                        } else {
-                            mSwipeRefreshLayout.setEnabled(true);
-                        }
-                    }
-                }
-            });
+            initRecyclerAdapter();
         }
 
         mListEmpty.setVisibility(View.INVISIBLE);
@@ -193,6 +146,66 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
         return rootView;
     }
 
+    /**
+     * Initializes Listview if pager is in corresponding view
+     */
+    private void initListviewAdapter() {
+        mRecyclerView.setVisibility(View.GONE);
+
+        mListviewAdapter = new ListviewAdapter(getActivity(), mCursor, 0, this);
+        mListview.setAdapter(mListviewAdapter);
+
+        // to allow FAB scrolling with the view
+        ViewCompat.setNestedScrollingEnabled(mListview, true);
+
+        mListview.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {}
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount) {
+                int topRowVerticalPosition =
+                        (mListview == null || mListview.getChildCount() == 0) ?
+                                0 : mListview.getChildAt(0).getTop();
+                mSwipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+            }
+        });
+    }
+
+    /**
+     * Initializes RecyclerView if pager is in corresponding view
+     */
+    private void initRecyclerAdapter() {
+        mListview.setVisibility(View.GONE);
+
+        mLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+        mTasksAdapter = new TasksAdapter(getActivity(), mCursor, this);
+
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mTasksAdapter);
+
+        // Prevent Swipe to refresh if recyclerview isn't in top position
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                int visible = mLayoutManager.findFirstCompletelyVisibleItemPosition();
+
+                if (mSwipeRefreshLayout != null) {
+                    if (visible != 0) {
+                        mSwipeRefreshLayout.setEnabled(false);
+                    } else {
+                        mSwipeRefreshLayout.setEnabled(true);
+                    }
+                }
+            }
+        });
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -204,16 +217,16 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
         // depending on the argument - query the contentprovider to receive relevant data
         // that's how we can reuse this fragment for different purposes
         int request = args.getInt(ARG_SECTION_NUMBER);
-        String statusArgument = RSSNewsItem.STATUS_ALL;
+        String statusArgument = TaskItem.STATUS_ALL;
         switch (request) {
             case 0:
-                statusArgument = RSSNewsItem.STATUS_PROGRESS;
+                statusArgument = TaskItem.STATUS_PROGRESS;
                 break;
             case 1:
-                statusArgument = RSSNewsItem.STATUS_COMPLETED;
+                statusArgument = TaskItem.STATUS_COMPLETED;
                 break;
             case 2:
-                statusArgument = RSSNewsItem.STATUS_WAITING;
+                statusArgument = TaskItem.STATUS_WAITING;
                 break;
         }
 
@@ -306,9 +319,9 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public void onTaskClickTransition(RSSNewsItem item, Pair<View, String> pair) {
+    public void onTaskClickTransition(TaskItem item, Pair<View, String> pair) {
         Intent intent = new Intent(getContext(), DetailActivity.class);
-        intent.putExtra(RSSNewsItem.TASKITEM, item);
+        intent.putExtra(TaskItem.TASKITEM, item);
 
         //noinspection unchecked always true
         Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(
@@ -318,9 +331,9 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
     }
 
     @Override
-    public void onTaskClick(RSSNewsItem item) {
+    public void onTaskClick(TaskItem item) {
         Intent intent = new Intent(getContext(), DetailActivity.class);
-        intent.putExtra(RSSNewsItem.TASKITEM, item);
+        intent.putExtra(TaskItem.TASKITEM, item);
         startActivity(intent);
     }
 }

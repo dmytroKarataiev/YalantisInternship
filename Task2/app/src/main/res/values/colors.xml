@@ -40,6 +40,10 @@
     <color name="background_gradient_start">#537BAE</color>
     <color name="background_gradient_end">#42ADC2</color>
 
+    <!-- Status Colors -->
+    <color name="status_completed">#00C853</color>
+    <color name="status_progress">#ff9c26</color>
+    <color name="status_waiting">#2196F3</color>
 
 </resources>
 

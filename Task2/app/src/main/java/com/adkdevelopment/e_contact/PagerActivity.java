@@ -48,6 +48,7 @@ import android.widget.Toast;
 
 import com.adkdevelopment.e_contact.adapters.PagerAdapter;
 import com.adkdevelopment.e_contact.remote.FetchData;
+import com.adkdevelopment.e_contact.remote.TaskItem;
 import com.adkdevelopment.e_contact.utils.UnderlinePageIndicator;
 import com.adkdevelopment.e_contact.utils.Utilities;
 import com.adkdevelopment.e_contact.utils.ZoomOutPageTransformer;
@@ -87,92 +88,11 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
             App.firstLaunch = false;
         }
 
-        // Set up ActionBar and corresponding icons
-        setSupportActionBar(mToolbar);
-        ActionBar supportActionBar = getSupportActionBar();
+        initActionBar();
 
-        if (supportActionBar != null) {
-            supportActionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
-            supportActionBar.setDisplayHomeAsUpEnabled(true);
-            supportActionBar.setTitle(Utilities
-                            .getActionbarTitle(this, Utilities.getSortingPreference(this)));
-        }
+        initPager();
 
-        mPagerAdapter = new PagerAdapter(getSupportFragmentManager(), this);
-        mViewPager.setAdapter(mPagerAdapter);
-        mViewPager.setOffscreenPageLimit(mPagerAdapter.getCount());
-
-        //Bind the title indicator to the adapter
-        mTabIndicator.setViewPager(mViewPager);
-        mTabIndicator.setFades(false);
-
-        // zoom effect on swipe
-        mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
-
-        mTabLayout.setupWithViewPager(mViewPager);
-
-        // Make links work in the Drawer
-        mFooterLinks.setMovementMethod(LinkMovementMethod.getInstance());
-
-        // set correct elevations
-        if (mAppBar != null) {
-            ViewCompat.setElevation(mAppBar, 0f);
-            // uncomment next line if you want to make elevations as in the first specification
-            // ViewCompat.setElevation(mToolbar, 16f);
-        }
-
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(PagerActivity.this, mFab.getContentDescription(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // on second click on tab - scroll to the top if in TasksFragment
-        mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                mViewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                Fragment fragment = mPagerAdapter.getRegisteredFragment(tab.getPosition());
-                if (fragment instanceof TasksFragment) {
-                    ((TasksFragment) fragment).scrollToTop();
-                }
-            }
-        });
-
-        // add listener to the buttons in the navigation drawer
-        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
-
-                if (item.getItemId() == R.id.drawer_map) {
-                    item.setChecked(false);
-                    mDrawerLayout.closeDrawers();
-                    if (Utilities.checkPlayServices(PagerActivity.this)) {
-                        Intent intent = new Intent(PagerActivity.this, MapsActivity.class);
-                        startActivity(intent);
-                        return true;
-                    } else {
-                        item.setChecked(false);
-                        return true;
-                    }
-                } else {
-                    item.setChecked(true);
-                    mDrawerLayout.closeDrawers();
-                    return true;
-                }
-            }
-        });
-
+        initNavigationDrawer();
     }
 
     @Override
@@ -213,16 +133,16 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.popup_filter_all:
-                Utilities.setSortingPreference(this, 0);
+                Utilities.setSortingPreference(this, TaskItem.TYPE_ALL);
                 return true;
             case R.id.popup_filter_public:
-                Utilities.setSortingPreference(this, 1);
+                Utilities.setSortingPreference(this, TaskItem.TYPE_PUBLIC);
                 return true;
             case R.id.popup_filter_improvement:
-                Utilities.setSortingPreference(this, 2);
+                Utilities.setSortingPreference(this, TaskItem.TYPE_IMPROVEMENT);
                 return true;
             case R.id.popup_filter_architecture:
-                Utilities.setSortingPreference(this, 3);
+                Utilities.setSortingPreference(this, TaskItem.TYPE_ARCHITECTURE);
                 return true;
             default:
                 return false;
@@ -243,4 +163,112 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
         // select first item in navigation drawer on startup
         mNavigationView.getMenu().getItem(0).setChecked(true);
     }
+
+    /**
+     * Performs all preparation procedures to initialize Toolbar and ActionBar
+     */
+    private void initActionBar() {
+
+        // Set up ActionBar and corresponding icons
+        setSupportActionBar(mToolbar);
+        ActionBar supportActionBar = getSupportActionBar();
+
+        if (supportActionBar != null) {
+            supportActionBar.setHomeAsUpIndicator(R.drawable.ic_drawer_menu);
+            supportActionBar.setDisplayHomeAsUpEnabled(true);
+            supportActionBar.setTitle(Utilities
+                    .getActionbarTitle(this, Utilities.getSortingPreference(this)));
+        }
+
+        // set correct elevations
+        if (mAppBar != null) {
+            ViewCompat.setElevation(mAppBar, 0f);
+            // uncomment next line if you want to make elevations as in the first specification
+            // ViewCompat.setElevation(mToolbar, 16f);
+        }
+    }
+
+    /**
+     * Initialises a ViewPager and a TabLayout with a custom indicator
+     * sets listeners to them
+     */
+    private void initPager() {
+        mPagerAdapter = new PagerAdapter(getSupportFragmentManager(), this);
+        mViewPager.setAdapter(mPagerAdapter);
+        mViewPager.setOffscreenPageLimit(mPagerAdapter.getCount());
+
+        //Bind the title indicator to the adapter
+        mTabIndicator.setViewPager(mViewPager);
+        mTabIndicator.setFades(false);
+
+        // zoom effect on swipe
+        mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+
+        mTabLayout.setupWithViewPager(mViewPager);
+
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(PagerActivity.this,
+                        mFab.getContentDescription(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // on second click on tab - scroll to the top if in TasksFragment
+        mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mViewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                Fragment fragment = mPagerAdapter.getRegisteredFragment(tab.getPosition());
+                if (fragment instanceof TasksFragment) {
+                    ((TasksFragment) fragment).scrollToTop();
+                }
+            }
+        });
+    }
+
+    /**
+     * Initialises Navigation Drawer and adds links movement to the footer
+     * sets listener on an item click in the Drawer
+     */
+    private void initNavigationDrawer() {
+        // Make links work in the Drawer
+        mFooterLinks.setMovementMethod(LinkMovementMethod.getInstance());
+
+        // add listener to the buttons in the navigation drawer
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+
+                if (item.getItemId() == R.id.drawer_map) {
+                    item.setChecked(false);
+                    mDrawerLayout.closeDrawers();
+                    if (Utilities.checkPlayServices(PagerActivity.this)) {
+                        Intent intent = new Intent(PagerActivity.this, MapsActivity.class);
+                        startActivity(intent);
+                        return true;
+                    } else {
+                        item.setChecked(false);
+                        return true;
+                    }
+                } else {
+                    item.setChecked(true);
+                    mDrawerLayout.closeDrawers();
+                    return true;
+                }
+            }
+        });
+    }
+
+
 }

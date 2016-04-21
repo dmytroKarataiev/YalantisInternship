@@ -29,7 +29,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.adkdevelopment.e_contact.remote.RSSNewsItem;
+import com.adkdevelopment.e_contact.remote.TaskItem;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -57,33 +57,33 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         // populate the item with data
-        RSSNewsItem rssNewsItem = getData();
+        TaskItem taskItem = getData();
 
         // Set the title bar with Task title
-        String actionbarTitle = getString(R.string.task_actionbar_title) + " " + rssNewsItem.getTitle();
+        String actionbarTitle = getString(R.string.task_actionbar_title) + " " + taskItem.getTitle();
         getSupportActionBar().setTitle(actionbarTitle);
 
     }
 
     /**
-     * Gets RSSNewsItem from the intent or creates it from the internal data
-     * @return RSSNewsItem object with the data
+     * Gets TaskItem from the intent or creates it from the internal data
+     * @return TaskItem object with the data
      */
-    private RSSNewsItem getData() {
+    private TaskItem getData() {
         // If launched from the List Activity - get data from the intent
-        RSSNewsItem rssNewsItem;
+        TaskItem taskItem;
 
-        if (getIntent().hasExtra(RSSNewsItem.TASKITEM)) {
-            rssNewsItem = getIntent().getParcelableExtra(RSSNewsItem.TASKITEM);
+        if (getIntent().hasExtra(TaskItem.TASKITEM)) {
+            taskItem = getIntent().getParcelableExtra(TaskItem.TASKITEM);
         } else {
             // Example data
-            rssNewsItem = new RSSNewsItem();
-            rssNewsItem.setTitle(getString(R.string.task_title_example));
-            rssNewsItem.setResponsible(getString(R.string.task_owner));
-            rssNewsItem.setStatus(1);
+            taskItem = new TaskItem();
+            taskItem.setTitle(getString(R.string.task_title_example));
+            taskItem.setResponsible(getString(R.string.task_owner));
+            taskItem.setStatus(1);
         }
 
-        return rssNewsItem;
+        return taskItem;
     }
 
     @Override

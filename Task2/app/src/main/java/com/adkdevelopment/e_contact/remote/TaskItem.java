@@ -33,16 +33,20 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RSSNewsItem implements Parcelable {
+public class TaskItem implements Parcelable {
 
     public static final String TASKITEM = "task";
 
-    // set according to the database schema
+    // constants set according to the database schema
     public static final String STATUS_ALL = "0";
     public static final String STATUS_PROGRESS = "1";
     public static final String STATUS_COMPLETED = "2";
     public static final String STATUS_WAITING = "3";
 
+    public static final int TYPE_ALL = 0;
+    public static final int TYPE_PUBLIC = 1;
+    public static final int TYPE_IMPROVEMENT = 2;
+    public static final int TYPE_ARCHITECTURE = 3;
 
     @SerializedName("id")
     @Expose
@@ -350,7 +354,7 @@ public class RSSNewsItem implements Parcelable {
         this.longitude = longitude;
     }
 
-    public RSSNewsItem() {
+    public TaskItem() {
     }
 
     @Override
@@ -377,7 +381,7 @@ public class RSSNewsItem implements Parcelable {
         dest.writeInt(this.databaseId);
     }
 
-    protected RSSNewsItem(Parcel in) {
+    protected TaskItem(Parcel in) {
         this.id = in.readString();
         this.photo = in.createStringArrayList();
         this.title = in.readString();
@@ -395,15 +399,15 @@ public class RSSNewsItem implements Parcelable {
         this.databaseId = in.readInt();
     }
 
-    public static final Creator<RSSNewsItem> CREATOR = new Creator<RSSNewsItem>() {
+    public static final Creator<TaskItem> CREATOR = new Creator<TaskItem>() {
         @Override
-        public RSSNewsItem createFromParcel(Parcel source) {
-            return new RSSNewsItem(source);
+        public TaskItem createFromParcel(Parcel source) {
+            return new TaskItem(source);
         }
 
         @Override
-        public RSSNewsItem[] newArray(int size) {
-            return new RSSNewsItem[size];
+        public TaskItem[] newArray(int size) {
+            return new TaskItem[size];
         }
     };
 }

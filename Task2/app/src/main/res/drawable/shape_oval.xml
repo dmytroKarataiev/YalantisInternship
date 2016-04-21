@@ -34,8 +34,6 @@
         android:right="4dp"
         android:top="2dp" />
 
-
-
     <solid android:color="@color/colorAccent" />
 
 </shape>

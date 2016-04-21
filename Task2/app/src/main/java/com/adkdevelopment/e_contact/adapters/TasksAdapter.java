@@ -39,7 +39,7 @@ import android.widget.TextView;
 import com.adkdevelopment.e_contact.R;
 import com.adkdevelopment.e_contact.TasksFragment;
 import com.adkdevelopment.e_contact.interfaces.OnAdapterClick;
-import com.adkdevelopment.e_contact.remote.RSSNewsItem;
+import com.adkdevelopment.e_contact.remote.TaskItem;
 import com.adkdevelopment.e_contact.utils.CursorRecyclerViewAdapter;
 import com.adkdevelopment.e_contact.utils.Utilities;
 
@@ -97,24 +97,24 @@ public class TasksAdapter extends CursorRecyclerViewAdapter<TasksAdapter.ViewHol
         viewHolder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RSSNewsItem rssNewsItem = new RSSNewsItem();
-                rssNewsItem.setDatabaseId(uniqueId);
-                rssNewsItem.setTitle(title);
-                rssNewsItem.setType(type);
-                rssNewsItem.setStatus(status);
-                rssNewsItem.setCreated(created);
-                rssNewsItem.setRegistered(registered);
-                rssNewsItem.setAssigned(assigned);
-                rssNewsItem.setResponsible(responsible);
-                rssNewsItem.setDescription(description);
+                TaskItem taskItem = new TaskItem();
+                taskItem.setDatabaseId(uniqueId);
+                taskItem.setTitle(title);
+                taskItem.setType(type);
+                taskItem.setStatus(status);
+                taskItem.setCreated(created);
+                taskItem.setRegistered(registered);
+                taskItem.setAssigned(assigned);
+                taskItem.setResponsible(responsible);
+                taskItem.setDescription(description);
 
                 // Check if a phone supports shared transitions
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     Pair<View, String> pair = Pair.create(viewHolder.itemView.findViewById(R.id.task_item_card),
                             viewHolder.itemView.findViewById(R.id.task_item_card).getTransitionName());
-                    mOnAdapterClick.onTaskClickTransition(rssNewsItem, pair);
+                    mOnAdapterClick.onTaskClickTransition(taskItem, pair);
                 } else {
-                    mOnAdapterClick.onTaskClick(rssNewsItem);
+                    mOnAdapterClick.onTaskClick(taskItem);
                 }
             }
         });

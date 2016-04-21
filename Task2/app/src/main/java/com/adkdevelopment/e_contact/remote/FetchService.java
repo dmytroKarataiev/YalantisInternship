@@ -37,7 +37,7 @@ import retrofit2.http.GET;
 /**
  * Public interface with a link to the Endpoint
  */
-public interface RSSService {
+public interface FetchService {
     @GET("download/photos/data.json")
-    Call<List<RSSNewsItem>> getData();
+    Call<List<TaskItem>> getData();
 }

@@ -30,7 +30,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.adkdevelopment.e_contact.R;
 import com.squareup.picasso.Picasso;
@@ -46,6 +45,7 @@ import butterknife.ButterKnife;
 public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> {
     private final List<String> mDataset;
     private final Context mContext;
+    private final OnImageClick mOnImageClick;
 
     // Simple version of the viewholder with only one view
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -59,9 +59,10 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
     }
 
     // Context kind of unnecessary here, but in the future it will be easier to refactor
-    public PhotoAdapter(List<String> myDataset, Context context) {
+    public PhotoAdapter(List<String> myDataset, Context context, OnImageClick onImageClick) {
         mContext = context;
         mDataset = myDataset;
+        mOnImageClick = onImageClick;
     }
 
     // Create new views (invoked by the layout manager)
@@ -77,25 +78,21 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
 
-        final int imagePosition = position;
         // Download image from the internet, onError - use a drawable
         Picasso
                 .with(mContext)
-                .load(mDataset.get(imagePosition))
+                .load(mDataset.get(position))
                 .error(R.drawable.image_placeholder)
                 .into(holder.mImageView);
-        holder.mImageView.setContentDescription(mContext.getString(R.string.task_image_text));
+        holder.mImageView.setContentDescription(mContext.getString(R.string.task_image_text)
+                + " " + position);
 
-        // Click on each image in the recyclerview shows a toast
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext,
-                        mContext.getString(R.string.task_image_text) + " " + imagePosition,
-                        Toast.LENGTH_SHORT)
-                        .show();
+                mOnImageClick.onImageItemClick(v, holder.getAdapterPosition());
             }
         });
 
@@ -105,5 +102,12 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
     @Override
     public int getItemCount() {
         return mDataset.size();
+    }
+
+    /**
+     * Interface to avoid direct interactions from the adapter
+     */
+    public interface OnImageClick {
+        void onImageItemClick(View view, int position);
     }
 }

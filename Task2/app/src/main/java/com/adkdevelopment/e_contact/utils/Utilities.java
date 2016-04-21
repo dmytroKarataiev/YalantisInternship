@@ -30,6 +30,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.util.Log;
 
@@ -161,15 +162,15 @@ public class Utilities {
     public static int getTypeIcon(int type) {
         switch (type) {
             case 0:
-                return R.drawable.other;
+                return R.drawable.ic_type_other;
             case 1:
-                return R.drawable.ic_trash;
+                return R.drawable.ic_type_trash;
             case 2:
-                return R.drawable.ic_issues;
+                return R.drawable.ic_type_issues;
             case 3:
-                return R.drawable.paint;
+                return R.drawable.ic_type_paint;
             default:
-                return R.drawable.other;
+                return R.drawable.ic_type_other;
         }
     }
 
@@ -204,10 +205,31 @@ public class Utilities {
             if (GoogleApiAvailability.getInstance().isUserResolvableError(result)) {
                 GoogleApiAvailability.getInstance().getErrorDialog(activity, result, 0).show();
             } else {
-                Log.e(TAG, "checkPlayServices not available");
+                Log.e(TAG, "PlayServices not available");
             }
             return false;
         }
         return true;
+    }
+
+    /**
+     * Returns int of a color resource for corresponding status of a task
+     * @param context from which call is made
+     * @param status status according to the database schema
+     * @return int of a corresponding color from resources
+     */
+    public static int getBackgroundColor(Context context, int status) {
+
+        switch (status) {
+            case 1:
+                return ContextCompat.getColor(context, R.color.status_progress);
+            case 2:
+                return ContextCompat.getColor(context, R.color.status_completed);
+            case 3:
+                return ContextCompat.getColor(context, R.color.status_waiting);
+            default:
+                return ContextCompat.getColor(context, R.color.colorAccent);
+        }
+
     }
 }

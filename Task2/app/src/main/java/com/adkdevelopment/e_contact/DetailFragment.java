@@ -24,8 +24,10 @@
 
 package com.adkdevelopment.e_contact;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -39,7 +41,7 @@ import android.widget.Toast;
 
 import com.adkdevelopment.e_contact.adapters.PhotoAdapter;
 import com.adkdevelopment.e_contact.provider.photos.PhotosColumns;
-import com.adkdevelopment.e_contact.remote.RSSNewsItem;
+import com.adkdevelopment.e_contact.remote.TaskItem;
 import com.adkdevelopment.e_contact.utils.Utilities;
 
 import java.util.ArrayList;
@@ -53,7 +55,7 @@ import butterknife.OnClick;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class DetailFragment extends Fragment {
+public class DetailFragment extends Fragment implements PhotoAdapter.OnImageClick{
 
     @Bind(R.id.task_title_text) TextView task_title_text;
     @Bind(R.id.task_status) TextView task_status;
@@ -85,7 +87,7 @@ public class DetailFragment extends Fragment {
 
     // Shows a Toast on each element click
     public void showToast(View view) {
-        Toast.makeText(getActivity(),
+        Toast.makeText(getContext(),
                 ((TextView) view).getText(), Toast.LENGTH_SHORT)
                 .show();
     }
@@ -97,26 +99,35 @@ public class DetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.detail_fragment_task, container, false);
         ButterKnife.bind(this, rootView);
 
-        Intent intent = getActivity().getIntent();
-        RSSNewsItem mNewsItem;
+        // to prevent multiple calls to getContext()
+        Context context = getContext();
 
-        if (intent.hasExtra(RSSNewsItem.TASKITEM)) {
-            mNewsItem = intent.getParcelableExtra(RSSNewsItem.TASKITEM);
+        Intent intent = getActivity().getIntent();
+        TaskItem mNewsItem;
+
+        if (intent.hasExtra(TaskItem.TASKITEM)) {
+
+            mNewsItem = intent.getParcelableExtra(TaskItem.TASKITEM);
 
             // Time parsing and creating a nice textual version (should be changed to Calendar)
             String dateCreated = Utilities.getFormattedDate(mNewsItem.getCreated());
             String dateRegistered = Utilities.getFormattedDate(mNewsItem.getRegistered());
             String dateAssigned = Utilities.getFormattedDate(mNewsItem.getAssigned());
 
-            task_title_text.setText(Utilities.getType(getContext(), mNewsItem.getType()));
-            task_status.setText(Utilities.getStatus(getContext(), mNewsItem.getStatus()));
+            task_title_text.setText(Utilities.getType(context, mNewsItem.getType()));
+            task_status.setText(Utilities.getStatus(context, mNewsItem.getStatus()));
+
+            // sets color of a status TextView shape according to the schema
+            GradientDrawable gradientDrawable = (GradientDrawable) task_status.getBackground();
+            gradientDrawable.setColor(Utilities.getBackgroundColor(context, mNewsItem.getStatus()));
+
             task_created_date.setText(dateCreated);
             task_registered_date.setText(dateRegistered);
             task_assigned_date.setText(dateAssigned);
             task_responsible_name.setText(mNewsItem.getResponsible());
             task_description.setText(Html.fromHtml(mNewsItem.getDescription()));
 
-            Cursor cursor = getActivity().getContentResolver()
+            Cursor cursor = context.getContentResolver()
                     .query(PhotosColumns.CONTENT_URI,
                             null,
                             PhotosColumns.TASK_ID + " LIKE ?",
@@ -139,7 +150,7 @@ public class DetailFragment extends Fragment {
             dummyPhotos.addAll(Arrays.asList(getResources()
                     .getStringArray(R.array.task_image_links)));
 
-            mNewsItem = new RSSNewsItem();
+            mNewsItem = new TaskItem();
             mNewsItem.setPhoto(dummyPhotos);
         }
 
@@ -148,7 +159,7 @@ public class DetailFragment extends Fragment {
 
         // Horizontal LayoutManager
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(
-                getContext(),
+                context,
                 RecyclerView.HORIZONTAL,
                 false
         );
@@ -156,7 +167,7 @@ public class DetailFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         // Adapter with data about different activities
-        PhotoAdapter photoAdapter = new PhotoAdapter(mNewsItem.getPhoto(), getContext());
+        PhotoAdapter photoAdapter = new PhotoAdapter(mNewsItem.getPhoto(), context, this);
         recyclerView.setAdapter(photoAdapter);
 
         return rootView;
@@ -168,4 +179,10 @@ public class DetailFragment extends Fragment {
         ButterKnife.unbind(this);
     }
 
+    @Override
+    public void onImageItemClick(View view, int position) {
+        Toast.makeText(getContext(),
+                view.getContentDescription(),
+                Toast.LENGTH_SHORT).show();
+    }
 }

@@ -41,9 +41,9 @@ public class ApiManager {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    private final RSSService RSS_SERVICE = REST_ADAPTER.create(RSSService.class);
+    private final FetchService RSS_SERVICE = REST_ADAPTER.create(FetchService.class);
 
-    public RSSService getService() {
+    public FetchService getService() {
         return RSS_SERVICE;
     }
 
