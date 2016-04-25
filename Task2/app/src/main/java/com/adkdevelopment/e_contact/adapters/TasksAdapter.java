@@ -56,7 +56,7 @@ public class TasksAdapter extends CursorRecyclerViewAdapter<TasksAdapter.ViewHol
     private final OnAdapterClick mOnAdapterClick;
     
     // Provide a reference to the views for each data item
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         @Bind(R.id.task_item_type_image) ImageView mTypeImage;
         @Bind(R.id.task_item_type_text) TextView mTypeText;

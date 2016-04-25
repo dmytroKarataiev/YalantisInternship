@@ -51,15 +51,24 @@ import butterknife.ButterKnife;
  */
 public class ListviewAdapter extends CursorAdapter {
 
-    @Bind(R.id.task_item_type_image) ImageView mTypeImage;
-    @Bind(R.id.task_item_type_text) TextView mTypeText;
-    @Bind(R.id.task_item_likes_text) TextView mLikesText;
-    @Bind(R.id.task_item_address) TextView mAddress;
-    @Bind(R.id.task_item_registered) TextView mRegistered;
-    @Bind(R.id.task_item_elapsed) TextView mElapsed;
-    @Bind(R.id.task_item_card) CardView mCardView;
+    /**
+     * Cache of the children views for a list item.
+     */
+    public static class ViewHolder {
+        @Bind(R.id.task_item_type_image) ImageView mTypeImage;
+        @Bind(R.id.task_item_type_text) TextView mTypeText;
+        @Bind(R.id.task_item_likes_text) TextView mLikesText;
+        @Bind(R.id.task_item_address) TextView mAddress;
+        @Bind(R.id.task_item_registered) TextView mRegistered;
+        @Bind(R.id.task_item_elapsed) TextView mElapsed;
+        @Bind(R.id.task_item_card) CardView mCardView;
 
-    private final OnAdapterClick mOnAdapterClick;
+        public ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    private OnAdapterClick mOnAdapterClick;
 
     public ListviewAdapter(Context context, Cursor c, int flags, OnAdapterClick listener) {
         super(context, c, flags);
@@ -68,12 +77,19 @@ public class ListviewAdapter extends CursorAdapter {
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        return LayoutInflater.from(context).inflate(R.layout.task_item_grid, parent, false);
+
+        View view = LayoutInflater.from(context).inflate(R.layout.task_item_grid, parent, false);
+
+        ViewHolder viewHolder = new ViewHolder(view);
+        view.setTag(viewHolder);
+
+        return view;
     }
 
     @Override
-    public void bindView(final View view, Context context, Cursor cursor) {
-        ButterKnife.bind(this, view);
+    public void bindView(View view, Context context, Cursor cursor) {
+
+        final ViewHolder viewHolder = (ViewHolder) view.getTag();
 
         final int uniqueId = cursor.getInt(TasksFragment.COL_TASKS_ID);
         final String title = cursor.getString(TasksFragment.COL_TASKS_TITLE);
@@ -87,14 +103,14 @@ public class ListviewAdapter extends CursorAdapter {
         int likes = cursor.getInt(TasksFragment.COL_TASKS_LIKES);
         String address = cursor.getString(TasksFragment.COL_TASKS_ADDRESS);
 
-        mTypeImage.setImageResource(Utilities.getTypeIcon(type));
-        mTypeText.setText(Utilities.getType(context, type));
-        mLikesText.setText(String.valueOf(likes));
-        mAddress.setText(address);
-        mRegistered.setText(Utilities.getFormattedDate(registered));
-        mElapsed.setText(Utilities.getRelativeDate(registered));
+        viewHolder.mTypeImage.setImageResource(Utilities.getTypeIcon(type));
+        viewHolder.mTypeText.setText(Utilities.getType(context, type));
+        viewHolder.mLikesText.setText(String.valueOf(likes));
+        viewHolder.mAddress.setText(address);
+        viewHolder.mRegistered.setText(Utilities.getFormattedDate(registered));
+        viewHolder.mElapsed.setText(Utilities.getRelativeDate(registered));
 
-        mCardView.setOnClickListener(new View.OnClickListener() {
+        viewHolder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TaskItem taskItem = new TaskItem();
@@ -111,8 +127,8 @@ public class ListviewAdapter extends CursorAdapter {
 
                 // Check if a phone supports shared transitions
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    Pair<View, String> pair = Pair.create(view.findViewById(R.id.task_item_card),
-                            view.findViewById(R.id.task_item_card).getTransitionName());
+                    Pair<View, String> pair = Pair.create((View) viewHolder.mCardView,
+                            viewHolder.mCardView.getTransitionName());
                     mOnAdapterClick.onTaskClickTransition(taskItem, pair);
                 } else {
                     mOnAdapterClick.onTaskClick(taskItem);
