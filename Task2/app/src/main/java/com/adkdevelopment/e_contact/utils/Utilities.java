@@ -35,6 +35,7 @@ import android.text.format.DateUtils;
 import android.util.Log;
 
 import com.adkdevelopment.e_contact.R;
+import com.adkdevelopment.e_contact.remote.TaskItem;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
@@ -95,7 +96,7 @@ public class Utilities {
      */
     public static int getSortingPreference(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return sharedPreferences.getInt(context.getString(R.string.sharedprefs_key_sort), 0);
+        return sharedPreferences.getInt(context.getString(R.string.sharedprefs_key_sort), TaskItem.TYPE_ALL);
     }
 
     /**
@@ -120,13 +121,13 @@ public class Utilities {
     public static String getActionbarTitle(Context context, int position) {
 
         switch (position) {
-            case 0:
+            case TaskItem.TYPE_ALL:
                 return context.getString(R.string.menu_item_sort_all);
-            case 1:
+            case TaskItem.TYPE_PUBLIC:
                 return context.getString(R.string.type_public);
-            case 2:
+            case TaskItem.TYPE_IMPROVEMENT:
                 return context.getString(R.string.type_improvement);
-            case 3:
+            case TaskItem.TYPE_ARCHITECTURE:
                 return context.getString(R.string.type_architecture);
             default:
                 return context.getString(R.string.app_name);
@@ -141,13 +142,13 @@ public class Utilities {
      */
     public static String getType(Context context, int type) {
         switch (type) {
-            case 0:
+            case TaskItem.TYPE_ALL:
                 return context.getString(R.string.type_other);
-            case 1:
+            case TaskItem.TYPE_PUBLIC:
                 return context.getString(R.string.type_public);
-            case 2:
+            case TaskItem.TYPE_IMPROVEMENT:
                 return context.getString(R.string.type_improvement);
-            case 3:
+            case TaskItem.TYPE_ARCHITECTURE:
                 return context.getString(R.string.type_architecture);
             default:
                 return context.getString(R.string.type_unknown);
@@ -161,13 +162,13 @@ public class Utilities {
      */
     public static int getTypeIcon(int type) {
         switch (type) {
-            case 0:
+            case TaskItem.TYPE_ALL:
                 return R.drawable.ic_type_other;
-            case 1:
+            case TaskItem.TYPE_PUBLIC:
                 return R.drawable.ic_type_trash;
-            case 2:
+            case TaskItem.TYPE_IMPROVEMENT:
                 return R.drawable.ic_type_issues;
-            case 3:
+            case TaskItem.TYPE_ARCHITECTURE:
                 return R.drawable.ic_type_paint;
             default:
                 return R.drawable.ic_type_other;
@@ -182,11 +183,11 @@ public class Utilities {
      */
     public static String getStatus(Context context, int status) {
         switch (status) {
-            case 1:
+            case TaskItem.STATUS_PROGRESS:
                 return context.getString(R.string.status_progress);
-            case 2:
+            case TaskItem.STATUS_COMPLETED:
                 return context.getString(R.string.status_completed);
-            case 3:
+            case TaskItem.STATUS_WAITING:
                 return context.getString(R.string.status_waiting);
             default:
                 return context.getString(R.string.status_unknown);
@@ -221,11 +222,11 @@ public class Utilities {
     public static int getBackgroundColor(Context context, int status) {
 
         switch (status) {
-            case 1:
+            case TaskItem.STATUS_PROGRESS:
                 return ContextCompat.getColor(context, R.color.status_progress);
-            case 2:
+            case TaskItem.STATUS_COMPLETED:
                 return ContextCompat.getColor(context, R.color.status_completed);
-            case 3:
+            case TaskItem.STATUS_WAITING:
                 return ContextCompat.getColor(context, R.color.status_waiting);
             default:
                 return ContextCompat.getColor(context, R.color.colorAccent);

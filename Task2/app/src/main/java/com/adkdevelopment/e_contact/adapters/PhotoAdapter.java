@@ -40,15 +40,15 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * Adapter to populate recyclerview with photos from JSON response
+ * Adapter to populate RecyclerView with photos from JSON response
  */
 public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> {
     private final List<String> mDataset;
     private final Context mContext;
     private final OnImageClick mOnImageClick;
 
-    // Simple version of the viewholder with only one view
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    // Simple version of the ViewHolder with only one View
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.poster_image) public ImageView mImageView;
 

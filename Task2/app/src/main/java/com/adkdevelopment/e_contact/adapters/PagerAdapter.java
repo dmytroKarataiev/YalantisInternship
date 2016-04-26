@@ -43,6 +43,9 @@ public class PagerAdapter extends FragmentPagerAdapter {
 
     private final Context mContext;
     public static final int LISTVIEW_FRAGMENT = 2;
+    public static final int FRAGMENT_PROGRESS = 0;
+    public static final int FRAGMENT_COMPLETED = 1;
+    public static final int FRAGMENT_WAITING = 2;
 
     // Keeps references to the fragment so not to recreate them and being able to communicate without problems
     final SparseArray<WeakReference<Fragment>> registeredFragments = new SparseArray<>();
@@ -65,11 +68,11 @@ public class PagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position) {
-            case 0:
+            case FRAGMENT_PROGRESS:
                 return mContext.getString(R.string.title_inprogress);
-            case 1:
+            case FRAGMENT_COMPLETED:
                 return mContext.getString(R.string.title_completed);
-            case 2:
+            case FRAGMENT_WAITING:
                 return mContext.getString(R.string.title_waiting);
             default:
                 return null;

@@ -43,25 +43,29 @@ android {
     }
 }
 
+ext {
+    supportVersion = '23.3.0'
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.android.support:design:23.3.0'
-    compile 'com.android.support:cardview-v7:23.3.0'
-    compile 'com.android.support:gridlayout-v7:23.3.0'
+    compile "com.android.support:appcompat-v7:$supportVersion"
+    compile "com.android.support:design:$supportVersion"
+    compile "com.android.support:cardview-v7:$supportVersion"
+    compile "com.android.support:gridlayout-v7:$supportVersion"
 
     // life simplifiers
-    compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile "com.jakewharton:butterknife:7.0.1"
+    compile "com.squareup.picasso:picasso:2.5.2"
 
     // data fetching and converting to objects
-    compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+    compile "com.squareup.retrofit2:retrofit:2.0.0-beta4"
+    compile "com.squareup.retrofit2:converter-gson:2.0.0-beta4"
 
     // Maps dependency
-    compile 'com.google.android.gms:play-services-maps:8.4.0'
+    compile "com.google.android.gms:play-services-maps:8.4.0"
 
     // page indicator with rounded corners
-    compile 'com.github.JakeWharton:ViewPagerIndicator:2.4.1'
+    compile "com.github.JakeWharton:ViewPagerIndicator:2.4.1"
 
 }

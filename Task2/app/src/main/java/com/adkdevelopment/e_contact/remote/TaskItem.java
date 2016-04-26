@@ -38,10 +38,10 @@ public class TaskItem implements Parcelable {
     public static final String TASKITEM = "task";
 
     // constants set according to the database schema
-    public static final String STATUS_ALL = "0";
-    public static final String STATUS_PROGRESS = "1";
-    public static final String STATUS_COMPLETED = "2";
-    public static final String STATUS_WAITING = "3";
+    public static final int STATUS_ALL = 0;
+    public static final int STATUS_PROGRESS = 1;
+    public static final int STATUS_COMPLETED = 2;
+    public static final int STATUS_WAITING = 3;
 
     public static final int TYPE_ALL = 0;
     public static final int TYPE_PUBLIC = 1;

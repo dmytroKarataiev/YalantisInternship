@@ -36,6 +36,7 @@ import android.view.View;
  * Gets used by app:layout_behavior=".FabHideOnScroll" parameter in XML of a FAB button
  * Created by karataev on 4/9/16.
  */
+@SuppressWarnings("unused")
 public class FabHideOnScroll extends FloatingActionButton.Behavior {
 
     public FabHideOnScroll(Context context, AttributeSet attrs) {

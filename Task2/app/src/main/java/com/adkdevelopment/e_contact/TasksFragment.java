@@ -161,15 +161,17 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
         mListview.setOnScrollListener(new AbsListView.OnScrollListener() {
 
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {}
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem,
                                  int visibleItemCount, int totalItemCount) {
                 int topRowVerticalPosition =
-                        (mListview == null || mListview.getChildCount() == 0) ?
-                                0 : mListview.getChildAt(0).getTop();
-                mSwipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+                        (mListview == null ||
+                                mListview.getChildCount() == 0) ? 0 : mListview.getChildAt(0).getTop();
+                mSwipeRefreshLayout.setEnabled(firstVisibleItem == 0 &&
+                        topRowVerticalPosition >= 0);
             }
         });
     }
@@ -217,16 +219,16 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
         // depending on the argument - query the contentprovider to receive relevant data
         // that's how we can reuse this fragment for different purposes
         int request = args.getInt(ARG_SECTION_NUMBER);
-        String statusArgument = TaskItem.STATUS_ALL;
+        String statusArgument = String.valueOf(TaskItem.STATUS_ALL);
         switch (request) {
-            case 0:
-                statusArgument = TaskItem.STATUS_PROGRESS;
+            case PagerAdapter.FRAGMENT_PROGRESS:
+                statusArgument = String.valueOf(TaskItem.STATUS_PROGRESS);
                 break;
-            case 1:
-                statusArgument = TaskItem.STATUS_COMPLETED;
+            case PagerAdapter.FRAGMENT_COMPLETED:
+                statusArgument = String.valueOf(TaskItem.STATUS_COMPLETED);
                 break;
-            case 2:
-                statusArgument = TaskItem.STATUS_WAITING;
+            case PagerAdapter.FRAGMENT_WAITING:
+                statusArgument = String.valueOf(TaskItem.STATUS_WAITING);
                 break;
         }
 
