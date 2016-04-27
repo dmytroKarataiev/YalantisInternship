@@ -16,14 +16,12 @@ import com.adkdevelopment.e_contact.provider.tasks.TasksColumns;
 public class TasksSQLiteOpenHelper extends SQLiteOpenHelper {
     private static final String TAG = TasksSQLiteOpenHelper.class.getSimpleName();
 
-    public static final String DATABASE_FILE_NAME = "tasks.db";
+    private static final String DATABASE_FILE_NAME = "tasks.db";
     private static final int DATABASE_VERSION = 1;
     private static TasksSQLiteOpenHelper sInstance;
-    private final Context mContext;
-    private final TasksSQLiteCallbacks mOpenHelperCallbacks;
 
     // @formatter:off
-    public static final String SQL_CREATE_TABLE_PHOTOS = "CREATE TABLE IF NOT EXISTS "
+    private static final String SQL_CREATE_TABLE_PHOTOS = "CREATE TABLE IF NOT EXISTS "
             + PhotosColumns.TABLE_NAME + " ( "
             + PhotosColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + PhotosColumns.URL + " TEXT NOT NULL, "
@@ -32,7 +30,7 @@ public class TasksSQLiteOpenHelper extends SQLiteOpenHelper {
             + ", CONSTRAINT unique_id UNIQUE (task_id, url) ON CONFLICT REPLACE"
             + " );";
 
-    public static final String SQL_CREATE_TABLE_TASKS = "CREATE TABLE IF NOT EXISTS "
+    private static final String SQL_CREATE_TABLE_TASKS = "CREATE TABLE IF NOT EXISTS "
             + TasksColumns.TABLE_NAME + " ( "
             + TasksColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + TasksColumns.ID_TASK + " INTEGER NOT NULL UNIQUE, "
@@ -70,7 +68,6 @@ public class TasksSQLiteOpenHelper extends SQLiteOpenHelper {
         return newInstancePostHoneycomb(context);
     }
 
-
     /*
      * Pre Honeycomb.
      */
@@ -80,10 +77,7 @@ public class TasksSQLiteOpenHelper extends SQLiteOpenHelper {
 
     private TasksSQLiteOpenHelper(Context context) {
         super(context, DATABASE_FILE_NAME, null, DATABASE_VERSION);
-        mContext = context;
-        mOpenHelperCallbacks = new TasksSQLiteCallbacks();
     }
-
 
     /*
      * Post Honeycomb.
@@ -96,18 +90,13 @@ public class TasksSQLiteOpenHelper extends SQLiteOpenHelper {
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private TasksSQLiteOpenHelper(Context context, DatabaseErrorHandler errorHandler) {
         super(context, DATABASE_FILE_NAME, null, DATABASE_VERSION, errorHandler);
-        mContext = context;
-        mOpenHelperCallbacks = new TasksSQLiteCallbacks();
     }
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         if (BuildConfig.DEBUG) Log.d(TAG, "onCreate");
-        mOpenHelperCallbacks.onPreCreate(mContext, db);
         db.execSQL(SQL_CREATE_TABLE_PHOTOS);
         db.execSQL(SQL_CREATE_TABLE_TASKS);
-        mOpenHelperCallbacks.onPostCreate(mContext, db);
     }
 
     @Override
@@ -116,7 +105,6 @@ public class TasksSQLiteOpenHelper extends SQLiteOpenHelper {
         if (!db.isReadOnly()) {
             setForeignKeyConstraintsEnabled(db);
         }
-        mOpenHelperCallbacks.onOpen(mContext, db);
     }
 
     private void setForeignKeyConstraintsEnabled(SQLiteDatabase db) {
@@ -138,6 +126,11 @@ public class TasksSQLiteOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        mOpenHelperCallbacks.onUpgrade(mContext, db, oldVersion, newVersion);
+        if (newVersion > oldVersion) {
+            db.execSQL("DROP TABLE IF EXISTS " + TasksColumns.TABLE_NAME);
+            db.execSQL("DROP TABLE IF EXISTS " + PhotosColumns.TABLE_NAME);
+            db.execSQL(SQL_CREATE_TABLE_TASKS);
+            db.execSQL(SQL_CREATE_TABLE_PHOTOS);
+        }
     }
 }

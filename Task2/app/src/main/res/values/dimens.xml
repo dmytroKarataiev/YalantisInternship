@@ -28,15 +28,12 @@
     <dimen name="padding_default">16dp</dimen>
     <dimen name="collpasing_layout_height">112dp</dimen>
 
-
     <!-- Drawer Layout Dimensions -->
-    <dimen name="drawer_header_height">100dp</dimen>
+    <dimen name="drawer_header_height">76dp</dimen>
     <dimen name="drawer_view_width">304dp</dimen>
     <dimen name="drawer_header_text_size">24sp</dimen>
-    <dimen name="drawer_header_text_padding">24dp</dimen>
 
     <!-- TabLayout -->
-    <dimen name="tablayout_height">48dp</dimen>
     <dimen name="tablayout_margin">10dp</dimen>
 
     <!-- RecyclerView dimensions -->
@@ -52,7 +49,6 @@
     <!-- List Item Dimensions -->
     <dimen name="list_item_padding">8dp</dimen>
     <dimen name="list_item_divider_height">8dp</dimen>
-
 
     <!-- Item in Details activity RecyclerView -->
     <dimen name="poster_height">300dp</dimen>

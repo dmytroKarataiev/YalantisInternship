@@ -21,6 +21,7 @@ public class PhotosSelection extends AbstractSelection<PhotosSelection> {
      * Query the given content resolver using this selection.
      *
      * @param contentResolver The content resolver to query.
+     * projection can be used later in the future, no need to fix it
      * @param projection A list of which columns to return. Passing null will return all columns, which is inefficient.
      * @return A {@code PhotosCursor} object, which is positioned before the first entry, or null.
      */
@@ -41,10 +42,11 @@ public class PhotosSelection extends AbstractSelection<PhotosSelection> {
      * Query the given content resolver using this selection.
      *
      * @param context The context to use for the query.
+     * projection can be used later in the future, no need to fix it
      * @param projection A list of which columns to return. Passing null will return all columns, which is inefficient.
      * @return A {@code PhotosCursor} object, which is positioned before the first entry, or null.
      */
-    public PhotosCursor query(Context context, String[] projection) {
+    public PhotosCursor query(Context context, String[] projection) { //[Comment] projection is always null
         Cursor cursor = context.getContentResolver().query(uri(), projection, sel(), args(), order());
         if (cursor == null) return null;
         return new PhotosCursor(cursor);
@@ -68,6 +70,7 @@ public class PhotosSelection extends AbstractSelection<PhotosSelection> {
         return this;
     }
 
+    // it can be used later in the future, no need to fix
     public PhotosSelection orderById(boolean desc) {
         orderBy("photos." + PhotosColumns._ID, desc);
         return this;

@@ -22,29 +22,18 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact.remote;
+package com.adkdevelopment.e_contact.interfaces;
 
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import android.content.Context;
 
 /**
- * REST Manager using Singleton Pattern
+ * Manager interface with initialization and clear functions
+ * Created by karataev on 4/27/16.
  */
-public class ApiManager {
+public interface Manager {
 
-    private static final String TAG = ApiManager.class.getSimpleName();
+    void init(Context context);
 
-    private final String BASE_URL = "http://adkdevelopment.com/";
-
-    private final Retrofit REST_ADAPTER = new retrofit2.Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-
-    private final FetchService RSS_SERVICE = REST_ADAPTER.create(FetchService.class);
-
-    public FetchService getService() {
-        return RSS_SERVICE;
-    }
+    void clear();
 
 }

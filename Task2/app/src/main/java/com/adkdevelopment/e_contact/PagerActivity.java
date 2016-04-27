@@ -27,7 +27,6 @@ package com.adkdevelopment.e_contact;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -52,6 +51,7 @@ import com.adkdevelopment.e_contact.remote.TaskItem;
 import com.adkdevelopment.e_contact.utils.UnderlinePageIndicator;
 import com.adkdevelopment.e_contact.utils.Utilities;
 import com.adkdevelopment.e_contact.utils.ZoomOutPageTransformer;
+import com.melnykov.fab.FloatingActionButton;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -82,11 +82,8 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
 
         ButterKnife.bind(this);
 
-        // Fetch data on Create only on first launch
-        if (App.firstLaunch) {
-            new FetchData(this).execute();
-            App.firstLaunch = false;
-        }
+        // fetch data on every launch of the app (which is logical)
+        new FetchData().execute();
 
         initActionBar();
 
@@ -154,7 +151,7 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
      * Not the most elegant way, but it works ok for now
      */
     public void fetchData() {
-        new FetchData(this).execute();
+        new FetchData().execute();
     }
 
     @Override
@@ -199,7 +196,6 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
 
         //Bind the title indicator to the adapter
         mTabIndicator.setViewPager(mViewPager);
-        mTabIndicator.setFades(false);
 
         // zoom effect on swipe
         mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
@@ -270,5 +266,12 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
         });
     }
 
+    /**
+     * Returns Floating Action Button to attach it wherever it is required
+     * @return FloatingActionButton from the activity
+     */
+    public FloatingActionButton getFab() {
+        return mFab;
+    }
 
 }

@@ -67,7 +67,6 @@
     <string name="type_improvement">Благоустрій та будівництво</string>
     <string name="type_other">Інше</string>
     <string name="type_unknown">Невідомо</string>
-    <string name="type_repair">Ремонтні роботи</string>
     <string name="status_unknown">Невідомо</string>
     <string name="status_progress">В роботі</string>
     <string name="status_completed">Виконано</string>

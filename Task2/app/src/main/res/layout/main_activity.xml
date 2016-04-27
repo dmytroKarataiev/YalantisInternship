@@ -26,8 +26,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_drawer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
     <include layout="@layout/pager_activity" />
 
@@ -36,7 +35,6 @@
         android:layout_width="@dimen/drawer_view_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"
         app:headerLayout="@layout/drawer_header"
         app:itemTextColor="@android:color/black"
         app:menu="@menu/menu_drawer">

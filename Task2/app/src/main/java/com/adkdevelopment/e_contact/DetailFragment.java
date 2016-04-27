@@ -57,18 +57,14 @@ import butterknife.OnClick;
  */
 public class DetailFragment extends Fragment implements PhotoAdapter.OnImageClick{
 
-    @Bind(R.id.task_title_text) TextView task_title_text;
-    @Bind(R.id.task_status) TextView task_status;
-    @Bind(R.id.task_created_date) TextView task_created_date;
-    @Bind(R.id.task_registered_date) TextView task_registered_date;
-    @Bind(R.id.task_assigned_date) TextView task_assigned_date;
-    @Bind(R.id.task_description) TextView task_description;
-    @Bind(R.id.task_responsible_name) TextView task_responsible_name;
-    @Bind(R.id.my_recycler_view) RecyclerView recyclerView;
-    @Bind(R.id.task_created_text) TextView task_created_text;
-    @Bind(R.id.task_registered_text) TextView task_registered_text;
-    @Bind(R.id.task_assigned_text) TextView task_assigned_text;
-    @Bind(R.id.task_responsible_text) TextView task_responsible_text;
+    @Bind(R.id.task_title_text) TextView mTaskTitleText;
+    @Bind(R.id.task_status) TextView mTaskStatus;
+    @Bind(R.id.task_created_date) TextView mTaskCreatedDate;
+    @Bind(R.id.task_registered_date) TextView mTaskRegisteredDate;
+    @Bind(R.id.task_assigned_date) TextView mTaskAssignedDate;
+    @Bind(R.id.task_description) TextView mTaskDescription;
+    @Bind(R.id.task_responsible_name) TextView mTaskResponsibleName;
+    @Bind(R.id.my_recycler_view) RecyclerView mRecyclerView;
 
     // As per specification - each element (or button? or what?) should have an onClickListener
     // which shows a toast with element name
@@ -103,35 +99,35 @@ public class DetailFragment extends Fragment implements PhotoAdapter.OnImageClic
         Context context = getContext();
 
         Intent intent = getActivity().getIntent();
-        TaskItem mNewsItem;
+        TaskItem newsItem;
 
         if (intent.hasExtra(TaskItem.TASKITEM)) {
 
-            mNewsItem = intent.getParcelableExtra(TaskItem.TASKITEM);
+            newsItem = intent.getParcelableExtra(TaskItem.TASKITEM);
 
             // Time parsing and creating a nice textual version (should be changed to Calendar)
-            String dateCreated = Utilities.getFormattedDate(mNewsItem.getCreated());
-            String dateRegistered = Utilities.getFormattedDate(mNewsItem.getRegistered());
-            String dateAssigned = Utilities.getFormattedDate(mNewsItem.getAssigned());
+            String dateCreated = Utilities.getFormattedDate(newsItem.getCreated());
+            String dateRegistered = Utilities.getFormattedDate(newsItem.getRegistered());
+            String dateAssigned = Utilities.getFormattedDate(newsItem.getAssigned());
 
-            task_title_text.setText(Utilities.getType(context, mNewsItem.getType()));
-            task_status.setText(Utilities.getStatus(context, mNewsItem.getStatus()));
+            mTaskTitleText.setText(Utilities.getType(context, newsItem.getType()));
+            mTaskStatus.setText(Utilities.getStatus(context, newsItem.getStatus()));
 
             // sets color of a status TextView shape according to the schema
-            GradientDrawable gradientDrawable = (GradientDrawable) task_status.getBackground();
-            gradientDrawable.setColor(Utilities.getBackgroundColor(context, mNewsItem.getStatus()));
+            GradientDrawable gradientDrawable = (GradientDrawable) mTaskStatus.getBackground();
+            gradientDrawable.setColor(Utilities.getBackgroundColor(context, newsItem.getStatus()));
 
-            task_created_date.setText(dateCreated);
-            task_registered_date.setText(dateRegistered);
-            task_assigned_date.setText(dateAssigned);
-            task_responsible_name.setText(mNewsItem.getResponsible());
-            task_description.setText(Html.fromHtml(mNewsItem.getDescription()));
+            mTaskCreatedDate.setText(dateCreated);
+            mTaskRegisteredDate.setText(dateRegistered);
+            mTaskAssignedDate.setText(dateAssigned);
+            mTaskResponsibleName.setText(newsItem.getResponsible());
+            mTaskDescription.setText(Html.fromHtml(newsItem.getDescription()));
 
             Cursor cursor = context.getContentResolver()
                     .query(PhotosColumns.CONTENT_URI,
                             null,
                             PhotosColumns.TASK_ID + " LIKE ?",
-                            new String[] { "" + mNewsItem.getDatabaseId()},
+                            new String[] { "" + newsItem.getDatabaseId()},
                             null);
 
             if (cursor != null) {
@@ -141,7 +137,7 @@ public class DetailFragment extends Fragment implements PhotoAdapter.OnImageClic
                     photos.add(cursor.getString(cursor.getColumnIndex(PhotosColumns.URL)));
                 }
                 cursor.close();
-                mNewsItem.setPhoto(photos);
+                newsItem.setPhoto(photos);
             }
 
         } else {
@@ -150,12 +146,12 @@ public class DetailFragment extends Fragment implements PhotoAdapter.OnImageClic
             dummyPhotos.addAll(Arrays.asList(getResources()
                     .getStringArray(R.array.task_image_links)));
 
-            mNewsItem = new TaskItem();
-            mNewsItem.setPhoto(dummyPhotos);
+            newsItem = new TaskItem();
+            newsItem.setPhoto(dummyPhotos);
         }
 
         // To boost performance as we know that size won't change
-        recyclerView.setHasFixedSize(true);
+        mRecyclerView.setHasFixedSize(true);
 
         // Horizontal LayoutManager
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(
@@ -164,11 +160,11 @@ public class DetailFragment extends Fragment implements PhotoAdapter.OnImageClic
                 false
         );
 
-        recyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setLayoutManager(layoutManager);
 
         // Adapter with data about different activities
-        PhotoAdapter photoAdapter = new PhotoAdapter(mNewsItem.getPhoto(), context, this);
-        recyclerView.setAdapter(photoAdapter);
+        PhotoAdapter photoAdapter = new PhotoAdapter(newsItem.getPhoto(), context, this);
+        mRecyclerView.setAdapter(photoAdapter);
 
         return rootView;
     }
@@ -182,7 +178,7 @@ public class DetailFragment extends Fragment implements PhotoAdapter.OnImageClic
     @Override
     public void onImageItemClick(View view, int position) {
         Toast.makeText(getContext(),
-                view.getContentDescription(),
+                view.getContentDescription() + " " + position,
                 Toast.LENGTH_SHORT).show();
     }
 }

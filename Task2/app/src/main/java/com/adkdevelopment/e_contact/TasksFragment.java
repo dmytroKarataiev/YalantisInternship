@@ -45,17 +45,17 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.adkdevelopment.e_contact.adapters.ListviewAdapter;
+import com.adkdevelopment.e_contact.adapters.ListViewAdapter;
 import com.adkdevelopment.e_contact.adapters.PagerAdapter;
 import com.adkdevelopment.e_contact.adapters.TasksAdapter;
 import com.adkdevelopment.e_contact.interfaces.OnAdapterClick;
 import com.adkdevelopment.e_contact.provider.tasks.TasksColumns;
 import com.adkdevelopment.e_contact.remote.TaskItem;
 import com.adkdevelopment.e_contact.utils.Utilities;
+import com.melnykov.fab.FloatingActionButton;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -86,11 +86,11 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
 
     private Cursor mCursor;
     private TasksAdapter mTasksAdapter;
-    private ListviewAdapter mListviewAdapter;
+    private ListViewAdapter mListViewAdapter;
     private LinearLayoutManager mLayoutManager;
 
     @Bind(R.id.recyclerview) RecyclerView mRecyclerView;
-    @Bind(R.id.listview) ListView mListview;
+    @Bind(R.id.listview) ListView mListView;
     @Bind(R.id.swipe_refresh_layout) SwipeRefreshLayout mSwipeRefreshLayout;
     @Bind(R.id.list_empty_text) TextView mListEmpty;
 
@@ -123,7 +123,7 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
 
         // to reuse this fragment we check the argument and inflate corresponding view with an adapter
         if (getArguments().getInt(ARG_SECTION_NUMBER) == PagerAdapter.LISTVIEW_FRAGMENT) {
-            initListviewAdapter();
+            initListViewAdapter();
         } else {
             initRecyclerAdapter();
         }
@@ -149,38 +149,26 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
     /**
      * Initializes Listview if pager is in corresponding view
      */
-    private void initListviewAdapter() {
+    private void initListViewAdapter() {
         mRecyclerView.setVisibility(View.GONE);
 
-        mListviewAdapter = new ListviewAdapter(getActivity(), mCursor, 0, this);
-        mListview.setAdapter(mListviewAdapter);
+        mListViewAdapter = new ListViewAdapter(getActivity(), mCursor, this);
+        mListView.setAdapter(mListViewAdapter);
 
         // to allow FAB scrolling with the view
-        ViewCompat.setNestedScrollingEnabled(mListview, true);
+        ViewCompat.setNestedScrollingEnabled(mListView, true);
 
-        mListview.setOnScrollListener(new AbsListView.OnScrollListener() {
-
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem,
-                                 int visibleItemCount, int totalItemCount) {
-                int topRowVerticalPosition =
-                        (mListview == null ||
-                                mListview.getChildCount() == 0) ? 0 : mListview.getChildAt(0).getTop();
-                mSwipeRefreshLayout.setEnabled(firstVisibleItem == 0 &&
-                        topRowVerticalPosition >= 0);
-            }
-        });
+        if (getActivity() instanceof PagerActivity) {
+            FloatingActionButton floatingActionButton = ((PagerActivity) getActivity()).getFab();
+            floatingActionButton.attachToListView(mListView);
+        }
     }
 
     /**
      * Initializes RecyclerView if pager is in corresponding view
      */
     private void initRecyclerAdapter() {
-        mListview.setVisibility(View.GONE);
+        mListView.setVisibility(View.GONE);
 
         mLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         mTasksAdapter = new TasksAdapter(getActivity(), mCursor, this);
@@ -188,6 +176,11 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mTasksAdapter);
+
+        if (getActivity() instanceof PagerActivity) {
+            FloatingActionButton floatingActionButton = ((PagerActivity) getActivity()).getFab();
+            floatingActionButton.attachToRecyclerView(mRecyclerView);
+        }
 
         // Prevent Swipe to refresh if recyclerview isn't in top position
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -263,8 +256,8 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
         mCursor = data;
         if (mTasksAdapter != null) {
             mTasksAdapter.swapCursor(mCursor);
-        } else if (mListviewAdapter != null) {
-            mListviewAdapter.swapCursor(mCursor);
+        } else if (mListViewAdapter != null) {
+            mListViewAdapter.swapCursor(mCursor);
         }
     }
 
@@ -273,8 +266,8 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
         mCursor = null;
         if (mTasksAdapter != null) {
             mTasksAdapter.swapCursor(null);
-        } else if (mListviewAdapter != null) {
-            mListviewAdapter.swapCursor(null);
+        } else if (mListViewAdapter != null) {
+            mListViewAdapter.swapCursor(null);
         }
     }
 
@@ -286,10 +279,10 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
         if (mLayoutManager != null) {
             mRecyclerView.smoothScrollToPosition(0);
         }
-        if (mListview != null) {
+        if (mListView != null) {
             // not the most elegant solution, but listview is a huuuge pain
-            mListview.smoothScrollToPosition(0);
-            mListview.setSelection(0);
+            mListView.smoothScrollToPosition(0);
+            mListView.setSelection(0);
         }
     }
 

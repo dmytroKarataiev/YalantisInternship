@@ -37,10 +37,10 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
 
     private final StringBuilder mOrderBy = new StringBuilder();
 
-    Boolean mNotify;
-    String mGroupBy;
-    String mHaving;
-    Integer mLimit;
+    private Boolean mNotify;
+    private String mGroupBy;
+    private String mHaving;
+    private Integer mLimit;
 
     protected void addEquals(String column, Object[] value) {
         mSelection.append(column);

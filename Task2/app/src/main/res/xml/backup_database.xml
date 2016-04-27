@@ -23,26 +23,6 @@
   ~ SOFTWARE.
   -->
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/drawer_header_height"
-    android:gravity="bottom" >
-
-    <TextView
-        android:id="@+id/drawer_header_text"
-        android:background="@color/colorPrimary"
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textColor="@color/default_unselected"
-        android:paddingLeft="@dimen/padding_default"
-        android:paddingRight="@dimen/padding_default"
-        android:text="@string/drawer_title"
-        android:textStyle="bold"
-        android:textSize="@dimen/drawer_header_text_size"
-        android:fontFamily="sans-serif"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-</LinearLayout>
+<full-backup-content>
+    <include domain="database" path="tasks.db" />
+</full-backup-content>

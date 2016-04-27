@@ -25,8 +25,10 @@
 package com.adkdevelopment.e_contact;
 
 import android.app.Application;
+import android.content.Context;
 
-import com.adkdevelopment.e_contact.remote.ApiManager;
+import com.adkdevelopment.e_contact.manager.ApiManager;
+import com.adkdevelopment.e_contact.manager.DataManager;
 
 /**
  * Class to keep reference to the Retrofit client
@@ -34,14 +36,34 @@ import com.adkdevelopment.e_contact.remote.ApiManager;
  */
 public class App extends Application {
 
-    public static boolean firstLaunch = true;
-
     private static ApiManager sApiManager;
+    private static DataManager sDataManager;
+    private static Context sContext;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        App.sContext = getApplicationContext();
+    }
 
     public static ApiManager getApiManager() {
         if (sApiManager == null) {
             sApiManager = new ApiManager();
+            sApiManager.init(null);
         }
         return sApiManager;
+    }
+
+    public static DataManager getDataManager() {
+        if (sDataManager == null) {
+            sDataManager = new DataManager();
+            sDataManager.init(sContext);
+        }
+        return sDataManager;
+    }
+
+    public void clear() {
+        sDataManager.clear();
+        sApiManager.clear();
     }
 }

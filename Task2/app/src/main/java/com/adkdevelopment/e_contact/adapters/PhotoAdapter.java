@@ -86,8 +86,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
                 .load(mDataset.get(position))
                 .error(R.drawable.image_placeholder)
                 .into(holder.mImageView);
-        holder.mImageView.setContentDescription(mContext.getString(R.string.task_image_text)
-                + " " + position);
+        holder.mImageView.setContentDescription(mContext.getString(R.string.task_image_text));
 
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override

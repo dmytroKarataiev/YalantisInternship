@@ -49,7 +49,7 @@ import butterknife.ButterKnife;
  * Simple CursorAdapter which populates ListView from the database
  * Created by karataev on 4/9/16.
  */
-public class ListviewAdapter extends CursorAdapter {
+public class ListViewAdapter extends CursorAdapter {
 
     /**
      * Cache of the children views for a list item.
@@ -70,8 +70,9 @@ public class ListviewAdapter extends CursorAdapter {
 
     private OnAdapterClick mOnAdapterClick;
 
-    public ListviewAdapter(Context context, Cursor c, int flags, OnAdapterClick listener) {
-        super(context, c, flags);
+    public ListViewAdapter(Context context, Cursor c, OnAdapterClick listener) {
+        // we set zero as a flag, because we use Loaders in the fragment
+        super(context, c, 0);
         mOnAdapterClick = listener;
     }
 

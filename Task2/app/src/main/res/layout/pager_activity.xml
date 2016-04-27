@@ -69,6 +69,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/indicator_height"
                 android:layout_gravity="bottom"
+                app:fades="false"
                 android:layout_marginLeft="@dimen/indicator_margin"
                 android:layout_marginRight="@dimen/indicator_margin"
                 app:vpi_corner_radius="@dimen/indicator_corners" />
@@ -84,7 +85,7 @@
         android:layout_below="@id/tabs"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <android.support.design.widget.FloatingActionButton
+    <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -92,7 +93,6 @@
         android:layout_margin="@dimen/fab_margin"
         android:contentDescription="@string/fab_description"
         android:scaleType="center"
-        android:src="@drawable/ic_fab"
-        app:layout_behavior="com.adkdevelopment.e_contact.utils.FabHideOnScroll" />
+        android:src="@drawable/ic_fab" />
 
 </android.support.design.widget.CoordinatorLayout>

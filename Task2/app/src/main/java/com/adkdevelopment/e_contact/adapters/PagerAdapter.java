@@ -42,10 +42,17 @@ import java.lang.ref.WeakReference;
 public class PagerAdapter extends FragmentPagerAdapter {
 
     private final Context mContext;
+
     public static final int LISTVIEW_FRAGMENT = 2;
+
     public static final int FRAGMENT_PROGRESS = 0;
     public static final int FRAGMENT_COMPLETED = 1;
     public static final int FRAGMENT_WAITING = 2;
+
+    public static final int[] FRAGMENTS =
+            { FRAGMENT_PROGRESS,
+            FRAGMENT_COMPLETED,
+            FRAGMENT_WAITING };
 
     // Keeps references to the fragment so not to recreate them and being able to communicate without problems
     final SparseArray<WeakReference<Fragment>> registeredFragments = new SparseArray<>();
@@ -62,7 +69,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return FRAGMENTS.length;
     }
 
     @Override

@@ -16,10 +16,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public abstract class BaseContentProvider extends ContentProvider {
-    public static final String QUERY_NOTIFY = "QUERY_NOTIFY";
-    public static final String QUERY_GROUP_BY = "QUERY_GROUP_BY";
-    public static final String QUERY_HAVING = "QUERY_HAVING";
-    public static final String QUERY_LIMIT = "QUERY_LIMIT";
+    private static final String QUERY_NOTIFY = "QUERY_NOTIFY";
+    private static final String QUERY_GROUP_BY = "QUERY_GROUP_BY";
+    private static final String QUERY_HAVING = "QUERY_HAVING";
+    private static final String QUERY_LIMIT = "QUERY_LIMIT";
 
     public static class QueryParams {
         public String table;
@@ -29,12 +29,10 @@ public abstract class BaseContentProvider extends ContentProvider {
         public String orderBy;
     }
 
-
     protected abstract QueryParams getQueryParams(Uri uri, String selection, String[] projection);
     protected abstract boolean hasDebug();
 
     protected abstract SQLiteOpenHelper createSqLiteOpenHelper();
-
     protected SQLiteOpenHelper mSqLiteOpenHelper;
 
     @Override

@@ -78,7 +78,6 @@
     <string name="type_improvement">Improvement and construction</string>
     <string name="type_other">Other</string>
     <string name="type_unknown">Unknown</string>
-    <string name="type_repair">Repairs</string>
     <string name="type_architecture">Small architecture objects</string>
 
     <string name="status_unknown">Unknown</string>

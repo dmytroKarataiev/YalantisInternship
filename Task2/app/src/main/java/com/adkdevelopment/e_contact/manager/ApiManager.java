@@ -22,36 +22,54 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact.remote;
+package com.adkdevelopment.e_contact.manager;
 
-import android.os.AsyncTask;
-import android.util.Log;
+import android.content.Context;
 
-import com.adkdevelopment.e_contact.App;
+import com.adkdevelopment.e_contact.interfaces.Manager;
+import com.adkdevelopment.e_contact.remote.FetchService;
+import com.adkdevelopment.e_contact.remote.TaskItem;
 
-import java.io.IOException;
 import java.util.List;
 
-/**
- * Class to retrieve data off the main thread
- * Created by karataev on 4/9/16.
- */
-public class FetchData extends AsyncTask<Void, Void, Void> {
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-    private static final String TAG = FetchData.class.getSimpleName();
+/**
+ * REST Manager
+ */
+public class ApiManager implements Manager {
+
+    private Retrofit mRetrofit;
+    private FetchService mFetchService;
+
+    private void initRetrofit() {
+        String BASE_URL = "http://adkdevelopment.com/";
+        mRetrofit = new retrofit2.Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+    }
+
+    private void initService() {
+        mFetchService = mRetrofit.create(FetchService.class);
+    }
 
     @Override
-    protected Void doInBackground(Void... params) {
-        List<TaskItem> itemList = null;
-
-        try {
-            itemList = App.getApiManager().getData().execute().body();
-        } catch (IOException e) {
-            Log.d(TAG, "e:" + e);
-        }
-
-        Log.d(TAG, "Store data completed: " + App.getDataManager().storeData(itemList));
-
-        return null;
+    public void init(Context context) {
+        initRetrofit();
+        initService();
     }
+
+    @Override
+    public void clear() {
+        mRetrofit = null;
+        mFetchService = null;
+    }
+
+    public Call<List<TaskItem>> getData() {
+        return mFetchService.getData();
+    }
+
 }

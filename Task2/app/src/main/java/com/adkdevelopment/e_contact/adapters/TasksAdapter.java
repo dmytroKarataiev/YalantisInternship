@@ -138,11 +138,6 @@ public class TasksAdapter extends CursorRecyclerViewAdapter<TasksAdapter.ViewHol
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-
-        if (getCursor() != null) {
-            return getCursor().getCount();
-        } else {
-            return 0;
-        }
+        return getCursor() != null ? getCursor().getCount() : 0;
     }
 }
