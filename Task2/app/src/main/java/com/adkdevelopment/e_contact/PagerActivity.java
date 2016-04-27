@@ -83,7 +83,7 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
         ButterKnife.bind(this);
 
         // Fetch data on Create only on first launch
-        if (App.firstLaunch) {
+        if (App.firstLaunch) { //[Comment] It will work every launch. Bad practice
             new FetchData(this).execute();
             App.firstLaunch = false;
         }

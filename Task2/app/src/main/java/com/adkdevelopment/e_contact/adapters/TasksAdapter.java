@@ -142,7 +142,7 @@ public class TasksAdapter extends CursorRecyclerViewAdapter<TasksAdapter.ViewHol
         if (getCursor() != null) {
             return getCursor().getCount();
         } else {
-            return 0;
+            return 0; //[Comment] Use ternar expression
         }
     }
 }

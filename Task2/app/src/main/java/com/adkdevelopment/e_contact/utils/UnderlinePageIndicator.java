@@ -151,7 +151,7 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
         return mFadeDelay;
     }
 
-    public void setFadeDelay(int fadeDelay) {
+    public void setFadeDelay(int fadeDelay) { //[Comment] can be private
         mFadeDelay = fadeDelay;
     }
 

@@ -40,7 +40,7 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
     Boolean mNotify;
     String mGroupBy;
     String mHaving;
-    Integer mLimit;
+    Integer mLimit; //[Comment] Wrong visibility modifiers
 
     protected void addEquals(String column, Object[] value) {
         mSelection.append(column);

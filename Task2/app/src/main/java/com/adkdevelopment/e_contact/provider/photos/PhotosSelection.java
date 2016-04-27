@@ -44,7 +44,7 @@ public class PhotosSelection extends AbstractSelection<PhotosSelection> {
      * @param projection A list of which columns to return. Passing null will return all columns, which is inefficient.
      * @return A {@code PhotosCursor} object, which is positioned before the first entry, or null.
      */
-    public PhotosCursor query(Context context, String[] projection) {
+    public PhotosCursor query(Context context, String[] projection) { //[Comment] projection is always null
         Cursor cursor = context.getContentResolver().query(uri(), projection, sel(), args(), order());
         if (cursor == null) return null;
         return new PhotosCursor(cursor);
@@ -68,7 +68,7 @@ public class PhotosSelection extends AbstractSelection<PhotosSelection> {
         return this;
     }
 
-    public PhotosSelection orderById(boolean desc) {
+    public PhotosSelection orderById(boolean desc) { //[Comment] desc is always false
         orderBy("photos." + PhotosColumns._ID, desc);
         return this;
     }

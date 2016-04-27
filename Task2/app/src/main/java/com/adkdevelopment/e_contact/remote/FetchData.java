@@ -57,13 +57,13 @@ public class FetchData extends AsyncTask<Void, Void, Void> {
         List<TaskItem> mItemList = null;
 
         try {
-        mItemList = App.getApiManager().getService().getData().execute().body();
+        mItemList = App.getApiManager().getService().getData().execute().body(); //[Comment] Wrong formatting
         } catch (IOException e) {
             Log.d(TAG, "e:" + e);
         }
 
         if (mItemList != null && mItemList.size() > 0) {
-            ContentResolver resolver = mContext.getContentResolver();
+            ContentResolver resolver = mContext.getContentResolver(); //[Comment] This code should be in datamanager
 
             for (TaskItem each : mItemList) {
 

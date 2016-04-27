@@ -31,6 +31,8 @@
     android:background="@color/colorPrimary"
     android:gravity="bottom" >
 
+    <!-- [Comment] Overdraw possible -->
+
     <TextView
         android:id="@+id/drawer_header_text"
         android:layout_width="match_parent"

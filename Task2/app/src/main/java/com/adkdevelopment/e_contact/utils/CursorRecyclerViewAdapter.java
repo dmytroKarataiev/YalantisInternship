@@ -61,7 +61,7 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
         if (mDataValid && mCursor != null) {
             return mCursor.getCount();
         }
-        return 0;
+        return 0; //[Comment] Use ternar expression
     }
 
     @Override

@@ -32,7 +32,7 @@ import com.adkdevelopment.e_contact.remote.ApiManager;
  * Class to keep reference to the Retrofit client
  * Created by karataev on 4/8/16.
  */
-public class App extends Application {
+public class App extends Application { //[Comment] App is not registered in manifest
 
     public static boolean firstLaunch = true;
 

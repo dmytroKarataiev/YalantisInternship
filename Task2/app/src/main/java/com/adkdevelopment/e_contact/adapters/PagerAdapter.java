@@ -63,7 +63,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return 3;
-    }
+    } //[Comment] Magic number
 
     @Override
     public CharSequence getPageTitle(int position) {

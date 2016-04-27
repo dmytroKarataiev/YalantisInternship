@@ -70,7 +70,7 @@ public class ListviewAdapter extends CursorAdapter {
 
     private OnAdapterClick mOnAdapterClick;
 
-    public ListviewAdapter(Context context, Cursor c, int flags, OnAdapterClick listener) {
+    public ListviewAdapter(Context context, Cursor c, int flags, OnAdapterClick listener) { //[Comment] flags is always 0
         super(context, c, flags);
         mOnAdapterClick = listener;
     }

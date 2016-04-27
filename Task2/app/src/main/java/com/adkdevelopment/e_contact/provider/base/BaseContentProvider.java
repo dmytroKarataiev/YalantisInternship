@@ -19,7 +19,7 @@ public abstract class BaseContentProvider extends ContentProvider {
     public static final String QUERY_NOTIFY = "QUERY_NOTIFY";
     public static final String QUERY_GROUP_BY = "QUERY_GROUP_BY";
     public static final String QUERY_HAVING = "QUERY_HAVING";
-    public static final String QUERY_LIMIT = "QUERY_LIMIT";
+    public static final String QUERY_LIMIT = "QUERY_LIMIT"; //[Comment] All constants can be private
 
     public static class QueryParams {
         public String table;

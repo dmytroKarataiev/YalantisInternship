@@ -30,7 +30,7 @@ public class TasksSQLiteOpenHelper extends SQLiteOpenHelper {
             + PhotosColumns.TASK_ID + " INTEGER NOT NULL "
             + ", CONSTRAINT fk_task_id FOREIGN KEY (" + PhotosColumns.TASK_ID + ") REFERENCES tasks (_id) ON DELETE CASCADE"
             + ", CONSTRAINT unique_id UNIQUE (task_id, url) ON CONFLICT REPLACE"
-            + " );";
+            + " );"; //[Comment] Can be private
 
     public static final String SQL_CREATE_TABLE_TASKS = "CREATE TABLE IF NOT EXISTS "
             + TasksColumns.TABLE_NAME + " ( "
@@ -49,7 +49,7 @@ public class TasksSQLiteOpenHelper extends SQLiteOpenHelper {
             + TasksColumns.LIKES + " INTEGER, "
             + TasksColumns.TITLE + " TEXT"
             + ", CONSTRAINT unique_id UNIQUE (id_task) ON CONFLICT REPLACE"
-            + " );";
+            + " );"; //[Comment] Can be private
 
     // @formatter:on
 

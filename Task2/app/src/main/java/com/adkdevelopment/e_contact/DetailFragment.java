@@ -58,14 +58,14 @@ import butterknife.OnClick;
 public class DetailFragment extends Fragment implements PhotoAdapter.OnImageClick{
 
     @Bind(R.id.task_title_text) TextView task_title_text;
-    @Bind(R.id.task_status) TextView task_status;
+    @Bind(R.id.task_status) TextView task_status; //[Comment] NEVER use "_" in object names. Wrong naming
     @Bind(R.id.task_created_date) TextView task_created_date;
     @Bind(R.id.task_registered_date) TextView task_registered_date;
     @Bind(R.id.task_assigned_date) TextView task_assigned_date;
     @Bind(R.id.task_description) TextView task_description;
     @Bind(R.id.task_responsible_name) TextView task_responsible_name;
     @Bind(R.id.my_recycler_view) RecyclerView recyclerView;
-    @Bind(R.id.task_created_text) TextView task_created_text;
+    @Bind(R.id.task_created_text) TextView task_created_text; //[Comment] Unused
     @Bind(R.id.task_registered_text) TextView task_registered_text;
     @Bind(R.id.task_assigned_text) TextView task_assigned_text;
     @Bind(R.id.task_responsible_text) TextView task_responsible_text;
@@ -150,7 +150,7 @@ public class DetailFragment extends Fragment implements PhotoAdapter.OnImageClic
             dummyPhotos.addAll(Arrays.asList(getResources()
                     .getStringArray(R.array.task_image_links)));
 
-            mNewsItem = new TaskItem();
+            mNewsItem = new TaskItem(); //[Comment] Without m. It's a local variable
             mNewsItem.setPhoto(dummyPhotos);
         }
 

@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 public class TasksSQLiteCallbacks {
     private static final String TAG = TasksSQLiteCallbacks.class.getSimpleName();
 
-    public void onOpen(final Context context, final SQLiteDatabase db) {
+    public void onOpen(final Context context, final SQLiteDatabase db) { //[Comment] Lot of empty methods
         // if (BuildConfig.DEBUG) Log.d(TAG, "onOpen");
         // Insert your db open code here.
     }
