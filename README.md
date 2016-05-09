@@ -7,6 +7,9 @@ Projects from the online part of Yalantis Internship.
 ## Project #2
 * [Application with a Pager Activity and a Navigation Drawer](Task2/)
 
+## Project #3
+* [Client-Server Application with a Model View Presenter (MVP) Architecture, Database, Retrofit and RxJava.](Task3/)
+
 License
 -------
 

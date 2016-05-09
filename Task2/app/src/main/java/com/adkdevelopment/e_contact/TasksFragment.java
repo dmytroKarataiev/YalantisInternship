@@ -37,7 +37,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -56,6 +55,7 @@ import com.adkdevelopment.e_contact.provider.tasks.TasksColumns;
 import com.adkdevelopment.e_contact.remote.TaskItem;
 import com.adkdevelopment.e_contact.utils.Utilities;
 import com.melnykov.fab.FloatingActionButton;
+import com.yalantis.phoenix.PullToRefreshView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -91,7 +91,7 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
 
     @Bind(R.id.recyclerview) RecyclerView mRecyclerView;
     @Bind(R.id.listview) ListView mListView;
-    @Bind(R.id.swipe_refresh_layout) SwipeRefreshLayout mSwipeRefreshLayout;
+    @Bind(R.id.swipe_refresh_layout) PullToRefreshView mSwipeRefreshLayout;
     @Bind(R.id.list_empty_text) TextView mListEmpty;
 
     public TasksFragment() {
@@ -130,7 +130,7 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
 
         mListEmpty.setVisibility(View.INVISIBLE);
 
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mSwipeRefreshLayout.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 if (Utilities.isOnline(getContext())) {

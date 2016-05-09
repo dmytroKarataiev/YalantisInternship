@@ -23,10 +23,7 @@
 * Filtering of tasks.
 * ZoomOut transitions between Fragments.
 * SharedTransitions between activities.
-
-## Possible improvements
-* Make Navigation Drawer narrower (wrap_content).
-* Change icons to density independent (place, list, menu).
+* PullToRefresh Yalantis library + NestedScrollBehavior implemented by me.
 
 ## Important
 * For the MapsActivity to work you must add api key to res/values/google_maps_api.xml as a
