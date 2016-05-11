@@ -22,31 +22,20 @@
  * SOFTWARE.
  */
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+package com.adkdevelopment.e_contact.injection.component;
 
-buildscript {
-    repositories {
-        jcenter()
-        mavenCentral()
+import com.adkdevelopment.e_contact.injection.PerActivity;
+import com.adkdevelopment.e_contact.injection.module.ActivityModule;
+import com.adkdevelopment.e_contact.ui.MainActivity;
 
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-        classpath "io.realm:realm-gradle-plugin:0.90.0"
+import dagger.Component;
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }
-}
-
-allprojects {
-    repositories {
-        jcenter()
-        mavenCentral()
-    }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
+/**
+ * This component inject dependencies to all Activities across the application
+ * Created by karataev on 5/10/16.
+ */
+@PerActivity
+@Component(dependencies = AppComponent.class, modules = ActivityModule.class)
+public interface ActivityComponent {
+    void inject(MainActivity mainActivity);
 }

@@ -22,31 +22,46 @@
  * SOFTWARE.
  */
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+package com.adkdevelopment.e_contact.ui.adapters;
 
-buildscript {
-    repositories {
-        jcenter()
-        mavenCentral()
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 
+import com.adkdevelopment.e_contact.ui.base.BaseFragment;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Basic Pager for the fragments
+ */
+public class PagerAdapter extends FragmentPagerAdapter {
+
+    private final List<BaseFragment> fragments = new ArrayList<>();
+    private final List<String> mFragmentTitles = new ArrayList<>();
+
+    public PagerAdapter(FragmentManager fm) {
+        super(fm);
     }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-        classpath "io.realm:realm-gradle-plugin:0.90.0"
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+    public void addFragment(BaseFragment fragment, String title) {
+        fragments.add(fragment);
+        mFragmentTitles.add(title);
     }
-}
 
-allprojects {
-    repositories {
-        jcenter()
-        mavenCentral()
+    @Override
+    public BaseFragment getItem(int position) {
+        return fragments.get(position);
     }
-}
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+
+    @Override
+    public int getCount() {
+        return fragments.size();
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return mFragmentTitles.get(position);
+    }
 }

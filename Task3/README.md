@@ -6,7 +6,7 @@
 * The app should store data in a database of your choice: realm, native SQL, or sqlbrite.
 * Facebook login. The app should save profile into the database and save access_token. 
 * Profile page with a user name and photos.
-* MVP architechture.
+* MVP architecture.
 * API to get data: http://dev-contact.yalantis.com/rest/v1/tickets	
 * Minimal SDK version = 16.
 * No hardcoded values, use styles.

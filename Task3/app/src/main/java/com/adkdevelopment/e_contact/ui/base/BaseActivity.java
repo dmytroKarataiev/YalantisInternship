@@ -22,31 +22,33 @@
  * SOFTWARE.
  */
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+package com.adkdevelopment.e_contact.ui.base;
 
-buildscript {
-    repositories {
-        jcenter()
-        mavenCentral()
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
+import com.adkdevelopment.e_contact.App;
+import com.adkdevelopment.e_contact.injection.component.ActivityComponent;
+import com.adkdevelopment.e_contact.injection.component.DaggerActivityComponent;
+import com.adkdevelopment.e_contact.injection.module.ActivityModule;
+
+public class BaseActivity extends AppCompatActivity {
+
+    private ActivityComponent mActivityComponent;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-        classpath "io.realm:realm-gradle-plugin:0.90.0"
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+    public ActivityComponent getActivityComponent() {
+        if (mActivityComponent == null) {
+            mActivityComponent = DaggerActivityComponent.builder()
+                    .activityModule(new ActivityModule(this))
+                    .appComponent(App.get(this).getComponent())
+                    .build();
+        }
+        return mActivityComponent;
     }
-}
 
-allprojects {
-    repositories {
-        jcenter()
-        mavenCentral()
-    }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }

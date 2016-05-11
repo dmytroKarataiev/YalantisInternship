@@ -22,31 +22,38 @@
  * SOFTWARE.
  */
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+package com.adkdevelopment.e_contact.injection.module;
 
-buildscript {
-    repositories {
-        jcenter()
-        mavenCentral()
+import android.app.Application;
+import android.content.Context;
 
+import com.adkdevelopment.e_contact.injection.ApplicationContext;
+
+import dagger.Module;
+import dagger.Provides;
+
+/**
+ * Provide application-level dependencies.
+ * Created by karataev on 5/10/16.
+ */
+@Module
+public class AppModule {
+
+    protected final Application mApplication;
+
+    public AppModule(Application application) {
+        mApplication = application;
     }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-        classpath "io.realm:realm-gradle-plugin:0.90.0"
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+    @Provides
+    Application providesApplication() {
+        return mApplication;
     }
-}
 
-allprojects {
-    repositories {
-        jcenter()
-        mavenCentral()
+    @Provides
+    @ApplicationContext
+    Context providesContext() {
+        return mApplication;
     }
-}
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }

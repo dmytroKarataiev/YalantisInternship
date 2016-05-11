@@ -22,31 +22,44 @@
  * SOFTWARE.
  */
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+package com.adkdevelopment.e_contact.ui.base;
 
-buildscript {
-    repositories {
-        jcenter()
-        mavenCentral()
+/**
+ * Base class that implements the MvpPresenter interface and provides a base implementation for
+ * attachView() and detachView(). It also handles keeping a reference to the mvpView that
+ * can be accessed from the children classes by calling getMvpView().
+ */
+public class BaseMvpPresenter<T extends MvpView> implements MvpPresenter<T> {
 
+    private T mMvpView;
+
+    @Override
+    public void attachView(T mvpView) {
+        mMvpView = mvpView;
     }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-        classpath "io.realm:realm-gradle-plugin:0.90.0"
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+    @Override
+    public void detachView() {
+        mMvpView = null;
+    }
+
+    public boolean isViewAttached() {
+        return mMvpView != null;
+    }
+
+    public T getMvpView() {
+        return mMvpView;
+    }
+
+    public void checkViewAttached() {
+        if (!isViewAttached()) throw new MvpViewNotAttachedException();
+    }
+
+    public static class MvpViewNotAttachedException extends RuntimeException {
+        public MvpViewNotAttachedException() {
+            super("Please call MvpPresenter.attachView(MvpView) before" +
+                    " requesting data to the MvpPresenter");
+        }
     }
 }
 
-allprojects {
-    repositories {
-        jcenter()
-        mavenCentral()
-    }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
-}

@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">E-Contact</string>
+    <string name="recyclerview_empty_text">Oops! Something is wrong. Please check your internet connection and try again.</string>
+
+    <!-- Navigation Drawer Strings -->
+    <string name="drawer_title">@string/app_name</string>
+    <string name="drawer_item_all">All inquiries</string>
+    <string name="drawer_item_map">Inquiries on a map</string>
+    <string name="drawer_item_login">Login</string>
+    <string name="drawer_footer_links">Made with love\n<a href="http://www.itruh.dp.ua/">IT Ruh Dnipro</a> and <a href="https://yalantis.com/">Yalantis</a></string>
+
+    <!-- Accessibility strings -->
+    <string name="fab_description">Create an inquiry</string>
+
+    <!-- Menu Items -->
+    <string name="menu_item_sort">Sort</string>
 </resources>

@@ -22,31 +22,22 @@
  * SOFTWARE.
  */
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+package com.adkdevelopment.e_contact.ui.contract;
 
-buildscript {
-    repositories {
-        jcenter()
-        mavenCentral()
+import com.adkdevelopment.e_contact.ui.base.MvpPresenter;
+import com.adkdevelopment.e_contact.ui.base.MvpView;
 
+/**
+ * Created by karataev on 5/10/16.
+ */
+public class TasksContract {
+
+    public interface Presenter extends MvpPresenter<View> {
+        void showSomething();
     }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-        classpath "io.realm:realm-gradle-plugin:0.90.0"
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+    public interface View extends MvpView {
+        void showError();
     }
-}
 
-allprojects {
-    repositories {
-        jcenter()
-        mavenCentral()
-    }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }

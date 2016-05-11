@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <!-- Main Theme Colors -->
+    <color name="colorPrimary">#537bae</color>
+    <color name="colorPrimaryDark">#43628a</color>
+    <color name="colorAccent">#ff9c26</color>
+
+    <!-- Background Gradient -->
+    <color name="background_gradient_start">#537BAE</color>
+    <color name="background_gradient_end">#42ADC2</color>
+
+    <color name="default_unselected">#ccd8e7</color>
+
 </resources>

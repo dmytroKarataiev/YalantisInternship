@@ -1,3 +1,5 @@
+package com.adkdevelopment.e_contact;
+
 /*
  * MIT License
  *
@@ -22,31 +24,30 @@
  * SOFTWARE.
  */
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+import android.app.Application;
+import android.content.Context;
 
-buildscript {
-    repositories {
-        jcenter()
-        mavenCentral()
+import com.adkdevelopment.e_contact.injection.component.AppComponent;
+import com.adkdevelopment.e_contact.injection.component.DaggerAppComponent;
+import com.adkdevelopment.e_contact.injection.module.AppModule;
 
+/**
+ * Created by karataev on 5/10/16.
+ */
+public class App extends Application {
+
+    AppComponent mAppComponent;
+
+    public static App get(Context context) {
+        return (App) context.getApplicationContext();
     }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-        classpath "io.realm:realm-gradle-plugin:0.90.0"
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+    public AppComponent getComponent() {
+        if (mAppComponent == null) {
+            mAppComponent = DaggerAppComponent.builder()
+                    .appModule(new AppModule(this))
+                    .build();
+        }
+        return mAppComponent;
     }
-}
-
-allprojects {
-    repositories {
-        jcenter()
-        mavenCentral()
-    }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }

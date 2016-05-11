@@ -83,7 +83,7 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
         ButterKnife.bind(this);
 
         // fetch data on every launch of the app (which is logical)
-        new FetchData().execute();
+        fetchData();
 
         initActionBar();
 

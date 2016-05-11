@@ -22,31 +22,22 @@
  * SOFTWARE.
  */
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+package com.adkdevelopment.e_contact.injection.component;
 
-buildscript {
-    repositories {
-        jcenter()
-        mavenCentral()
+import android.app.Application;
 
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-        classpath "io.realm:realm-gradle-plugin:0.90.0"
+import com.adkdevelopment.e_contact.injection.module.AppModule;
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }
-}
+import javax.inject.Singleton;
 
-allprojects {
-    repositories {
-        jcenter()
-        mavenCentral()
-    }
-}
+import dagger.Component;
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+/**
+ * Created by karataev on 5/10/16.
+ */
+@Singleton
+@Component(modules = AppModule.class)
+public interface AppComponent {
+
+    Application application();
 }

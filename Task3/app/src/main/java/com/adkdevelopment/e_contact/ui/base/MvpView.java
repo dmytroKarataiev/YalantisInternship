@@ -22,31 +22,14 @@
  * SOFTWARE.
  */
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+package com.adkdevelopment.e_contact.ui.base;
 
-buildscript {
-    repositories {
-        jcenter()
-        mavenCentral()
 
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-        classpath "io.realm:realm-gradle-plugin:0.90.0"
+/**
+ * Base interface that any class that wants to act as a View in the MVP (Model View MvpPresenter)
+ * pattern must implement. Generally this interface will be extended by a more specific interface
+ * that then usually will be implemented by an Activity or Fragment.
+ */
+public interface MvpView {
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }
-}
-
-allprojects {
-    repositories {
-        jcenter()
-        mavenCentral()
-    }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }
