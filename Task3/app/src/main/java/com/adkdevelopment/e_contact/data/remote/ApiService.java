@@ -22,23 +22,37 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact.injection.component;
+package com.adkdevelopment.e_contact.data.remote;
 
-import com.adkdevelopment.e_contact.injection.PerActivity;
-import com.adkdevelopment.e_contact.injection.module.ActivityModule;
-import com.adkdevelopment.e_contact.ui.MainActivity;
-import com.adkdevelopment.e_contact.ui.TasksFragment;
+import com.adkdevelopment.e_contact.data.model.TaskObject;
 
-import dagger.Component;
+import java.util.List;
+
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
+import rx.Observable;
 
 /**
- * This component inject dependencies to all Activities across the application
  * Created by karataev on 5/10/16.
  */
-@PerActivity
-@Component(dependencies = AppComponent.class, modules = ActivityModule.class)
-public interface ActivityComponent {
-    void injectActivity(MainActivity mainActivity);
-    void injectFragment(TasksFragment tasksFragment);
+public interface ApiService {
 
+    String ENDPOINT = "http://dev-contact.yalantis.com/rest/v1/";
+
+    @GET("tickets")
+    Observable<List<TaskObject>> getTasks(@Query("status") String status);
+
+    class Creator {
+        public static ApiService newApiService() {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .baseUrl(ENDPOINT)
+                    .build();
+            return retrofit.create(ApiService.class);
+        }
+    }
 }

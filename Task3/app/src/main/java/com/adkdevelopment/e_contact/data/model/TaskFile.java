@@ -22,23 +22,75 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact.injection.component;
+package com.adkdevelopment.e_contact.data.model;
 
-import com.adkdevelopment.e_contact.injection.PerActivity;
-import com.adkdevelopment.e_contact.injection.module.ActivityModule;
-import com.adkdevelopment.e_contact.ui.MainActivity;
-import com.adkdevelopment.e_contact.ui.TasksFragment;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-import dagger.Component;
+public class TaskFile {
 
-/**
- * This component inject dependencies to all Activities across the application
- * Created by karataev on 5/10/16.
- */
-@PerActivity
-@Component(dependencies = AppComponent.class, modules = ActivityModule.class)
-public interface ActivityComponent {
-    void injectActivity(MainActivity mainActivity);
-    void injectFragment(TasksFragment tasksFragment);
+    @SerializedName("id")
+    @Expose
+    private int id;
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("filename")
+    @Expose
+    private String filename;
+
+    /**
+     *
+     * @return
+     * The id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     *
+     * @param id
+     * The id
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     *
+     * @return
+     * The name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     *
+     * @param name
+     * The name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     *
+     * @return
+     * The filename
+     */
+    public String getFilename() {
+        return filename;
+    }
+
+    /**
+     *
+     * @param filename
+     * The filename
+     */
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
 
 }

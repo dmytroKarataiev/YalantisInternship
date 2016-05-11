@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ MIT License
   ~
   ~ Copyright (c) 2016. Dmytro Karataiev
@@ -23,18 +22,18 @@
   ~ SOFTWARE.
   -->
 
-<com.ogaclejapan.smarttablayout.SmartTabLayout android:id="@+id/tabs"
+<com.ogaclejapan.smarttablayout.SmartTabLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tabs"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    app:stl_indicatorColor="@android:color/white"
     app:stl_customTabTextLayoutId="@layout/tab_custom"
     app:stl_customTabTextViewId="@id/text_custom"
-    app:stl_indicatorInterpolation="linear"
     app:stl_distributeEvenly="true"
     app:stl_dividerThickness="0dp"
-    app:stl_underlineColor="@android:color/transparent"
+    app:stl_indicatorCornerRadius="10dp"
+    app:stl_indicatorInterpolation="linear"
     app:stl_indicatorThickness="4dp"
     app:stl_indicatorWidth="auto"
-    app:stl_indicatorCornerRadius="10dp"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" />
+    app:stl_underlineColor="@android:color/transparent" />

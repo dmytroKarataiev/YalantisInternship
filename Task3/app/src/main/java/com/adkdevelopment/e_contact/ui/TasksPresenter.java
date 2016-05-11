@@ -24,8 +24,21 @@
 
 package com.adkdevelopment.e_contact.ui;
 
+import android.util.Log;
+
+import com.adkdevelopment.e_contact.data.DataManager;
+import com.adkdevelopment.e_contact.data.model.TaskObject;
 import com.adkdevelopment.e_contact.ui.base.BaseMvpPresenter;
 import com.adkdevelopment.e_contact.ui.contract.TasksContract;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by karataev on 5/10/16.
@@ -34,9 +47,50 @@ public class TasksPresenter
         extends BaseMvpPresenter<TasksContract.View>
         implements TasksContract.Presenter {
 
-        @Override
-        public void showSomething() {
-            getMvpView().showError();
+    private final DataManager mDataManager;
+    private Subscription mSubscription;
+
+    @Inject
+    public TasksPresenter(DataManager dataManager) {
+        mDataManager = dataManager;
+    }
+
+    @Override
+    public void detachView() {
+        super.detachView();
+        if (mSubscription != null && !mSubscription.isUnsubscribed()) {
+            mSubscription.unsubscribe();
         }
+    }
+
+    @Override
+    public void loadData() {
+        Log.d("Presenter", "loadData: ");
+        checkViewAttached();
+        mSubscription = mDataManager.getTasks("0,9,5,7,8")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<List<TaskObject>>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("TasksPresenter", "e:" + e);
+                        getMvpView().showError();
+                    }
+
+                    @Override
+                    public void onNext(List<TaskObject> taskObjects) {
+                        if (taskObjects.isEmpty()) {
+                            getMvpView().showTasksEmpty();
+                        } else {
+                            getMvpView().showData(taskObjects);
+                        }
+                    }
+                });
+    }
 
 }

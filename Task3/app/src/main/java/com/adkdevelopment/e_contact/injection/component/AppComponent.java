@@ -25,7 +25,10 @@
 package com.adkdevelopment.e_contact.injection.component;
 
 import android.app.Application;
+import android.content.Context;
 
+import com.adkdevelopment.e_contact.data.DataManager;
+import com.adkdevelopment.e_contact.injection.ApplicationContext;
 import com.adkdevelopment.e_contact.injection.module.AppModule;
 
 import javax.inject.Singleton;
@@ -39,5 +42,8 @@ import dagger.Component;
 @Component(modules = AppModule.class)
 public interface AppComponent {
 
+    @ApplicationContext
+    Context context();
     Application application();
+    DataManager dataManager();
 }

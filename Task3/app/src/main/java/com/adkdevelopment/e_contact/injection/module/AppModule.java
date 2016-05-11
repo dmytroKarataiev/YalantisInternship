@@ -27,7 +27,10 @@ package com.adkdevelopment.e_contact.injection.module;
 import android.app.Application;
 import android.content.Context;
 
+import com.adkdevelopment.e_contact.data.remote.ApiService;
 import com.adkdevelopment.e_contact.injection.ApplicationContext;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -54,6 +57,12 @@ public class AppModule {
     @ApplicationContext
     Context providesContext() {
         return mApplication;
+    }
+
+    @Provides
+    @Singleton
+    ApiService providesApiService() {
+        return ApiService.Creator.newApiService();
     }
 
 }

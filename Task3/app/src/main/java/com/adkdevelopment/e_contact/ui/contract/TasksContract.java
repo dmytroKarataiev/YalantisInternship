@@ -24,8 +24,11 @@
 
 package com.adkdevelopment.e_contact.ui.contract;
 
+import com.adkdevelopment.e_contact.data.model.TaskObject;
 import com.adkdevelopment.e_contact.ui.base.MvpPresenter;
 import com.adkdevelopment.e_contact.ui.base.MvpView;
+
+import java.util.List;
 
 /**
  * Created by karataev on 5/10/16.
@@ -33,10 +36,15 @@ import com.adkdevelopment.e_contact.ui.base.MvpView;
 public class TasksContract {
 
     public interface Presenter extends MvpPresenter<View> {
-        void showSomething();
+        void loadData();
     }
 
     public interface View extends MvpView {
+
+        void showData(List<TaskObject> taskObjects);
+
+        void showTasksEmpty();
+
         void showError();
     }
 

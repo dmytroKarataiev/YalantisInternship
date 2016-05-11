@@ -22,23 +22,35 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact.injection.component;
+package com.adkdevelopment.e_contact.data;
 
-import com.adkdevelopment.e_contact.injection.PerActivity;
-import com.adkdevelopment.e_contact.injection.module.ActivityModule;
-import com.adkdevelopment.e_contact.ui.MainActivity;
-import com.adkdevelopment.e_contact.ui.TasksFragment;
+import android.util.Log;
 
-import dagger.Component;
+import com.adkdevelopment.e_contact.data.model.TaskObject;
+import com.adkdevelopment.e_contact.data.remote.ApiService;
+
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import rx.Observable;
 
 /**
- * This component inject dependencies to all Activities across the application
  * Created by karataev on 5/10/16.
  */
-@PerActivity
-@Component(dependencies = AppComponent.class, modules = ActivityModule.class)
-public interface ActivityComponent {
-    void injectActivity(MainActivity mainActivity);
-    void injectFragment(TasksFragment tasksFragment);
+@Singleton
+public class DataManager {
 
+    private final ApiService mApiService;
+
+    @Inject
+    public DataManager(ApiService apiService) {
+        mApiService = apiService;
+    }
+
+    public Observable<List<TaskObject>> getTasks(String query) {
+        Log.d("DataManager", "getTasks: " + query);
+        return mApiService.getTasks(query);
+    }
 }

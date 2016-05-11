@@ -25,16 +25,23 @@
 package com.adkdevelopment.e_contact.ui;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.adkdevelopment.e_contact.R;
+import com.adkdevelopment.e_contact.data.model.TaskObject;
 import com.adkdevelopment.e_contact.ui.base.BaseFragment;
 import com.adkdevelopment.e_contact.ui.contract.TasksContract;
+
+import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,7 +53,7 @@ public class TasksFragment extends BaseFragment implements TasksContract.View {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
-    private TasksContract.Presenter mPresenter;
+    @Inject TasksPresenter mPresenter;
 
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
@@ -68,27 +75,42 @@ public class TasksFragment extends BaseFragment implements TasksContract.View {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ((MainActivity) getActivity()).getActivityComponent().injectFragment(this);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_tasks, container, false);
 
         ButterKnife.bind(this, rootView);
 
-        mPresenter = new TasksPresenter();
         mPresenter.attachView(this);
+        mPresenter.loadData();
 
         return rootView;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mPresenter.showSomething();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         mPresenter.detachView();
+    }
+
+    @Override
+    public void showData(List<TaskObject> taskObjects) {
+        Log.d("TasksFragment", "taskObjects.size():" + taskObjects.size());
+        for (TaskObject task : taskObjects) {
+            if (task.getAddress() != null && task.getAddress().getStreet() != null) {
+                Log.d("TasksFragment", task.getAddress().getStreet().getName());
+            }
+        }
+    }
+
+    @Override
+    public void showTasksEmpty() {
+        Log.d("TasksFragment", "empty");
     }
 
     @Override
