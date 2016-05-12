@@ -37,8 +37,6 @@ import javax.inject.Inject;
 
 import rx.Subscriber;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by karataev on 5/10/16.
@@ -68,9 +66,8 @@ public class TasksPresenter
         Log.d("Presenter", "loadData: ");
         checkViewAttached();
         mDataManager.fetchTasks(query);
+
         mSubscription = mDataManager.getTasks(query)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<List<TaskObjectRealm>>() {
                     @Override
                     public void onCompleted() {
@@ -88,10 +85,12 @@ public class TasksPresenter
                         if (taskObjects.isEmpty()) {
                             getMvpView().showTasksEmpty();
                         } else {
+                            //Log.d("TasksPresenter", Collections.singletonList(taskObjects).toString());
                             getMvpView().showData(taskObjects);
                         }
                     }
                 });
+
     }
 
 }

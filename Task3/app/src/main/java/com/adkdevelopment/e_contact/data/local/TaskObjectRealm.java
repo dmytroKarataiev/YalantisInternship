@@ -26,13 +26,14 @@ package com.adkdevelopment.e_contact.data.local;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by karataev on 5/11/16.
  */
 public class TaskObjectRealm extends RealmObject {
 
-    private int id;
+    @PrimaryKey private int id;
     private RealmList<TaskPhotoRealm> photo;
     private String title;
     private int type;

@@ -27,25 +27,43 @@ package com.adkdevelopment.e_contact;
 import android.app.Application;
 import android.content.Context;
 
+import com.adkdevelopment.e_contact.data.local.DatabaseRealm;
 import com.adkdevelopment.e_contact.injection.component.AppComponent;
 import com.adkdevelopment.e_contact.injection.component.DaggerAppComponent;
 import com.adkdevelopment.e_contact.injection.module.AppModule;
+
+import javax.inject.Inject;
 
 /**
  * Created by karataev on 5/10/16.
  */
 public class App extends Application {
 
-    AppComponent mAppComponent;
+    @Inject DatabaseRealm mDatabaseRealm;
+    static AppComponent mAppComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
+        initAppComponent(this);
+        getAppComponent().inject(this);
+        mDatabaseRealm.setup();
+
     }
 
     public static App get(Context context) {
         return (App) context.getApplicationContext();
+    }
+
+    public static void initAppComponent(App app) {
+        mAppComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(app))
+                .build();
+    }
+
+    public static AppComponent getAppComponent() {
+        return mAppComponent;
     }
 
     public AppComponent getComponent() {

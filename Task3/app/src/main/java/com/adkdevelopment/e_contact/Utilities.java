@@ -83,7 +83,7 @@ public class Utilities {
         objectRealm.setRegistered(taskObject.getCreatedDate());
         objectRealm.setAssigned(taskObject.getStartDate());
 
-        if (taskObject.getPerformers() != null && taskObject.getPerformers().get(0) != null) {
+        if (taskObject.getPerformers() != null && taskObject.getPerformers().size() > 0) {
             objectRealm.setResponsible(taskObject.getPerformers().get(0).getOrganization());
         }
 
@@ -98,10 +98,12 @@ public class Utilities {
                     + taskAddress.getFlat());
         }
 
+
         if (taskObject.getGeoAddress() != null) {
             objectRealm.setLatitude(Double.parseDouble(taskObject.getGeoAddress().getLatitude()));
             objectRealm.setLongitude(Double.parseDouble(taskObject.getGeoAddress().getLongitude()));
         }
+
 
         if (taskObject.getFiles() != null && taskObject.getFiles().size() > 0) {
             RealmList<TaskPhotoRealm> taskPhotoRealmList = new RealmList<>();

@@ -27,21 +27,21 @@ package com.adkdevelopment.e_contact.data;
 import android.util.Log;
 
 import com.adkdevelopment.e_contact.Utilities;
-import com.adkdevelopment.e_contact.data.local.DatabaseRealm;
 import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
 import com.adkdevelopment.e_contact.data.model.TaskObject;
 import com.adkdevelopment.e_contact.data.remote.ApiService;
+import com.adkdevelopment.e_contact.injection.DataRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import io.realm.RealmResults;
 import rx.Observable;
 import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by karataev on 5/10/16.
@@ -49,53 +49,69 @@ import rx.functions.Func1;
 @Singleton
 public class DataManager {
 
+    private static final String TAG = DataManager.class.getSimpleName();
+
     private final ApiService mApiService;
-    private final DatabaseRealm mDatabaseRealm;
+    private final DataRepository mDataRepository;
 
     @Inject
-    public DataManager(ApiService apiService, DatabaseRealm databaseRealm) {
+    public DataManager(ApiService apiService, DataRepository dataRepository) {
         mApiService = apiService;
-        mDatabaseRealm = databaseRealm;
+        mDataRepository = dataRepository;
     }
 
     public Observable<List<TaskObjectRealm>> getTasks(String query) {
 
         Log.d("DataManager", "getTasks: " + query);
-        return mDatabaseRealm.findAll(TaskObjectRealm.class).map(new Func1<RealmResults<TaskObjectRealm>, List<TaskObjectRealm>>() {
-            @Override
-            public List<TaskObjectRealm> call(RealmResults<TaskObjectRealm> taskObjectRealms) {
-                List<TaskObjectRealm> tasks = new ArrayList<>();
-                tasks.addAll(taskObjectRealms);
-                for (TaskObjectRealm task : taskObjectRealms) {
-                    Log.d("DataManager", task.getAddress());
-                }
-                return tasks;
-            }
-        });
+        return mDataRepository.findAll();
     }
 
     public void fetchTasks(String query) {
+        Log.d(TAG, "fetchTasks: " + query);
+
         mApiService.getTasks(query)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .flatMap(new Func1<List<TaskObject>, Observable<TaskObject>>() {
-            @Override
-            public Observable<TaskObject> call(List<TaskObject> taskObjects) {
-                        return Observable.from(taskObjects); }
+                    @Override
+                    public Observable<TaskObject> call(List<TaskObject> taskObjects) {
+                        Log.d(TAG, "taskObjects.size():" + taskObjects.size());
+                        return Observable.from(taskObjects);
+                    }
                 })
                 .subscribe(new Subscriber<TaskObject>() {
                     @Override
                     public void onCompleted() {
-                        Log.d("DataManager", "completed");
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.d(TAG, "e:" + e);
                     }
 
                     @Override
                     public void onNext(TaskObject taskObject) {
-                        mDatabaseRealm.add(Utilities.convertTask(taskObject));
+                        mDataRepository.add(Utilities.convertTask(taskObject));
                     }
-        });
+                });
+        /*
+        mApiService.getTasks(query).observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .flatMap(new Func1<List<TaskObject>, Observable<TaskObject>>() {
+                    @Override
+                    public Observable<TaskObject> call(List<TaskObject> taskObjects) {
+                        Log.d("DataManager", "taskObjects.size():" + taskObjects.size());
+
+                        for (TaskObject each : taskObjects) {
+                            mDataRepository.add(Utilities.convertTask(each));
+                            if (each.getAddress() != null) {
+                                Log.d("DataManager", each.getAddress().getStreet().getName());
+                            }
+                        }
+                        return Observable.from(taskObjects);
+                    }
+                });
+                */
     }
 }

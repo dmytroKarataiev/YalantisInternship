@@ -30,6 +30,8 @@ import android.content.Context;
 import com.adkdevelopment.e_contact.data.local.DatabaseRealm;
 import com.adkdevelopment.e_contact.data.remote.ApiService;
 import com.adkdevelopment.e_contact.injection.ApplicationContext;
+import com.adkdevelopment.e_contact.injection.DataRepository;
+import com.adkdevelopment.e_contact.injection.DataRepositoryImpl;
 
 import javax.inject.Singleton;
 
@@ -68,5 +70,13 @@ public class AppModule {
 
     @Provides
     @Singleton
-    DatabaseRealm providesDatabaseRealm() { return  new DatabaseRealm(mApplication); }
+    DatabaseRealm providesDatabaseRealm() {
+        return new DatabaseRealm();
+    }
+
+    @Provides
+    @Singleton
+    DataRepository providesDataRepository() {
+        return new DataRepositoryImpl();
+    }
 }

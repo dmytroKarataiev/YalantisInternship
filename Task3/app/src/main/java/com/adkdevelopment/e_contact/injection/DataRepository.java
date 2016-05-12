@@ -22,37 +22,21 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact.injection.component;
+package com.adkdevelopment.e_contact.injection;
 
-import android.app.Application;
-import android.content.Context;
+import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
 
-import com.adkdevelopment.e_contact.App;
-import com.adkdevelopment.e_contact.data.DataManager;
-import com.adkdevelopment.e_contact.data.local.DatabaseRealm;
-import com.adkdevelopment.e_contact.injection.ApplicationContext;
-import com.adkdevelopment.e_contact.injection.DataRepositoryImpl;
-import com.adkdevelopment.e_contact.injection.module.AppModule;
+import java.util.List;
 
-import javax.inject.Singleton;
-
-import dagger.Component;
+import rx.Observable;
 
 /**
- * Created by karataev on 5/10/16.
+ * Created by karataev on 5/12/16.
  */
-@Singleton
-@Component(modules = AppModule.class)
-public interface AppComponent {
+public interface DataRepository {
 
-    void inject(App app);
-    void inject(DatabaseRealm databaseRealm);
-    void inject(DataRepositoryImpl dataRepository);
+    void add(TaskObjectRealm model);
 
-    @ApplicationContext
-    Context context();
-    Application application();
-    DataManager dataManager();
-    DatabaseRealm getDatabaseRealm();
+    Observable<List<TaskObjectRealm>> findAll();
 
 }

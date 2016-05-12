@@ -27,35 +27,38 @@ package com.adkdevelopment.e_contact.data.local;
 import android.content.Context;
 import android.util.Log;
 
+import com.adkdevelopment.e_contact.App;
 import com.adkdevelopment.e_contact.injection.ApplicationContext;
 
+import java.util.List;
+
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmObject;
-import io.realm.RealmResults;
-import rx.Observable;
 
 /**
  * Created by karataev on 5/11/16.
  */
-@Singleton
 public class DatabaseRealm {
 
-    RealmConfiguration realmConfiguration;
-    private Context mContext;
+    private static final String TAG = DatabaseRealm.class.getSimpleName();
 
-    @Inject
-    public DatabaseRealm(@ApplicationContext Context context) {
-        mContext = context;
-        setup();
+    RealmConfiguration realmConfiguration;
+
+    @Inject @ApplicationContext
+    Context mContext;
+
+    public DatabaseRealm() {
+        App.getAppComponent().inject(this);
     }
 
     public void setup() {
         if (realmConfiguration == null) {
-            realmConfiguration = new RealmConfiguration.Builder(mContext).build();
+            realmConfiguration = new RealmConfiguration.Builder(mContext)
+                    .deleteRealmIfMigrationNeeded()
+                    .build();
             Realm.setDefaultConfiguration(realmConfiguration);
         } else {
             throw new IllegalStateException("database already configured");
@@ -67,23 +70,17 @@ public class DatabaseRealm {
     }
 
     public <T extends RealmObject> T add(T model) {
+        Log.d(TAG, "add: ");
         Realm realm = getRealmInstance();
         realm.beginTransaction();
-        realm.copyToRealm(model);
+        realm.copyToRealmOrUpdate(model);
         realm.commitTransaction();
         return model;
     }
 
-    public <T extends RealmObject> Observable<RealmResults<T>> findAll(Class<T> clazz) {
-
-        RealmResults<T> realms = getRealmInstance().where(clazz).findAll();
-
-        for (T each : realms) {
-            if (each instanceof TaskObjectRealm) {
-                Log.d("DatabaseRealm", ((TaskObjectRealm) each).getAddress());
-            }
-        }
-
-        return realms.asObservable();
+    public <T extends RealmObject> List<T> findAll(Class<T> clazz) {
+        Log.d(TAG, "findAll: ");
+        return getRealmInstance().where(clazz).findAll();
     }
+
 }
