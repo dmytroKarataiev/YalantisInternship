@@ -27,6 +27,7 @@ package com.adkdevelopment.e_contact.injection.module;
 import android.app.Application;
 import android.content.Context;
 
+import com.adkdevelopment.e_contact.data.local.DatabaseRealm;
 import com.adkdevelopment.e_contact.data.remote.ApiService;
 import com.adkdevelopment.e_contact.injection.ApplicationContext;
 
@@ -42,7 +43,7 @@ import dagger.Provides;
 @Module
 public class AppModule {
 
-    protected final Application mApplication;
+    private final Application mApplication;
 
     public AppModule(Application application) {
         mApplication = application;
@@ -65,4 +66,7 @@ public class AppModule {
         return ApiService.Creator.newApiService();
     }
 
+    @Provides
+    @Singleton
+    DatabaseRealm providesDatabaseRealm() { return  new DatabaseRealm(mApplication); }
 }

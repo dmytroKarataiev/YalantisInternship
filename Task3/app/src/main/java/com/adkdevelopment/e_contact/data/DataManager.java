@@ -26,15 +26,22 @@ package com.adkdevelopment.e_contact.data;
 
 import android.util.Log;
 
+import com.adkdevelopment.e_contact.Utilities;
+import com.adkdevelopment.e_contact.data.local.DatabaseRealm;
+import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
 import com.adkdevelopment.e_contact.data.model.TaskObject;
 import com.adkdevelopment.e_contact.data.remote.ApiService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.realm.RealmResults;
 import rx.Observable;
+import rx.Subscriber;
+import rx.functions.Func1;
 
 /**
  * Created by karataev on 5/10/16.
@@ -43,14 +50,52 @@ import rx.Observable;
 public class DataManager {
 
     private final ApiService mApiService;
+    private final DatabaseRealm mDatabaseRealm;
 
     @Inject
-    public DataManager(ApiService apiService) {
+    public DataManager(ApiService apiService, DatabaseRealm databaseRealm) {
         mApiService = apiService;
+        mDatabaseRealm = databaseRealm;
     }
 
-    public Observable<List<TaskObject>> getTasks(String query) {
+    public Observable<List<TaskObjectRealm>> getTasks(String query) {
+
         Log.d("DataManager", "getTasks: " + query);
-        return mApiService.getTasks(query);
+        return mDatabaseRealm.findAll(TaskObjectRealm.class).map(new Func1<RealmResults<TaskObjectRealm>, List<TaskObjectRealm>>() {
+            @Override
+            public List<TaskObjectRealm> call(RealmResults<TaskObjectRealm> taskObjectRealms) {
+                List<TaskObjectRealm> tasks = new ArrayList<>();
+                tasks.addAll(taskObjectRealms);
+                for (TaskObjectRealm task : taskObjectRealms) {
+                    Log.d("DataManager", task.getAddress());
+                }
+                return tasks;
+            }
+        });
+    }
+
+    public void fetchTasks(String query) {
+        mApiService.getTasks(query)
+                .flatMap(new Func1<List<TaskObject>, Observable<TaskObject>>() {
+            @Override
+            public Observable<TaskObject> call(List<TaskObject> taskObjects) {
+                        return Observable.from(taskObjects); }
+                })
+                .subscribe(new Subscriber<TaskObject>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.d("DataManager", "completed");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(TaskObject taskObject) {
+                        mDatabaseRealm.add(Utilities.convertTask(taskObject));
+                    }
+        });
     }
 }

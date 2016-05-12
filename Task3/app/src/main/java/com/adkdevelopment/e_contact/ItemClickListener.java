@@ -1,5 +1,3 @@
-package com.adkdevelopment.e_contact;
-
 /*
  * MIT License
  *
@@ -24,37 +22,11 @@ package com.adkdevelopment.e_contact;
  * SOFTWARE.
  */
 
-import android.app.Application;
-import android.content.Context;
-
-import com.adkdevelopment.e_contact.injection.component.AppComponent;
-import com.adkdevelopment.e_contact.injection.component.DaggerAppComponent;
-import com.adkdevelopment.e_contact.injection.module.AppModule;
+package com.adkdevelopment.e_contact;
 
 /**
- * Created by karataev on 5/10/16.
+ * Created by karataev on 5/11/16.
  */
-public class App extends Application {
-
-    AppComponent mAppComponent;
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-
-    }
-
-    public static App get(Context context) {
-        return (App) context.getApplicationContext();
-    }
-
-    public AppComponent getComponent() {
-        if (mAppComponent == null) {
-            mAppComponent = DaggerAppComponent.builder()
-                    .appModule(new AppModule(this))
-                    .build();
-        }
-        return mAppComponent;
-    }
-
+public interface ItemClickListener<M, V> {
+    void onItemClicked(M item, V view);
 }

@@ -46,7 +46,7 @@ android {
 }
 
 ext {
-    compatLibVersion = '23.3.0'
+    compatLibVersion = '23.4.0'
     retrofitVersion = '2.0.2'
     butterknifeVersion = '8.0.1'
     daggerVersion = '2.2'

@@ -24,9 +24,10 @@
 
 package com.adkdevelopment.e_contact.ui;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,8 +35,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.adkdevelopment.e_contact.ItemClickListener;
 import com.adkdevelopment.e_contact.R;
-import com.adkdevelopment.e_contact.data.model.TaskObject;
+import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
+import com.adkdevelopment.e_contact.ui.adapters.TasksAdapter;
 import com.adkdevelopment.e_contact.ui.base.BaseFragment;
 import com.adkdevelopment.e_contact.ui.contract.TasksContract;
 
@@ -45,15 +48,18 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.RealmResults;
 
 /**
  * Created by karataev on 5/10/16.
  */
-public class TasksFragment extends BaseFragment implements TasksContract.View {
+public class TasksFragment extends BaseFragment implements TasksContract.View, ItemClickListener<TaskObjectRealm, View> {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
+    private static final String ARG_SECTION_STATE = "section_state";
 
     @Inject TasksPresenter mPresenter;
+    @Inject TasksAdapter mAdapter;
 
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
@@ -66,17 +72,18 @@ public class TasksFragment extends BaseFragment implements TasksContract.View {
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static TasksFragment newInstance(int sectionNumber) {
+    public static TasksFragment newInstance(int sectionNumber, String sectionState) {
         TasksFragment fragment = new TasksFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        args.putString(ARG_SECTION_STATE, sectionState);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onAttach(Context context) {
+        super.onAttach(context);
         ((MainActivity) getActivity()).getActivityComponent().injectFragment(this);
     }
 
@@ -86,8 +93,10 @@ public class TasksFragment extends BaseFragment implements TasksContract.View {
 
         ButterKnife.bind(this, rootView);
 
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mPresenter.attachView(this);
-        mPresenter.loadData();
+        mPresenter.loadData(getArguments().getString(ARG_SECTION_STATE));
 
         return rootView;
     }
@@ -99,23 +108,30 @@ public class TasksFragment extends BaseFragment implements TasksContract.View {
     }
 
     @Override
-    public void showData(List<TaskObject> taskObjects) {
+    public void showData(List<TaskObjectRealm> taskObjects) {
         Log.d("TasksFragment", "taskObjects.size():" + taskObjects.size());
-        for (TaskObject task : taskObjects) {
-            if (task.getAddress() != null && task.getAddress().getStreet() != null) {
-                Log.d("TasksFragment", task.getAddress().getStreet().getName());
-            }
-        }
+        mAdapter.setTasks(taskObjects, this);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showTasksEmpty() {
         Log.d("TasksFragment", "empty");
+        mAdapter.setTasks(null, null);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showError() {
         mListEmpty.setText("errororroorro");
+    }
+
+    @Override
+    public void onItemClicked(TaskObjectRealm item, View view) {
+        if (item.getAddress() != null) {
+            Log.d("TasksFragment", item.getAddress());
+            //Log.d("TasksFragment", item.getAddress().getStreet().getName() + " " + item.getCreatedDate());
+        }
     }
 }
 

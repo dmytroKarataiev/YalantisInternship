@@ -46,14 +46,14 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:layout_collapseMode="parallax" />
+                android:background="?attr/colorPrimary" />
 
-            <include layout="@layout/tablayout_indicator"
+            <include
                 android:id="@+id/tabs"
-                android:layout_gravity="bottom"
+                layout="@layout/tablayout_indicator"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="bottom"
                 android:layout_marginLeft="@dimen/tablayout_margin"
                 android:layout_marginRight="@dimen/tablayout_margin" />
 
@@ -76,6 +76,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:contentDescription="@string/fab_description"
         android:scaleType="center"
-        android:src="@drawable/ic_fab" />
+        android:src="@drawable/ic_fab"
+        app:layout_behavior=".FabHideOnScroll" />
 
 </android.support.design.widget.CoordinatorLayout>

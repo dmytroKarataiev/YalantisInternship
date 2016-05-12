@@ -1,5 +1,3 @@
-package com.adkdevelopment.e_contact;
-
 /*
  * MIT License
  *
@@ -24,37 +22,24 @@ package com.adkdevelopment.e_contact;
  * SOFTWARE.
  */
 
-import android.app.Application;
-import android.content.Context;
+package com.adkdevelopment.e_contact.data.local;
 
-import com.adkdevelopment.e_contact.injection.component.AppComponent;
-import com.adkdevelopment.e_contact.injection.component.DaggerAppComponent;
-import com.adkdevelopment.e_contact.injection.module.AppModule;
+import io.realm.RealmObject;
 
 /**
- * Created by karataev on 5/10/16.
+ * Created by karataev on 5/11/16.
  */
-public class App extends Application {
+public class TaskPhotoRealm extends RealmObject {
 
-    AppComponent mAppComponent;
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public static App get(Context context) {
-        return (App) context.getApplicationContext();
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
-    public AppComponent getComponent() {
-        if (mAppComponent == null) {
-            mAppComponent = DaggerAppComponent.builder()
-                    .appModule(new AppModule(this))
-                    .build();
-        }
-        return mAppComponent;
-    }
+    private String imageUrl;
+
 
 }

@@ -10,5 +10,8 @@
     <color name="background_gradient_end">#42ADC2</color>
 
     <color name="default_unselected">#ccd8e7</color>
+    <color name="text_grey_light">#bfbfbf</color>
+    <color name="text_grey">#828282</color>
+    <color name="text_black">#191919</color>
 
 </resources>

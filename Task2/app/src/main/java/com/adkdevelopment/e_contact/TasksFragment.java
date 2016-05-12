@@ -57,8 +57,9 @@ import com.adkdevelopment.e_contact.utils.Utilities;
 import com.melnykov.fab.FloatingActionButton;
 import com.yalantis.phoenix.PullToRefreshView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Fragment with two adapters to show that I can handle both RecyclerView and ListView.
@@ -89,10 +90,11 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
     private ListViewAdapter mListViewAdapter;
     private LinearLayoutManager mLayoutManager;
 
-    @Bind(R.id.recyclerview) RecyclerView mRecyclerView;
-    @Bind(R.id.listview) ListView mListView;
-    @Bind(R.id.swipe_refresh_layout) PullToRefreshView mSwipeRefreshLayout;
-    @Bind(R.id.list_empty_text) TextView mListEmpty;
+    @BindView(R.id.recyclerview) RecyclerView mRecyclerView;
+    @BindView(R.id.listview) ListView mListView;
+    @BindView(R.id.swipe_refresh_layout) PullToRefreshView mSwipeRefreshLayout;
+    @BindView(R.id.list_empty_text) TextView mListEmpty;
+    Unbinder mUnbinder;
 
     public TasksFragment() {
     }
@@ -119,7 +121,7 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.tasks_layout, container, false);
-        ButterKnife.bind(this, rootView);
+        mUnbinder = ButterKnife.bind(this, rootView);
 
         // to reuse this fragment we check the argument and inflate corresponding view with an adapter
         if (getArguments().getInt(ARG_SECTION_NUMBER) == PagerAdapter.LISTVIEW_FRAGMENT) {
@@ -204,7 +206,7 @@ public class TasksFragment extends Fragment implements LoaderManager.LoaderCallb
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        mUnbinder.unbind();
     }
 
     @Override

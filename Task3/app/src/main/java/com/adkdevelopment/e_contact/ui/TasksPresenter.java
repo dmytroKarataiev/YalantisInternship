@@ -27,7 +27,7 @@ package com.adkdevelopment.e_contact.ui;
 import android.util.Log;
 
 import com.adkdevelopment.e_contact.data.DataManager;
-import com.adkdevelopment.e_contact.data.model.TaskObject;
+import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
 import com.adkdevelopment.e_contact.ui.base.BaseMvpPresenter;
 import com.adkdevelopment.e_contact.ui.contract.TasksContract;
 
@@ -64,13 +64,14 @@ public class TasksPresenter
     }
 
     @Override
-    public void loadData() {
+    public void loadData(String query) {
         Log.d("Presenter", "loadData: ");
         checkViewAttached();
-        mSubscription = mDataManager.getTasks("0,9,5,7,8")
+        mDataManager.fetchTasks(query);
+        mSubscription = mDataManager.getTasks(query)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<List<TaskObject>>() {
+                .subscribe(new Subscriber<List<TaskObjectRealm>>() {
                     @Override
                     public void onCompleted() {
 
@@ -83,7 +84,7 @@ public class TasksPresenter
                     }
 
                     @Override
-                    public void onNext(List<TaskObject> taskObjects) {
+                    public void onNext(List<TaskObjectRealm> taskObjects) {
                         if (taskObjects.isEmpty()) {
                             getMvpView().showTasksEmpty();
                         } else {

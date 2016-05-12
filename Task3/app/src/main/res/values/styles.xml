@@ -15,4 +15,16 @@
         <item name="android:padding">@dimen/list_item_padding</item>
     </style>
 
+    <style name="CardViewText">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">@dimen/cardview_likes_size</item>
+        <item name="android:textColor">@color/text_grey</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="CardViewTextBold" parent="CardViewText">
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

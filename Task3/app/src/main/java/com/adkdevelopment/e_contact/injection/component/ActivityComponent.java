@@ -38,7 +38,7 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = AppComponent.class, modules = ActivityModule.class)
 public interface ActivityComponent {
-    void injectActivity(MainActivity mainActivity);
     void injectFragment(TasksFragment tasksFragment);
+    void inject(MainActivity mainActivity);
 
 }

@@ -30,5 +30,4 @@ import android.support.v4.app.Fragment;
  * Created by karataev on 5/10/16.
  */
 public class BaseFragment extends Fragment {
-
 }

@@ -28,6 +28,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.adkdevelopment.e_contact.data.DataManager;
+import com.adkdevelopment.e_contact.data.local.DatabaseRealm;
 import com.adkdevelopment.e_contact.injection.ApplicationContext;
 import com.adkdevelopment.e_contact.injection.module.AppModule;
 
@@ -46,4 +47,5 @@ public interface AppComponent {
     Context context();
     Application application();
     DataManager dataManager();
+    DatabaseRealm databaseRealm();
 }

@@ -1,5 +1,3 @@
-package com.adkdevelopment.e_contact;
-
 /*
  * MIT License
  *
@@ -24,37 +22,30 @@ package com.adkdevelopment.e_contact;
  * SOFTWARE.
  */
 
-import android.app.Application;
-import android.content.Context;
+package com.adkdevelopment.e_contact.ui.contract;
 
-import com.adkdevelopment.e_contact.injection.component.AppComponent;
-import com.adkdevelopment.e_contact.injection.component.DaggerAppComponent;
-import com.adkdevelopment.e_contact.injection.module.AppModule;
+import com.adkdevelopment.e_contact.data.model.TaskObject;
+import com.adkdevelopment.e_contact.ui.base.MvpPresenter;
+import com.adkdevelopment.e_contact.ui.base.MvpView;
+
+import java.util.List;
 
 /**
  * Created by karataev on 5/10/16.
  */
-public class App extends Application {
+public class DetailContract {
 
-    AppComponent mAppComponent;
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-
+    public interface Presenter extends MvpPresenter<View> {
+        void loadData(String query);
     }
 
-    public static App get(Context context) {
-        return (App) context.getApplicationContext();
-    }
+    public interface View extends MvpView {
 
-    public AppComponent getComponent() {
-        if (mAppComponent == null) {
-            mAppComponent = DaggerAppComponent.builder()
-                    .appModule(new AppModule(this))
-                    .build();
-        }
-        return mAppComponent;
+        void showData(List<TaskObject> taskObjects);
+
+        void showTasksEmpty();
+
+        void showError();
     }
 
 }

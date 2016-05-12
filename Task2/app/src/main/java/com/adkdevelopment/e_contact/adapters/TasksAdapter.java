@@ -43,7 +43,7 @@ import com.adkdevelopment.e_contact.remote.TaskItem;
 import com.adkdevelopment.e_contact.utils.CursorRecyclerViewAdapter;
 import com.adkdevelopment.e_contact.utils.Utilities;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -58,13 +58,13 @@ public class TasksAdapter extends CursorRecyclerViewAdapter<TasksAdapter.ViewHol
     // Provide a reference to the views for each data item
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        @Bind(R.id.task_item_type_image) ImageView mTypeImage;
-        @Bind(R.id.task_item_type_text) TextView mTypeText;
-        @Bind(R.id.task_item_likes_text) TextView mLikesText;
-        @Bind(R.id.task_item_address) TextView mAddress;
-        @Bind(R.id.task_item_registered) TextView mRegistered;
-        @Bind(R.id.task_item_elapsed) TextView mElapsed;
-        @Bind(R.id.task_item_card) CardView mCardView;
+        @BindView(R.id.task_item_type_image) ImageView mTypeImage;
+        @BindView(R.id.task_item_type_text) TextView mTypeText;
+        @BindView(R.id.task_item_likes_text) TextView mLikesText;
+        @BindView(R.id.task_item_address) TextView mAddress;
+        @BindView(R.id.task_item_registered) TextView mRegistered;
+        @BindView(R.id.task_item_elapsed) TextView mElapsed;
+        @BindView(R.id.task_item_card) CardView mCardView;
 
         public ViewHolder(View v) {
             super(v);
