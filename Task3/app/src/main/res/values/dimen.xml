@@ -50,5 +50,13 @@
     <dimen name="cardview_likes_size">14sp</dimen>
     <dimen name="cardview_text_size">16sp</dimen>
 
+    <!-- Detail View Dimensions -->
+    <dimen name="task_text_padding">8dp</dimen>
+    <dimen name="task_text_padding_side">8dp</dimen>
+    <dimen name="status_sign_margin">8dp</dimen>
+
+    <!-- RecyclerView dimensions -->
+    <dimen name="recycler_minheight">200dp</dimen>
+    <dimen name="recycler_padding">8dp</dimen>
 
 </resources>

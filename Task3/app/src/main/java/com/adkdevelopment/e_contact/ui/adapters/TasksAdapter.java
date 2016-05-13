@@ -64,14 +64,14 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(TasksViewHolder viewHolder, int position) {
+    public void onBindViewHolder(final TasksViewHolder viewHolder, int position) {
         final int pos = viewHolder.getAdapterPosition();
         viewHolder.setData(mTasks.get(position));
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.onItemClicked(mTasks.get(pos));
+                    mListener.onItemClicked(mTasks.get(pos), null);
                 }
             }
         });

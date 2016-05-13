@@ -24,9 +24,11 @@
 
 package com.adkdevelopment.e_contact.interfaces;
 
+import android.view.View;
+
 /**
  * Created by karataev on 5/11/16.
  */
 public interface ItemClickListener<M, V> {
-    void onItemClicked(M item);
+    void onItemClicked(M item, View view);
 }

@@ -33,6 +33,8 @@ import io.realm.annotations.PrimaryKey;
  */
 public class TaskObjectRealm extends RealmObject {
 
+    public static final String TASK_EXTRA = "task_realm_extra";
+
     public static final String STATE = "status";
     public static final int STATE_PROGRESS = 0;
     public static final int STATE_DONE = 1;

@@ -25,6 +25,7 @@
 package com.adkdevelopment.e_contact.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,9 +36,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.adkdevelopment.e_contact.interfaces.ItemClickListener;
 import com.adkdevelopment.e_contact.R;
 import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
+import com.adkdevelopment.e_contact.interfaces.ItemClickListener;
 import com.adkdevelopment.e_contact.ui.adapters.TasksAdapter;
 import com.adkdevelopment.e_contact.ui.base.BaseFragment;
 import com.adkdevelopment.e_contact.ui.contract.TasksContract;
@@ -48,6 +49,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by karataev on 5/10/16.
@@ -66,6 +68,7 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
     SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.list_empty_text)
     TextView mListEmpty;
+    private Unbinder mUnbinder;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -90,7 +93,7 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_tasks, container, false);
 
-        ButterKnife.bind(this, rootView);
+        mUnbinder = ButterKnife.bind(this, rootView);
 
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -104,6 +107,7 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
     public void onDestroyView() {
         super.onDestroyView();
         mPresenter.detachView();
+        mUnbinder.unbind();
     }
 
     @Override
@@ -125,10 +129,11 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
     }
 
     @Override
-    public void onItemClicked(TaskObjectRealm item) {
+    public void onItemClicked(TaskObjectRealm item, View view) {
         if (item.getAddress() != null) {
             Log.d("TasksFragment", item.getAddress());
         }
+        startActivity(new Intent(getContext(), DetailActivity.class));
     }
 }
 

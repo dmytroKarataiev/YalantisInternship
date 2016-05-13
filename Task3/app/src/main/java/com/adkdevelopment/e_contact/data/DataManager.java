@@ -24,8 +24,6 @@
 
 package com.adkdevelopment.e_contact.data;
 
-import android.util.Log;
-
 import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
 import com.adkdevelopment.e_contact.data.model.TaskObject;
 import com.adkdevelopment.e_contact.data.remote.ApiService;
@@ -60,12 +58,10 @@ public class DataManager {
     }
 
     public Observable<List<TaskObjectRealm>> getTasks(int query) {
-        Log.d("DataManager", "getTasks: " + query);
         return mDataRepository.findByState(query);
     }
 
     public Observable<List<TaskObjectRealm>> fetchTasks(final int status) {
-        Log.d(TAG, "fetchTasks: " + status);
 
         String query = "";
         switch (status) {
@@ -80,6 +76,7 @@ public class DataManager {
                 break;
         }
 
+        // returns an observable which notifies a user when data was successfully downloaded
         return mApiService.getTasks(query)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -87,6 +84,7 @@ public class DataManager {
                     @Override
                     public Observable<List<TaskObjectRealm>> call(List<TaskObject> taskObjects) {
                         for (TaskObject each : taskObjects) {
+                            // add an object to the database while converting it to the correct type
                             mDataRepository.add(Utilities.convertTask(each));
                         }
                         return mDataRepository.findByState(status);

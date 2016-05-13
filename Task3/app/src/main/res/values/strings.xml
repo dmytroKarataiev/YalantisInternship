@@ -19,4 +19,20 @@
 
     <!-- SharedTransitions -->
     <string name="transition_card" translatable="false">card</string>
+
+    <!-- Task Detailed Fragment Strings for the test purposes TODO -->
+    <string name="task_title_text">Public utilities</string>
+    <string name="task_status">In progress</string>
+    <string name="task_created_date">Jan. 27th 2016</string>
+    <string name="task_registered_date">Jan. 27th 2016</string>
+    <string name="task_assigned_date">Jan. 27th 2016</string>
+    <string name="task_responsible_name">Dnipropetrovsk MVK</string>
+    <string name="task_description">Open drainage near billboard, close to a turn of 18th and 19th trolleys to the Peace avenue of Donetsk Highway.</string>
+
+    <!-- Task Deatiled View -->
+    <string name="task_created_text">Created </string>
+    <string name="task_registered_text">Registered </string>
+    <string name="task_assigned_text">Assigned </string>
+    <string name="task_responsible_text">Responsible </string>
+
 </resources>

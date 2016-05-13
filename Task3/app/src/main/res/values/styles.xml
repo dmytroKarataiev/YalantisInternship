@@ -27,4 +27,25 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <!-- Detail View Styles -->
+    <style name="TaskNames" parent="Base.TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/task_text_size</item>
+        <item name="android:paddingTop">@dimen/task_text_padding</item>
+        <item name="android:paddingBottom">@dimen/task_text_padding</item>
+    </style>
+
+    <style name="TaskDates" parent="TaskNames">
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
+    <style name="StatusSign">
+        <item name="android:textAppearance">?android:textAppearanceInverse</item>
+        <item name="android:textSize">@dimen/task_text_size</item>
+        <item name="android:paddingTop">@dimen/task_text_padding</item>
+        <item name="android:paddingLeft">@dimen/task_text_padding_side</item>
+        <item name="android:paddingRight">@dimen/task_text_padding_side</item>
+        <item name="android:paddingBottom">@dimen/task_text_padding</item>
+        <item name="android:layout_marginBottom">@dimen/status_sign_margin</item>
+    </style>
+
 </resources>

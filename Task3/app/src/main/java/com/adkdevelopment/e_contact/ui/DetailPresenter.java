@@ -22,29 +22,36 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact.ui.contract;
+package com.adkdevelopment.e_contact.ui;
 
 import android.content.Intent;
 
 import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
-import com.adkdevelopment.e_contact.ui.base.MvpPresenter;
-import com.adkdevelopment.e_contact.ui.base.MvpView;
+import com.adkdevelopment.e_contact.ui.base.BaseMvpPresenter;
+import com.adkdevelopment.e_contact.ui.contract.DetailContract;
+
+import javax.inject.Inject;
 
 /**
  * Created by karataev on 5/10/16.
  */
-public class DetailContract {
+public class DetailPresenter
+        extends BaseMvpPresenter<DetailContract.View>
+        implements DetailContract.Presenter {
 
-    public interface Presenter extends MvpPresenter<View> {
-        void loadData(Intent intent);
+    @Inject
+    public DetailPresenter() {
     }
 
-    public interface View extends MvpView {
-        void showData(TaskObjectRealm taskObject);
-
-        void showTaskEmpty();
-
-        void showError();
+    @Override
+    public void loadData(Intent intent) {
+        if (intent == null) {
+            getMvpView().showError();
+        } else if (!intent.hasExtra(TaskObjectRealm.TASK_EXTRA)) {
+            getMvpView().showTaskEmpty();
+        } else {
+            TaskObjectRealm taskObjectRealm = intent.getParcelableExtra(TaskObjectRealm.TASK_EXTRA);
+            getMvpView().showData(taskObjectRealm);
+        }
     }
-
 }
