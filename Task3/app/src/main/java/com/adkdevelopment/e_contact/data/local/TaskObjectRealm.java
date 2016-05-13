@@ -24,6 +24,9 @@
 
 package com.adkdevelopment.e_contact.data.local;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -31,7 +34,7 @@ import io.realm.annotations.PrimaryKey;
 /**
  * Created by karataev on 5/11/16.
  */
-public class TaskObjectRealm extends RealmObject {
+public class TaskObjectRealm extends RealmObject implements Parcelable {
 
     public static final String TASK_EXTRA = "task_realm_extra";
 
@@ -220,4 +223,67 @@ public class TaskObjectRealm extends RealmObject {
         this.longitude = longitude;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeList(this.photo);
+        dest.writeString(this.title);
+        dest.writeInt(this.type);
+        dest.writeInt(this.status);
+        dest.writeLong(this.registered);
+        dest.writeLong(this.assigned);
+        dest.writeString(this.responsible);
+        dest.writeString(this.description);
+        dest.writeInt(this.likes);
+        dest.writeString(this.address);
+        dest.writeDouble(this.latitude);
+        dest.writeDouble(this.longitude);
+        dest.writeString(this.statusText);
+        dest.writeLong(this.created);
+        dest.writeString(this.typeText);
+        dest.writeString(this.categoryText);
+        dest.writeInt(this.category);
+    }
+
+    public TaskObjectRealm() {
+    }
+
+    protected TaskObjectRealm(Parcel in) {
+        this.id = in.readInt();
+        this.photo = new RealmList<>();
+        in.readList(this.photo, TaskPhotoRealm.class.getClassLoader());
+        this.title = in.readString();
+        this.type = in.readInt();
+        this.status = in.readInt();
+        this.registered = in.readLong();
+        this.assigned = in.readLong();
+        this.responsible = in.readString();
+        this.description = in.readString();
+        this.likes = in.readInt();
+        this.address = in.readString();
+        this.latitude = in.readDouble();
+        this.longitude = in.readDouble();
+        this.statusText = in.readString();
+        this.created = in.readLong();
+        this.typeText = in.readString();
+        this.categoryText = in.readString();
+        this.category = in.readInt();
+    }
+
+    public static final Parcelable.Creator<TaskObjectRealm> CREATOR = new Parcelable.Creator<TaskObjectRealm>() {
+        @Override
+        public TaskObjectRealm createFromParcel(Parcel source) {
+            return new TaskObjectRealm(source);
+        }
+
+        @Override
+        public TaskObjectRealm[] newArray(int size) {
+            return new TaskObjectRealm[size];
+        }
+    };
 }

@@ -24,12 +24,15 @@
 
 package com.adkdevelopment.e_contact.data.local;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import io.realm.RealmObject;
 
 /**
  * Created by karataev on 5/11/16.
  */
-public class TaskPhotoRealm extends RealmObject {
+public class TaskPhotoRealm extends RealmObject implements Parcelable {
 
     public String getImageUrl() {
         return imageUrl;
@@ -42,4 +45,32 @@ public class TaskPhotoRealm extends RealmObject {
     private String imageUrl;
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.imageUrl);
+    }
+
+    public TaskPhotoRealm() {
+    }
+
+    protected TaskPhotoRealm(Parcel in) {
+        this.imageUrl = in.readString();
+    }
+
+    public static final Parcelable.Creator<TaskPhotoRealm> CREATOR = new Parcelable.Creator<TaskPhotoRealm>() {
+        @Override
+        public TaskPhotoRealm createFromParcel(Parcel source) {
+            return new TaskPhotoRealm(source);
+        }
+
+        @Override
+        public TaskPhotoRealm[] newArray(int size) {
+            return new TaskPhotoRealm[size];
+        }
+    };
 }

@@ -37,6 +37,8 @@ import javax.inject.Inject;
 
 import rx.Subscriber;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by karataev on 5/10/16.
@@ -69,14 +71,18 @@ public class TasksPresenter
 
         // fetch new data and update a view if there are new objects
         mSubscription = mDataManager.fetchTasks(query)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<TaskObjectRealm>>() {
                     @Override
                     public void onCompleted() {
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(TAG, "Error Fetching: " + e);
+                        Log.e(TAG, "Error Getting: " + e);
+                        getMvpView().showError();
                     }
 
                     @Override
@@ -103,11 +109,11 @@ public class TasksPresenter
                     }
 
                     @Override
-                    public void onNext(List<TaskObjectRealm> taskObjects) {
-                        if (taskObjects.isEmpty()) {
+                    public void onNext(List<TaskObjectRealm> taskObjectRealms) {
+                        if (taskObjectRealms.isEmpty()) {
                             getMvpView().showTasksEmpty();
                         } else {
-                            getMvpView().showData(taskObjects);
+                            getMvpView().showData(taskObjectRealms);
                         }
                     }
                 });

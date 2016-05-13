@@ -24,9 +24,12 @@
 
 package com.adkdevelopment.e_contact.utils;
 
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.util.Log;
 
+import com.adkdevelopment.e_contact.R;
 import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
 import com.adkdevelopment.e_contact.data.local.TaskPhotoRealm;
 import com.adkdevelopment.e_contact.data.model.TaskAddress;
@@ -127,6 +130,34 @@ public class Utilities {
         }
 
         return objectRealm;
+
+    }
+
+    /**
+     * Returns int of a color resource for corresponding status of a task
+     * @param context from which call is made
+     * @param status status according to the database schema
+     * @return int of a corresponding color from resources
+     */
+    public static int getBackgroundColor(Context context, int status) {
+
+        switch (status) {
+            case TaskObjectRealm.WHERE_MODERATION:
+            case TaskObjectRealm.WHERE_PROGRESS:
+            case TaskObjectRealm.WHERE_UNKNOWN_7:
+            case TaskObjectRealm.WHERE_UNKNOWN_8:
+            case TaskObjectRealm.WHERE_UNKNOWN_9:
+                return ContextCompat.getColor(context, R.color.status_progress);
+            case TaskObjectRealm.WHERE_UNKNOWN_10:
+            case TaskObjectRealm.WHERE_DONE:
+                return ContextCompat.getColor(context, R.color.status_completed);
+            case TaskObjectRealm.WHERE_STILL_MODERATION:
+            case TaskObjectRealm.WHERE_ACCEPTED:
+            case TaskObjectRealm.WHERE_REVIEW:
+                return ContextCompat.getColor(context, R.color.status_waiting);
+            default:
+                return ContextCompat.getColor(context, R.color.colorAccent);
+        }
 
     }
 

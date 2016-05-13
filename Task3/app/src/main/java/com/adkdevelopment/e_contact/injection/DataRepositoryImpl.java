@@ -29,7 +29,10 @@ import android.util.Log;
 import com.adkdevelopment.e_contact.App;
 import com.adkdevelopment.e_contact.data.local.DatabaseRealm;
 import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
+import com.adkdevelopment.e_contact.data.model.TaskObject;
+import com.adkdevelopment.e_contact.utils.Utilities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -51,8 +54,43 @@ public class DataRepositoryImpl implements DataRepository {
     }
 
     @Override
-    public void add(final TaskObjectRealm model) {
-        mDatabaseRealm.add(model);
+    public Observable<TaskObjectRealm> add(final TaskObject model) {
+        return Observable.create(new Observable.OnSubscribe<TaskObjectRealm>() {
+            @Override
+            public void call(Subscriber<? super TaskObjectRealm> subscriber) {
+                try {
+                    mDatabaseRealm.add(Utilities.convertTask(model));
+
+                    subscriber.onNext(Utilities.convertTask(model));
+                    subscriber.onCompleted();
+                } catch (Exception e) {
+                    Log.e(TAG, "Error: " + e);
+                    subscriber.onError(e);
+                }
+            }
+        });
+    }
+
+    @Override
+    public Observable<List<TaskObjectRealm>> addBulk(final List<TaskObject> list) {
+        return Observable.create(new Observable.OnSubscribe<List<TaskObjectRealm>>() {
+
+            @Override
+            public void call(Subscriber<? super List<TaskObjectRealm>> subscriber) {
+                try {
+                    List<TaskObjectRealm> realmList = new ArrayList<>();
+                    for (TaskObject each : list) {
+                        mDatabaseRealm.add(Utilities.convertTask(each));
+                        realmList.add(Utilities.convertTask(each));
+                    }
+                    subscriber.onNext(realmList);
+                    subscriber.onCompleted();
+                } catch (Exception e) {
+                    Log.e(TAG, "Error: " + e);
+                    subscriber.onError(e);
+                }
+            }
+        });
     }
 
     @Override

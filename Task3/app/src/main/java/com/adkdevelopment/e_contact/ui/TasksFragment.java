@@ -130,10 +130,10 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
 
     @Override
     public void onItemClicked(TaskObjectRealm item, View view) {
-        if (item.getAddress() != null) {
-            Log.d("TasksFragment", item.getAddress());
-        }
-        startActivity(new Intent(getContext(), DetailActivity.class));
+        // TODO: 5/13/16 fix add extras
+        Intent intent = new Intent(getContext(), DetailActivity.class);
+        intent.putExtra(TaskObjectRealm.TASK_EXTRA, item);
+        startActivity(intent);
     }
 }
 

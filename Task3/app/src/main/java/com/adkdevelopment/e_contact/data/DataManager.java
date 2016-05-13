@@ -28,7 +28,6 @@ import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
 import com.adkdevelopment.e_contact.data.model.TaskObject;
 import com.adkdevelopment.e_contact.data.remote.ApiService;
 import com.adkdevelopment.e_contact.injection.DataRepository;
-import com.adkdevelopment.e_contact.utils.Utilities;
 
 import java.util.List;
 
@@ -36,9 +35,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by karataev on 5/10/16.
@@ -77,19 +74,12 @@ public class DataManager {
         }
 
         // returns an observable which notifies a user when data was successfully downloaded
-        return mApiService.getTasks(query)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(new Func1<List<TaskObject>, Observable<List<TaskObjectRealm>>>() {
-                    @Override
-                    public Observable<List<TaskObjectRealm>> call(List<TaskObject> taskObjects) {
-                        for (TaskObject each : taskObjects) {
-                            // add an object to the database while converting it to the correct type
-                            mDataRepository.add(Utilities.convertTask(each));
-                        }
-                        return mDataRepository.findByState(status);
-                    }
-                });
+        return mApiService.getTasks(query).flatMap(new Func1<List<TaskObject>, Observable<List<TaskObjectRealm>>>() {
+            @Override
+            public Observable<List<TaskObjectRealm>> call(List<TaskObject> taskObjects) {
+                return mDataRepository.addBulk(taskObjects);
+            }
+        });
 
     }
 }

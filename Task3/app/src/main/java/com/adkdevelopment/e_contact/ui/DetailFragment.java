@@ -25,9 +25,11 @@
 package com.adkdevelopment.e_contact.ui;
 
 import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +42,7 @@ import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
 import com.adkdevelopment.e_contact.interfaces.ItemClickListener;
 import com.adkdevelopment.e_contact.ui.base.BaseFragment;
 import com.adkdevelopment.e_contact.ui.contract.DetailContract;
+import com.adkdevelopment.e_contact.utils.Utilities;
 
 import javax.inject.Inject;
 
@@ -129,6 +132,26 @@ public class DetailFragment extends BaseFragment implements DetailContract.View,
     @Override
     public void showData(TaskObjectRealm taskObject) {
         Log.d("DetailFragment", "shows data");
+
+        // Time parsing and creating a nice textual version (should be changed to Calendar)
+        String dateCreated = Utilities.getFormattedDate(taskObject.getCreated());
+        String dateRegistered = Utilities.getFormattedDate(taskObject.getRegistered());
+        String dateAssigned = Utilities.getFormattedDate(taskObject.getAssigned());
+
+        mTaskTitleText.setText(taskObject.getCategoryText());
+        mTaskStatus.setText(taskObject.getStatusText());
+
+        // sets color of a status TextView shape according to the schema
+        GradientDrawable gradientDrawable = (GradientDrawable) mTaskStatus.getBackground();
+        gradientDrawable.setColor(Utilities.getBackgroundColor(getContext(), taskObject.getStatus()));
+
+        mTaskCreatedDate.setText(dateCreated);
+        mTaskRegisteredDate.setText(dateRegistered);
+        mTaskAssignedDate.setText(dateAssigned);
+        mTaskResponsibleName.setText(taskObject.getResponsible());
+        mTaskDescription.setText(Html.fromHtml(taskObject.getDescription()));
+
+
     }
 
     @Override
