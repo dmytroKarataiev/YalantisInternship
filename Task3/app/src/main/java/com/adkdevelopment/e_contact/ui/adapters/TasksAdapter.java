@@ -71,7 +71,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksViewHolder> {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.onItemClicked(mTasks.get(pos), null);
+                    mListener.onItemClicked(mTasks.get(pos));
                 }
             }
         });

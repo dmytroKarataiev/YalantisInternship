@@ -66,16 +66,39 @@ public class TasksPresenter
     @Override
     public void loadData(int query) {
         checkViewAttached();
-        mDataManager.fetchTasks(query);
 
-        mSubscription = mDataManager.getTasks(query)
+        // fetch new data and update a view if there are new objects
+        mSubscription = mDataManager.fetchTasks(query)
                 .subscribe(new Subscriber<List<TaskObjectRealm>>() {
                     @Override
-                    public void onCompleted() { }
+                    public void onCompleted() {
+                    }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(TAG, "Error: " + e);
+                        Log.e(TAG, "Error Fetching: " + e);
+                    }
+
+                    @Override
+                    public void onNext(List<TaskObjectRealm> taskObjectRealms) {
+                        if (taskObjectRealms.isEmpty()) {
+                            getMvpView().showTasksEmpty();
+                        } else {
+                            getMvpView().showData(taskObjectRealms);
+                        }
+                    }
+                });
+
+        // get data from the database and update a view
+        mSubscription = mDataManager.getTasks(query)
+                .subscribe(new Subscriber<List<TaskObjectRealm>>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "Error Getting: " + e);
                         getMvpView().showError();
                     }
 
@@ -88,7 +111,6 @@ public class TasksPresenter
                         }
                     }
                 });
-
     }
 
 }

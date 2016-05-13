@@ -77,6 +77,6 @@
         android:contentDescription="@string/fab_description"
         android:scaleType="center"
         android:src="@drawable/ic_fab"
-        app:layout_behavior=".FabHideOnScroll" />
+        app:layout_behavior=".ui.behavior.FabHideOnScroll" />
 
 </android.support.design.widget.CoordinatorLayout>

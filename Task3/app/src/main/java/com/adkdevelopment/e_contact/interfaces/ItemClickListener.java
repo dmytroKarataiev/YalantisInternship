@@ -28,5 +28,5 @@ package com.adkdevelopment.e_contact.interfaces;
  * Created by karataev on 5/11/16.
  */
 public interface ItemClickListener<M, V> {
-    void onItemClicked(M item, V view);
+    void onItemClicked(M item);
 }

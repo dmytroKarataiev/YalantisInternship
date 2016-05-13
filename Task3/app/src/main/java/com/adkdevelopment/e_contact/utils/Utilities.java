@@ -83,6 +83,8 @@ public class Utilities {
         objectRealm.setCreated(taskObject.getCreatedDate());
         objectRealm.setRegistered(taskObject.getCreatedDate());
         objectRealm.setAssigned(taskObject.getStartDate());
+        objectRealm.setCategory(taskObject.getCategory().getId());
+        objectRealm.setCategoryText(taskObject.getCategory().getName());
 
         if (taskObject.getPerformers() != null && taskObject.getPerformers().size() > 0) {
             objectRealm.setResponsible(taskObject.getPerformers().get(0).getOrganization());
@@ -91,14 +93,19 @@ public class Utilities {
         objectRealm.setDescription(taskObject.getBody());
         objectRealm.setLikes(taskObject.getLikesCounter());
 
+        TaskAddress taskAddress = null;
         if (taskObject.getAddress() != null) {
-            TaskAddress taskAddress = taskObject.getAddress();
+            taskAddress = taskObject.getAddress();
+        } else if (taskObject.getUser().getAddress() != null) {
+            taskAddress = taskObject.getUser().getAddress();
+        }
+
+        if (taskAddress != null) {
             objectRealm.setAddress(taskAddress.getCity().getName() + ", "
                     + taskAddress.getStreet().getName() + ", "
                     + taskAddress.getHouse().getName() + ", "
                     + taskAddress.getFlat());
         }
-
 
         if (taskObject.getGeoAddress() != null) {
             try {
@@ -108,7 +115,6 @@ public class Utilities {
                 Log.d(TAG, "e: " + e);
             }
         }
-
 
         if (taskObject.getFiles() != null && taskObject.getFiles().size() > 0) {
             RealmList<TaskPhotoRealm> taskPhotoRealmList = new RealmList<>();

@@ -64,7 +64,7 @@ public class TasksViewHolder extends RecyclerView.ViewHolder {
 
     public void setData(TaskObjectRealm item) {
         // mTypeImage.setImageResource(Utilities.getTypeIcon(item.getType().getId()));
-        mTypeText.setText(item.getTypeText());
+        mTypeText.setText(item.getCategoryText());
         mLikesText.setText(String.valueOf(item.getLikes()));
 
         if (item.getAddress() != null) {

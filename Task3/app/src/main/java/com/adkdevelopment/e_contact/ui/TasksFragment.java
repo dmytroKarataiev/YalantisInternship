@@ -125,7 +125,7 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
     }
 
     @Override
-    public void onItemClicked(TaskObjectRealm item, View view) {
+    public void onItemClicked(TaskObjectRealm item) {
         if (item.getAddress() != null) {
             Log.d("TasksFragment", item.getAddress());
         }

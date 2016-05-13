@@ -71,6 +71,24 @@ public class TaskObjectRealm extends RealmObject {
     private String statusText;
     private long created;
     private String typeText;
+    private String categoryText;
+    private int category;
+
+    public String getCategoryText() {
+        return categoryText;
+    }
+
+    public void setCategoryText(String categoryText) {
+        this.categoryText = categoryText;
+    }
+
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
+    }
 
     public String getStatusText() {
         return statusText;
