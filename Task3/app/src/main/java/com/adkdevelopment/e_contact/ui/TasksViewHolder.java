@@ -31,7 +31,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.adkdevelopment.e_contact.R;
-import com.adkdevelopment.e_contact.Utilities;
+import com.adkdevelopment.e_contact.utils.Utilities;
 import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
 
 import butterknife.BindView;

@@ -106,9 +106,9 @@ public class MainActivity extends BaseActivity {
     private void initPager() {
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         // TODO: 5/11/16 add strings 
-        pagerAdapter.addFragment(TasksFragment.newInstance(1, "0,9,5,7,8"), "In progress");
-        pagerAdapter.addFragment(TasksFragment.newInstance(2, "10,6"), "Done");
-        pagerAdapter.addFragment(TasksFragment.newInstance(3, "1,3,4"), "Waiting");
+        pagerAdapter.addFragment(TasksFragment.newInstance(0, "0,9,5,7,8"), "In progress");
+        pagerAdapter.addFragment(TasksFragment.newInstance(1, "10,6"), "Done");
+        pagerAdapter.addFragment(TasksFragment.newInstance(2, "1,3,4"), "Waiting");
 
         mViewPager.setAdapter(pagerAdapter);
         mViewPager.setOffscreenPageLimit(pagerAdapter.getCount());

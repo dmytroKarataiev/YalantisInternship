@@ -26,7 +26,7 @@ package com.adkdevelopment.e_contact.data;
 
 import android.util.Log;
 
-import com.adkdevelopment.e_contact.Utilities;
+import com.adkdevelopment.e_contact.utils.Utilities;
 import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
 import com.adkdevelopment.e_contact.data.model.TaskObject;
 import com.adkdevelopment.e_contact.data.remote.ApiService;
@@ -60,14 +60,26 @@ public class DataManager {
         mDataRepository = dataRepository;
     }
 
-    public Observable<List<TaskObjectRealm>> getTasks(String query) {
-
+    public Observable<List<TaskObjectRealm>> getTasks(int query) {
         Log.d("DataManager", "getTasks: " + query);
-        return mDataRepository.findAll();
+        return mDataRepository.findByState(query);
     }
 
-    public void fetchTasks(String query) {
-        Log.d(TAG, "fetchTasks: " + query);
+    public void fetchTasks(int status) {
+        Log.d(TAG, "fetchTasks: " + status);
+
+        String query = "";
+        switch (status) {
+            case TaskObjectRealm.STATE_PROGRESS:
+                query = TaskObjectRealm.QUERY_PROGRESS;
+                break;
+            case TaskObjectRealm.STATE_DONE:
+                query = TaskObjectRealm.QUERY_DONE;
+                break;
+            case TaskObjectRealm.STATE_PENDING:
+                query = TaskObjectRealm.QUERY_PENDING;
+                break;
+        }
 
         mApiService.getTasks(query)
                 .observeOn(AndroidSchedulers.mainThread())

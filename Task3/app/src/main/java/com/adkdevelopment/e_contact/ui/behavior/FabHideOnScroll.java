@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.adkdevelopment.e_contact;
+package com.adkdevelopment.e_contact.ui.behavior;
 
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;

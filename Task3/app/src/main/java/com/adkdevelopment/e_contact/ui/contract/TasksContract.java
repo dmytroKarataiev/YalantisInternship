@@ -36,7 +36,7 @@ import java.util.List;
 public class TasksContract {
 
     public interface Presenter extends MvpPresenter<View> {
-        void loadData(String query);
+        void loadData(int query);
     }
 
     public interface View extends MvpView {

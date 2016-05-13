@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact;
+package com.adkdevelopment.e_contact.interfaces;
 
 /**
  * Created by karataev on 5/11/16.

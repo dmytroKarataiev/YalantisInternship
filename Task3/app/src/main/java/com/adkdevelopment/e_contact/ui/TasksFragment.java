@@ -35,7 +35,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.adkdevelopment.e_contact.ItemClickListener;
+import com.adkdevelopment.e_contact.interfaces.ItemClickListener;
 import com.adkdevelopment.e_contact.R;
 import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
 import com.adkdevelopment.e_contact.ui.adapters.TasksAdapter;
@@ -48,7 +48,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.realm.RealmResults;
 
 /**
  * Created by karataev on 5/10/16.
@@ -96,7 +95,7 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mPresenter.attachView(this);
-        mPresenter.loadData(getArguments().getString(ARG_SECTION_STATE));
+        mPresenter.loadData(getArguments().getInt(ARG_SECTION_NUMBER));
 
         return rootView;
     }
@@ -116,21 +115,19 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
 
     @Override
     public void showTasksEmpty() {
-        Log.d("TasksFragment", "empty");
         mAdapter.setTasks(null, null);
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showError() {
-        mListEmpty.setText("errororroorro");
+        mListEmpty.setText("Error somewhere");
     }
 
     @Override
     public void onItemClicked(TaskObjectRealm item, View view) {
         if (item.getAddress() != null) {
             Log.d("TasksFragment", item.getAddress());
-            //Log.d("TasksFragment", item.getAddress().getStreet().getName() + " " + item.getCreatedDate());
         }
     }
 }

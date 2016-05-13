@@ -45,6 +45,8 @@ public class TasksPresenter
         extends BaseMvpPresenter<TasksContract.View>
         implements TasksContract.Presenter {
 
+    private static final String TAG = TasksPresenter.class.getSimpleName();
+
     private final DataManager mDataManager;
     private Subscription mSubscription;
 
@@ -62,21 +64,18 @@ public class TasksPresenter
     }
 
     @Override
-    public void loadData(String query) {
-        Log.d("Presenter", "loadData: ");
+    public void loadData(int query) {
         checkViewAttached();
         mDataManager.fetchTasks(query);
 
         mSubscription = mDataManager.getTasks(query)
                 .subscribe(new Subscriber<List<TaskObjectRealm>>() {
                     @Override
-                    public void onCompleted() {
-
-                    }
+                    public void onCompleted() { }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("TasksPresenter", "e:" + e);
+                        Log.e(TAG, "Error: " + e);
                         getMvpView().showError();
                     }
 
@@ -85,7 +84,6 @@ public class TasksPresenter
                         if (taskObjects.isEmpty()) {
                             getMvpView().showTasksEmpty();
                         } else {
-                            //Log.d("TasksPresenter", Collections.singletonList(taskObjects).toString());
                             getMvpView().showData(taskObjects);
                         }
                     }

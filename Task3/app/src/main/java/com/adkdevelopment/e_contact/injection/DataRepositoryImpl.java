@@ -73,4 +73,22 @@ public class DataRepositoryImpl implements DataRepository {
         });
     }
 
+    @Override
+    public Observable<List<TaskObjectRealm>> findByState(final int state) {
+        Log.d(TAG, "find by state " + state);
+        return Observable.create(new Observable.OnSubscribe<List<TaskObjectRealm>>() {
+            @Override
+            public void call(Subscriber<? super List<TaskObjectRealm>> subscriber) {
+                try {
+                    List<TaskObjectRealm> models = mDatabaseRealm.findByState(TaskObjectRealm.class, state);
+                    Log.d(TAG, "models.size():" + models.size());
+                    subscriber.onNext(models);
+                    subscriber.onCompleted();
+                } catch (Exception e) {
+                    subscriber.onError(e);
+                }
+            }
+        });
+    }
+
 }

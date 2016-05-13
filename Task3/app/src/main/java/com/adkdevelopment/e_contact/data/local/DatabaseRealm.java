@@ -25,7 +25,6 @@
 package com.adkdevelopment.e_contact.data.local;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.adkdevelopment.e_contact.App;
 import com.adkdevelopment.e_contact.injection.ApplicationContext;
@@ -70,7 +69,6 @@ public class DatabaseRealm {
     }
 
     public <T extends RealmObject> T add(T model) {
-        Log.d(TAG, "add: ");
         Realm realm = getRealmInstance();
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(model);
@@ -79,8 +77,32 @@ public class DatabaseRealm {
     }
 
     public <T extends RealmObject> List<T> findAll(Class<T> clazz) {
-        Log.d(TAG, "findAll: ");
         return getRealmInstance().where(clazz).findAll();
+    }
+
+    public <T extends RealmObject> List<T> findByState(Class<T> clazz, int state) {
+        switch (state) {
+            case TaskObjectRealm.STATE_PROGRESS:
+                return getRealmInstance().where(clazz)
+                        .equalTo(TaskObjectRealm.STATE, TaskObjectRealm.WHERE_MODERATION).or()
+                        .equalTo(TaskObjectRealm.STATE, TaskObjectRealm.WHERE_PROGRESS).or()
+                        .equalTo(TaskObjectRealm.STATE, TaskObjectRealm.WHERE_UNKNOWN_7).or()
+                        .equalTo(TaskObjectRealm.STATE, TaskObjectRealm.WHERE_UNKNOWN_8).or()
+                        .equalTo(TaskObjectRealm.STATE, TaskObjectRealm.WHERE_UNKNOWN_9)
+                        .findAll();
+            case TaskObjectRealm.STATE_DONE:
+                return getRealmInstance().where(clazz)
+                        .equalTo(TaskObjectRealm.STATE, TaskObjectRealm.WHERE_UNKNOWN_10).or()
+                        .equalTo(TaskObjectRealm.STATE, TaskObjectRealm.WHERE_DONE)
+                        .findAll();
+            case TaskObjectRealm.STATE_PENDING:
+                return getRealmInstance().where(clazz)
+                        .equalTo(TaskObjectRealm.STATE, TaskObjectRealm.WHERE_STILL_MODERATION).or()
+                        .equalTo(TaskObjectRealm.STATE, TaskObjectRealm.WHERE_ACCEPTED).or()
+                        .equalTo(TaskObjectRealm.STATE, TaskObjectRealm.WHERE_REVIEW)
+                        .findAll();
+        }
+        return null;
     }
 
 }

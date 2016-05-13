@@ -39,4 +39,6 @@ public interface DataRepository {
 
     Observable<List<TaskObjectRealm>> findAll();
 
+    Observable<List<TaskObjectRealm>> findByState(int state);
+
 }

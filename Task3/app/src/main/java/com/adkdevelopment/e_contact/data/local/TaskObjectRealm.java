@@ -33,6 +33,28 @@ import io.realm.annotations.PrimaryKey;
  */
 public class TaskObjectRealm extends RealmObject {
 
+    public static final String STATE = "status";
+    public static final int STATE_PROGRESS = 0;
+    public static final int STATE_DONE = 1;
+    public static final int STATE_PENDING = 2;
+
+    // database schema
+    public static final int WHERE_MODERATION = 0;
+    public static final int WHERE_STILL_MODERATION = 1;
+    public static final int WHERE_REJECTED = 2;
+    public static final int WHERE_ACCEPTED = 3;
+    public static final int WHERE_REVIEW = 4;
+    public static final int WHERE_PROGRESS = 5;
+    public static final int WHERE_DONE = 6;
+    public static final int WHERE_UNKNOWN_7 = 7;
+    public static final int WHERE_UNKNOWN_8 = 8;
+    public static final int WHERE_UNKNOWN_9 = 9;
+    public static final int WHERE_UNKNOWN_10 = 10;
+
+    public static final String QUERY_PROGRESS = "0,9,5,7,8";
+    public static final String QUERY_DONE = "10,6";
+    public static final String QUERY_PENDING = "1,3,4";
+
     @PrimaryKey private int id;
     private RealmList<TaskPhotoRealm> photo;
     private String title;
@@ -65,7 +87,6 @@ public class TaskObjectRealm extends RealmObject {
     public void setTypeText(String typeText) {
         this.typeText = typeText;
     }
-
 
     public int getId() {
         return id;

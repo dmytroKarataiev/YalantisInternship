@@ -22,9 +22,10 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact;
+package com.adkdevelopment.e_contact.utils;
 
 import android.text.format.DateUtils;
+import android.util.Log;
 
 import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
 import com.adkdevelopment.e_contact.data.local.TaskPhotoRealm;
@@ -100,8 +101,12 @@ public class Utilities {
 
 
         if (taskObject.getGeoAddress() != null) {
-            objectRealm.setLatitude(Double.parseDouble(taskObject.getGeoAddress().getLatitude()));
-            objectRealm.setLongitude(Double.parseDouble(taskObject.getGeoAddress().getLongitude()));
+            try {
+                objectRealm.setLatitude(Double.parseDouble(taskObject.getGeoAddress().getLatitude()));
+                objectRealm.setLongitude(Double.parseDouble(taskObject.getGeoAddress().getLongitude()));
+            } catch (NumberFormatException e) {
+                Log.d(TAG, "e: " + e);
+            }
         }
 
 
