@@ -30,7 +30,6 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -112,19 +111,22 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
 
     @Override
     public void showData(List<TaskObjectRealm> taskObjects) {
-        Log.d("TasksFragment", "taskObjects.size():" + taskObjects.size());
+        mListEmpty.setVisibility(View.GONE);
         mAdapter.setTasks(taskObjects, this);
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showTasksEmpty() {
+        mListEmpty.setText(getString(R.string.recyclerview_empty_text));
+        mListEmpty.setVisibility(View.VISIBLE);
         mAdapter.setTasks(null, null);
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showError() {
+        mListEmpty.setVisibility(View.VISIBLE);
         mListEmpty.setText("Error somewhere");
     }
 
@@ -133,6 +135,7 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
         // TODO: 5/13/16 fix add extras
         Intent intent = new Intent(getContext(), DetailActivity.class);
         intent.putExtra(TaskObjectRealm.TASK_EXTRA, item);
+        intent.putExtra(TaskObjectRealm.TASK_EXTRA_TITLE, String.valueOf(item.getId()));
         startActivity(intent);
     }
 }

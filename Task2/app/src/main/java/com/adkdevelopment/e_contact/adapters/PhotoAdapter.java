@@ -36,7 +36,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -50,7 +50,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
     // Simple version of the ViewHolder with only one View
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.poster_image) public ImageView mImageView;
+        @BindView(R.id.poster_image) public ImageView mImageView;
 
         public ViewHolder(View v) {
             super(v);

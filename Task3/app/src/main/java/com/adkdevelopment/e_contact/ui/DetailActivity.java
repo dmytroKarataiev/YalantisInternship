@@ -24,11 +24,14 @@
 
 package com.adkdevelopment.e_contact.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.adkdevelopment.e_contact.R;
+import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
 import com.adkdevelopment.e_contact.ui.base.BaseActivity;
 
 import butterknife.BindView;
@@ -49,15 +52,7 @@ public class DetailActivity extends BaseActivity {
 
         ButterKnife.bind(this);
 
-        // Initialize a custom Toolbar
-        setSupportActionBar(mToolbar);
-
-        // Add back button to the actionbar
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            // TODO: 5/12/16 set actionBar title
-            getSupportActionBar().setTitle("Test title");
-        }
+        initActionBar();
     }
 
     @Override
@@ -72,5 +67,27 @@ public class DetailActivity extends BaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Initializes ActionBar and sets a title
+     * todo maybe add presenter
+     */
+    private void initActionBar() {
+        // Initialize a custom Toolbar
+        setSupportActionBar(mToolbar);
+        ActionBar actionBar = getSupportActionBar();
+
+        // Add back button to the actionbar
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+
+            String actionbarTitle = getString(R.string.task_title);
+            Intent intent = getIntent();
+            if (intent != null && intent.hasExtra(TaskObjectRealm.TASK_EXTRA_TITLE)) {
+                actionbarTitle += " " + intent.getStringExtra(TaskObjectRealm.TASK_EXTRA_TITLE);
+            }
+            actionBar.setTitle(actionbarTitle);
+        }
     }
 }

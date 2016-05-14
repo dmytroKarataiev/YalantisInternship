@@ -158,7 +158,50 @@ public class Utilities {
             default:
                 return ContextCompat.getColor(context, R.color.colorAccent);
         }
+    }
 
+    /**
+     * Helper class to get int of a Drawable of work types according to a database schema
+     * @param type int status representation
+     * @return int Drawable of the status
+     */
+    public static int getCategoryIcon(int type) {
+        switch (type) {
+            case TaskObjectRealm.CATEGORY_NO_ANSWER:
+            case TaskObjectRealm.CATEGORY_OTHER:
+            case TaskObjectRealm.CATEGORY_IMPROVEMENTS:
+            case TaskObjectRealm.CATEGORY_HOTLINE:
+                return R.drawable.ic_type_issues;
+            case TaskObjectRealm.CATEGORY_AGRICULTURE:
+            case TaskObjectRealm.CATEGORY_LAND:
+                return R.drawable.ic_type_trash;
+            case TaskObjectRealm.CATEGORY_CORRUPTION:
+            case TaskObjectRealm.CATEGORY_GAMBLING:
+            case TaskObjectRealm.CATEGORY_VERKHOVNA_RADA:
+            case TaskObjectRealm.CATEGORY_GOV_LOCAL:
+            case TaskObjectRealm.CATEGORY_GOV_BUILDING:
+            case TaskObjectRealm.CATEGORY_GOV_INQUIRY:
+            case TaskObjectRealm.CATEGORY_EXECUTIVE:
+            case TaskObjectRealm.CATEGORY_ECONOMY:
+            case TaskObjectRealm.CATEGORY_LAW:
+            case TaskObjectRealm.CATEGORY_FINANCE:
+            case TaskObjectRealm.CATEGORY_CRIME:
+                return R.drawable.ic_type_gov;
+            case TaskObjectRealm.CATEGORY_MEDIA:
+            case TaskObjectRealm.CATEGORY_MEDIA_POL:
+            case TaskObjectRealm.CATEGORY_TOURISM:
+                return R.drawable.ic_type_tourism;
+            case TaskObjectRealm.CATEGORY_ARCHIVES:
+            case TaskObjectRealm.CATEGORY_LABOR:
+            case TaskObjectRealm.CATEGORY_DEPOSITS:
+            case TaskObjectRealm.CATEGORY_RESIDENTS:
+            case TaskObjectRealm.CATEGORY_WAGES:
+            case TaskObjectRealm.CATEGORY_COMPENSATION:
+            case TaskObjectRealm.CATEGORY_CONSUMERS:
+                return R.drawable.ic_type_paint;
+            default:
+                return R.drawable.ic_type_other;
+        }
     }
 
 }

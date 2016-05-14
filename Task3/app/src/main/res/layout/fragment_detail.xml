@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ MIT License
   ~
   ~ Copyright (c) 2016. Dmytro Karataiev
@@ -25,19 +24,19 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".ui.DetailActivity"
     tools:showIn="@layout/activity_detail">
 
     <RelativeLayout
-        android:transitionName="@string/transition_card"
-        android:background="@android:color/white"
         android:id="@+id/relative_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/white"
         android:focusableInTouchMode="true"
-        android:padding="@dimen/padding_default">
+        android:padding="@dimen/padding_default"
+        android:transitionName="@string/transition_card">
 
         <RelativeLayout
             android:id="@+id/task_title"
@@ -51,11 +50,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:text="@string/task_title_text"
-                android:textStyle="bold"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/task_status"
-                android:layout_toStartOf="@+id/task_status" />
+                android:layout_toStartOf="@+id/task_status"
+                android:text="@string/task_title_text"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/task_status"
@@ -177,13 +176,16 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@id/divider4"
+            android:layout_toEndOf="@+id/task_responsible_text"
+            android:layout_toRightOf="@+id/task_responsible_text"
+            android:gravity="end"
             android:text="@string/task_responsible_name" />
 
         <View
             android:id="@+id/divider5"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@id/task_responsible_text"
+            android:layout_below="@id/task_responsible_name"
             android:background="@android:color/darker_gray" />
 
         <TextView
@@ -198,13 +200,12 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/my_recycler_view"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/task_description"
             android:minHeight="@dimen/recycler_minheight"
             android:paddingTop="@dimen/recycler_padding"
             android:scrollbars="horizontal" />
-
 
     </RelativeLayout>
 

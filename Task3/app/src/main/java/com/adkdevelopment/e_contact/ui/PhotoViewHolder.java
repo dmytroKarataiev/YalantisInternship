@@ -24,53 +24,55 @@
 
 package com.adkdevelopment.e_contact.ui;
 
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.ProgressBar;
 
 import com.adkdevelopment.e_contact.R;
-import com.adkdevelopment.e_contact.utils.Utilities;
-import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
+import com.adkdevelopment.e_contact.data.local.TaskPhotoRealm;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * ViewHolder for images in a DetailView
  * Created by karataev on 5/11/16.
  */
-public class TasksViewHolder extends RecyclerView.ViewHolder {
+public class PhotoViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.task_item_type_image)
-    ImageView mTypeImage;
-    @BindView(R.id.task_item_type_text)
-    TextView mTypeText;
-    @BindView(R.id.task_item_likes_text)
-    TextView mLikesText;
-    @BindView(R.id.task_item_address)
-    TextView mAddress;
-    @BindView(R.id.task_item_registered)
-    TextView mRegistered;
-    @BindView(R.id.task_item_elapsed)
-    TextView mElapsed;
-    @BindView(R.id.task_item_card)
-    CardView mCardView;
+    @BindView(R.id.task_image)
+    ImageView mTaskImage;
+    @BindView(R.id.progress_bar)
+    ProgressBar mProgressBar;
 
-    public TasksViewHolder(View itemView) {
+    public PhotoViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
     }
 
-    public void setData(TaskObjectRealm item) {
-        mTypeImage.setImageResource(Utilities.getCategoryIcon(item.getCategory()));
-        mTypeText.setText(item.getCategoryText());
-        mLikesText.setText(String.valueOf(item.getLikes()));
+    public void setData(TaskPhotoRealm item) {
+        Picasso.with(itemView.getContext())
+                .load(item.getImageUrl())
+                // to prevent OOM we scale images down
+                .resize(TaskPhotoRealm.WIDTH_SCALE, TaskPhotoRealm.HEIGHT_SCALE)
+                .onlyScaleDown()
+                .centerInside()
+                .error(R.drawable.image_placeholder)
+                .into(mTaskImage, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        mProgressBar.setVisibility(View.GONE);
+                    }
 
-        if (item.getAddress() != null) {
-            mAddress.setText(item.getAddress());
-        }
-        mRegistered.setText(Utilities.getFormattedDate(item.getCreated()));
-        mElapsed.setText(Utilities.getRelativeDate(item.getCreated()));
+                    @Override
+                    public void onError() {
+                        mProgressBar.setVisibility(View.GONE);
+                    }
+                });
+        mTaskImage.setContentDescription(itemView.getContext()
+                .getString(R.string.task_image_text));
     }
 }

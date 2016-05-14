@@ -28,6 +28,7 @@ import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
@@ -40,6 +41,7 @@ import android.widget.Toast;
 import com.adkdevelopment.e_contact.R;
 import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
 import com.adkdevelopment.e_contact.interfaces.ItemClickListener;
+import com.adkdevelopment.e_contact.ui.adapters.PhotoAdapter;
 import com.adkdevelopment.e_contact.ui.base.BaseFragment;
 import com.adkdevelopment.e_contact.ui.contract.DetailContract;
 import com.adkdevelopment.e_contact.utils.Utilities;
@@ -56,6 +58,7 @@ import butterknife.Unbinder;
  */
 public class DetailFragment extends BaseFragment implements DetailContract.View, ItemClickListener<Integer, View> {
 
+    @Inject PhotoAdapter mAdapter;
     @Inject DetailPresenter mPresenter;
 
     @BindView(R.id.task_title_text)
@@ -109,6 +112,12 @@ public class DetailFragment extends BaseFragment implements DetailContract.View,
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         mUnbibder = ButterKnife.bind(this, rootView);
 
+        mRecyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),
+                LinearLayoutManager.HORIZONTAL, false);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setAdapter(mAdapter);
+
         mPresenter.attachView(this);
         mPresenter.loadData(getActivity().getIntent());
 
@@ -131,7 +140,6 @@ public class DetailFragment extends BaseFragment implements DetailContract.View,
 
     @Override
     public void showData(TaskObjectRealm taskObject) {
-        Log.d("DetailFragment", "shows data");
 
         // Time parsing and creating a nice textual version (should be changed to Calendar)
         String dateCreated = Utilities.getFormattedDate(taskObject.getCreated());
@@ -151,11 +159,13 @@ public class DetailFragment extends BaseFragment implements DetailContract.View,
         mTaskResponsibleName.setText(taskObject.getResponsible());
         mTaskDescription.setText(Html.fromHtml(taskObject.getDescription()));
 
-
+        mAdapter.setPhotos(taskObject.getPhoto(), this);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showTaskEmpty() {
+        // TODO: 5/13/16 add some logic
         Log.d("DetailFragment", "empty");
     }
 

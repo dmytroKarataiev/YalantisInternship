@@ -34,8 +34,13 @@ import io.realm.RealmObject;
  */
 public class TaskPhotoRealm extends RealmObject implements Parcelable {
 
+    public static final int WIDTH_SCALE = 800;
+    public static final int HEIGHT_SCALE = 600;
+
+    public static final String PHOTO_URL = "http://dev-contact.yalantis.com/files/ticket/";
+
     public String getImageUrl() {
-        return imageUrl;
+        return PHOTO_URL + imageUrl;
     }
 
     public void setImageUrl(String imageUrl) {

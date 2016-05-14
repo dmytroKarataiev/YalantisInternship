@@ -29,50 +29,51 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.adkdevelopment.e_contact.interfaces.ItemClickListener;
 import com.adkdevelopment.e_contact.R;
-import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
-import com.adkdevelopment.e_contact.ui.TasksViewHolder;
+import com.adkdevelopment.e_contact.data.local.TaskPhotoRealm;
+import com.adkdevelopment.e_contact.interfaces.ItemClickListener;
+import com.adkdevelopment.e_contact.ui.PhotoViewHolder;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 /**
- * Created by karataev on 5/11/16.
+ * Created by karataev on 5/13/16.
  */
-public class TasksAdapter extends RecyclerView.Adapter<TasksViewHolder> {
+public class PhotoAdapter extends RecyclerView.Adapter<PhotoViewHolder> {
 
-    private List<TaskObjectRealm> mTasks;
-    private ItemClickListener<TaskObjectRealm, View> mListener;
+    private List<TaskPhotoRealm> mPhotos;
+    private ItemClickListener<Integer, View> mListener;
 
     @Inject
-    public TasksAdapter() {
+    PhotoAdapter() {
     }
 
-    public void setTasks(List<TaskObjectRealm> taskObjects,
-                         ItemClickListener<TaskObjectRealm, View> listener) {
-        mTasks = taskObjects;
+    public void setPhotos(List<TaskPhotoRealm> photos,
+                          ItemClickListener<Integer, View> listener) {
+        mPhotos = photos;
         mListener = listener;
     }
 
     @Override
-    public TasksViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PhotoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.task_item_grid, parent, false);
+                .inflate(R.layout.fragment_detail_image, parent, false);
 
-        return new TasksViewHolder(v);
+        return new PhotoViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(final TasksViewHolder viewHolder, int position) {
+    public void onBindViewHolder(final PhotoViewHolder viewHolder, int position) {
         final int pos = viewHolder.getAdapterPosition();
-        viewHolder.setData(mTasks.get(position));
+        viewHolder.setData(mPhotos.get(position));
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.onItemClicked(mTasks.get(pos), null);
+                    mListener.onItemClicked(pos,
+                            viewHolder.itemView.findViewById(R.id.task_image));
                 }
             }
         });
@@ -80,7 +81,6 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mTasks == null ? 0 : mTasks.size();
+        return mPhotos == null ? 0 : mPhotos.size();
     }
-
 }
