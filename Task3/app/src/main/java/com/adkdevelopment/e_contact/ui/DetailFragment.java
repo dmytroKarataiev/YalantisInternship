@@ -56,10 +56,13 @@ import butterknife.Unbinder;
 /**
  * Created by karataev on 5/12/16.
  */
-public class DetailFragment extends BaseFragment implements DetailContract.View, ItemClickListener<Integer, View> {
+public class DetailFragment extends BaseFragment
+        implements DetailContract.View, ItemClickListener<Integer, View> {
 
     @Inject PhotoAdapter mAdapter;
     @Inject DetailPresenter mPresenter;
+
+    private OnFragmentInteraction mListener;
 
     @BindView(R.id.task_title_text)
     TextView mTaskTitleText;
@@ -104,6 +107,18 @@ public class DetailFragment extends BaseFragment implements DetailContract.View,
     public void onAttach(Context context) {
         super.onAttach(context);
         ((DetailActivity) getActivity()).getActivityComponent().injectFragment(this);
+        if (context instanceof  OnFragmentInteraction) {
+            mListener = (OnFragmentInteraction) context;
+        } else {
+            throw new RuntimeException(context.toString() +
+                " must implement "  + OnFragmentInteraction.class.getSimpleName());
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 
     @Nullable
@@ -119,9 +134,14 @@ public class DetailFragment extends BaseFragment implements DetailContract.View,
         mRecyclerView.setAdapter(mAdapter);
 
         mPresenter.attachView(this);
-        mPresenter.loadData(getActivity().getIntent());
 
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mPresenter.loadData(getActivity().getIntent());
     }
 
     @Override
@@ -161,6 +181,11 @@ public class DetailFragment extends BaseFragment implements DetailContract.View,
 
         mAdapter.setPhotos(taskObject.getPhoto(), this);
         mAdapter.notifyDataSetChanged();
+
+        // send a title to an activity's actionBar
+        if (mListener != null) {
+            mListener.onFragmentInteraction(String.valueOf(taskObject.getId()));
+        }
     }
 
     @Override
@@ -172,5 +197,10 @@ public class DetailFragment extends BaseFragment implements DetailContract.View,
     @Override
     public void showError() {
         Log.d("DetailFragment", "error");
+    }
+
+    // interface to communicate with an activity to set a title
+    public interface OnFragmentInteraction {
+        void onFragmentInteraction(String title);
     }
 }

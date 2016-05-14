@@ -127,6 +127,7 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
     @Override
     public void showError() {
         mListEmpty.setVisibility(View.VISIBLE);
+        // TODO: 5/13/16 add meaningfull something 
         mListEmpty.setText("Error somewhere");
     }
 
