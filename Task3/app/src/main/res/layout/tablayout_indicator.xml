@@ -22,7 +22,8 @@
   ~ SOFTWARE.
   -->
 
-<com.ogaclejapan.smarttablayout.SmartTabLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.ogaclejapan.smarttablayout.SmartTabLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/tabs"
     android:layout_width="match_parent"
@@ -31,9 +32,9 @@
     app:stl_customTabTextLayoutId="@layout/tab_custom"
     app:stl_customTabTextViewId="@id/text_custom"
     app:stl_distributeEvenly="true"
-    app:stl_dividerThickness="0dp"
-    app:stl_indicatorCornerRadius="10dp"
+    app:stl_dividerThickness="@dimen/tablayout_divider_thickness"
+    app:stl_indicatorCornerRadius="@dimen/tablayout_indicator_corners"
     app:stl_indicatorInterpolation="linear"
-    app:stl_indicatorThickness="4dp"
+    app:stl_indicatorThickness="@dimen/tablayout_indicator_thickness"
     app:stl_indicatorWidth="auto"
     app:stl_underlineColor="@android:color/transparent" />

@@ -32,7 +32,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.text.method.LinkMovementMethod;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.adkdevelopment.e_contact.R;
@@ -74,6 +76,15 @@ public class MainActivity extends BaseActivity {
         initActionBar();
 
         initPager();
+
+        initNavigationDrawer();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // select first item in navigation drawer on startup
+        mNavigationView.getMenu().getItem(0).setChecked(true);
     }
 
     @Override
@@ -106,13 +117,43 @@ public class MainActivity extends BaseActivity {
     private void initPager() {
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         // TODO: 5/11/16 add strings 
-        pagerAdapter.addFragment(TasksFragment.newInstance(0, "0,9,5,7,8"), "In progress");
-        pagerAdapter.addFragment(TasksFragment.newInstance(1, "10,6"), "Done");
-        pagerAdapter.addFragment(TasksFragment.newInstance(2, "1,3,4"), "Waiting");
+        pagerAdapter.addFragment(TasksFragment.newInstance(0, "0,9,5,7,8"), getString(R.string.title_inprogress));
+        pagerAdapter.addFragment(TasksFragment.newInstance(1, "10,6"), getString(R.string.title_completed));
+        pagerAdapter.addFragment(TasksFragment.newInstance(2, "1,3,4"), getString(R.string.title_waiting));
 
         mViewPager.setAdapter(pagerAdapter);
         mViewPager.setOffscreenPageLimit(pagerAdapter.getCount());
         mTabLayout.setViewPager(mViewPager);
+    }
+
+    /**
+     * Initialises Navigation Drawer and adds links movement to the footer
+     * sets listener on an item click in the Drawer
+     */
+    private void initNavigationDrawer() {
+        // Make links work in the Drawer
+        mFooterLinks.setMovementMethod(LinkMovementMethod.getInstance());
+
+        // add listener to the buttons in the navigation drawer
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+
+                if (item.getItemId() == R.id.drawer_map) {
+                    // TODO: 5/13/16 add MapsActivity
+                    if ("main".equals("maintain)"/* Utilities.checkPlayServices(PagerActivity.this) */)) {
+                        //Intent intent = new Intent(PagerActivity.this, MapsActivity.class);
+                        //startActivity(intent);
+                    }
+                    mDrawerLayout.closeDrawers();
+                    return false;
+                } else {
+                    item.setChecked(true);
+                    mDrawerLayout.closeDrawers();
+                    return true;
+                }
+            }
+        });
     }
 
 }

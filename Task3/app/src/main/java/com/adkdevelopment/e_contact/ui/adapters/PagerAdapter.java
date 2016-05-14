@@ -37,7 +37,7 @@ import java.util.List;
  */
 public class PagerAdapter extends FragmentPagerAdapter {
 
-    private final List<BaseFragment> fragments = new ArrayList<>();
+    private final List<BaseFragment> mFragments = new ArrayList<>();
     private final List<String> mFragmentTitles = new ArrayList<>();
 
     public PagerAdapter(FragmentManager fm) {
@@ -45,19 +45,18 @@ public class PagerAdapter extends FragmentPagerAdapter {
     }
 
     public void addFragment(BaseFragment fragment, String title) {
-        fragments.add(fragment);
+        mFragments.add(fragment);
         mFragmentTitles.add(title);
     }
 
     @Override
     public BaseFragment getItem(int position) {
-        return fragments.get(position);
+        return mFragments.get(position);
     }
-
 
     @Override
     public int getCount() {
-        return fragments.size();
+        return mFragments.size();
     }
 
     @Override

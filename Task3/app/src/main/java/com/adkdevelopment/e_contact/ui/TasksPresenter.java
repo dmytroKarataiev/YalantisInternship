@@ -68,7 +68,7 @@ public class TasksPresenter
     @Override
     public void loadData(int query) {
         checkViewAttached();
-
+        // TODO: 5/13/16 if Online check 
         // fetch new data and update a view if there are new objects
         mSubscription = mDataManager.fetchTasks(query)
                 .subscribeOn(Schedulers.io())

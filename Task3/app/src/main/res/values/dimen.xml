@@ -39,6 +39,9 @@
 
     <!-- TabLayout -->
     <dimen name="tablayout_margin">10dp</dimen>
+    <dimen name="tablayout_indicator_thickness">4dp</dimen>
+    <dimen name="tablayout_divider_thickness">0dp</dimen>
+    <dimen name="tablayout_indicator_corners">10dp</dimen>
 
     <!-- Task Item Dimensions -->
     <dimen name="gridlayout_image_padding">35dp</dimen>

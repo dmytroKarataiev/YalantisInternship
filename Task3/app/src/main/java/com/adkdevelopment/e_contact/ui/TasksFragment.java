@@ -99,6 +99,13 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
         mPresenter.attachView(this);
         mPresenter.loadData(getArguments().getInt(ARG_SECTION_NUMBER));
 
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPresenter.loadData(getArguments().getInt(ARG_SECTION_NUMBER));
+            }
+        });
+
         return rootView;
     }
 
@@ -111,6 +118,7 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
 
     @Override
     public void showData(List<TaskObjectRealm> taskObjects) {
+        mSwipeRefreshLayout.setRefreshing(false);
         mListEmpty.setVisibility(View.GONE);
         mAdapter.setTasks(taskObjects, this);
         mAdapter.notifyDataSetChanged();
@@ -118,6 +126,7 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
 
     @Override
     public void showTasksEmpty() {
+        mSwipeRefreshLayout.setRefreshing(false);
         mListEmpty.setText(getString(R.string.recyclerview_empty_text));
         mListEmpty.setVisibility(View.VISIBLE);
         mAdapter.setTasks(null, null);
@@ -126,6 +135,7 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
 
     @Override
     public void showError() {
+        mSwipeRefreshLayout.setRefreshing(false);
         mListEmpty.setVisibility(View.VISIBLE);
         // TODO: 5/13/16 add meaningfull something 
         mListEmpty.setText("Error somewhere");
