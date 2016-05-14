@@ -36,47 +36,50 @@ import java.util.List;
 import javax.inject.Inject;
 
 import rx.Subscriber;
-import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by karataev on 5/10/16.
  */
 public class TasksPresenter
-        extends BaseMvpPresenter<TasksContract.View>
-        implements TasksContract.Presenter {
+        extends BaseMvpPresenter<TasksContract.View> {
 
     private static final String TAG = TasksPresenter.class.getSimpleName();
 
     private final DataManager mDataManager;
-    private Subscription mSubscription;
+    private CompositeSubscription mSubscription;
 
     @Inject
     public TasksPresenter(DataManager dataManager) {
+        mSubscription = new CompositeSubscription();
         mDataManager = dataManager;
+    }
+
+    @Override
+    public void attachView(TasksContract.View mvpView) {
+        super.attachView(mvpView);
     }
 
     @Override
     public void detachView() {
         super.detachView();
-        if (mSubscription != null && !mSubscription.isUnsubscribed()) {
+        if (mSubscription != null) {
             mSubscription.unsubscribe();
         }
     }
 
-    @Override
     public void loadData(int query) {
         checkViewAttached();
         // TODO: 5/13/16 if Online check 
         // fetch new data and update a view if there are new objects
-        mSubscription = mDataManager.fetchTasks(query)
-                .subscribeOn(Schedulers.io())
+        mSubscription.add(mDataManager.fetchTasks(query)
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<List<TaskObjectRealm>>() {
                     @Override
                     public void onCompleted() {
-
                     }
 
                     @Override
@@ -93,10 +96,10 @@ public class TasksPresenter
                             getMvpView().showData(taskObjectRealms);
                         }
                     }
-                });
+                }));
 
         // get data from the database and update a view
-        mSubscription = mDataManager.getTasks(query)
+        mSubscription.add(mDataManager.getTasks(query)
                 .subscribe(new Subscriber<List<TaskObjectRealm>>() {
                     @Override
                     public void onCompleted() {
@@ -116,7 +119,7 @@ public class TasksPresenter
                             getMvpView().showData(taskObjectRealms);
                         }
                     }
-                });
+                }));
     }
 
 }

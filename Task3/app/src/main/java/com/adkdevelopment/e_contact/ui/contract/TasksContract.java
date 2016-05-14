@@ -36,6 +36,11 @@ import java.util.List;
 public class TasksContract {
 
     public interface Presenter extends MvpPresenter<View> {
+
+        void attachView(View mvpView);
+
+        void detachView();
+
         void loadData(int query);
     }
 

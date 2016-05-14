@@ -24,6 +24,8 @@
 
 package com.adkdevelopment.e_contact.ui.base;
 
+import android.util.Log;
+
 /**
  * Base class that implements the MvpPresenter interface and provides a base implementation for
  * attachView() and detachView(). It also handles keeping a reference to the mvpView that
@@ -52,7 +54,10 @@ public class BaseMvpPresenter<T extends MvpView> implements MvpPresenter<T> {
     }
 
     public void checkViewAttached() {
-        if (!isViewAttached()) throw new MvpViewNotAttachedException();
+        if (!isViewAttached()) {
+            Log.e(getClass().getSimpleName(), "View is not attached");
+            throw new MvpViewNotAttachedException();
+        };
     }
 
     public static class MvpViewNotAttachedException extends RuntimeException {

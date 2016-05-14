@@ -110,9 +110,14 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        mPresenter.detachView();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mPresenter.detachView();
         mUnbinder.unbind();
     }
 
