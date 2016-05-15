@@ -22,24 +22,32 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact.ui;
+package com.adkdevelopment.e_contact;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.adkdevelopment.e_contact.R;
+import com.adkdevelopment.e_contact.ui.TasksFragment;
 import com.adkdevelopment.e_contact.ui.adapters.PagerAdapter;
 import com.adkdevelopment.e_contact.ui.base.BaseActivity;
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import butterknife.BindView;
@@ -66,6 +74,9 @@ public class MainActivity extends BaseActivity {
     TextView mFooterLinks;
     @BindView(R.id.fab)
     FloatingActionButton mFab;
+    // TODO: 5/14/16 shared prefs
+    static Integer[] select = new Integer[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19};
+    static String buttonName = "Select all";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +104,30 @@ public class MainActivity extends BaseActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_action_sort:
+                // TODO: 5/15/16 add presenter 
+                alertDialog();
+                return true;
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        // If drawer is open - close it on a Hardware Back button
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawers();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     /**
      * Performs all preparation procedures to initialize Toolbar and ActionBar
      */
@@ -115,7 +150,7 @@ public class MainActivity extends BaseActivity {
      * sets listeners to them
      */
     private void initPager() {
-        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         // TODO: 5/11/16 add strings 
         pagerAdapter.addFragment(TasksFragment.newInstance(0, "0,9,5,7,8"), getString(R.string.title_inprogress));
         pagerAdapter.addFragment(TasksFragment.newInstance(1, "10,6"), getString(R.string.title_completed));
@@ -124,6 +159,31 @@ public class MainActivity extends BaseActivity {
         mViewPager.setAdapter(pagerAdapter);
         mViewPager.setOffscreenPageLimit(pagerAdapter.getCount());
         mTabLayout.setViewPager(mViewPager);
+
+        // TODO: 5/14/16 add create an inquiry activity 
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,
+                        mFab.getContentDescription(),
+                        Toast.LENGTH_SHORT).show();
+                alertDialog();
+            }
+        });
+
+        // on second click on tab - scroll to the top if in TasksFragment
+        mTabLayout.setOnTabClickListener(new SmartTabLayout.OnTabClickListener() {
+            @Override
+            public void onTabClicked(int position) {
+                if (mViewPager.getCurrentItem() == position) {
+                    Fragment fragment = pagerAdapter.getItem(position);
+                    if (fragment instanceof TasksFragment) {
+                        ((TasksFragment) fragment).scrollToTop();
+                    }
+                }
+            }
+        });
+
     }
 
     /**
@@ -154,6 +214,73 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    private void alertDialog() {
+        // TODO: 5/14/16 add resources & shared preferences
+        final String[] array = new String[20];
+        array[0] = "test 1";
+        array[1] = "test 2";
+        array[2] = "test 3";
+        array[3] = "test 4";
+        array[4] = "test 5";
+        array[5] = "test 1";
+        array[6] = "test 2";
+        array[7] = "test 3";
+        array[8] = "test 4";
+        array[9] = "test 5";
+        array[10] = "test 1";
+        array[11] = "test 2";
+        array[12] = "test 3";
+        array[13] = "test 4";
+        array[14] = "test 5";
+        array[15] = "test 1";
+        array[16] = "test 2";
+        array[17] = "test 3";
+        array[18] = "test 4";
+        array[19] = "test 5";
+
+        if (select.length == array.length) {
+            buttonName = "Clear all";
+        }
+
+        new MaterialDialog.Builder(this)
+                .title("Social networks")
+                .items(array)
+                .itemsCallbackMultiChoice(select, new MaterialDialog.ListCallbackMultiChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, Integer[] which, CharSequence[] text) {
+                        select = which;
+                        return true;
+                    }
+                })
+                .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        Log.d("MainActivity", which.toString() + " " + dialog.getActionButton(which).getText());
+                        if (dialog.getActionButton(which).getText().equals("Select all")) {
+                            buttonName = "Clear all";
+                            dialog.selectAllIndicies();
+                            dialog.getActionButton(which).setText("Clear all");
+                        } else {
+                            buttonName = "Select all";
+                            dialog.clearSelectedIndices();
+                            dialog.getActionButton(which).setText("Select all");
+                        }
+
+                    }
+                })
+                .alwaysCallMultiChoiceCallback()
+                .positiveText("positive")
+                .autoDismiss(false)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                })
+                .neutralText(buttonName)
+                .show();
     }
 
 }

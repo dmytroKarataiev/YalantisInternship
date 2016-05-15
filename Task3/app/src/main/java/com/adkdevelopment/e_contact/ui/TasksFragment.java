@@ -35,6 +35,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.adkdevelopment.e_contact.MainActivity;
 import com.adkdevelopment.e_contact.R;
 import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
 import com.adkdevelopment.e_contact.interfaces.ItemClickListener;
@@ -153,6 +154,14 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
         intent.putExtra(TaskObjectRealm.TASK_EXTRA, item);
         intent.putExtra(TaskObjectRealm.TASK_EXTRA_TITLE, String.valueOf(item.getId()));
         startActivity(intent);
+    }
+
+    /**
+     * Helper method which is called from PagerActivity when press on TabLayout twice
+     * Scrolls the screen to the top
+     */
+    public void scrollToTop() {
+        mRecyclerView.smoothScrollToPosition(0);
     }
 }
 

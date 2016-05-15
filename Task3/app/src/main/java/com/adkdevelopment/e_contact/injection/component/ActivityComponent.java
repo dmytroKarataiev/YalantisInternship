@@ -27,7 +27,7 @@ package com.adkdevelopment.e_contact.injection.component;
 import com.adkdevelopment.e_contact.injection.PerActivity;
 import com.adkdevelopment.e_contact.injection.module.ActivityModule;
 import com.adkdevelopment.e_contact.ui.DetailFragment;
-import com.adkdevelopment.e_contact.ui.MainActivity;
+import com.adkdevelopment.e_contact.MainActivity;
 import com.adkdevelopment.e_contact.ui.TasksFragment;
 
 import dagger.Component;

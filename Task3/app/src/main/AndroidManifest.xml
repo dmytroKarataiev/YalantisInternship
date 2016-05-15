@@ -38,7 +38,7 @@
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
 
         <activity
-            android:name=".ui.MainActivity"
+            android:name="com.adkdevelopment.e_contact.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -61,7 +61,7 @@
         <activity
             android:name=".ui.DetailActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".ui.MainActivity"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
 
     </application>

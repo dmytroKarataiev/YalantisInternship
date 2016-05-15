@@ -95,4 +95,9 @@ dependencies {
     compile "com.google.dagger:dagger:$daggerVersion"
     provided 'javax.annotation:jsr250-api:1.0'
 
+    // Multichoice AlertDialog library (as a default android implementation with
+    // multichoice dialog works with bugs: https://code.google.com/p/android/issues/detail?id=208886
+    compile 'com.afollestad.material-dialogs:core:0.8.5.9'
+
+
 }

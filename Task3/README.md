@@ -15,11 +15,14 @@
 
 ## Used libraries
 * [RxJava + RxAndroid.](https://github.com/ReactiveX/RxAndroid)
+* DI with [Dagger 2.](https://github.com/google/dagger)
+* [Realm database.](https://github.com/realm/realm-java)
 * [Butterknife.](https://github.com/JakeWharton/butterknife)
 * [Picasso.](https://github.com/square/picasso)
 * [Retrofit.](https://github.com/square/retrofit)
 * [Facebook SDK.](https://developers.facebook.com/docs/android/getting-started)
 * [SmartTabLayout.](https://github.com/ogaclejapan/SmartTabLayout)
+* [Material Dialogs](https://github.com/afollestad/material-dialogs) as AlertDialogs with multiple choice lists don't work correctly with Android 6+ ([see the error](https://code.google.com/p/android/issues/detail?can=2&start=0&num=100&q=&colspec=ID%20Status%20Priority%20Owner%20Summary%20Stars%20Reporter%20Opened&groupby=&sort=&id=208886))
 
 ## Additionally implemented (TBC)
 * Maps Activity with task markers.
