@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact.ui;
+package com.adkdevelopment.e_contact.ui.viewholders;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -30,7 +30,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.adkdevelopment.e_contact.R;
-import com.adkdevelopment.e_contact.data.local.TaskPhotoRealm;
+import com.adkdevelopment.e_contact.data.local.PhotoRealm;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -53,11 +53,11 @@ public class PhotoViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void setData(TaskPhotoRealm item) {
+    public void setData(PhotoRealm item) {
         Picasso.with(itemView.getContext())
                 .load(item.getImageUrl())
                 // to prevent OOM we scale images down
-                .resize(TaskPhotoRealm.WIDTH_SCALE, TaskPhotoRealm.HEIGHT_SCALE)
+                .resize(PhotoRealm.WIDTH_SCALE, PhotoRealm.HEIGHT_SCALE)
                 .onlyScaleDown()
                 .centerInside()
                 .error(R.drawable.image_placeholder)

@@ -28,7 +28,7 @@ import android.util.Log;
 
 import com.adkdevelopment.e_contact.App;
 import com.adkdevelopment.e_contact.data.local.DatabaseRealm;
-import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
+import com.adkdevelopment.e_contact.data.local.TaskRealm;
 import com.adkdevelopment.e_contact.data.model.TaskObject;
 import com.adkdevelopment.e_contact.utils.Utilities;
 
@@ -55,10 +55,10 @@ public class DataRepositoryImpl implements DataRepository {
     }
 
     @Override
-    public Observable<TaskObjectRealm> add(final TaskObject model) {
-        return Observable.create(new Observable.OnSubscribe<TaskObjectRealm>() {
+    public Observable<TaskRealm> add(final TaskObject model) {
+        return Observable.create(new Observable.OnSubscribe<TaskRealm>() {
             @Override
-            public void call(Subscriber<? super TaskObjectRealm> subscriber) {
+            public void call(Subscriber<? super TaskRealm> subscriber) {
                 try {
                     subscriber.onNext(mDatabaseRealm.add(Utilities.convertTask(model)));
                     subscriber.onCompleted();
@@ -71,13 +71,13 @@ public class DataRepositoryImpl implements DataRepository {
     }
 
     @Override
-    public Observable<List<TaskObjectRealm>> addBulk(final List<TaskObject> list) {
-        return Observable.create(new Observable.OnSubscribe<List<TaskObjectRealm>>() {
+    public Observable<List<TaskRealm>> addBulk(final List<TaskObject> list) {
+        return Observable.create(new Observable.OnSubscribe<List<TaskRealm>>() {
 
             @Override
-            public void call(Subscriber<? super List<TaskObjectRealm>> subscriber) {
+            public void call(Subscriber<? super List<TaskRealm>> subscriber) {
                 try {
-                    List<TaskObjectRealm> realmList = new ArrayList<>();
+                    List<TaskRealm> realmList = new ArrayList<>();
                     for (TaskObject each : list) {
                         realmList.add(mDatabaseRealm.add(Utilities.convertTask(each)));
                     }
@@ -92,16 +92,16 @@ public class DataRepositoryImpl implements DataRepository {
     }
 
     @Override
-    public Observable<List<TaskObjectRealm>> findAll() {
+    public Observable<List<TaskRealm>> findAll() {
         Log.d(TAG, "find all");
-        return Observable.create(new Observable.OnSubscribe<List<TaskObjectRealm>>() {
+        return Observable.create(new Observable.OnSubscribe<List<TaskRealm>>() {
             @Override
-            public void call(Subscriber<? super List<TaskObjectRealm>> subscriber) {
+            public void call(Subscriber<? super List<TaskRealm>> subscriber) {
                 try {
-                    RealmResults<TaskObjectRealm> list = (RealmResults<TaskObjectRealm>)
-                            mDatabaseRealm.findAll(TaskObjectRealm.class);
-                    List<TaskObjectRealm> tasksList = new ArrayList<>();
-                    for (TaskObjectRealm each : list) {
+                    RealmResults<TaskRealm> list = (RealmResults<TaskRealm>)
+                            mDatabaseRealm.findAll(TaskRealm.class);
+                    List<TaskRealm> tasksList = new ArrayList<>();
+                    for (TaskRealm each : list) {
                         tasksList.add(each);
                     }
                     subscriber.onNext(tasksList);
@@ -114,16 +114,16 @@ public class DataRepositoryImpl implements DataRepository {
     }
 
     @Override
-    public Observable<List<TaskObjectRealm>> findByState(final int state) {
+    public Observable<List<TaskRealm>> findByState(final int state) {
         Log.d(TAG, "find by state " + state);
-        return Observable.create(new Observable.OnSubscribe<List<TaskObjectRealm>>() {
+        return Observable.create(new Observable.OnSubscribe<List<TaskRealm>>() {
             @Override
-            public void call(Subscriber<? super List<TaskObjectRealm>> subscriber) {
+            public void call(Subscriber<? super List<TaskRealm>> subscriber) {
                 try {
-                    RealmResults<TaskObjectRealm> list = (RealmResults<TaskObjectRealm>)
-                            mDatabaseRealm.findByState(TaskObjectRealm.class, state);
-                    List<TaskObjectRealm> tasksList = new ArrayList<>();
-                    for (TaskObjectRealm each : list) {
+                    RealmResults<TaskRealm> list = (RealmResults<TaskRealm>)
+                            mDatabaseRealm.findByState(TaskRealm.class, state);
+                    List<TaskRealm> tasksList = new ArrayList<>();
+                    for (TaskRealm each : list) {
                         tasksList.add(each);
                     }
                     subscriber.onNext(tasksList);

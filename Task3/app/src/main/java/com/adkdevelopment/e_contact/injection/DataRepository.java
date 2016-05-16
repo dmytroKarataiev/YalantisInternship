@@ -24,7 +24,7 @@
 
 package com.adkdevelopment.e_contact.injection;
 
-import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
+import com.adkdevelopment.e_contact.data.local.TaskRealm;
 import com.adkdevelopment.e_contact.data.model.TaskObject;
 
 import java.util.List;
@@ -36,12 +36,12 @@ import rx.Observable;
  */
 public interface DataRepository {
 
-    Observable<TaskObjectRealm> add(TaskObject model);
+    Observable<TaskRealm> add(TaskObject model);
 
-    Observable<List<TaskObjectRealm>> addBulk(List<TaskObject> list);
+    Observable<List<TaskRealm>> addBulk(List<TaskObject> list);
 
-    Observable<List<TaskObjectRealm>> findAll();
+    Observable<List<TaskRealm>> findAll();
 
-    Observable<List<TaskObjectRealm>> findByState(int state);
+    Observable<List<TaskRealm>> findByState(int state);
 
 }

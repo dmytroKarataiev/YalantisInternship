@@ -32,7 +32,9 @@ import com.adkdevelopment.e_contact.data.DataManager;
 import com.adkdevelopment.e_contact.data.local.DatabaseRealm;
 import com.adkdevelopment.e_contact.injection.ApplicationContext;
 import com.adkdevelopment.e_contact.injection.DataRepositoryImpl;
+import com.adkdevelopment.e_contact.injection.PrefsManager;
 import com.adkdevelopment.e_contact.injection.module.AppModule;
+import com.adkdevelopment.e_contact.ui.MainPresenter;
 
 import javax.inject.Singleton;
 
@@ -48,11 +50,13 @@ public interface AppComponent {
     void inject(App app);
     void inject(DatabaseRealm databaseRealm);
     void inject(DataRepositoryImpl dataRepository);
+    void inject(MainPresenter mainPresenter);
 
     @ApplicationContext
     Context context();
     Application application();
     DataManager dataManager();
     DatabaseRealm getDatabaseRealm();
+    PrefsManager getPrefsManager();
 
 }

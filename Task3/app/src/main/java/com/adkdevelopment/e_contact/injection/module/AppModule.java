@@ -26,6 +26,8 @@ package com.adkdevelopment.e_contact.injection.module;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import com.adkdevelopment.e_contact.data.local.DatabaseRealm;
 import com.adkdevelopment.e_contact.data.remote.ApiService;
@@ -79,4 +81,11 @@ public class AppModule {
     DataRepository providesDataRepository() {
         return new DataRepositoryImpl();
     }
+
+    @Provides
+    @Singleton
+    SharedPreferences providesSharedPreferences(Application application) {
+        return PreferenceManager.getDefaultSharedPreferences(application);
+    }
+
 }

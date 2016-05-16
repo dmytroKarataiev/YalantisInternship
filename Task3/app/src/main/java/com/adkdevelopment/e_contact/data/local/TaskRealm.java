@@ -34,7 +34,7 @@ import io.realm.annotations.PrimaryKey;
 /**
  * Created by karataev on 5/11/16.
  */
-public class TaskObjectRealm extends RealmObject implements Parcelable {
+public class TaskRealm extends RealmObject implements Parcelable {
 
     public static final String TASK_EXTRA = "task_realm_extra";
     public static final String TASK_EXTRA_TITLE = "task_title";
@@ -96,7 +96,7 @@ public class TaskObjectRealm extends RealmObject implements Parcelable {
     public static final String QUERY_PENDING = "1,3,4";
 
     @PrimaryKey private int id;
-    private RealmList<TaskPhotoRealm> photo;
+    private RealmList<PhotoRealm> photo;
     private String title;
     private int type;
     private int status;
@@ -154,11 +154,11 @@ public class TaskObjectRealm extends RealmObject implements Parcelable {
         this.id = id;
     }
 
-    public RealmList<TaskPhotoRealm> getPhoto() {
+    public RealmList<PhotoRealm> getPhoto() {
         return photo;
     }
 
-    public void setPhoto(RealmList<TaskPhotoRealm> photo) {
+    public void setPhoto(RealmList<PhotoRealm> photo) {
         this.photo = photo;
     }
 
@@ -285,13 +285,13 @@ public class TaskObjectRealm extends RealmObject implements Parcelable {
         dest.writeInt(this.category);
     }
 
-    public TaskObjectRealm() {
+    public TaskRealm() {
     }
 
-    protected TaskObjectRealm(Parcel in) {
+    protected TaskRealm(Parcel in) {
         this.id = in.readInt();
         this.photo = new RealmList<>();
-        in.readList(this.photo, TaskPhotoRealm.class.getClassLoader());
+        in.readList(this.photo, PhotoRealm.class.getClassLoader());
         this.title = in.readString();
         this.type = in.readInt();
         this.status = in.readInt();
@@ -310,20 +310,20 @@ public class TaskObjectRealm extends RealmObject implements Parcelable {
         this.category = in.readInt();
     }
 
-    public static final Parcelable.Creator<TaskObjectRealm> CREATOR = new Parcelable.Creator<TaskObjectRealm>() {
+    public static final Parcelable.Creator<TaskRealm> CREATOR = new Parcelable.Creator<TaskRealm>() {
         @Override
-        public TaskObjectRealm createFromParcel(Parcel source) {
-            return new TaskObjectRealm(source);
+        public TaskRealm createFromParcel(Parcel source) {
+            return new TaskRealm(source);
         }
 
         @Override
-        public TaskObjectRealm[] newArray(int size) {
-            return new TaskObjectRealm[size];
+        public TaskRealm[] newArray(int size) {
+            return new TaskRealm[size];
         }
     };
 
     @Override
     public boolean equals(Object o) {
-        return o instanceof TaskObjectRealm && id == ((TaskObjectRealm) o).getId();
+        return o instanceof TaskRealm && id == ((TaskRealm) o).getId();
     }
 }

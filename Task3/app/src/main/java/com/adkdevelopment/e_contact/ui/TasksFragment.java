@@ -39,7 +39,7 @@ import android.widget.TextView;
 
 import com.adkdevelopment.e_contact.MainActivity;
 import com.adkdevelopment.e_contact.R;
-import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
+import com.adkdevelopment.e_contact.data.local.TaskRealm;
 import com.adkdevelopment.e_contact.interfaces.ItemClickListener;
 import com.adkdevelopment.e_contact.ui.adapters.TasksAdapter;
 import com.adkdevelopment.e_contact.ui.base.BaseFragment;
@@ -56,7 +56,7 @@ import butterknife.Unbinder;
 /**
  * Created by karataev on 5/10/16.
  */
-public class TasksFragment extends BaseFragment implements TasksContract.View, ItemClickListener<TaskObjectRealm, View> {
+public class TasksFragment extends BaseFragment implements TasksContract.View, ItemClickListener<TaskRealm, View> {
 
     private static final String TAG = TasksFragment.class.getSimpleName();
 
@@ -116,8 +116,8 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
             public void onRefresh() {
                 // on force refresh downloads all data
                 mPresenter.fetchData(getArguments().getInt(ARG_SECTION_NUMBER),
-                        TaskObjectRealm.QUERY_ALL,
-                        TaskObjectRealm.QUERY_ALL);
+                        TaskRealm.QUERY_ALL,
+                        TaskRealm.QUERY_ALL);
             }
         });
 
@@ -131,9 +131,9 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
                     mCurrentPosition = ((LinearLayoutManager) mRecyclerView
                             .getLayoutManager()).findFirstVisibleItemPosition();
 
-                    if (mCurrentPosition >= adapterItems - TaskObjectRealm.QUERY_START && !isUpdating) {
-                        mCurrentPage = adapterItems / TaskObjectRealm.QUERY_AMOUNT;
-                        int offset = mCurrentPage * TaskObjectRealm.QUERY_OFFSET;
+                    if (mCurrentPosition >= adapterItems - TaskRealm.QUERY_START && !isUpdating) {
+                        mCurrentPage = adapterItems / TaskRealm.QUERY_AMOUNT;
+                        int offset = mCurrentPage * TaskRealm.QUERY_OFFSET;
                         mCurrentPage++;
                         mPresenter.fetchData(getArguments().getInt(ARG_SECTION_NUMBER),
                                 mCurrentPage, offset);
@@ -159,7 +159,7 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
     }
 
     @Override
-    public void addData(List<TaskObjectRealm> taskObjects) {
+    public void addData(List<TaskRealm> taskObjects) {
         Log.d(TAG, "addData: ");
         mListEmpty.setVisibility(View.GONE);
         isUpdating = false;
@@ -168,7 +168,7 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
     }
 
     @Override
-    public void getData(List<TaskObjectRealm> taskObjects) {
+    public void getData(List<TaskRealm> taskObjects) {
         Log.d(TAG, "getData taskObjects.size():" + taskObjects.size());
         mListEmpty.setVisibility(View.GONE);
         mAdapter.setTasks(taskObjects, this);
@@ -186,7 +186,7 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
         }
         mPresenter.fetchData(getArguments().getInt(ARG_SECTION_NUMBER),
                 mCurrentPage,
-                TaskObjectRealm.QUERY_FIRST_PAGE);
+                TaskRealm.QUERY_FIRST_PAGE);
     }
 
     @Override
@@ -209,10 +209,10 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
     }
 
     @Override
-    public void onItemClicked(TaskObjectRealm item, View view) {
+    public void onItemClicked(TaskRealm item, View view) {
         Intent intent = new Intent(getContext(), DetailActivity.class);
-        intent.putExtra(TaskObjectRealm.TASK_EXTRA, item);
-        intent.putExtra(TaskObjectRealm.TASK_EXTRA_TITLE, String.valueOf(item.getId()));
+        intent.putExtra(TaskRealm.TASK_EXTRA, item);
+        intent.putExtra(TaskRealm.TASK_EXTRA_TITLE, String.valueOf(item.getId()));
         startActivity(intent);
     }
 

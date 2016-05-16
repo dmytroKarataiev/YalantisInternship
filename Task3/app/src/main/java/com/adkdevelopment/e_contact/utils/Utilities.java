@@ -30,8 +30,8 @@ import android.text.format.DateUtils;
 import android.util.Log;
 
 import com.adkdevelopment.e_contact.R;
-import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
-import com.adkdevelopment.e_contact.data.local.TaskPhotoRealm;
+import com.adkdevelopment.e_contact.data.local.TaskRealm;
+import com.adkdevelopment.e_contact.data.local.PhotoRealm;
 import com.adkdevelopment.e_contact.data.model.TaskAddress;
 import com.adkdevelopment.e_contact.data.model.TaskFile;
 import com.adkdevelopment.e_contact.data.model.TaskObject;
@@ -73,9 +73,9 @@ public class Utilities {
         return simpleDateFormat.format(date);
     }
 
-    public static TaskObjectRealm convertTask(TaskObject taskObject) {
+    public static TaskRealm convertTask(TaskObject taskObject) {
 
-        TaskObjectRealm objectRealm = new TaskObjectRealm();
+        TaskRealm objectRealm = new TaskRealm();
 
         objectRealm.setId(taskObject.getId());
         objectRealm.setTitle(taskObject.getTitle());
@@ -120,13 +120,13 @@ public class Utilities {
         }
 
         if (taskObject.getFiles() != null && taskObject.getFiles().size() > 0) {
-            RealmList<TaskPhotoRealm> taskPhotoRealmList = new RealmList<>();
+            RealmList<PhotoRealm> photoRealmList = new RealmList<>();
             for (TaskFile file : taskObject.getFiles()) {
-                TaskPhotoRealm taskPhotoRealm = new TaskPhotoRealm();
-                taskPhotoRealm.setImageUrl(file.getFilename());
-                taskPhotoRealmList.add(taskPhotoRealm);
+                PhotoRealm photoRealm = new PhotoRealm();
+                photoRealm.setImageUrl(file.getFilename());
+                photoRealmList.add(photoRealm);
             }
-            objectRealm.setPhoto(taskPhotoRealmList);
+            objectRealm.setPhoto(photoRealmList);
         }
 
         return objectRealm;
@@ -142,18 +142,18 @@ public class Utilities {
     public static int getBackgroundColor(Context context, int status) {
 
         switch (status) {
-            case TaskObjectRealm.WHERE_MODERATION:
-            case TaskObjectRealm.WHERE_PROGRESS:
-            case TaskObjectRealm.WHERE_UNKNOWN_7:
-            case TaskObjectRealm.WHERE_UNKNOWN_8:
-            case TaskObjectRealm.WHERE_UNKNOWN_9:
+            case TaskRealm.WHERE_MODERATION:
+            case TaskRealm.WHERE_PROGRESS:
+            case TaskRealm.WHERE_UNKNOWN_7:
+            case TaskRealm.WHERE_UNKNOWN_8:
+            case TaskRealm.WHERE_UNKNOWN_9:
                 return ContextCompat.getColor(context, R.color.status_progress);
-            case TaskObjectRealm.WHERE_UNKNOWN_10:
-            case TaskObjectRealm.WHERE_DONE:
+            case TaskRealm.WHERE_UNKNOWN_10:
+            case TaskRealm.WHERE_DONE:
                 return ContextCompat.getColor(context, R.color.status_completed);
-            case TaskObjectRealm.WHERE_STILL_MODERATION:
-            case TaskObjectRealm.WHERE_ACCEPTED:
-            case TaskObjectRealm.WHERE_REVIEW:
+            case TaskRealm.WHERE_STILL_MODERATION:
+            case TaskRealm.WHERE_ACCEPTED:
+            case TaskRealm.WHERE_REVIEW:
                 return ContextCompat.getColor(context, R.color.status_waiting);
             default:
                 return ContextCompat.getColor(context, R.color.colorAccent);
@@ -167,37 +167,37 @@ public class Utilities {
      */
     public static int getCategoryIcon(int type) {
         switch (type) {
-            case TaskObjectRealm.CATEGORY_NO_ANSWER:
-            case TaskObjectRealm.CATEGORY_OTHER:
-            case TaskObjectRealm.CATEGORY_IMPROVEMENTS:
-            case TaskObjectRealm.CATEGORY_HOTLINE:
+            case TaskRealm.CATEGORY_NO_ANSWER:
+            case TaskRealm.CATEGORY_OTHER:
+            case TaskRealm.CATEGORY_IMPROVEMENTS:
+            case TaskRealm.CATEGORY_HOTLINE:
                 return R.drawable.ic_type_issues;
-            case TaskObjectRealm.CATEGORY_AGRICULTURE:
-            case TaskObjectRealm.CATEGORY_LAND:
+            case TaskRealm.CATEGORY_AGRICULTURE:
+            case TaskRealm.CATEGORY_LAND:
                 return R.drawable.ic_type_trash;
-            case TaskObjectRealm.CATEGORY_CORRUPTION:
-            case TaskObjectRealm.CATEGORY_GAMBLING:
-            case TaskObjectRealm.CATEGORY_VERKHOVNA_RADA:
-            case TaskObjectRealm.CATEGORY_GOV_LOCAL:
-            case TaskObjectRealm.CATEGORY_GOV_BUILDING:
-            case TaskObjectRealm.CATEGORY_GOV_INQUIRY:
-            case TaskObjectRealm.CATEGORY_EXECUTIVE:
-            case TaskObjectRealm.CATEGORY_ECONOMY:
-            case TaskObjectRealm.CATEGORY_LAW:
-            case TaskObjectRealm.CATEGORY_FINANCE:
-            case TaskObjectRealm.CATEGORY_CRIME:
+            case TaskRealm.CATEGORY_CORRUPTION:
+            case TaskRealm.CATEGORY_GAMBLING:
+            case TaskRealm.CATEGORY_VERKHOVNA_RADA:
+            case TaskRealm.CATEGORY_GOV_LOCAL:
+            case TaskRealm.CATEGORY_GOV_BUILDING:
+            case TaskRealm.CATEGORY_GOV_INQUIRY:
+            case TaskRealm.CATEGORY_EXECUTIVE:
+            case TaskRealm.CATEGORY_ECONOMY:
+            case TaskRealm.CATEGORY_LAW:
+            case TaskRealm.CATEGORY_FINANCE:
+            case TaskRealm.CATEGORY_CRIME:
                 return R.drawable.ic_type_gov;
-            case TaskObjectRealm.CATEGORY_MEDIA:
-            case TaskObjectRealm.CATEGORY_MEDIA_POL:
-            case TaskObjectRealm.CATEGORY_TOURISM:
+            case TaskRealm.CATEGORY_MEDIA:
+            case TaskRealm.CATEGORY_MEDIA_POL:
+            case TaskRealm.CATEGORY_TOURISM:
                 return R.drawable.ic_type_tourism;
-            case TaskObjectRealm.CATEGORY_ARCHIVES:
-            case TaskObjectRealm.CATEGORY_LABOR:
-            case TaskObjectRealm.CATEGORY_DEPOSITS:
-            case TaskObjectRealm.CATEGORY_RESIDENTS:
-            case TaskObjectRealm.CATEGORY_WAGES:
-            case TaskObjectRealm.CATEGORY_COMPENSATION:
-            case TaskObjectRealm.CATEGORY_CONSUMERS:
+            case TaskRealm.CATEGORY_ARCHIVES:
+            case TaskRealm.CATEGORY_LABOR:
+            case TaskRealm.CATEGORY_DEPOSITS:
+            case TaskRealm.CATEGORY_RESIDENTS:
+            case TaskRealm.CATEGORY_WAGES:
+            case TaskRealm.CATEGORY_COMPENSATION:
+            case TaskRealm.CATEGORY_CONSUMERS:
                 return R.drawable.ic_type_paint;
             default:
                 return R.drawable.ic_type_other;

@@ -26,7 +26,7 @@ package com.adkdevelopment.e_contact.ui.contract;
 
 import android.content.Intent;
 
-import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
+import com.adkdevelopment.e_contact.data.local.TaskRealm;
 import com.adkdevelopment.e_contact.ui.base.MvpPresenter;
 import com.adkdevelopment.e_contact.ui.base.MvpView;
 
@@ -40,7 +40,7 @@ public class DetailContract {
     }
 
     public interface View extends MvpView {
-        void showData(TaskObjectRealm taskObject);
+        void showData(TaskRealm taskObject);
 
         void showTaskEmpty();
 

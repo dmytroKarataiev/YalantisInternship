@@ -39,7 +39,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.adkdevelopment.e_contact.R;
-import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
+import com.adkdevelopment.e_contact.data.local.TaskRealm;
 import com.adkdevelopment.e_contact.interfaces.ItemClickListener;
 import com.adkdevelopment.e_contact.ui.adapters.PhotoAdapter;
 import com.adkdevelopment.e_contact.ui.base.BaseFragment;
@@ -159,7 +159,7 @@ public class DetailFragment extends BaseFragment
     }
 
     @Override
-    public void showData(TaskObjectRealm taskObject) {
+    public void showData(TaskRealm taskObject) {
 
         // Time parsing and creating a nice textual version (should be changed to Calendar)
         String dateCreated = Utilities.getFormattedDate(taskObject.getCreated());

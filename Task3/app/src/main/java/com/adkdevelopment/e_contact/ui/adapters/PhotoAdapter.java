@@ -30,9 +30,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.adkdevelopment.e_contact.R;
-import com.adkdevelopment.e_contact.data.local.TaskPhotoRealm;
+import com.adkdevelopment.e_contact.data.local.PhotoRealm;
 import com.adkdevelopment.e_contact.interfaces.ItemClickListener;
-import com.adkdevelopment.e_contact.ui.PhotoViewHolder;
+import com.adkdevelopment.e_contact.ui.viewholders.PhotoViewHolder;
 
 import java.util.List;
 
@@ -43,14 +43,14 @@ import javax.inject.Inject;
  */
 public class PhotoAdapter extends RecyclerView.Adapter<PhotoViewHolder> {
 
-    private List<TaskPhotoRealm> mPhotos;
+    private List<PhotoRealm> mPhotos;
     private ItemClickListener<Integer, View> mListener;
 
     @Inject
     PhotoAdapter() {
     }
 
-    public void setPhotos(List<TaskPhotoRealm> photos,
+    public void setPhotos(List<PhotoRealm> photos,
                           ItemClickListener<Integer, View> listener) {
         mPhotos = photos;
         mListener = listener;

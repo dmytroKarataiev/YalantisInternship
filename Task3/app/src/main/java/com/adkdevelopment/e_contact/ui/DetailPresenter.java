@@ -26,7 +26,7 @@ package com.adkdevelopment.e_contact.ui;
 
 import android.content.Intent;
 
-import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
+import com.adkdevelopment.e_contact.data.local.TaskRealm;
 import com.adkdevelopment.e_contact.ui.base.BaseMvpPresenter;
 import com.adkdevelopment.e_contact.ui.contract.DetailContract;
 
@@ -47,11 +47,11 @@ public class DetailPresenter
     public void loadData(Intent intent) {
         if (intent == null) {
             getMvpView().showError();
-        } else if (!intent.hasExtra(TaskObjectRealm.TASK_EXTRA)) {
+        } else if (!intent.hasExtra(TaskRealm.TASK_EXTRA)) {
             getMvpView().showTaskEmpty();
         } else {
-            TaskObjectRealm taskObjectRealm = intent.getParcelableExtra(TaskObjectRealm.TASK_EXTRA);
-            getMvpView().showData(taskObjectRealm);
+            TaskRealm taskRealm = intent.getParcelableExtra(TaskRealm.TASK_EXTRA);
+            getMvpView().showData(taskRealm);
         }
     }
 }

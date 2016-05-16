@@ -32,7 +32,7 @@ import io.realm.RealmObject;
 /**
  * Created by karataev on 5/11/16.
  */
-public class TaskPhotoRealm extends RealmObject implements Parcelable {
+public class PhotoRealm extends RealmObject implements Parcelable {
 
     public static final int WIDTH_SCALE = 800;
     public static final int HEIGHT_SCALE = 600;
@@ -60,22 +60,22 @@ public class TaskPhotoRealm extends RealmObject implements Parcelable {
         dest.writeString(this.imageUrl);
     }
 
-    public TaskPhotoRealm() {
+    public PhotoRealm() {
     }
 
-    protected TaskPhotoRealm(Parcel in) {
+    protected PhotoRealm(Parcel in) {
         this.imageUrl = in.readString();
     }
 
-    public static final Parcelable.Creator<TaskPhotoRealm> CREATOR = new Parcelable.Creator<TaskPhotoRealm>() {
+    public static final Parcelable.Creator<PhotoRealm> CREATOR = new Parcelable.Creator<PhotoRealm>() {
         @Override
-        public TaskPhotoRealm createFromParcel(Parcel source) {
-            return new TaskPhotoRealm(source);
+        public PhotoRealm createFromParcel(Parcel source) {
+            return new PhotoRealm(source);
         }
 
         @Override
-        public TaskPhotoRealm[] newArray(int size) {
-            return new TaskPhotoRealm[size];
+        public PhotoRealm[] newArray(int size) {
+            return new PhotoRealm[size];
         }
     };
 }

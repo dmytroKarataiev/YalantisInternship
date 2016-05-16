@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact.ui;
+package com.adkdevelopment.e_contact.ui.viewholders;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -32,7 +32,7 @@ import android.widget.TextView;
 
 import com.adkdevelopment.e_contact.R;
 import com.adkdevelopment.e_contact.utils.Utilities;
-import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
+import com.adkdevelopment.e_contact.data.local.TaskRealm;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,6 +54,7 @@ public class TasksViewHolder extends RecyclerView.ViewHolder {
     TextView mRegistered;
     @BindView(R.id.task_item_elapsed)
     TextView mElapsed;
+    // TODO: 5/15/16 shared transition
     @BindView(R.id.task_item_card)
     CardView mCardView;
 
@@ -62,7 +63,7 @@ public class TasksViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void setData(TaskObjectRealm item) {
+    public void setData(TaskRealm item) {
         mTypeImage.setImageResource(Utilities.getCategoryIcon(item.getCategory()));
         mTypeText.setText(item.getCategoryText());
         mLikesText.setText(String.valueOf(item.getLikes()));

@@ -30,9 +30,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.adkdevelopment.e_contact.R;
-import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
+import com.adkdevelopment.e_contact.data.local.TaskRealm;
 import com.adkdevelopment.e_contact.interfaces.ItemClickListener;
-import com.adkdevelopment.e_contact.ui.TasksViewHolder;
+import com.adkdevelopment.e_contact.ui.viewholders.TasksViewHolder;
 
 import java.util.List;
 
@@ -43,21 +43,21 @@ import javax.inject.Inject;
  */
 public class TasksAdapter extends RecyclerView.Adapter<TasksViewHolder> {
 
-    private List<TaskObjectRealm> mTasks;
-    private ItemClickListener<TaskObjectRealm, View> mListener;
+    private List<TaskRealm> mTasks;
+    private ItemClickListener<TaskRealm, View> mListener;
 
     @Inject
     public TasksAdapter() {
     }
 
-    public void setTasks(List<TaskObjectRealm> taskObjects,
-                         ItemClickListener<TaskObjectRealm, View> listener) {
+    public void setTasks(List<TaskRealm> taskObjects,
+                         ItemClickListener<TaskRealm, View> listener) {
         mTasks = taskObjects;
         mListener = listener;
     }
 
-    public void addTasks(List<TaskObjectRealm> taskObjects,
-                         ItemClickListener<TaskObjectRealm, View> listener) {
+    public void addTasks(List<TaskRealm> taskObjects,
+                         ItemClickListener<TaskRealm, View> listener) {
         if (taskObjects != null && taskObjects.size() > 0) {
             if (mTasks == null) {
                 mTasks = taskObjects;

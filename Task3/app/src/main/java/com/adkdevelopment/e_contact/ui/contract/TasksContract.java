@@ -24,7 +24,7 @@
 
 package com.adkdevelopment.e_contact.ui.contract;
 
-import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
+import com.adkdevelopment.e_contact.data.local.TaskRealm;
 import com.adkdevelopment.e_contact.ui.base.MvpPresenter;
 import com.adkdevelopment.e_contact.ui.base.MvpView;
 
@@ -49,9 +49,9 @@ public class TasksContract {
 
     public interface View extends MvpView {
 
-        void addData(List<TaskObjectRealm> taskObjects);
+        void addData(List<TaskRealm> taskObjects);
 
-        void getData(List<TaskObjectRealm> taskObjects);
+        void getData(List<TaskRealm> taskObjects);
 
         void showTasks(boolean isEmpty);
 

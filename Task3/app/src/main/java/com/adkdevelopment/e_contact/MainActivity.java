@@ -36,19 +36,23 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.adkdevelopment.e_contact.data.local.TaskRealm;
+import com.adkdevelopment.e_contact.ui.MainPresenter;
 import com.adkdevelopment.e_contact.ui.TasksFragment;
 import com.adkdevelopment.e_contact.ui.adapters.PagerAdapter;
 import com.adkdevelopment.e_contact.ui.base.BaseActivity;
+import com.adkdevelopment.e_contact.ui.contract.MainContract;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,7 +60,11 @@ import butterknife.ButterKnife;
 /**
  * Created by karataev on 5/10/16.
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements MainContract.View {
+
+    private static final String TAG = MainActivity.class.getSimpleName();
+
+    @Inject MainPresenter mPresenter;
 
     @BindView(R.id.layout_drawer)
     DrawerLayout mDrawerLayout;
@@ -74,15 +82,15 @@ public class MainActivity extends BaseActivity {
     TextView mFooterLinks;
     @BindView(R.id.fab)
     FloatingActionButton mFab;
-    // TODO: 5/14/16 shared prefs
-    static Integer[] select = new Integer[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19};
-    static String buttonName = "Select all";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivityComponent().inject(this);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        mPresenter.attachView(this);
 
         initActionBar();
 
@@ -108,8 +116,7 @@ public class MainActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_action_sort:
-                // TODO: 5/15/16 add presenter 
-                showFilterDialog();
+                mPresenter.loadDialog();
                 return true;
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
@@ -135,13 +142,11 @@ public class MainActivity extends BaseActivity {
 
         // Set up ActionBar and corresponding icons
         setSupportActionBar(mToolbar);
-        ActionBar supportActionBar = getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
 
-        if (supportActionBar != null) {
-            supportActionBar.setHomeAsUpIndicator(R.drawable.ic_drawer_menu);
-            supportActionBar.setDisplayHomeAsUpEnabled(true);
-            // TODO: 5/10/16 fix title
-            supportActionBar.setTitle("Temporary");
+        if (actionBar != null) {
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_drawer_menu);
+            actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
 
@@ -151,10 +156,13 @@ public class MainActivity extends BaseActivity {
      */
     private void initPager() {
         final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
-        // TODO: 5/11/16 add strings 
-        pagerAdapter.addFragment(TasksFragment.newInstance(0, "0,9,5,7,8"), getString(R.string.title_inprogress));
-        pagerAdapter.addFragment(TasksFragment.newInstance(1, "10,6"), getString(R.string.title_completed));
-        pagerAdapter.addFragment(TasksFragment.newInstance(2, "1,3,4"), getString(R.string.title_waiting));
+
+        pagerAdapter.addFragment(TasksFragment.newInstance(TaskRealm.STATE_PROGRESS,
+                TaskRealm.QUERY_PROGRESS), getString(R.string.title_inprogress));
+        pagerAdapter.addFragment(TasksFragment.newInstance(TaskRealm.STATE_DONE,
+                TaskRealm.QUERY_DONE), getString(R.string.title_done));
+        pagerAdapter.addFragment(TasksFragment.newInstance(TaskRealm.STATE_PENDING,
+                TaskRealm.QUERY_PENDING), getString(R.string.title_pending));
 
         mViewPager.setAdapter(pagerAdapter);
         mViewPager.setOffscreenPageLimit(pagerAdapter.getCount());
@@ -182,7 +190,6 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
-
     }
 
     /**
@@ -216,73 +223,52 @@ public class MainActivity extends BaseActivity {
     }
 
     /**
-     * Shows filter dialog with options which categories to show
+     * MaterialDialog with a filtering preferences
+     * @param select Integer[] of checked elements
      */
-    private void showFilterDialog() {
-        // TODO: 5/14/16 add resources & shared preferences
-        final String[] array = new String[20];
-        array[0] = "test 1";
-        array[1] = "test 2";
-        array[2] = "test 3";
-        array[3] = "test 4";
-        array[4] = "test 5";
-        array[5] = "test 1";
-        array[6] = "test 2";
-        array[7] = "test 3";
-        array[8] = "test 4";
-        array[9] = "test 5";
-        array[10] = "test 1";
-        array[11] = "test 2";
-        array[12] = "test 3";
-        array[13] = "test 4";
-        array[14] = "test 5";
-        array[15] = "test 1";
-        array[16] = "test 2";
-        array[17] = "test 3";
-        array[18] = "test 4";
-        array[19] = "test 5";
-
-        if (select.length == array.length) {
-            buttonName = "Clear all";
-        }
-
+    @Override
+    public void showDialog(Integer[] select) {
         new MaterialDialog.Builder(this)
-                .title("Social networks")
-                .items(array)
+                .title(getString(R.string.dialog_title))
+                .items(getResources().getStringArray(R.array.filter_strings))
                 .itemsCallbackMultiChoice(select, new MaterialDialog.ListCallbackMultiChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, Integer[] which, CharSequence[] text) {
-                        select = which;
                         return true;
                     }
                 })
                 .onNeutral(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        Log.d("MainActivity", which.toString() + " " + dialog.getActionButton(which).getText());
-                        if (dialog.getActionButton(which).getText().equals("Select all")) {
-                            buttonName = "Clear all";
-                            dialog.selectAllIndicies();
-                            dialog.getActionButton(which).setText("Clear all");
-                        } else {
-                            buttonName = "Select all";
-                            dialog.clearSelectedIndices();
-                            dialog.getActionButton(which).setText("Select all");
-                        }
 
+                        if (dialog.getActionButton(which).getText()
+                                .equals(getString(R.string.dialog_select_all))) {
+                            dialog.selectAllIndicies();
+                            dialog.getActionButton(which)
+                                    .setText(getString(R.string.dialog_select_none));
+                        } else {
+                            dialog.clearSelectedIndices();
+                            dialog.getActionButton(which)
+                                    .setText(getString(R.string.dialog_select_all));
+                        }
                     }
                 })
-                .alwaysCallMultiChoiceCallback()
-                .positiveText("positive")
+                .positiveText(getString(R.string.dialog_accept))
                 .autoDismiss(false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         dialog.dismiss();
+                        mPresenter.saveDialog(dialog.getSelectedIndices());
                     }
                 })
-                .neutralText(buttonName)
+                .neutralText(getString(R.string.dialog_select_all))
                 .show();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
+    }
 }

@@ -24,7 +24,7 @@
 
 package com.adkdevelopment.e_contact.data;
 
-import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
+import com.adkdevelopment.e_contact.data.local.TaskRealm;
 import com.adkdevelopment.e_contact.data.model.TaskObject;
 import com.adkdevelopment.e_contact.data.remote.ApiService;
 import com.adkdevelopment.e_contact.injection.DataRepository;
@@ -52,44 +52,44 @@ public class DataManager {
         mDataRepository = dataRepository;
     }
 
-    public Observable<List<TaskObjectRealm>> getTasks(int query) {
+    public Observable<List<TaskRealm>> getTasks(int query) {
         return mDataRepository.findByState(query);
     }
 
-    public Observable<List<TaskObjectRealm>> fetchTasks(final int status, int page, int offset) {
+    public Observable<List<TaskRealm>> fetchTasks(final int status, int page, int offset) {
 
         String query = "";
         switch (status) {
-            case TaskObjectRealm.STATE_PROGRESS:
-                query = TaskObjectRealm.QUERY_PROGRESS;
+            case TaskRealm.STATE_PROGRESS:
+                query = TaskRealm.QUERY_PROGRESS;
                 break;
-            case TaskObjectRealm.STATE_DONE:
-                query = TaskObjectRealm.QUERY_DONE;
+            case TaskRealm.STATE_DONE:
+                query = TaskRealm.QUERY_DONE;
                 break;
-            case TaskObjectRealm.STATE_PENDING:
-                query = TaskObjectRealm.QUERY_PENDING;
+            case TaskRealm.STATE_PENDING:
+                query = TaskRealm.QUERY_PENDING;
                 break;
         }
 
         Observable<List<TaskObject>> observableList;
-        if (page == TaskObjectRealm.QUERY_ALL && offset == TaskObjectRealm.QUERY_ALL) {
+        if (page == TaskRealm.QUERY_ALL && offset == TaskRealm.QUERY_ALL) {
             // downloads ALL data
             observableList = mApiService.getTasks(query);
-        } else if (offset == TaskObjectRealm.QUERY_FIRST_PAGE) {
+        } else if (offset == TaskRealm.QUERY_FIRST_PAGE) {
             // downloads first page
             observableList = mApiService.getTasks(query,
-                    String.valueOf(TaskObjectRealm.QUERY_AMOUNT));
+                    String.valueOf(TaskRealm.QUERY_AMOUNT));
         } else {
             // downloads specified page with an offset
             observableList = mApiService.getTasks(query,
-                    String.valueOf(TaskObjectRealm.QUERY_AMOUNT),
+                    String.valueOf(TaskRealm.QUERY_AMOUNT),
                     String.valueOf(offset));
         }
 
         // adds data to the database and returns everything from it
-        return observableList.flatMap(new Func1<List<TaskObject>, Observable<List<TaskObjectRealm>>>() {
+        return observableList.flatMap(new Func1<List<TaskObject>, Observable<List<TaskRealm>>>() {
             @Override
-            public Observable<List<TaskObjectRealm>> call(List<TaskObject> taskObjects) {
+            public Observable<List<TaskRealm>> call(List<TaskObject> taskObjects) {
                 return mDataRepository.addBulk(taskObjects);
             }
         });

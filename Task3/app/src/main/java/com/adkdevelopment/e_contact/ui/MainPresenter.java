@@ -22,27 +22,35 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact.injection.component;
+package com.adkdevelopment.e_contact.ui;
 
-import com.adkdevelopment.e_contact.injection.PerActivity;
-import com.adkdevelopment.e_contact.injection.module.ActivityModule;
-import com.adkdevelopment.e_contact.ui.DetailFragment;
-import com.adkdevelopment.e_contact.MainActivity;
-import com.adkdevelopment.e_contact.ui.MainPresenter;
-import com.adkdevelopment.e_contact.ui.TasksFragment;
+import com.adkdevelopment.e_contact.injection.PrefsManager;
+import com.adkdevelopment.e_contact.ui.base.BaseMvpPresenter;
+import com.adkdevelopment.e_contact.ui.contract.MainContract;
 
-import dagger.Component;
+import javax.inject.Inject;
 
 /**
- * This component inject dependencies to all Activities across the application
  * Created by karataev on 5/10/16.
  */
-@PerActivity
-@Component(dependencies = AppComponent.class, modules = ActivityModule.class)
-public interface ActivityComponent {
-    void injectFragment(TasksFragment tasksFragment);
-    void injectFragment(DetailFragment detailFragment);
-    void inject(MainActivity mainActivity);
-    void inject(MainPresenter mainPresenter);
+public class MainPresenter
+        extends BaseMvpPresenter<MainContract.View>
+        implements MainContract.Presenter {
 
+    private PrefsManager mPreferenceManager;
+
+    @Inject
+    public MainPresenter(PrefsManager preferenceManager) {
+        mPreferenceManager = preferenceManager;
+    }
+
+    @Override
+    public void loadDialog() {
+        getMvpView().showDialog(mPreferenceManager.getFilterSelection());
+    }
+
+    @Override
+    public void saveDialog(Integer[] selection) {
+        mPreferenceManager.saveFilterSelection(selection);
+    }
 }
