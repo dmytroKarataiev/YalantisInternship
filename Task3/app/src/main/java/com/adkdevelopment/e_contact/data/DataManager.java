@@ -43,8 +43,6 @@ import rx.functions.Func1;
 @Singleton
 public class DataManager {
 
-    private static final String TAG = DataManager.class.getSimpleName();
-
     private final ApiService mApiService;
     private final DataRepository mDataRepository;
 
@@ -58,7 +56,7 @@ public class DataManager {
         return mDataRepository.findByState(query);
     }
 
-    public Observable<List<TaskObjectRealm>> fetchTasks(final int status) {
+    public Observable<List<TaskObjectRealm>> fetchTasks(final int status, int page, int offset) {
 
         String query = "";
         switch (status) {
@@ -73,13 +71,29 @@ public class DataManager {
                 break;
         }
 
-        // returns an observable which notifies a user when data was successfully downloaded
-        return mApiService.getTasks(query).flatMap(new Func1<List<TaskObject>, Observable<List<TaskObjectRealm>>>() {
+        Observable<List<TaskObject>> observableList;
+        if (page == TaskObjectRealm.QUERY_ALL && offset == TaskObjectRealm.QUERY_ALL) {
+            // downloads ALL data
+            observableList = mApiService.getTasks(query);
+        } else if (offset == TaskObjectRealm.QUERY_FIRST_PAGE) {
+            // downloads first page
+            observableList = mApiService.getTasks(query,
+                    String.valueOf(TaskObjectRealm.QUERY_AMOUNT));
+        } else {
+            // downloads specified page with an offset
+            observableList = mApiService.getTasks(query,
+                    String.valueOf(TaskObjectRealm.QUERY_AMOUNT),
+                    String.valueOf(offset));
+        }
+
+        // adds data to the database and returns everything from it
+        return observableList.flatMap(new Func1<List<TaskObject>, Observable<List<TaskObjectRealm>>>() {
             @Override
             public Observable<List<TaskObjectRealm>> call(List<TaskObject> taskObjects) {
                 return mDataRepository.addBulk(taskObjects);
             }
         });
+
 
     }
 }

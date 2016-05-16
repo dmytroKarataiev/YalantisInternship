@@ -43,6 +43,15 @@ public interface ApiService {
     String ENDPOINT = "http://dev-contact.yalantis.com/rest/v1/";
 
     @GET("tickets")
+    Observable<List<TaskObject>> getTasks(@Query("state") String status,
+                                          @Query("amount") String amount,
+                                          @Query("offset") String offset);
+
+    @GET("tickets")
+    Observable<List<TaskObject>> getTasks(@Query("state") String status,
+                                          @Query("amount") String amount);
+
+    @GET("tickets")
     Observable<List<TaskObject>> getTasks(@Query("state") String status);
 
     class Creator {

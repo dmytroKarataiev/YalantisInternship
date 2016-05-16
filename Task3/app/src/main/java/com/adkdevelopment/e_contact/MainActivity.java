@@ -109,7 +109,7 @@ public class MainActivity extends BaseActivity {
         switch (item.getItemId()) {
             case R.id.menu_action_sort:
                 // TODO: 5/15/16 add presenter 
-                alertDialog();
+                showFilterDialog();
                 return true;
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
@@ -167,7 +167,6 @@ public class MainActivity extends BaseActivity {
                 Toast.makeText(MainActivity.this,
                         mFab.getContentDescription(),
                         Toast.LENGTH_SHORT).show();
-                alertDialog();
             }
         });
 
@@ -216,7 +215,10 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    private void alertDialog() {
+    /**
+     * Shows filter dialog with options which categories to show
+     */
+    private void showFilterDialog() {
         // TODO: 5/14/16 add resources & shared preferences
         final String[] array = new String[20];
         array[0] = "test 1";

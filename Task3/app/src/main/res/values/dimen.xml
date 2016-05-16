@@ -62,5 +62,6 @@
     <!-- RecyclerView dimensions -->
     <dimen name="recycler_minheight">200dp</dimen>
     <dimen name="recycler_padding">8dp</dimen>
+    <dimen name="progressbar_height">150dp</dimen>
 
 </resources>

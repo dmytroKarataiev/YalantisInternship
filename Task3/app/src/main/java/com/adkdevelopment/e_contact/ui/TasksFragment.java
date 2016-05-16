@@ -30,9 +30,11 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.adkdevelopment.e_contact.MainActivity;
@@ -56,6 +58,8 @@ import butterknife.Unbinder;
  */
 public class TasksFragment extends BaseFragment implements TasksContract.View, ItemClickListener<TaskObjectRealm, View> {
 
+    private static final String TAG = TasksFragment.class.getSimpleName();
+
     private static final String ARG_SECTION_NUMBER = "section_number";
     private static final String ARG_SECTION_STATE = "section_state";
 
@@ -68,7 +72,13 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
     SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.list_empty_text)
     TextView mListEmpty;
+    @BindView(R.id.progress_bar)
+    ProgressBar mProgressBar;
     private Unbinder mUnbinder;
+
+    private int mCurrentPosition;
+    private int mCurrentPage = 1;
+    private boolean isUpdating;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -98,12 +108,38 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mPresenter.attachView(this);
-        mPresenter.loadData(getArguments().getInt(ARG_SECTION_NUMBER));
+
+        mPresenter.getData(getArguments().getInt(ARG_SECTION_NUMBER));
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mPresenter.loadData(getArguments().getInt(ARG_SECTION_NUMBER));
+                // on force refresh downloads all data
+                mPresenter.fetchData(getArguments().getInt(ARG_SECTION_NUMBER),
+                        TaskObjectRealm.QUERY_ALL,
+                        TaskObjectRealm.QUERY_ALL);
+            }
+        });
+
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int adapterItems = mRecyclerView.getAdapter().getItemCount();
+                if (adapterItems > 0 && dy > 0) {
+                    mCurrentPosition = ((LinearLayoutManager) mRecyclerView
+                            .getLayoutManager()).findFirstVisibleItemPosition();
+
+                    if (mCurrentPosition >= adapterItems - TaskObjectRealm.QUERY_START && !isUpdating) {
+                        mCurrentPage = adapterItems / TaskObjectRealm.QUERY_AMOUNT;
+                        int offset = mCurrentPage * TaskObjectRealm.QUERY_OFFSET;
+                        mCurrentPage++;
+                        mPresenter.fetchData(getArguments().getInt(ARG_SECTION_NUMBER),
+                                mCurrentPage, offset);
+                        isUpdating = true;
+                    }
+                }
             }
         });
 
@@ -123,33 +159,57 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
     }
 
     @Override
-    public void showData(List<TaskObjectRealm> taskObjects) {
-        mSwipeRefreshLayout.setRefreshing(false);
+    public void addData(List<TaskObjectRealm> taskObjects) {
+        Log.d(TAG, "addData: ");
+        mListEmpty.setVisibility(View.GONE);
+        isUpdating = false;
+        mAdapter.addTasks(taskObjects, this);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void getData(List<TaskObjectRealm> taskObjects) {
+        Log.d(TAG, "getData taskObjects.size():" + taskObjects.size());
         mListEmpty.setVisibility(View.GONE);
         mAdapter.setTasks(taskObjects, this);
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void showTasksEmpty() {
-        mSwipeRefreshLayout.setRefreshing(false);
-        mListEmpty.setText(getString(R.string.recyclerview_empty_text));
-        mListEmpty.setVisibility(View.VISIBLE);
-        mAdapter.setTasks(null, null);
-        mAdapter.notifyDataSetChanged();
+    public void showTasks(boolean isEmpty) {
+        Log.d(TAG, "showTasks: " + isEmpty);
+        if (isEmpty) {
+            mListEmpty.setText(getString(R.string.recyclerview_empty_text));
+            mListEmpty.setVisibility(View.VISIBLE);
+            mAdapter.setTasks(null, null);
+            mAdapter.notifyDataSetChanged();
+        }
+        mPresenter.fetchData(getArguments().getInt(ARG_SECTION_NUMBER),
+                mCurrentPage,
+                TaskObjectRealm.QUERY_FIRST_PAGE);
     }
 
     @Override
     public void showError() {
-        mSwipeRefreshLayout.setRefreshing(false);
+        Log.d(TAG, "showError: ");
         mListEmpty.setVisibility(View.VISIBLE);
         // TODO: 5/13/16 add meaningfull something 
         mListEmpty.setText("Error somewhere");
     }
 
     @Override
+    public void showProgress(boolean isInProgress) {
+        Log.d(TAG, "showProgress: " + isInProgress);
+        if (isInProgress) {
+            mProgressBar.setVisibility(View.VISIBLE);
+        } else {
+            mSwipeRefreshLayout.setRefreshing(false);
+            mProgressBar.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
     public void onItemClicked(TaskObjectRealm item, View view) {
-        // TODO: 5/13/16 fix add extras
         Intent intent = new Intent(getContext(), DetailActivity.class);
         intent.putExtra(TaskObjectRealm.TASK_EXTRA, item);
         intent.putExtra(TaskObjectRealm.TASK_EXTRA_TITLE, String.valueOf(item.getId()));

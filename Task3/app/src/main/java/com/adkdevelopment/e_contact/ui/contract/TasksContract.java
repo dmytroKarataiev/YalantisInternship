@@ -41,14 +41,21 @@ public class TasksContract {
 
         void detachView();
 
-        void loadData(int query);
+        void getData(int query);
+
+        void fetchData(int query, int page, int offset);
+
     }
 
     public interface View extends MvpView {
 
-        void showData(List<TaskObjectRealm> taskObjects);
+        void addData(List<TaskObjectRealm> taskObjects);
 
-        void showTasksEmpty();
+        void getData(List<TaskObjectRealm> taskObjects);
+
+        void showTasks(boolean isEmpty);
+
+        void showProgress(boolean isInProgress);
 
         void showError();
     }

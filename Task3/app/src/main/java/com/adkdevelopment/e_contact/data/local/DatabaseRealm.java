@@ -42,8 +42,6 @@ import io.realm.RealmObject;
  */
 public class DatabaseRealm {
 
-    private static final String TAG = DatabaseRealm.class.getSimpleName();
-
     RealmConfiguration realmConfiguration;
 
     @Inject @ApplicationContext

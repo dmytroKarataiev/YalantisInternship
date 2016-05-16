@@ -37,6 +37,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.realm.RealmResults;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -59,9 +60,7 @@ public class DataRepositoryImpl implements DataRepository {
             @Override
             public void call(Subscriber<? super TaskObjectRealm> subscriber) {
                 try {
-                    mDatabaseRealm.add(Utilities.convertTask(model));
-
-                    subscriber.onNext(Utilities.convertTask(model));
+                    subscriber.onNext(mDatabaseRealm.add(Utilities.convertTask(model)));
                     subscriber.onCompleted();
                 } catch (Exception e) {
                     Log.e(TAG, "Error: " + e);
@@ -80,8 +79,7 @@ public class DataRepositoryImpl implements DataRepository {
                 try {
                     List<TaskObjectRealm> realmList = new ArrayList<>();
                     for (TaskObject each : list) {
-                        mDatabaseRealm.add(Utilities.convertTask(each));
-                        realmList.add(Utilities.convertTask(each));
+                        realmList.add(mDatabaseRealm.add(Utilities.convertTask(each)));
                     }
                     subscriber.onNext(realmList);
                     subscriber.onCompleted();
@@ -100,9 +98,13 @@ public class DataRepositoryImpl implements DataRepository {
             @Override
             public void call(Subscriber<? super List<TaskObjectRealm>> subscriber) {
                 try {
-                    List<TaskObjectRealm> models = mDatabaseRealm.findAll(TaskObjectRealm.class);
-                    Log.d(TAG, "models.size():" + models.size());
-                    subscriber.onNext(models);
+                    RealmResults<TaskObjectRealm> list = (RealmResults<TaskObjectRealm>)
+                            mDatabaseRealm.findAll(TaskObjectRealm.class);
+                    List<TaskObjectRealm> tasksList = new ArrayList<>();
+                    for (TaskObjectRealm each : list) {
+                        tasksList.add(each);
+                    }
+                    subscriber.onNext(tasksList);
                     subscriber.onCompleted();
                 } catch (Exception e) {
                     subscriber.onError(e);
@@ -118,9 +120,13 @@ public class DataRepositoryImpl implements DataRepository {
             @Override
             public void call(Subscriber<? super List<TaskObjectRealm>> subscriber) {
                 try {
-                    List<TaskObjectRealm> models = mDatabaseRealm.findByState(TaskObjectRealm.class, state);
-                    Log.d(TAG, "models.size():" + models.size());
-                    subscriber.onNext(models);
+                    RealmResults<TaskObjectRealm> list = (RealmResults<TaskObjectRealm>)
+                            mDatabaseRealm.findByState(TaskObjectRealm.class, state);
+                    List<TaskObjectRealm> tasksList = new ArrayList<>();
+                    for (TaskObjectRealm each : list) {
+                        tasksList.add(each);
+                    }
+                    subscriber.onNext(tasksList);
                     subscriber.onCompleted();
                 } catch (Exception e) {
                     subscriber.onError(e);

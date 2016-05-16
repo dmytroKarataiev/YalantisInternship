@@ -26,15 +26,16 @@
     android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
-            style="@style/EmptyListInfo"
             android:id="@+id/list_empty_text"
+            style="@style/EmptyListInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -49,6 +50,14 @@
             android:clipToPadding="false"
             android:padding="@dimen/list_item_padding"
             android:scrollbars="vertical" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/progressbar_height"
+            android:layout_gravity="center"
+            android:progressDrawable="@drawable/progress_bar"
+            android:visibility="gone" />
 
     </FrameLayout>
 

@@ -85,6 +85,12 @@ public class TaskObjectRealm extends RealmObject implements Parcelable {
     public static final int CATEGORY_EXECUTIVE = 119;
     public static final int CATEGORY_ECONOMY = 104;
 
+    public static final int QUERY_ALL = -1;
+    public static final int QUERY_FIRST_PAGE = 0;
+    public static final int QUERY_AMOUNT = 20;
+    public static final int QUERY_OFFSET = 20;
+    public static final int QUERY_START = 8;
+
     public static final String QUERY_PROGRESS = "0,9,5,7,8";
     public static final String QUERY_DONE = "10,6";
     public static final String QUERY_PENDING = "1,3,4";
@@ -315,4 +321,9 @@ public class TaskObjectRealm extends RealmObject implements Parcelable {
             return new TaskObjectRealm[size];
         }
     };
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof TaskObjectRealm && id == ((TaskObjectRealm) o).getId();
+    }
 }

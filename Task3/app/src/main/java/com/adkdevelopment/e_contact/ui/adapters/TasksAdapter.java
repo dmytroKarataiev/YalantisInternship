@@ -29,9 +29,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.adkdevelopment.e_contact.interfaces.ItemClickListener;
 import com.adkdevelopment.e_contact.R;
 import com.adkdevelopment.e_contact.data.local.TaskObjectRealm;
+import com.adkdevelopment.e_contact.interfaces.ItemClickListener;
 import com.adkdevelopment.e_contact.ui.TasksViewHolder;
 
 import java.util.List;
@@ -54,6 +54,22 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksViewHolder> {
                          ItemClickListener<TaskObjectRealm, View> listener) {
         mTasks = taskObjects;
         mListener = listener;
+    }
+
+    public void addTasks(List<TaskObjectRealm> taskObjects,
+                         ItemClickListener<TaskObjectRealm, View> listener) {
+        if (taskObjects != null && taskObjects.size() > 0) {
+            if (mTasks == null) {
+                mTasks = taskObjects;
+            } else {
+                // make sure that we don't add duplicates
+                mTasks.removeAll(taskObjects);
+                mTasks.addAll(taskObjects);
+            }
+            if (mListener == null) {
+                mListener = listener;
+            }
+        }
     }
 
     @Override
