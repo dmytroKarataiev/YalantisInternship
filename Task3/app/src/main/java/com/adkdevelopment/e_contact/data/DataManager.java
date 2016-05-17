@@ -56,6 +56,10 @@ public class DataManager {
         return mDataRepository.findByState(query);
     }
 
+    public Observable<List<TaskRealm>> getTasks(int query, Integer[] categories) {
+        return mDataRepository.findByCategories(query, categories);
+    }
+
     public Observable<List<TaskRealm>> fetchTasks(final int status, int page, int offset) {
 
         String query = "";

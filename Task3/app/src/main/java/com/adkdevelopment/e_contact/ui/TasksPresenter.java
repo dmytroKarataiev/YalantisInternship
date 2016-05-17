@@ -82,7 +82,7 @@ public class TasksPresenter
         getMvpView().showProgress(true);
 
         // get data from the database and update a view
-        mSubscription.add(mDataManager.getTasks(query)
+        mSubscription.add(mDataManager.getTasks(query, mPreferenceManager.getFilterSelection())
                 .subscribe(new Subscriber<List<TaskRealm>>() {
                     @Override
                     public void onCompleted() {
@@ -107,7 +107,7 @@ public class TasksPresenter
                 }));
     }
 
-    public void fetchData(int query, int page, int offset) {
+    public void fetchData(final int query, int page, int offset) {
         checkViewAttached();
         getMvpView().showProgress(true);
 
@@ -119,22 +119,16 @@ public class TasksPresenter
                 .subscribe(new Subscriber<List<TaskRealm>>() {
                     @Override
                     public void onCompleted() {
+                        getData(query);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        getMvpView().showError();
-                        getMvpView().showProgress(false);
+                        Log.e(TAG, "Error: " + e);
                     }
 
                     @Override
                     public void onNext(List<TaskRealm> taskRealms) {
-                        if (taskRealms.isEmpty()) {
-                            getMvpView().showTasks(false);
-                        } else {
-                            getMvpView().addData(taskRealms);
-                        }
-                        getMvpView().showProgress(false);
                     }
                 }));
     }
@@ -142,6 +136,7 @@ public class TasksPresenter
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         Log.d(TAG, key + " " + Arrays.asList(mPreferenceManager.getFilterSelection()).toString());
-        // TODO: 5/15/16 get filtered data 
+        // TODO: 5/15/16 get filtered data
+        getMvpView().requestUpdate();
     }
 }

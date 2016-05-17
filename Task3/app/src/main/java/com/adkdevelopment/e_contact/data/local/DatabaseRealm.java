@@ -29,6 +29,7 @@ import android.content.Context;
 import com.adkdevelopment.e_contact.App;
 import com.adkdevelopment.e_contact.injection.ApplicationContext;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -36,6 +37,7 @@ import javax.inject.Inject;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmObject;
+import io.realm.RealmResults;
 
 /**
  * Created by karataev on 5/11/16.
@@ -44,7 +46,8 @@ public class DatabaseRealm {
 
     RealmConfiguration realmConfiguration;
 
-    @Inject @ApplicationContext
+    @Inject
+    @ApplicationContext
     Context mContext;
 
     public DatabaseRealm() {
@@ -101,6 +104,25 @@ public class DatabaseRealm {
                         .findAll();
         }
         return null;
+    }
+
+    /**
+     * For each category queries the database and returns an aggregated list
+     * @param categories to query the db
+     * @return all tasks which correspond to the filter
+     */
+    public List<TaskRealm> findByCategories(int state, Integer[] categories) {
+
+        RealmResults<TaskRealm> realmList = (RealmResults<TaskRealm>) findByState(TaskRealm.class, state);
+
+        List<TaskRealm> arrayList = new ArrayList<>();
+
+        for (int each : categories) {
+            arrayList.addAll(realmList.where().equalTo(TaskRealm.CATEGORY, each).findAll());
+        }
+
+        return arrayList;
+
     }
 
 }

@@ -109,7 +109,7 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mPresenter.attachView(this);
 
-        mPresenter.getData(getArguments().getInt(ARG_SECTION_NUMBER));
+        requestUpdate();
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -184,9 +184,6 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
             mAdapter.setTasks(null, null);
             mAdapter.notifyDataSetChanged();
         }
-        mPresenter.fetchData(getArguments().getInt(ARG_SECTION_NUMBER),
-                mCurrentPage,
-                TaskRealm.QUERY_FIRST_PAGE);
     }
 
     @Override
@@ -214,6 +211,12 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
         intent.putExtra(TaskRealm.TASK_EXTRA, item);
         intent.putExtra(TaskRealm.TASK_EXTRA_TITLE, String.valueOf(item.getId()));
         startActivity(intent);
+    }
+
+    // TODO: 5/17/16 make nice
+    @Override
+    public void requestUpdate() {
+        mPresenter.getData(getArguments().getInt(ARG_SECTION_NUMBER));
     }
 
     /**

@@ -58,6 +58,8 @@ public class TasksContract {
         void showProgress(boolean isInProgress);
 
         void showError();
+
+        void requestUpdate();
     }
 
 }

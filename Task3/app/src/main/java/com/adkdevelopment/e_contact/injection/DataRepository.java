@@ -44,4 +44,6 @@ public interface DataRepository {
 
     Observable<List<TaskRealm>> findByState(int state);
 
+    Observable<List<TaskRealm>> findByCategories(int state, Integer[] categories);
+
 }

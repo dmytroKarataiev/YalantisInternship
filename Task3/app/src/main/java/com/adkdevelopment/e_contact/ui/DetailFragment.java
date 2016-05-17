@@ -161,6 +161,9 @@ public class DetailFragment extends BaseFragment
     @Override
     public void showData(TaskRealm taskObject) {
 
+        // TODO: 5/17/16 log delete
+        Log.d("DetailFragment", "taskObject.getCategory():" + taskObject.getCategory());
+
         // Time parsing and creating a nice textual version (should be changed to Calendar)
         String dateCreated = Utilities.getFormattedDate(taskObject.getCreated());
         String dateRegistered = Utilities.getFormattedDate(taskObject.getRegistered());

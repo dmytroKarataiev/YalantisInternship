@@ -33,6 +33,7 @@ import com.adkdevelopment.e_contact.data.model.TaskObject;
 import com.adkdevelopment.e_contact.utils.Utilities;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -127,6 +128,24 @@ public class DataRepositoryImpl implements DataRepository {
                         tasksList.add(each);
                     }
                     subscriber.onNext(tasksList);
+                    subscriber.onCompleted();
+                } catch (Exception e) {
+                    subscriber.onError(e);
+                }
+            }
+        });
+    }
+
+    @Override
+    public Observable<List<TaskRealm>> findByCategories(final int state, final Integer[] categories) {
+        Log.d(TAG, "find by state " + Arrays.asList(categories).toString());
+        return Observable.create(new Observable.OnSubscribe<List<TaskRealm>>() {
+            @Override
+            public void call(Subscriber<? super List<TaskRealm>> subscriber) {
+                try {
+                    List<TaskRealm> list = mDatabaseRealm.findByCategories(state, categories);
+
+                    subscriber.onNext(list);
                     subscriber.onCompleted();
                 } catch (Exception e) {
                     subscriber.onError(e);

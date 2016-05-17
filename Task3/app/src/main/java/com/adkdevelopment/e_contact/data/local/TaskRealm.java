@@ -40,6 +40,8 @@ public class TaskRealm extends RealmObject implements Parcelable {
     public static final String TASK_EXTRA_TITLE = "task_title";
 
     public static final String STATE = "status";
+    public static final String CATEGORY = "category";
+
     public static final int STATE_PROGRESS = 0;
     public static final int STATE_DONE = 1;
     public static final int STATE_PENDING = 2;
@@ -58,32 +60,32 @@ public class TaskRealm extends RealmObject implements Parcelable {
     public static final int WHERE_UNKNOWN_10 = 10;
 
     public static final int CATEGORY_AGRICULTURE = 1;
-    public static final int CATEGORY_LAND = 102;
-    public static final int CATEGORY_CORRUPTION = 124;
-    public static final int CATEGORY_GAMBLING = 6;
-    public static final int CATEGORY_NO_ANSWER = 5;
-    public static final int CATEGORY_DEPOSITS = 7;
-    public static final int CATEGORY_VERKHOVNA_RADA = 118;
-    public static final int CATEGORY_RESIDENTS = 12;
-    public static final int CATEGORY_WAGES = 4;
     public static final int CATEGORY_ARCHIVES = 2;
     public static final int CATEGORY_IMPROVEMENTS = 3;
-    public static final int CATEGORY_HOTLINE = 40;
-    public static final int CATEGORY_OTHER = 125;
-    public static final int CATEGORY_GOV_BUILDING = 123;
+    public static final int CATEGORY_WAGES = 4;
+    public static final int CATEGORY_NO_ANSWER = 5;
+    public static final int CATEGORY_GAMBLING = 6;
+    public static final int CATEGORY_DEPOSITS = 7;
     public static final int CATEGORY_MEDIA = 8;
-    public static final int CATEGORY_MEDIA_POL = 116;
-    public static final int CATEGORY_TOURISM = 44;
-    public static final int CATEGORY_FINANCE = 105;
-    public static final int CATEGORY_GOV_LOCAL = 120;
-    public static final int CATEGORY_COMPENSATION = 19;
-    public static final int CATEGORY_CRIME = 18;
-    public static final int CATEGORY_GOV_INQUIRY = 15;
-    public static final int CATEGORY_CONSUMERS = 14;
+    public static final int CATEGORY_RESIDENTS = 12;
     public static final int CATEGORY_LABOR = 13;
-    public static final int CATEGORY_LAW = 112;
-    public static final int CATEGORY_EXECUTIVE = 119;
+    public static final int CATEGORY_CONSUMERS = 14;
+    public static final int CATEGORY_GOV_INQUIRY = 15;
+    public static final int CATEGORY_CRIME = 18;
+    public static final int CATEGORY_COMPENSATION = 19;
+    public static final int CATEGORY_HOTLINE = 40;
+    public static final int CATEGORY_TOURISM = 44;
+    public static final int CATEGORY_LAND = 102;
     public static final int CATEGORY_ECONOMY = 104;
+    public static final int CATEGORY_FINANCE = 105;
+    public static final int CATEGORY_LAW = 112;
+    public static final int CATEGORY_MEDIA_POL = 116;
+    public static final int CATEGORY_VERKHOVNA_RADA = 118;
+    public static final int CATEGORY_EXECUTIVE = 119;
+    public static final int CATEGORY_GOV_LOCAL = 120;
+    public static final int CATEGORY_GOV_BUILDING = 123;
+    public static final int CATEGORY_CORRUPTION = 124;
+    public static final int CATEGORY_OTHER = 125;
 
     public static final int QUERY_ALL = -1;
     public static final int QUERY_FIRST_PAGE = 0;
