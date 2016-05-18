@@ -24,14 +24,17 @@
 
 package com.adkdevelopment.e_contact.ui;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.adkdevelopment.e_contact.data.DataManager;
 import com.adkdevelopment.e_contact.data.local.TaskRealm;
+import com.adkdevelopment.e_contact.injection.ApplicationContext;
 import com.adkdevelopment.e_contact.injection.PrefsManager;
 import com.adkdevelopment.e_contact.ui.base.BaseMvpPresenter;
 import com.adkdevelopment.e_contact.ui.contract.TasksContract;
+import com.adkdevelopment.e_contact.utils.Utilities;
 
 import java.util.List;
 
@@ -53,12 +56,14 @@ public class TasksPresenter
     private final DataManager mDataManager;
     private PrefsManager mPreferenceManager;
     private CompositeSubscription mSubscription;
+    private Context mContext;
 
     @Inject
-    public TasksPresenter(DataManager dataManager, PrefsManager preferenceManager) {
+    public TasksPresenter(@ApplicationContext Context context, DataManager dataManager, PrefsManager preferenceManager) {
         mSubscription = new CompositeSubscription();
         mDataManager = dataManager;
         mPreferenceManager = preferenceManager;
+        mContext = context;
     }
 
     @Override
@@ -113,30 +118,37 @@ public class TasksPresenter
         checkViewAttached();
         getMvpView().showProgress(true);
 
-        // TODO: 5/13/16 if Online check
-        // fetch new data and update a view if there are new objects
-        mSubscription.add(mDataManager.fetchTasks(query, page, offset)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<List<TaskRealm>>() {
-                    @Override
-                    public void onCompleted() {
-                        if (page == TaskRealm.QUERY_FIRST_PAGE) {
-                            getData(query, true);
-                        } else {
-                            getData(query, false);
+        if (Utilities.isOnline(mContext)) {
+            // fetch new data and update a view if there are new objects
+            mSubscription.add(mDataManager.fetchTasks(query, page, offset)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(new Subscriber<List<TaskRealm>>() {
+                        @Override
+                        public void onCompleted() {
+                            if (page == TaskRealm.QUERY_FIRST_PAGE) {
+                                getData(query, true);
+                            } else {
+                                getData(query, false);
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e(TAG, "Error: " + e);
-                    }
+                        @Override
+                        public void onError(Throwable e) {
+                            Log.e(TAG, "Error: " + e);
+                        }
 
-                    @Override
-                    public void onNext(List<TaskRealm> taskRealms) {
-                    }
-                }));
+                        @Override
+                        public void onNext(List<TaskRealm> taskRealms) {
+                        }
+                    }));
+        } else {
+            if (page == TaskRealm.QUERY_FIRST_PAGE) {
+                getData(query, true);
+            } else {
+                getData(query, false);
+            }
+        }
     }
 
     @Override

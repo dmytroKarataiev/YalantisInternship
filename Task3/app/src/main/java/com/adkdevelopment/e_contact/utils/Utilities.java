@@ -25,13 +25,15 @@
 package com.adkdevelopment.e_contact.utils;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.util.Log;
 
 import com.adkdevelopment.e_contact.R;
-import com.adkdevelopment.e_contact.data.local.TaskRealm;
 import com.adkdevelopment.e_contact.data.local.PhotoRealm;
+import com.adkdevelopment.e_contact.data.local.TaskRealm;
 import com.adkdevelopment.e_contact.data.model.TaskAddress;
 import com.adkdevelopment.e_contact.data.model.TaskFile;
 import com.adkdevelopment.e_contact.data.model.TaskObject;
@@ -202,6 +204,22 @@ public class Utilities {
             default:
                 return R.drawable.ic_type_other;
         }
+    }
+
+    /**
+     * Method to check if device is connected to the internet
+     * @param context from which call is being made
+     * @return true if connected, false otherwise
+     */
+    public static boolean isOnline(Context context) {
+        if (context != null) {
+            ConnectivityManager cm =
+                    (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+            return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        }
+        return false;
     }
 
 }
