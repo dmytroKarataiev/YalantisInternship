@@ -27,7 +27,6 @@ package com.adkdevelopment.e_contact.injection;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.adkdevelopment.e_contact.R;
 
@@ -62,7 +61,6 @@ public class PrefsManager {
      */
     public void saveFilterSelection(Integer[] selection) {
         String selectionString = Arrays.asList(selection).toString();
-        Log.d("PrefsManager", selectionString);
         mPref.edit()
                 .putString(mContext.getString(R.string.sharedprefs_selection), selectionString)
                 .apply();

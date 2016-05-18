@@ -27,6 +27,7 @@ package com.adkdevelopment.e_contact.data.local;
 import android.content.Context;
 
 import com.adkdevelopment.e_contact.App;
+import com.adkdevelopment.e_contact.R;
 import com.adkdevelopment.e_contact.injection.ApplicationContext;
 
 import java.util.ArrayList;
@@ -114,11 +115,12 @@ public class DatabaseRealm {
     public List<TaskRealm> findByCategories(int state, Integer[] categories) {
 
         RealmResults<TaskRealm> realmList = (RealmResults<TaskRealm>) findByState(TaskRealm.class, state);
-
         List<TaskRealm> arrayList = new ArrayList<>();
 
+        // maps indeces to the correct categories according to the db schema
+        String[] mapCategories = mContext.getString(R.string.filter_map).split(", ");
         for (int each : categories) {
-            arrayList.addAll(realmList.where().equalTo(TaskRealm.CATEGORY, each).findAll());
+            arrayList.addAll(realmList.where().equalTo(TaskRealm.CATEGORY, Integer.valueOf(mapCategories[each])).findAll());
         }
 
         return arrayList;

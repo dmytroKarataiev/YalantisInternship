@@ -171,6 +171,7 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
     public void getData(List<TaskRealm> taskObjects) {
         Log.d(TAG, "getData taskObjects.size():" + taskObjects.size());
         mListEmpty.setVisibility(View.GONE);
+        isUpdating = false;
         mAdapter.setTasks(taskObjects, this);
         mAdapter.notifyDataSetChanged();
     }
@@ -216,7 +217,9 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
     // TODO: 5/17/16 make nice
     @Override
     public void requestUpdate() {
-        mPresenter.getData(getArguments().getInt(ARG_SECTION_NUMBER));
+        mPresenter.fetchData(getArguments().getInt(ARG_SECTION_NUMBER),
+                TaskRealm.QUERY_FIRST_PAGE,
+                TaskRealm.QUERY_FIRST_PAGE);
     }
 
     /**

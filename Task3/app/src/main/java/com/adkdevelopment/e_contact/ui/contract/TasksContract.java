@@ -41,7 +41,7 @@ public class TasksContract {
 
         void detachView();
 
-        void getData(int query);
+        void getData(int query, boolean isReplace);
 
         void fetchData(int query, int page, int offset);
 

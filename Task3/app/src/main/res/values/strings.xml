@@ -47,40 +47,5 @@
     <string name="dialog_select_all">Select all</string>
     <string name="dialog_select_none">Clear all</string>
     <string name="dialog_accept">OK</string>
-    <!-- TODO Add names and mapping -->
-    <string-array name="filter_strings">
-        <item>Option 1</item>
-        <item>Option 2</item>
-        <item>Option 3</item>
-        <item>Option 4</item>
-        <item>Option 5</item>
-        <item>Option 6</item>
-        <item>Option 7</item>
-        <item>Option 8</item>
-        <item>Option 9</item>
-        <item>Option 10</item>
-        <item>Option 1</item>
-        <item>Option 2</item>
-        <item>Option 3</item>
-        <item>Option 4</item>
-        <item>Option 5</item>
-        <item>Option 6</item>
-        <item>Option 7</item>
-        <item>Option 8</item>
-        <item>Option 9</item>
-        <item>Option 10</item>
-        <item>Option 1</item>
-        <item>Option 2</item>
-        <item>Option 3</item>
-        <item>Option 4</item>
-        <item>Option 5</item>
-        <item>Option 6</item>
-    </string-array>
-    <string name="filter_all" translatable="false">0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25</string>
-
-    <!-- Shared Preferences Keys -->
-    <string name="sharedprefs_selection" translatable="false">selection</string>
-
-
 
 </resources>

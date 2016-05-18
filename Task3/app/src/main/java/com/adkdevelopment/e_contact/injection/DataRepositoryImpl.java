@@ -33,7 +33,6 @@ import com.adkdevelopment.e_contact.data.model.TaskObject;
 import com.adkdevelopment.e_contact.utils.Utilities;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -94,7 +93,7 @@ public class DataRepositoryImpl implements DataRepository {
 
     @Override
     public Observable<List<TaskRealm>> findAll() {
-        Log.d(TAG, "find all");
+
         return Observable.create(new Observable.OnSubscribe<List<TaskRealm>>() {
             @Override
             public void call(Subscriber<? super List<TaskRealm>> subscriber) {
@@ -116,7 +115,7 @@ public class DataRepositoryImpl implements DataRepository {
 
     @Override
     public Observable<List<TaskRealm>> findByState(final int state) {
-        Log.d(TAG, "find by state " + state);
+
         return Observable.create(new Observable.OnSubscribe<List<TaskRealm>>() {
             @Override
             public void call(Subscriber<? super List<TaskRealm>> subscriber) {
@@ -138,7 +137,7 @@ public class DataRepositoryImpl implements DataRepository {
 
     @Override
     public Observable<List<TaskRealm>> findByCategories(final int state, final Integer[] categories) {
-        Log.d(TAG, "find by state " + Arrays.asList(categories).toString());
+
         return Observable.create(new Observable.OnSubscribe<List<TaskRealm>>() {
             @Override
             public void call(Subscriber<? super List<TaskRealm>> subscriber) {
