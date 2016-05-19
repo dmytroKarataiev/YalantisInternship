@@ -105,7 +105,7 @@ public class Utilities {
             taskAddress = taskObject.getUser().getAddress();
         }
 
-        if (taskAddress != null) {
+        if (taskAddress != null && taskAddress.getCity() != null) {
             objectRealm.setAddress(taskAddress.getCity().getName() + ", "
                     + taskAddress.getStreet().getName() + ", "
                     + taskAddress.getHouse().getName() + ", "

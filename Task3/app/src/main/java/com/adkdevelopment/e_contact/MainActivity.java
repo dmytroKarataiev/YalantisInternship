@@ -24,6 +24,7 @@
 
 package com.adkdevelopment.e_contact;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -50,6 +51,7 @@ import com.adkdevelopment.e_contact.ui.base.BaseActivity;
 import com.adkdevelopment.e_contact.ui.contract.MainContract;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.facebook.AccessToken;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import javax.inject.Inject;
@@ -102,8 +104,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     @Override
     protected void onResume() {
         super.onResume();
-        // select first item in navigation drawer on startup
-        mNavigationView.getMenu().getItem(0).setChecked(true);
+        updateDrawer();
     }
 
     @Override
@@ -204,22 +205,47 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
-
-                if (item.getItemId() == R.id.drawer_map) {
-                    // TODO: 5/13/16 add MapsActivity
-                    if ("main".equals("maintain)"/* Utilities.checkPlayServices(PagerActivity.this) */)) {
-                        //Intent intent = new Intent(PagerActivity.this, MapsActivity.class);
-                        //startActivity(intent);
-                    }
-                    mDrawerLayout.closeDrawers();
-                    return false;
-                } else {
-                    item.setChecked(true);
-                    mDrawerLayout.closeDrawers();
-                    return true;
+                switch (item.getItemId()) {
+                    case R.id.drawer_map:
+                        // TODO: 5/13/16 add MapsActivity
+                        if ("main".equals("maintain)"/* Utilities.checkPlayServices(PagerActivity.this) */)) {
+                            //Intent intent = new Intent(PagerActivity.this, MapsActivity.class);
+                            //startActivity(intent);
+                        }
+                        mDrawerLayout.closeDrawers();
+                        return false;
+                    case R.id.login_button:
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                        return true;
+                    default:
+                        item.setChecked(true);
+                        mDrawerLayout.closeDrawers();
+                        return true;
                 }
             }
         });
+    }
+
+    /**
+     * Updated buttons in the Navigation Drawer according to a state
+     */
+    private void updateDrawer() {
+        // select first item in navigation drawer on startup
+        Menu drawerMenu = mNavigationView.getMenu();
+        drawerMenu.getItem(0).setChecked(true);
+
+        // set correct visibility of we are logged in or logged out
+        MenuItem facebookProfile = drawerMenu.findItem(R.id.facebook_button);
+        MenuItem login = drawerMenu.findItem(R.id.login_button);
+        if (facebookProfile != null) {
+            if (AccessToken.getCurrentAccessToken() != null) {
+                login.setVisible(false);
+                facebookProfile.setVisible(true);
+            } else {
+                login.setVisible(true);
+                facebookProfile.setVisible(false);
+            }
+        }
     }
 
     /**
@@ -271,4 +297,5 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         super.onDestroy();
         mPresenter.detachView();
     }
+
 }

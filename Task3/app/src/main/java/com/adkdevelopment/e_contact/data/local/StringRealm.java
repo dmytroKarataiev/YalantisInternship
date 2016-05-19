@@ -22,29 +22,22 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact.injection.component;
+package com.adkdevelopment.e_contact.data.local;
 
-import com.adkdevelopment.e_contact.LoginFragment;
-import com.adkdevelopment.e_contact.injection.PerActivity;
-import com.adkdevelopment.e_contact.injection.module.ActivityModule;
-import com.adkdevelopment.e_contact.ui.DetailFragment;
-import com.adkdevelopment.e_contact.MainActivity;
-import com.adkdevelopment.e_contact.ui.MainPresenter;
-import com.adkdevelopment.e_contact.ui.TasksFragment;
-
-import dagger.Component;
+import io.realm.RealmObject;
 
 /**
- * This component inject dependencies to all Activities across the application
- * Created by karataev on 5/10/16.
+ * Created by karataev on 5/19/16.
  */
-@PerActivity
-@Component(dependencies = AppComponent.class, modules = ActivityModule.class)
-public interface ActivityComponent {
-    void injectFragment(TasksFragment tasksFragment);
-    void injectFragment(DetailFragment detailFragment);
-    void injectFragment(LoginFragment loginFragment);
-    void inject(MainActivity mainActivity);
-    void inject(MainPresenter mainPresenter);
+public class StringRealm extends RealmObject {
 
+    private String permission;
+
+    public String getPermission() {
+        return permission;
+    }
+
+    public void setPermission(String permission) {
+        this.permission = permission;
+    }
 }

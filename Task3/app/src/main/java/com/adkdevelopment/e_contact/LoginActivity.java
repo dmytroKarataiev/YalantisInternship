@@ -22,29 +22,33 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact.injection.component;
+package com.adkdevelopment.e_contact;
 
-import com.adkdevelopment.e_contact.LoginFragment;
-import com.adkdevelopment.e_contact.injection.PerActivity;
-import com.adkdevelopment.e_contact.injection.module.ActivityModule;
-import com.adkdevelopment.e_contact.ui.DetailFragment;
-import com.adkdevelopment.e_contact.MainActivity;
-import com.adkdevelopment.e_contact.ui.MainPresenter;
-import com.adkdevelopment.e_contact.ui.TasksFragment;
+import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 
-import dagger.Component;
+import com.adkdevelopment.e_contact.ui.base.BaseActivity;
 
-/**
- * This component inject dependencies to all Activities across the application
- * Created by karataev on 5/10/16.
- */
-@PerActivity
-@Component(dependencies = AppComponent.class, modules = ActivityModule.class)
-public interface ActivityComponent {
-    void injectFragment(TasksFragment tasksFragment);
-    void injectFragment(DetailFragment detailFragment);
-    void injectFragment(LoginFragment loginFragment);
-    void inject(MainActivity mainActivity);
-    void inject(MainPresenter mainPresenter);
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class LoginActivity extends BaseActivity {
+
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
+        ButterKnife.bind(this);
+
+        setSupportActionBar(mToolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+    }
 
 }

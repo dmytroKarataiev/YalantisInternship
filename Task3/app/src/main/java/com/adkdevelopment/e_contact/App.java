@@ -31,6 +31,7 @@ import com.adkdevelopment.e_contact.data.local.DatabaseRealm;
 import com.adkdevelopment.e_contact.injection.component.AppComponent;
 import com.adkdevelopment.e_contact.injection.component.DaggerAppComponent;
 import com.adkdevelopment.e_contact.injection.module.AppModule;
+import com.facebook.FacebookSdk;
 
 import javax.inject.Inject;
 
@@ -49,7 +50,7 @@ public class App extends Application {
         initAppComponent(this);
         getAppComponent().inject(this);
         mDatabaseRealm.setup();
-
+        FacebookSdk.sdkInitialize(this);
     }
 
     public static App get(Context context) {

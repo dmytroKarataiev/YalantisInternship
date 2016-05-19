@@ -26,6 +26,7 @@ package com.adkdevelopment.e_contact.injection;
 
 import com.adkdevelopment.e_contact.data.local.TaskRealm;
 import com.adkdevelopment.e_contact.data.model.TaskObject;
+import com.facebook.AccessToken;
 
 import java.util.List;
 
@@ -45,5 +46,9 @@ public interface DataRepository {
     Observable<List<TaskRealm>> findByState(int state);
 
     Observable<List<TaskRealm>> findByCategories(int state, Integer[] categories);
+
+    void saveToken(AccessToken accessToken);
+
+    AccessToken getToken();
 
 }

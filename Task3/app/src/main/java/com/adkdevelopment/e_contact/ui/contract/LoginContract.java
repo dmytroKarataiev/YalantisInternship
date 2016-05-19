@@ -22,29 +22,22 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact.injection.component;
+package com.adkdevelopment.e_contact.ui.contract;
 
-import com.adkdevelopment.e_contact.LoginFragment;
-import com.adkdevelopment.e_contact.injection.PerActivity;
-import com.adkdevelopment.e_contact.injection.module.ActivityModule;
-import com.adkdevelopment.e_contact.ui.DetailFragment;
-import com.adkdevelopment.e_contact.MainActivity;
-import com.adkdevelopment.e_contact.ui.MainPresenter;
-import com.adkdevelopment.e_contact.ui.TasksFragment;
-
-import dagger.Component;
+import com.adkdevelopment.e_contact.ui.base.MvpPresenter;
+import com.adkdevelopment.e_contact.ui.base.MvpView;
+import com.facebook.AccessToken;
 
 /**
- * This component inject dependencies to all Activities across the application
  * Created by karataev on 5/10/16.
  */
-@PerActivity
-@Component(dependencies = AppComponent.class, modules = ActivityModule.class)
-public interface ActivityComponent {
-    void injectFragment(TasksFragment tasksFragment);
-    void injectFragment(DetailFragment detailFragment);
-    void injectFragment(LoginFragment loginFragment);
-    void inject(MainActivity mainActivity);
-    void inject(MainPresenter mainPresenter);
+public class LoginContract {
+
+    public interface Presenter extends MvpPresenter<View> {
+        void saveToken(AccessToken accessToken);
+    }
+
+    public interface View extends MvpView {
+    }
 
 }

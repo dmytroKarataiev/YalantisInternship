@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<!--
   ~ MIT License
   ~
   ~ Copyright (c) 2016. Dmytro Karataiev
@@ -22,31 +22,19 @@
   ~ SOFTWARE.
   -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/padding_default"
+    tools:context=".LoginFragment"
+    tools:showIn="@layout/activity_login">
 
-    <group
-        android:id="@+id/menu_actions"
-        android:checkableBehavior="single">
-        <item
-            android:id="@+id/drawer_all"
-            android:icon="@drawable/ic_type_issues"
-            android:title="@string/drawer_item_all" />
-        <item
-            android:id="@+id/drawer_map"
-            android:icon="@drawable/ic_drawer_map"
-            android:title="@string/drawer_item_map" />
-    </group>
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
-    <group
-        android:id="@+id/menu_login"
-        android:checkableBehavior="none">
-        <item
-            android:id="@+id/login_button"
-            android:title="@string/drawer_item_login" />
-        <item
-            android:id="@+id/facebook_button"
-            android:title="Profile" />
-    </group>
-
-
-</menu>
+</RelativeLayout>

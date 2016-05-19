@@ -28,6 +28,7 @@ import com.adkdevelopment.e_contact.data.local.TaskRealm;
 import com.adkdevelopment.e_contact.data.model.TaskObject;
 import com.adkdevelopment.e_contact.data.remote.ApiService;
 import com.adkdevelopment.e_contact.injection.DataRepository;
+import com.facebook.AccessToken;
 
 import java.util.List;
 
@@ -97,7 +98,13 @@ public class DataManager {
                 return mDataRepository.addBulk(taskObjects);
             }
         });
+    }
 
+    public void saveAccessToken(AccessToken accessToken) {
+        mDataRepository.saveToken(accessToken);
+    }
 
+    public AccessToken getAccessToken() {
+        return mDataRepository.getToken();
     }
 }

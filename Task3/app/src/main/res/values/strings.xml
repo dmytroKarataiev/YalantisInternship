@@ -47,5 +47,17 @@
     <string name="dialog_select_all">Select all</string>
     <string name="dialog_select_none">Clear all</string>
     <string name="dialog_accept">OK</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Facebook strings TODO change to the real one -->
+    <!-- <string name="facebook_app_id">111</string> -->
+    <string-array name="facebook_permissions">
+        <item>public_profile</item>
+        <item>email</item>
+        <item>user_photos</item>
+        <item>user_birthday</item>
+    </string-array>
+
 
 </resources>

@@ -22,29 +22,51 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact.injection.component;
+package com.adkdevelopment.e_contact.data.local;
 
-import com.adkdevelopment.e_contact.LoginFragment;
-import com.adkdevelopment.e_contact.injection.PerActivity;
-import com.adkdevelopment.e_contact.injection.module.ActivityModule;
-import com.adkdevelopment.e_contact.ui.DetailFragment;
-import com.adkdevelopment.e_contact.MainActivity;
-import com.adkdevelopment.e_contact.ui.MainPresenter;
-import com.adkdevelopment.e_contact.ui.TasksFragment;
-
-import dagger.Component;
+import io.realm.RealmList;
+import io.realm.RealmObject;
 
 /**
- * This component inject dependencies to all Activities across the application
- * Created by karataev on 5/10/16.
+ * Cached profile from the Facebook
+ * Created by karataev on 5/19/16.
  */
-@PerActivity
-@Component(dependencies = AppComponent.class, modules = ActivityModule.class)
-public interface ActivityComponent {
-    void injectFragment(TasksFragment tasksFragment);
-    void injectFragment(DetailFragment detailFragment);
-    void injectFragment(LoginFragment loginFragment);
-    void inject(MainActivity mainActivity);
-    void inject(MainPresenter mainPresenter);
+public class ProfileRealm extends RealmObject {
 
+    private String name;
+    private String link;
+    private String id;
+    private RealmList<ProfilePhotosRealm> photos;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public RealmList<ProfilePhotosRealm> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(RealmList<ProfilePhotosRealm> photos) {
+        this.photos = photos;
+    }
 }

@@ -80,7 +80,7 @@ public class DetailFragment extends BaseFragment
     TextView mTaskResponsibleName;
     @BindView(R.id.my_recycler_view)
     RecyclerView mRecyclerView;
-    private Unbinder mUnbibder;
+    private Unbinder mUnbinder;
 
     // As per specification - each element (or button? or what?) should have an onClickListener
     // which shows a toast with element name
@@ -125,7 +125,7 @@ public class DetailFragment extends BaseFragment
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
-        mUnbibder = ButterKnife.bind(this, rootView);
+        mUnbinder = ButterKnife.bind(this, rootView);
 
         mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),
@@ -154,7 +154,7 @@ public class DetailFragment extends BaseFragment
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mUnbibder.unbind();
+        mUnbinder.unbind();
         mPresenter.detachView();
     }
 

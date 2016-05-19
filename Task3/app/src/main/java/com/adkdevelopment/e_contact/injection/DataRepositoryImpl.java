@@ -29,10 +29,14 @@ import android.util.Log;
 import com.adkdevelopment.e_contact.App;
 import com.adkdevelopment.e_contact.data.local.DatabaseRealm;
 import com.adkdevelopment.e_contact.data.local.TaskRealm;
+import com.adkdevelopment.e_contact.data.local.TokenRealm;
 import com.adkdevelopment.e_contact.data.model.TaskObject;
 import com.adkdevelopment.e_contact.utils.Utilities;
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenSource;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -89,6 +93,37 @@ public class DataRepositoryImpl implements DataRepository {
                 }
             }
         });
+    }
+
+    @Override
+    public AccessToken getToken() {
+
+        TokenRealm tokenRealm = mDatabaseRealm.getToken();
+
+        return new AccessToken(tokenRealm.getToken(),
+                tokenRealm.getAppId(),
+                tokenRealm.getUserId(),
+                tokenRealm.getPermissionsList(),
+                tokenRealm.getDeclinedPermissionsList(),
+                AccessTokenSource.valueOf(tokenRealm.getTokenSource()),
+                new Date(tokenRealm.getExpirationDate()),
+                new Date(tokenRealm.getLastRefreshTime()));
+    }
+
+    @Override
+    public void saveToken(AccessToken accessToken) {
+
+        TokenRealm tokenRealm = new TokenRealm();
+        tokenRealm.setAppId(accessToken.getApplicationId());
+        tokenRealm.setUserId(accessToken.getUserId());
+        tokenRealm.setToken(accessToken.getToken());
+        tokenRealm.setTokenSource(accessToken.getSource().toString());
+        tokenRealm.setPermissions(accessToken.getPermissions());
+        tokenRealm.setDeclinedPermissions(accessToken.getDeclinedPermissions());
+        tokenRealm.setExpirationDate(accessToken.getExpires().getTime());
+        tokenRealm.setLastRefreshTime(accessToken.getLastRefresh().getTime());
+        Log.d(TAG, "saveToken: ");
+        mDatabaseRealm.add(tokenRealm);
     }
 
     @Override

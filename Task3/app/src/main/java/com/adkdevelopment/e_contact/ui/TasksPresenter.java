@@ -155,4 +155,5 @@ public class TasksPresenter
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         getMvpView().requestUpdate();
     }
+
 }

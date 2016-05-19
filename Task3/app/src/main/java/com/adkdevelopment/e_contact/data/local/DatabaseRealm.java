@@ -127,4 +127,12 @@ public class DatabaseRealm {
 
     }
 
+    /**
+     * Returns first available token from the database
+     * @return token object
+     */
+    public TokenRealm getToken() {
+        return getRealmInstance().where(TokenRealm.class).findFirst();
+    }
+
 }
