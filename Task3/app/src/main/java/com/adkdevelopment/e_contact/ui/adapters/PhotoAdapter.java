@@ -31,6 +31,7 @@ import android.view.ViewGroup;
 
 import com.adkdevelopment.e_contact.R;
 import com.adkdevelopment.e_contact.data.local.PhotoRealm;
+import com.adkdevelopment.e_contact.data.local.ProfilePhotosRealm;
 import com.adkdevelopment.e_contact.interfaces.ItemClickListener;
 import com.adkdevelopment.e_contact.ui.viewholders.PhotoViewHolder;
 
@@ -44,6 +45,7 @@ import javax.inject.Inject;
 public class PhotoAdapter extends RecyclerView.Adapter<PhotoViewHolder> {
 
     private List<PhotoRealm> mPhotos;
+    private List<ProfilePhotosRealm> mProfilePhotos;
     private ItemClickListener<Integer, View> mListener;
 
     @Inject
@@ -54,6 +56,10 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoViewHolder> {
                           ItemClickListener<Integer, View> listener) {
         mPhotos = photos;
         mListener = listener;
+    }
+
+    public void setPhotos(List<ProfilePhotosRealm> photos) {
+        mProfilePhotos = photos;
     }
 
     @Override
@@ -67,20 +73,25 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoViewHolder> {
     @Override
     public void onBindViewHolder(final PhotoViewHolder viewHolder, int position) {
         final int pos = viewHolder.getAdapterPosition();
-        viewHolder.setData(mPhotos.get(position));
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mListener != null) {
-                    mListener.onItemClicked(pos,
-                            viewHolder.itemView.findViewById(R.id.task_image));
+
+        if (mPhotos != null) {
+            viewHolder.setData(mPhotos.get(position));
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mListener != null) {
+                        mListener.onItemClicked(pos,
+                                viewHolder.itemView.findViewById(R.id.task_image));
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            viewHolder.setData(mProfilePhotos.get(position));
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mPhotos == null ? 0 : mPhotos.size();
+        return mPhotos == null ? (mProfilePhotos == null) ? 0 : mProfilePhotos.size() : mPhotos.size();
     }
 }

@@ -28,6 +28,7 @@ import android.util.Log;
 
 import com.adkdevelopment.e_contact.App;
 import com.adkdevelopment.e_contact.data.contracts.Manager;
+import com.adkdevelopment.e_contact.data.local.ProfileRealm;
 import com.adkdevelopment.e_contact.data.local.TaskRealm;
 import com.adkdevelopment.e_contact.data.local.TokenRealm;
 import com.adkdevelopment.e_contact.data.model.TaskObject;
@@ -52,7 +53,8 @@ public class RealmManager implements Manager.RealmManager {
 
     private static final String TAG = RealmManager.class.getSimpleName();
 
-    @Inject DatabaseRealm mDatabaseRealm;
+    @Inject
+    DatabaseRealm mDatabaseRealm;
 
     public RealmManager() {
         App.getAppComponent().inject(this);
@@ -65,6 +67,23 @@ public class RealmManager implements Manager.RealmManager {
             public void call(Subscriber<? super TaskRealm> subscriber) {
                 try {
                     subscriber.onNext(mDatabaseRealm.add(Utilities.convertTask(model)));
+                    subscriber.onCompleted();
+                } catch (Exception e) {
+                    Log.e(TAG, "Error: " + e);
+                    subscriber.onError(e);
+                }
+            }
+        });
+    }
+
+    @Override
+    public Observable<Boolean> add(final ProfileRealm profileRealm) {
+        return Observable.create(new Observable.OnSubscribe<Boolean>() {
+            @Override
+            public void call(Subscriber<? super Boolean> subscriber) {
+                try {
+                    boolean added = mDatabaseRealm.add(profileRealm) != null;
+                    subscriber.onNext(added);
                     subscriber.onCompleted();
                 } catch (Exception e) {
                     Log.e(TAG, "Error: " + e);
@@ -100,6 +119,10 @@ public class RealmManager implements Manager.RealmManager {
 
         TokenRealm tokenRealm = mDatabaseRealm.getToken();
 
+        if (tokenRealm == null) {
+            return null;
+        }
+
         return new AccessToken(tokenRealm.getToken(),
                 tokenRealm.getAppId(),
                 tokenRealm.getUserId(),
@@ -108,6 +131,22 @@ public class RealmManager implements Manager.RealmManager {
                 AccessTokenSource.valueOf(tokenRealm.getTokenSource()),
                 new Date(tokenRealm.getExpirationDate()),
                 new Date(tokenRealm.getLastRefreshTime()));
+    }
+
+    @Override
+    public Observable<ProfileRealm> getProfile() {
+        return Observable.create(new Observable.OnSubscribe<ProfileRealm>() {
+            @Override
+            public void call(Subscriber<? super ProfileRealm> subscriber) {
+                try {
+                    subscriber.onNext(mDatabaseRealm.find(ProfileRealm.class));
+                    subscriber.onCompleted();
+                } catch (Exception e) {
+                    Log.e(TAG, "Error: " + e);
+                    subscriber.onError(e);
+                }
+            }
+        });
     }
 
     @Override

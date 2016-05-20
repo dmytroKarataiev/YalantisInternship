@@ -1,0 +1,119 @@
+<!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2016. Dmytro Karataiev
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/padding_default"
+    tools:context=".ui.ProfileFragment"
+    tools:showIn="@layout/activity_profile">
+
+    <TextView
+        android:id="@+id/profile_text_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Id:" />
+
+    <TextView
+        android:id="@+id/profile_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_toEndOf="@id/profile_text_id"
+        android:layout_toRightOf="@id/profile_text_id"
+        android:gravity="end"
+        android:text="1234321231" />
+
+    <View
+        android:id="@+id/divider1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/profile_id"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/profile_text_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider1"
+        android:text="User name:" />
+
+    <TextView
+        android:id="@+id/profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/divider1"
+        android:layout_toEndOf="@id/profile_text_name"
+        android:layout_toRightOf="@id/profile_text_name"
+        android:gravity="end"
+        android:text="Dmytro Karataiev" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/profile_name"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/profile_text_url"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider2"
+        android:text="Link to the profile:" />
+
+    <TextView
+        android:id="@+id/profile_url"
+        android:autoLink="web"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/divider2"
+        android:layout_toEndOf="@id/profile_text_url"
+        android:layout_toRightOf="@id/profile_text_url"
+        android:gravity="end"
+        android:text="http://www.facebook.com/" />
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/profile_url"
+        android:background="@android:color/darker_gray" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider3"
+        android:minHeight="@dimen/recycler_minheight"
+        android:paddingTop="@dimen/recycler_padding"
+        android:scrollbars="horizontal" />
+
+</RelativeLayout>

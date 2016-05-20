@@ -44,7 +44,7 @@
             android:id="@+id/login_button"
             android:title="@string/drawer_item_login" />
         <item
-            android:id="@+id/facebook_button"
+            android:id="@+id/profile_button"
             android:title="Profile" />
     </group>
 

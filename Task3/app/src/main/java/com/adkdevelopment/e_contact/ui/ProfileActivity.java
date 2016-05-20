@@ -22,49 +22,34 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact.data.local;
+package com.adkdevelopment.e_contact.ui;
 
-import io.realm.RealmObject;
+import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 
-/**
- * Created by karataev on 5/19/16.
- */
-public class ProfilePhotosRealm extends RealmObject {
+import com.adkdevelopment.e_contact.R;
+import com.adkdevelopment.e_contact.ui.base.BaseActivity;
 
-    private String description;
-    private String id;
-    private String createdTime;
-    private String url;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    public String getDescription() {
-        return description;
+public class ProfileActivity extends BaseActivity {
+
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_profile);
+
+        ButterKnife.bind(this);
+
+        setSupportActionBar(mToolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(String createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
 }

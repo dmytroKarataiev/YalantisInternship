@@ -26,16 +26,17 @@ package com.adkdevelopment.e_contact.data.local;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
- * Cached profile from the Facebook
+ * Cached profile from Facebook
  * Created by karataev on 5/19/16.
  */
 public class ProfileRealm extends RealmObject {
 
     private String name;
     private String link;
-    private String id;
+    @PrimaryKey private String id;
     private RealmList<ProfilePhotosRealm> photos;
 
     public String getName() {

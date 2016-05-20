@@ -22,49 +22,23 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact.data.local;
+package com.adkdevelopment.e_contact.ui.contract;
 
-import io.realm.RealmObject;
+import com.adkdevelopment.e_contact.data.local.ProfileRealm;
+import com.adkdevelopment.e_contact.ui.base.MvpPresenter;
+import com.adkdevelopment.e_contact.ui.base.MvpView;
 
 /**
- * Created by karataev on 5/19/16.
+ * Created by karataev on 5/10/16.
  */
-public class ProfilePhotosRealm extends RealmObject {
+public class ProfileContract {
 
-    private String description;
-    private String id;
-    private String createdTime;
-    private String url;
-
-    public String getDescription() {
-        return description;
+    public interface Presenter extends MvpPresenter<View> {
+        void getProfile();
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public interface View extends MvpView {
+        void showData(ProfileRealm profileRealm);
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(String createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
 }

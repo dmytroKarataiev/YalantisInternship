@@ -26,6 +26,7 @@ package com.adkdevelopment.e_contact.data.contracts;
 
 import android.content.SharedPreferences;
 
+import com.adkdevelopment.e_contact.data.local.ProfileRealm;
 import com.adkdevelopment.e_contact.data.local.TaskRealm;
 import com.adkdevelopment.e_contact.data.model.TaskObject;
 import com.facebook.AccessToken;
@@ -47,6 +48,8 @@ public interface Manager {
 
         Observable<TaskRealm> add(TaskObject model);
 
+        Observable<Boolean> add(ProfileRealm profileRealm);
+
         Observable<List<TaskRealm>> addBulk(List<TaskObject> list);
 
         Observable<List<TaskRealm>> findAll();
@@ -58,6 +61,8 @@ public interface Manager {
         void saveToken(AccessToken accessToken);
 
         AccessToken getToken();
+
+        Observable<ProfileRealm> getProfile();
 
     }
 
@@ -76,6 +81,10 @@ public interface Manager {
         void saveAccessToken(AccessToken accessToken);
 
         AccessToken getAccessToken();
+
+        Observable<ProfileRealm> getProfile();
+
+        Observable<Boolean> saveProfile(ProfileRealm profileRealm);
 
     }
 

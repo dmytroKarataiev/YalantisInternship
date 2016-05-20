@@ -95,6 +95,10 @@ public class DatabaseRealm {
         return getRealmInstance().where(clazz).findAll();
     }
 
+    public <T extends RealmObject> T find(Class<T> clazz) {
+        return getRealmInstance().where(clazz).findFirst();
+    }
+
     /**
      * Returns all matching objects to the query parameter
      * @param clazz which we are looking for

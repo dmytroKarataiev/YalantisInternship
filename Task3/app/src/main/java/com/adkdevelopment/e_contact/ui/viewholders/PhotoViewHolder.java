@@ -31,6 +31,7 @@ import android.widget.ProgressBar;
 
 import com.adkdevelopment.e_contact.R;
 import com.adkdevelopment.e_contact.data.local.PhotoRealm;
+import com.adkdevelopment.e_contact.data.local.ProfilePhotosRealm;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -53,9 +54,17 @@ public class PhotoViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void setData(PhotoRealm item) {
+    public void setData(Object item) {
+
+        String url;
+        if (item instanceof PhotoRealm) {
+            url = ((PhotoRealm) item).getImageUrl();
+        } else {
+            url = ((ProfilePhotosRealm) item).getUrl();
+        }
+
         Picasso.with(itemView.getContext())
-                .load(item.getImageUrl())
+                .load(url)
                 // to prevent OOM we scale images down
                 .resize(PhotoRealm.WIDTH_SCALE, PhotoRealm.HEIGHT_SCALE)
                 .onlyScaleDown()
@@ -75,4 +84,5 @@ public class PhotoViewHolder extends RecyclerView.ViewHolder {
         mTaskImage.setContentDescription(itemView.getContext()
                 .getString(R.string.task_image_text));
     }
+
 }

@@ -29,6 +29,7 @@ import com.adkdevelopment.e_contact.injection.PerActivity;
 import com.adkdevelopment.e_contact.injection.module.ActivityModule;
 import com.adkdevelopment.e_contact.ui.DetailFragment;
 import com.adkdevelopment.e_contact.ui.MainActivity;
+import com.adkdevelopment.e_contact.ui.ProfileFragment;
 import com.adkdevelopment.e_contact.ui.presenters.MainPresenter;
 import com.adkdevelopment.e_contact.ui.TasksFragment;
 
@@ -44,6 +45,7 @@ public interface ActivityComponent {
     void injectFragment(TasksFragment tasksFragment);
     void injectFragment(DetailFragment detailFragment);
     void injectFragment(LoginFragment loginFragment);
+    void injectFragment(ProfileFragment profileFragment);
     void inject(MainActivity mainActivity);
     void inject(MainPresenter mainPresenter);
 

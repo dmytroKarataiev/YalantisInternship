@@ -64,8 +64,6 @@ import butterknife.ButterKnife;
  */
 public class MainActivity extends BaseActivity implements MainContract.View {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
-
     @Inject MainPresenter mPresenter;
 
     @BindView(R.id.layout_drawer)
@@ -217,6 +215,9 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                     case R.id.login_button:
                         startActivity(new Intent(MainActivity.this, LoginActivity.class));
                         return true;
+                    case R.id.profile_button:
+                        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                        return true;
                     default:
                         item.setChecked(true);
                         mDrawerLayout.closeDrawers();
@@ -235,7 +236,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         drawerMenu.getItem(0).setChecked(true);
 
         // set correct visibility of we are logged in or logged out
-        MenuItem facebookProfile = drawerMenu.findItem(R.id.facebook_button);
+        MenuItem facebookProfile = drawerMenu.findItem(R.id.profile_button);
         MenuItem login = drawerMenu.findItem(R.id.login_button);
         if (facebookProfile != null) {
             if (AccessToken.getCurrentAccessToken() != null) {
@@ -297,5 +298,4 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         super.onDestroy();
         mPresenter.detachView();
     }
-
 }

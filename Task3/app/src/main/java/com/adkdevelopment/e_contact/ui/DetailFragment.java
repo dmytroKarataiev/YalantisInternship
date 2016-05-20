@@ -61,8 +61,7 @@ public class DetailFragment extends BaseFragment
         implements DetailContract.View, ItemClickListener<Integer, View> {
 
     @Inject PhotoAdapter mAdapter;
-    @Inject
-    DetailPresenter mPresenter;
+    @Inject DetailPresenter mPresenter;
 
     private OnFragmentInteraction mListener;
 
@@ -162,9 +161,6 @@ public class DetailFragment extends BaseFragment
 
     @Override
     public void showData(TaskRealm taskObject) {
-
-        // TODO: 5/17/16 log delete
-        Log.d("DetailFragment", "taskObject.getCategory():" + taskObject.getCategory());
 
         // Time parsing and creating a nice textual version (should be changed to Calendar)
         String dateCreated = Utilities.getFormattedDate(taskObject.getCreated());

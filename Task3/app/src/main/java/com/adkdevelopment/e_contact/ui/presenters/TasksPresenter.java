@@ -136,6 +136,7 @@ public class TasksPresenter
                         @Override
                         public void onError(Throwable e) {
                             Log.e(TAG, "Error: " + e);
+                            getData(query, true);
                         }
 
                         @Override

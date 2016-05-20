@@ -24,7 +24,10 @@
 
 package com.adkdevelopment.e_contact.data;
 
+import android.util.Log;
+
 import com.adkdevelopment.e_contact.data.contracts.Manager;
+import com.adkdevelopment.e_contact.data.local.ProfileRealm;
 import com.adkdevelopment.e_contact.data.local.TaskRealm;
 import com.adkdevelopment.e_contact.data.model.TaskObject;
 import com.adkdevelopment.e_contact.data.remote.ApiService;
@@ -45,22 +48,22 @@ import rx.functions.Func1;
 public class DataManager implements Manager.DataManager {
 
     private final ApiService mApiService;
-    private final Manager.RealmManager mDataRepository;
+    private final Manager.RealmManager mRealmManager;
 
     @Inject
-    public DataManager(ApiService apiService, Manager.RealmManager dataRepository) {
+    public DataManager(ApiService apiService, Manager.RealmManager realmManager) {
         mApiService = apiService;
-        mDataRepository = dataRepository;
+        mRealmManager = realmManager;
     }
 
     @Override
     public Observable<List<TaskRealm>> getTasks(int query) {
-        return mDataRepository.findByState(query);
+        return mRealmManager.findByState(query);
     }
 
     @Override
     public Observable<List<TaskRealm>> getTasks(int query, Integer[] categories) {
-        return mDataRepository.findByCategories(query, categories);
+        return mRealmManager.findByCategories(query, categories);
     }
 
     @Override
@@ -98,18 +101,35 @@ public class DataManager implements Manager.DataManager {
         return observableList.flatMap(new Func1<List<TaskObject>, Observable<List<TaskRealm>>>() {
             @Override
             public Observable<List<TaskRealm>> call(List<TaskObject> taskObjects) {
-                return mDataRepository.addBulk(taskObjects);
+                return mRealmManager.addBulk(taskObjects);
             }
         });
     }
 
     @Override
     public void saveAccessToken(AccessToken accessToken) {
-        mDataRepository.saveToken(accessToken);
+        mRealmManager.saveToken(accessToken);
     }
 
     @Override
     public AccessToken getAccessToken() {
-        return mDataRepository.getToken();
+        AccessToken accessToken = mRealmManager.getToken();
+        if (accessToken == null) {
+            accessToken = AccessToken.getCurrentAccessToken();
+            mRealmManager.saveToken(accessToken);
+        }
+        return accessToken;
     }
+
+    @Override
+    public Observable<ProfileRealm> getProfile() {
+        return mRealmManager.getProfile();
+    }
+
+    @Override
+    public Observable<Boolean> saveProfile(ProfileRealm profileRealm) {
+        return mRealmManager.add(profileRealm);
+    }
+
+
 }

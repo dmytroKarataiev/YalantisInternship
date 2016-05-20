@@ -27,23 +27,21 @@ package com.adkdevelopment.e_contact.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.adkdevelopment.e_contact.R;
-import com.adkdevelopment.e_contact.ui.presenters.LoginPresenter;
+import com.adkdevelopment.e_contact.data.local.ProfileRealm;
+import com.adkdevelopment.e_contact.ui.adapters.PhotoAdapter;
 import com.adkdevelopment.e_contact.ui.base.BaseFragment;
-import com.adkdevelopment.e_contact.ui.contract.LoginContract;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
-
-import java.util.Arrays;
-import java.util.List;
+import com.adkdevelopment.e_contact.ui.contract.ProfileContract;
+import com.adkdevelopment.e_contact.ui.presenters.ProfilePresenter;
 
 import javax.inject.Inject;
 
@@ -54,69 +52,57 @@ import butterknife.Unbinder;
 /**
  * Facebook Login fragment
  */
-public class LoginFragment extends BaseFragment implements LoginContract.View {
+public class ProfileFragment extends BaseFragment implements ProfileContract.View {
     
-    private static final String TAG = LoginFragment.class.getSimpleName();
+    private static final String TAG = ProfileFragment.class.getSimpleName();
 
-    @Inject LoginPresenter mPresenter;
+    @Inject ProfilePresenter mPresenter;
+    @Inject PhotoAdapter mAdapter;
 
-    @BindView(R.id.login_button)
-    LoginButton mButtonLogin;
+    @BindView(R.id.profile_id)
+    TextView mTextId;
+    @BindView(R.id.profile_name)
+    TextView mTextName;
+    @BindView(R.id.profile_url)
+    TextView mTextUrl;
+    @BindView(R.id.my_recycler_view)
+    RecyclerView mRecyclerView;
+
     private Unbinder mUnbinder;
-
-    private CallbackManager callbackManager;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        ((LoginActivity) getActivity()).getActivityComponent().injectFragment(this);
+        ((ProfileActivity) getActivity()).getActivityComponent().injectFragment(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_login, container, false);
-
-        mPresenter.attachView(this);
+        View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
 
         mUnbinder = ButterKnife.bind(this, rootView);
 
-        callbackManager = CallbackManager.Factory.create();
+        mRecyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),
+                LinearLayoutManager.HORIZONTAL, false);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setAdapter(mAdapter);
 
-        List<String> permissionNeeds = Arrays.asList(getResources().getStringArray(R.array.facebook_permissions));
-        mButtonLogin.setReadPermissions(permissionNeeds);
-
-        // If using in a fragment
-        mButtonLogin.setFragment(this);
-
-        // Callback registration
-        mButtonLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "onSuccess: ");
-                // Saving of a token to the database through presenter
-                mPresenter.saveToken(loginResult.getAccessToken());
-                getActivity().finish();
-            }
-
-            @Override
-            public void onCancel() {
-                Log.d(TAG, "onCancel: ");
-            }
-
-            @Override
-            public void onError(FacebookException exception) {
-                Log.d(TAG, "onError: ");
-            }
-        });
+        mPresenter.attachView(this);
 
         return rootView;
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mPresenter.getProfile();
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -126,4 +112,15 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
         mPresenter.detachView();
     }
 
+    @Override
+    public void showData(ProfileRealm profileRealm) {
+
+        mTextId.setText(profileRealm.getId());
+        mTextName.setText(profileRealm.getName());
+        mTextUrl.setText(profileRealm.getLink());
+        mTextUrl.setMovementMethod(LinkMovementMethod.getInstance());
+
+        mAdapter.setPhotos(profileRealm.getPhotos());
+        mAdapter.notifyDataSetChanged();
+    }
 }
