@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact;
+package com.adkdevelopment.e_contact.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -43,9 +43,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.adkdevelopment.e_contact.R;
 import com.adkdevelopment.e_contact.data.local.TaskRealm;
-import com.adkdevelopment.e_contact.ui.MainPresenter;
-import com.adkdevelopment.e_contact.ui.TasksFragment;
+import com.adkdevelopment.e_contact.ui.presenters.MainPresenter;
 import com.adkdevelopment.e_contact.ui.adapters.PagerAdapter;
 import com.adkdevelopment.e_contact.ui.base.BaseActivity;
 import com.adkdevelopment.e_contact.ui.contract.MainContract;

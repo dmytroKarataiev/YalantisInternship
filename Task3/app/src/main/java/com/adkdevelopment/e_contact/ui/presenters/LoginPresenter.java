@@ -22,33 +22,30 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact;
+package com.adkdevelopment.e_contact.ui.presenters;
 
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import com.adkdevelopment.e_contact.data.DataManager;
+import com.adkdevelopment.e_contact.ui.base.BaseMvpPresenter;
+import com.adkdevelopment.e_contact.ui.contract.LoginContract;
+import com.facebook.AccessToken;
 
-import com.adkdevelopment.e_contact.ui.base.BaseActivity;
+import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+/**
+ * Created by karataev on 5/10/16.
+ */
+public class LoginPresenter
+        extends BaseMvpPresenter<LoginContract.View> implements LoginContract.Presenter {
 
-public class LoginActivity extends BaseActivity {
+    private final DataManager mDataManager;
 
-    @BindView(R.id.toolbar) Toolbar mToolbar;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        ButterKnife.bind(this);
-
-        setSupportActionBar(mToolbar);
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-
+    @Inject
+    public LoginPresenter(DataManager dataManager) {
+        mDataManager = dataManager;
     }
 
+    @Override
+    public void saveToken(AccessToken accessToken) {
+        mDataManager.saveAccessToken(accessToken);
+    }
 }

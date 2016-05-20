@@ -29,12 +29,12 @@ import android.content.Context;
 
 import com.adkdevelopment.e_contact.App;
 import com.adkdevelopment.e_contact.data.DataManager;
-import com.adkdevelopment.e_contact.data.local.DatabaseRealm;
+import com.adkdevelopment.e_contact.data.DatabaseRealm;
+import com.adkdevelopment.e_contact.data.RealmManager;
 import com.adkdevelopment.e_contact.injection.ApplicationContext;
-import com.adkdevelopment.e_contact.injection.DataRepositoryImpl;
-import com.adkdevelopment.e_contact.injection.PrefsManager;
+import com.adkdevelopment.e_contact.data.PrefsManager;
 import com.adkdevelopment.e_contact.injection.module.AppModule;
-import com.adkdevelopment.e_contact.ui.MainPresenter;
+import com.adkdevelopment.e_contact.ui.presenters.MainPresenter;
 
 import javax.inject.Singleton;
 
@@ -49,7 +49,7 @@ public interface AppComponent {
 
     void inject(App app);
     void inject(DatabaseRealm databaseRealm);
-    void inject(DataRepositoryImpl dataRepository);
+    void inject(RealmManager dataRepository);
     void inject(MainPresenter mainPresenter);
 
     @ApplicationContext

@@ -22,30 +22,35 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact.ui;
+package com.adkdevelopment.e_contact.ui.presenters;
 
-import com.adkdevelopment.e_contact.data.DataManager;
+import com.adkdevelopment.e_contact.data.PrefsManager;
 import com.adkdevelopment.e_contact.ui.base.BaseMvpPresenter;
-import com.adkdevelopment.e_contact.ui.contract.LoginContract;
-import com.facebook.AccessToken;
+import com.adkdevelopment.e_contact.ui.contract.MainContract;
 
 import javax.inject.Inject;
 
 /**
  * Created by karataev on 5/10/16.
  */
-public class LoginPresenter
-        extends BaseMvpPresenter<LoginContract.View> implements LoginContract.Presenter {
+public class MainPresenter
+        extends BaseMvpPresenter<MainContract.View>
+        implements MainContract.Presenter {
 
-    private final DataManager mDataManager;
+    private PrefsManager mPreferenceManager;
 
     @Inject
-    public LoginPresenter(DataManager dataManager) {
-        mDataManager = dataManager;
+    public MainPresenter(PrefsManager preferenceManager) {
+        mPreferenceManager = preferenceManager;
     }
 
     @Override
-    public void saveToken(AccessToken accessToken) {
-        mDataManager.saveAccessToken(accessToken);
+    public void loadDialog() {
+        getMvpView().showDialog(mPreferenceManager.getFilterSelection());
+    }
+
+    @Override
+    public void saveDialog(Integer[] selection) {
+        mPreferenceManager.saveFilterSelection(selection);
     }
 }

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact;
+package com.adkdevelopment.e_contact.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -32,7 +32,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.adkdevelopment.e_contact.ui.LoginPresenter;
+import com.adkdevelopment.e_contact.R;
+import com.adkdevelopment.e_contact.ui.presenters.LoginPresenter;
 import com.adkdevelopment.e_contact.ui.base.BaseFragment;
 import com.adkdevelopment.e_contact.ui.contract.LoginContract;
 import com.facebook.CallbackManager;
@@ -93,6 +94,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "onSuccess: ");
+                // Saving of a token to the databasa through presenter
                 mPresenter.saveToken(loginResult.getAccessToken());
             }
 

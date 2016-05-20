@@ -53,7 +53,7 @@ public class TasksContract {
 
         void getData(List<TaskRealm> taskObjects);
 
-        void showTasks(boolean isEmpty);
+        void showEmpty();
 
         void showProgress(boolean isInProgress);
 

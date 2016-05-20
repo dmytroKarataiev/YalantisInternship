@@ -27,7 +27,7 @@ package com.adkdevelopment.e_contact;
 import android.app.Application;
 import android.content.Context;
 
-import com.adkdevelopment.e_contact.data.local.DatabaseRealm;
+import com.adkdevelopment.e_contact.data.DatabaseRealm;
 import com.adkdevelopment.e_contact.injection.component.AppComponent;
 import com.adkdevelopment.e_contact.injection.component.DaggerAppComponent;
 import com.adkdevelopment.e_contact.injection.module.AppModule;

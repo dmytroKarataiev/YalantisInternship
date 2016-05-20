@@ -24,33 +24,32 @@
 
 package com.adkdevelopment.e_contact.ui;
 
-import com.adkdevelopment.e_contact.injection.PrefsManager;
-import com.adkdevelopment.e_contact.ui.base.BaseMvpPresenter;
-import com.adkdevelopment.e_contact.ui.contract.MainContract;
+import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 
-import javax.inject.Inject;
+import com.adkdevelopment.e_contact.R;
+import com.adkdevelopment.e_contact.ui.base.BaseActivity;
 
-/**
- * Created by karataev on 5/10/16.
- */
-public class MainPresenter
-        extends BaseMvpPresenter<MainContract.View>
-        implements MainContract.Presenter {
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    private PrefsManager mPreferenceManager;
+public class LoginActivity extends BaseActivity {
 
-    @Inject
-    public MainPresenter(PrefsManager preferenceManager) {
-        mPreferenceManager = preferenceManager;
-    }
+    @BindView(R.id.toolbar) Toolbar mToolbar;
 
     @Override
-    public void loadDialog() {
-        getMvpView().showDialog(mPreferenceManager.getFilterSelection());
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
+        ButterKnife.bind(this);
+
+        setSupportActionBar(mToolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
     }
 
-    @Override
-    public void saveDialog(Integer[] selection) {
-        mPreferenceManager.saveFilterSelection(selection);
-    }
 }

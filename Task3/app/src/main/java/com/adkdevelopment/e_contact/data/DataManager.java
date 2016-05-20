@@ -24,10 +24,10 @@
 
 package com.adkdevelopment.e_contact.data;
 
+import com.adkdevelopment.e_contact.data.contracts.Manager;
 import com.adkdevelopment.e_contact.data.local.TaskRealm;
 import com.adkdevelopment.e_contact.data.model.TaskObject;
 import com.adkdevelopment.e_contact.data.remote.ApiService;
-import com.adkdevelopment.e_contact.injection.DataRepository;
 import com.facebook.AccessToken;
 
 import java.util.List;
@@ -42,25 +42,28 @@ import rx.functions.Func1;
  * Created by karataev on 5/10/16.
  */
 @Singleton
-public class DataManager {
+public class DataManager implements Manager.DataManager {
 
     private final ApiService mApiService;
-    private final DataRepository mDataRepository;
+    private final Manager.RealmManager mDataRepository;
 
     @Inject
-    public DataManager(ApiService apiService, DataRepository dataRepository) {
+    public DataManager(ApiService apiService, Manager.RealmManager dataRepository) {
         mApiService = apiService;
         mDataRepository = dataRepository;
     }
 
+    @Override
     public Observable<List<TaskRealm>> getTasks(int query) {
         return mDataRepository.findByState(query);
     }
 
+    @Override
     public Observable<List<TaskRealm>> getTasks(int query, Integer[] categories) {
         return mDataRepository.findByCategories(query, categories);
     }
 
+    @Override
     public Observable<List<TaskRealm>> fetchTasks(final int status, int page, int offset) {
 
         String query = "";
@@ -100,10 +103,12 @@ public class DataManager {
         });
     }
 
+    @Override
     public void saveAccessToken(AccessToken accessToken) {
         mDataRepository.saveToken(accessToken);
     }
 
+    @Override
     public AccessToken getAccessToken() {
         return mDataRepository.getToken();
     }

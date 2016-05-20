@@ -29,11 +29,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.adkdevelopment.e_contact.data.local.DatabaseRealm;
+import com.adkdevelopment.e_contact.data.DatabaseRealm;
+import com.adkdevelopment.e_contact.data.RealmManager;
+import com.adkdevelopment.e_contact.data.contracts.Manager;
 import com.adkdevelopment.e_contact.data.remote.ApiService;
 import com.adkdevelopment.e_contact.injection.ApplicationContext;
-import com.adkdevelopment.e_contact.injection.DataRepository;
-import com.adkdevelopment.e_contact.injection.DataRepositoryImpl;
 
 import javax.inject.Singleton;
 
@@ -78,8 +78,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    DataRepository providesDataRepository() {
-        return new DataRepositoryImpl();
+    Manager.RealmManager providesRealmManager() {
+        return new RealmManager();
     }
 
     @Provides

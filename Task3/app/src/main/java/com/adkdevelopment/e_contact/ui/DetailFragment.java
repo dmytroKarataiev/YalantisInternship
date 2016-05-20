@@ -44,6 +44,7 @@ import com.adkdevelopment.e_contact.interfaces.ItemClickListener;
 import com.adkdevelopment.e_contact.ui.adapters.PhotoAdapter;
 import com.adkdevelopment.e_contact.ui.base.BaseFragment;
 import com.adkdevelopment.e_contact.ui.contract.DetailContract;
+import com.adkdevelopment.e_contact.ui.presenters.DetailPresenter;
 import com.adkdevelopment.e_contact.utils.Utilities;
 
 import javax.inject.Inject;
@@ -60,7 +61,8 @@ public class DetailFragment extends BaseFragment
         implements DetailContract.View, ItemClickListener<Integer, View> {
 
     @Inject PhotoAdapter mAdapter;
-    @Inject DetailPresenter mPresenter;
+    @Inject
+    DetailPresenter mPresenter;
 
     private OnFragmentInteraction mListener;
 

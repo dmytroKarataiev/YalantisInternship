@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact.ui;
+package com.adkdevelopment.e_contact.ui.presenters;
 
 import android.content.Intent;
 

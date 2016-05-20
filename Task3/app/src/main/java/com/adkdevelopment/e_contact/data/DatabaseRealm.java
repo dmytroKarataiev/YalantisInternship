@@ -22,12 +22,14 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact.data.local;
+package com.adkdevelopment.e_contact.data;
 
 import android.content.Context;
 
 import com.adkdevelopment.e_contact.App;
 import com.adkdevelopment.e_contact.R;
+import com.adkdevelopment.e_contact.data.local.TaskRealm;
+import com.adkdevelopment.e_contact.data.local.TokenRealm;
 import com.adkdevelopment.e_contact.injection.ApplicationContext;
 
 import java.util.ArrayList;
@@ -41,6 +43,7 @@ import io.realm.RealmObject;
 import io.realm.RealmResults;
 
 /**
+ * Database class
  * Created by karataev on 5/11/16.
  */
 public class DatabaseRealm {
@@ -55,6 +58,10 @@ public class DatabaseRealm {
         App.getAppComponent().inject(this);
     }
 
+    /**
+     * Sets up database, deletes on changes.
+     * We can possibly improve this part by adding migration rules in the production-ready app.
+     */
     public void setup() {
         if (realmConfiguration == null) {
             realmConfiguration = new RealmConfiguration.Builder(mContext)
@@ -78,10 +85,23 @@ public class DatabaseRealm {
         return model;
     }
 
+    /**
+     * Returns all objects matching to the class parameter
+     * @param clazz class of the object
+     * @param <T> type of of the object
+     * @return all matching elements
+     */
     public <T extends RealmObject> List<T> findAll(Class<T> clazz) {
         return getRealmInstance().where(clazz).findAll();
     }
 
+    /**
+     * Returns all matching objects to the query parameter
+     * @param clazz which we are looking for
+     * @param state of the object accroding to the schema
+     * @param <T> type of the object
+     * @return all objects of the specified state
+     */
     public <T extends RealmObject> List<T> findByState(Class<T> clazz, int state) {
         switch (state) {
             case TaskRealm.STATE_PROGRESS:
@@ -117,7 +137,7 @@ public class DatabaseRealm {
         RealmResults<TaskRealm> realmList = (RealmResults<TaskRealm>) findByState(TaskRealm.class, state);
         List<TaskRealm> arrayList = new ArrayList<>();
 
-        // maps indeces to the correct categories according to the db schema
+        // maps indices to the correct categories according to the db schema
         String[] mapCategories = mContext.getString(R.string.filter_map).split(", ");
         for (int each : categories) {
             arrayList.addAll(realmList.where().equalTo(TaskRealm.CATEGORY, Integer.valueOf(mapCategories[each])).findAll());

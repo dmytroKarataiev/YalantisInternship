@@ -22,12 +22,12 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact.injection;
+package com.adkdevelopment.e_contact.data;
 
 import android.util.Log;
 
 import com.adkdevelopment.e_contact.App;
-import com.adkdevelopment.e_contact.data.local.DatabaseRealm;
+import com.adkdevelopment.e_contact.data.contracts.Manager;
 import com.adkdevelopment.e_contact.data.local.TaskRealm;
 import com.adkdevelopment.e_contact.data.local.TokenRealm;
 import com.adkdevelopment.e_contact.data.model.TaskObject;
@@ -48,13 +48,13 @@ import rx.Subscriber;
 /**
  * Created by karataev on 5/12/16.
  */
-public class DataRepositoryImpl implements DataRepository {
+public class RealmManager implements Manager.RealmManager {
 
-    private static final String TAG = DataRepositoryImpl.class.getSimpleName();
+    private static final String TAG = RealmManager.class.getSimpleName();
 
     @Inject DatabaseRealm mDatabaseRealm;
 
-    public DataRepositoryImpl() {
+    public RealmManager() {
         App.getAppComponent().inject(this);
     }
 
@@ -122,7 +122,6 @@ public class DataRepositoryImpl implements DataRepository {
         tokenRealm.setDeclinedPermissions(accessToken.getDeclinedPermissions());
         tokenRealm.setExpirationDate(accessToken.getExpires().getTime());
         tokenRealm.setLastRefreshTime(accessToken.getLastRefresh().getTime());
-        Log.d(TAG, "saveToken: ");
         mDatabaseRealm.add(tokenRealm);
     }
 

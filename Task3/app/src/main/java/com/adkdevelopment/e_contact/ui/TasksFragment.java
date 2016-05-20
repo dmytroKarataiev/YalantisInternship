@@ -37,13 +37,13 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.adkdevelopment.e_contact.MainActivity;
 import com.adkdevelopment.e_contact.R;
 import com.adkdevelopment.e_contact.data.local.TaskRealm;
 import com.adkdevelopment.e_contact.interfaces.ItemClickListener;
 import com.adkdevelopment.e_contact.ui.adapters.TasksAdapter;
 import com.adkdevelopment.e_contact.ui.base.BaseFragment;
 import com.adkdevelopment.e_contact.ui.contract.TasksContract;
+import com.adkdevelopment.e_contact.ui.presenters.TasksPresenter;
 
 import java.util.List;
 
@@ -63,7 +63,8 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
     private static final String ARG_SECTION_NUMBER = "section_number";
     private static final String ARG_SECTION_STATE = "section_state";
 
-    @Inject TasksPresenter mPresenter;
+    @Inject
+    TasksPresenter mPresenter;
     @Inject TasksAdapter mAdapter;
 
     @BindView(R.id.recyclerview)
@@ -177,14 +178,12 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
     }
 
     @Override
-    public void showTasks(boolean isEmpty) {
-        Log.d(TAG, "showTasks: " + isEmpty);
-        if (isEmpty) {
-            mListEmpty.setText(getString(R.string.recyclerview_empty_text));
-            mListEmpty.setVisibility(View.VISIBLE);
-            mAdapter.setTasks(null, null);
-            mAdapter.notifyDataSetChanged();
-        }
+    public void showEmpty() {
+        Log.d(TAG, "showEmpty: ");
+        mListEmpty.setText(getString(R.string.recyclerview_empty_text));
+        mListEmpty.setVisibility(View.VISIBLE);
+        mAdapter.setTasks(null, null);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -214,7 +213,6 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
         startActivity(intent);
     }
 
-    // TODO: 5/17/16 make nice
     @Override
     public void requestUpdate() {
         mPresenter.fetchData(getArguments().getInt(ARG_SECTION_NUMBER),

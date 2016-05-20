@@ -22,13 +22,15 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact.injection;
+package com.adkdevelopment.e_contact.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.adkdevelopment.e_contact.R;
+import com.adkdevelopment.e_contact.data.contracts.Manager;
+import com.adkdevelopment.e_contact.injection.ApplicationContext;
 
 import java.util.Arrays;
 
@@ -36,11 +38,11 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
- * SharedPrefences manager as a Singleton
+ * SharedPreferences manager as a Singleton
  * Created by karataev on 5/15/16.
  */
 @Singleton
-public class PrefsManager {
+public class PrefsManager implements Manager.PrefsManager {
 
     private final SharedPreferences mPref;
     private Context mContext;
@@ -51,6 +53,7 @@ public class PrefsManager {
         mContext = context;
     }
 
+    @Override
     public void clear() {
         mPref.edit().clear().apply();
     }
@@ -71,6 +74,7 @@ public class PrefsManager {
      * convertion to the Integer[] array
      * @return Integer[] array of checked elements in a multichoice dialog
      */
+    @Override
     public Integer[] getFilterSelection() {
         String selection = mPref.getString(mContext.getString(R.string.sharedprefs_selection),
                 mContext.getString(R.string.filter_all));
@@ -87,6 +91,7 @@ public class PrefsManager {
         return selectionArray;
     }
 
+    @Override
     public SharedPreferences getSharedPrefs() {
         return mPref;
     }

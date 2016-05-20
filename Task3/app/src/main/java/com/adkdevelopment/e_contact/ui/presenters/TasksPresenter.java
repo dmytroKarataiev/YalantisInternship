@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact.ui;
+package com.adkdevelopment.e_contact.ui.presenters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -31,7 +31,7 @@ import android.util.Log;
 import com.adkdevelopment.e_contact.data.DataManager;
 import com.adkdevelopment.e_contact.data.local.TaskRealm;
 import com.adkdevelopment.e_contact.injection.ApplicationContext;
-import com.adkdevelopment.e_contact.injection.PrefsManager;
+import com.adkdevelopment.e_contact.data.PrefsManager;
 import com.adkdevelopment.e_contact.ui.base.BaseMvpPresenter;
 import com.adkdevelopment.e_contact.ui.contract.TasksContract;
 import com.adkdevelopment.e_contact.utils.Utilities;
@@ -101,7 +101,7 @@ public class TasksPresenter
                     @Override
                     public void onNext(List<TaskRealm> taskRealms) {
                         if (taskRealms.isEmpty()) {
-                            getMvpView().showTasks(true);
+                            getMvpView().showEmpty();
                         } else {
                             if (isReplace) {
                                 getMvpView().getData(taskRealms);
