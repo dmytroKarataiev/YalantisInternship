@@ -45,10 +45,11 @@ import android.widget.Toast;
 
 import com.adkdevelopment.e_contact.R;
 import com.adkdevelopment.e_contact.data.local.TaskRealm;
-import com.adkdevelopment.e_contact.ui.presenters.MainPresenter;
 import com.adkdevelopment.e_contact.ui.adapters.PagerAdapter;
 import com.adkdevelopment.e_contact.ui.base.BaseActivity;
 import com.adkdevelopment.e_contact.ui.contract.MainContract;
+import com.adkdevelopment.e_contact.ui.presenters.MainPresenter;
+import com.adkdevelopment.e_contact.utils.Utilities;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.AccessToken;
@@ -206,9 +207,9 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                 switch (item.getItemId()) {
                     case R.id.drawer_map:
                         // TODO: 5/13/16 add MapsActivity
-                        if ("main".equals("maintain)"/* Utilities.checkPlayServices(PagerActivity.this) */)) {
-                            //Intent intent = new Intent(PagerActivity.this, MapsActivity.class);
-                            //startActivity(intent);
+                        if (Utilities.checkPlayServices(MainActivity.this)) {
+                            Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                            startActivity(intent);
                         }
                         mDrawerLayout.closeDrawers();
                         return false;

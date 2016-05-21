@@ -24,6 +24,7 @@
 
 package com.adkdevelopment.e_contact.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -37,6 +38,8 @@ import com.adkdevelopment.e_contact.data.local.TaskRealm;
 import com.adkdevelopment.e_contact.data.model.TaskAddress;
 import com.adkdevelopment.e_contact.data.model.TaskFile;
 import com.adkdevelopment.e_contact.data.model.TaskObject;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -220,6 +223,25 @@ public class Utilities {
             return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
         }
         return false;
+    }
+
+    /**
+     * Returns true if Google Play Services available on the phone,
+     * otherwise tries to ask user to install it
+     * @param activity from which call is made
+     * @return true if present, false otherwise
+     */
+    public static boolean checkPlayServices(Activity activity) {
+        int result = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(activity);
+        if (result != ConnectionResult.SUCCESS) {
+            if (GoogleApiAvailability.getInstance().isUserResolvableError(result)) {
+                GoogleApiAvailability.getInstance().getErrorDialog(activity, result, 0).show();
+            } else {
+                Log.e(TAG, "PlayServices not available");
+            }
+            return false;
+        }
+        return true;
     }
 
 }

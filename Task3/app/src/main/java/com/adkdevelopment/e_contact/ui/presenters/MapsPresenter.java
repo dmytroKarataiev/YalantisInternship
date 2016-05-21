@@ -22,33 +22,28 @@
  * SOFTWARE.
  */
 
-package com.adkdevelopment.e_contact.injection.component;
+package com.adkdevelopment.e_contact.ui.presenters;
 
-import com.adkdevelopment.e_contact.ui.LoginFragment;
-import com.adkdevelopment.e_contact.injection.PerActivity;
-import com.adkdevelopment.e_contact.injection.module.ActivityModule;
-import com.adkdevelopment.e_contact.ui.DetailFragment;
-import com.adkdevelopment.e_contact.ui.MainActivity;
-import com.adkdevelopment.e_contact.ui.MapsActivity;
-import com.adkdevelopment.e_contact.ui.ProfileFragment;
-import com.adkdevelopment.e_contact.ui.presenters.MainPresenter;
-import com.adkdevelopment.e_contact.ui.TasksFragment;
+import android.content.Intent;
 
-import dagger.Component;
+import com.adkdevelopment.e_contact.ui.base.BaseMvpPresenter;
+import com.adkdevelopment.e_contact.ui.contract.MapsContract;
+
+import javax.inject.Inject;
 
 /**
- * This component inject dependencies to all Activities across the application
  * Created by karataev on 5/10/16.
  */
-@PerActivity
-@Component(dependencies = AppComponent.class, modules = ActivityModule.class)
-public interface ActivityComponent {
-    void injectFragment(TasksFragment tasksFragment);
-    void injectFragment(DetailFragment detailFragment);
-    void injectFragment(LoginFragment loginFragment);
-    void injectFragment(ProfileFragment profileFragment);
-    void inject(MainActivity mainActivity);
-    void inject(MapsActivity mapsActivity);
-    void inject(MainPresenter mainPresenter);
+public class MapsPresenter
+        extends BaseMvpPresenter<MapsContract.View>
+        implements MapsContract.Presenter {
 
+    @Inject
+    public MapsPresenter() {
+    }
+
+    @Override
+    public void loadMarkers(Intent intent) {
+        getMvpView().showMarkers();
+    }
 }

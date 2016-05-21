@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">E-Contact</string>
     <string name="recyclerview_empty_text">Oops! Something is wrong. Please check your internet connection and try again.</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="map_marker">Marker in Dnipro</string>
 
     <!-- Navigation Drawer Strings -->
     <string name="drawer_title">@string/app_name</string>
@@ -58,6 +60,9 @@
         <item>user_photos</item>
         <item>user_birthday</item>
     </string-array>
+
+    <!-- Google maps todo key -->
+    <!-- <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">DUMMY_KEY</string> -->
 
 
 </resources>
