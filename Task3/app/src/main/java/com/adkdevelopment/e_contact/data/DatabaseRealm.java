@@ -99,6 +99,10 @@ public class DatabaseRealm {
         return getRealmInstance().where(clazz).findFirst();
     }
 
+    public <T extends RealmObject> List<T> findCoords(Class<T> clazz) {
+        return getRealmInstance().where(clazz).greaterThan(TaskRealm.LATITUDE, 0.0).findAll();
+    }
+
     /**
      * Returns all matching objects to the query parameter
      * @param clazz which we are looking for

@@ -58,6 +58,8 @@ public interface Manager {
 
         Observable<List<TaskRealm>> findByCategories(int state, Integer[] categories);
 
+        Observable<List<TaskRealm>> findAllGeo();
+
         void saveToken(AccessToken accessToken);
 
         AccessToken getToken();
@@ -85,6 +87,8 @@ public interface Manager {
         Observable<ProfileRealm> getProfile();
 
         Observable<Boolean> saveProfile(ProfileRealm profileRealm);
+
+        Observable<List<TaskRealm>> getTaskMarkers();
 
     }
 

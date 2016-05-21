@@ -26,8 +26,11 @@ package com.adkdevelopment.e_contact.ui.contract;
 
 import android.content.Intent;
 
+import com.adkdevelopment.e_contact.data.local.TaskRealm;
 import com.adkdevelopment.e_contact.ui.base.MvpPresenter;
 import com.adkdevelopment.e_contact.ui.base.MvpView;
+
+import java.util.List;
 
 /**
  * Created by karataev on 5/10/16.
@@ -39,7 +42,9 @@ public class MapsContract {
     }
 
     public interface View extends MvpView {
-        void showMarkers();
+        void showMarker(Intent intent);
+
+        void showMarkers(List<TaskRealm> realmList);
     }
 
 }

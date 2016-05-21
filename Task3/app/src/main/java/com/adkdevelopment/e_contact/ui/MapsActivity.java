@@ -24,11 +24,13 @@
 
 package com.adkdevelopment.e_contact.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.adkdevelopment.e_contact.R;
+import com.adkdevelopment.e_contact.data.local.TaskRealm;
 import com.adkdevelopment.e_contact.ui.base.BaseActivity;
 import com.adkdevelopment.e_contact.ui.contract.MapsContract;
 import com.adkdevelopment.e_contact.ui.presenters.MapsPresenter;
@@ -39,6 +41,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -56,6 +60,7 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Ma
     Toolbar mToolbar;
 
     private GoogleMap mGoogleMap;
+    public static final int ZOOM_DEFAULT = 12;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +92,7 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Ma
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
-        mPresenter.loadMarkers(null);
+        mPresenter.loadMarkers(getIntent());
     }
 
     @Override
@@ -106,20 +111,40 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Ma
     }
 
     @Override
-    public void showMarkers() {
+    public void showMarker(Intent intent) {
         // TODO: 5/21/16 add more markers if started from a drawer or show 1 marker if come from Detail Activity 
         // Add a marker in Dnipro (Yalantis office) and move the camera
         LatLng dnipr = new LatLng(48.4517867, 35.0669826);
-        int defaultZoom = 12;
 
         mGoogleMap.addMarker(new MarkerOptions().position(dnipr).title(getString(R.string.map_marker)));
 
         CameraPosition cameraPosition = CameraPosition.builder()
                 .target(dnipr)
-                .zoom(defaultZoom)
+                .zoom(ZOOM_DEFAULT)
                 .build();
 
         mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+    }
+
+    @Override
+    public void showMarkers(List<TaskRealm> realmList) {
+        // TODO: 5/21/16 add links to markers 
+        for (TaskRealm each : realmList) {
+            LatLng latLng = new LatLng(each.getLatitude(), each.getLongitude());
+            mGoogleMap.addMarker(new MarkerOptions().position(latLng).title(each.getTitle()));
+        }
+
+        if (realmList.size() > 0) {
+            LatLng position = new LatLng(realmList.get(0).getLatitude(),
+                    realmList.get(0).getLongitude());
+
+            CameraPosition cameraPosition = CameraPosition.builder()
+                    .target(position)
+                    .zoom(ZOOM_DEFAULT)
+                    .build();
+
+            mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        }
     }
 
     @Override

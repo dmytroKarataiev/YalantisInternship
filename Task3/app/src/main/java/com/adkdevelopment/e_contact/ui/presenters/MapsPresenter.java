@@ -25,11 +25,19 @@
 package com.adkdevelopment.e_contact.ui.presenters;
 
 import android.content.Intent;
+import android.util.Log;
 
+import com.adkdevelopment.e_contact.data.DataManager;
+import com.adkdevelopment.e_contact.data.local.TaskRealm;
 import com.adkdevelopment.e_contact.ui.base.BaseMvpPresenter;
 import com.adkdevelopment.e_contact.ui.contract.MapsContract;
 
+import java.util.List;
+
 import javax.inject.Inject;
+
+import rx.Subscriber;
+import rx.Subscription;
 
 /**
  * Created by karataev on 5/10/16.
@@ -38,12 +46,44 @@ public class MapsPresenter
         extends BaseMvpPresenter<MapsContract.View>
         implements MapsContract.Presenter {
 
+    private final DataManager mDataManager;
+    private Subscription mSubscription;
+
     @Inject
-    public MapsPresenter() {
+    public MapsPresenter(DataManager dataManager) {
+        mDataManager = dataManager;
     }
 
     @Override
     public void loadMarkers(Intent intent) {
-        getMvpView().showMarkers();
+        // TODO: 5/21/16 fix intent extra 
+        if (!intent.hasExtra("marker")) {
+            mSubscription = mDataManager.getTaskMarkers().subscribe(new Subscriber<List<TaskRealm>>() {
+                @Override
+                public void onCompleted() {
+
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    Log.d("MapsPresenter", "e:" + e);
+                }
+
+                @Override
+                public void onNext(List<TaskRealm> taskRealms) {
+                    getMvpView().showMarkers(taskRealms);
+                }
+            });
+        } else {
+            getMvpView().showMarker(intent);
+        }
+    }
+
+    @Override
+    public void detachView() {
+        super.detachView();
+        if (mSubscription != null) {
+            mSubscription.unsubscribe();
+        }
     }
 }

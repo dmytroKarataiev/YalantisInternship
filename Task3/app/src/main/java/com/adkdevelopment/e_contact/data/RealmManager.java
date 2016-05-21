@@ -226,4 +226,21 @@ public class RealmManager implements Manager.RealmManager {
         });
     }
 
+    @Override
+    public Observable<List<TaskRealm>> findAllGeo() {
+        return Observable.create(new Observable.OnSubscribe<List<TaskRealm>>() {
+            @Override
+            public void call(Subscriber<? super List<TaskRealm>> subscriber) {
+                try {
+                    List<TaskRealm> list = mDatabaseRealm.findCoords(TaskRealm.class);
+
+                    subscriber.onNext(list);
+                    subscriber.onCompleted();
+                } catch (Exception e) {
+                    subscriber.onError(e);
+                }
+            }
+        });
+    }
+
 }

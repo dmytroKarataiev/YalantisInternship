@@ -24,8 +24,6 @@
 
 package com.adkdevelopment.e_contact.data;
 
-import android.util.Log;
-
 import com.adkdevelopment.e_contact.data.contracts.Manager;
 import com.adkdevelopment.e_contact.data.local.ProfileRealm;
 import com.adkdevelopment.e_contact.data.local.TaskRealm;
@@ -129,6 +127,11 @@ public class DataManager implements Manager.DataManager {
     @Override
     public Observable<Boolean> saveProfile(ProfileRealm profileRealm) {
         return mRealmManager.add(profileRealm);
+    }
+
+    @Override
+    public Observable<List<TaskRealm>> getTaskMarkers() {
+        return mRealmManager.findAllGeo();
     }
 
 

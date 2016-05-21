@@ -41,6 +41,7 @@ public class TaskRealm extends RealmObject implements Parcelable {
 
     public static final String STATE = "status";
     public static final String CATEGORY = "category";
+    public static final String LATITUDE = "latitude";
 
     public static final int STATE_PROGRESS = 0;
     public static final int STATE_DONE = 1;
