@@ -25,6 +25,7 @@
 package com.adkdevelopment.e_contact.ui.presenters;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.adkdevelopment.e_contact.data.DataManager;
@@ -51,13 +52,27 @@ import rx.subscriptions.CompositeSubscription;
  * Created by karataev on 5/10/16.
  */
 public class ProfilePresenter
-        extends BaseMvpPresenter<ProfileContract.View> implements ProfileContract.Presenter {
+        extends BaseMvpPresenter<ProfileContract.View>
+        implements ProfileContract.Presenter {
 
     private static final String TAG = ProfilePresenter.class.getSimpleName();
 
     private final DataManager mDataManager;
     private AccessToken mAccessToken;
     private CompositeSubscription mSubscription;
+
+    public static final String RESP_ID = "id";
+    public static final String RESP_NAME = "name";
+    public static final String RESP_LINK = "link";
+    public static final String RESP_DATA = "data";
+    public static final String RESP_PICTURE = "picture";
+    public static final String RESP_IMAGE = "images";
+    public static final String RESP_SOURCE = "source";
+    public static final String RESP_URL = "url";
+    public static final String RESP_CREATED = "created_time";
+
+    public static final String PARAM_FIELDS = "fields";
+    public static final String PARAM_PHOTOS = "/photos";
 
     @Inject
     public ProfilePresenter(DataManager dataManager) {
@@ -76,34 +91,36 @@ public class ProfilePresenter
     @Override
     public void getProfile() {
         checkViewAttached();
-        //mAccessToken = mDataManager.getAccessToken();
-        //Log.d(TAG, mAccessToken.getToken());
+
         // get data from the database
-        mSubscription.add(mDataManager.getProfile().subscribe(new Subscriber<ProfileRealm>() {
-            @Override
-            public void onCompleted() {
-            }
+        mSubscription.add(mDataManager.getProfile()
+                .subscribe(new Subscriber<ProfileRealm>() {
+                    @Override
+                    public void onCompleted() {
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-                Log.e(TAG, "Error: " + e);
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "Error: " + e);
+                    }
 
-            @Override
-            public void onNext(ProfileRealm profileRealm) {
-                if (profileRealm == null) {
-                    // load data from the internet
-                    mAccessToken = mDataManager.getAccessToken();
-                    getUser();
-                } else {
-                    getMvpView().showData(profileRealm);
-                }
-            }
-        }));
-
+                    @Override
+                    public void onNext(ProfileRealm profileRealm) {
+                        if (profileRealm == null) {
+                            // load data from the internet
+                            mAccessToken = mDataManager.getAccessToken();
+                            getUser();
+                        } else {
+                            getMvpView().showData(profileRealm);
+                        }
+                    }
+                }));
     }
 
-    // TODO: 5/20/16 refactor add GSON
+    /**
+     * Gets profile information from Facebook API
+     * and calls getPhotos to retrieve photos from this profile
+     */
     private void getUser() {
         // user, parse response
         GraphRequest request = GraphRequest.newMeRequest(
@@ -111,12 +128,11 @@ public class ProfilePresenter
                 new GraphRequest.GraphJSONObjectCallback() {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
-
                         ProfileRealm profileRealm = new ProfileRealm();
                         try {
-                            profileRealm.setId(object.getString("id"));
-                            profileRealm.setName(object.getString("name"));
-                            profileRealm.setLink(object.getString("link"));
+                            profileRealm.setId(object.getString(RESP_ID));
+                            profileRealm.setName(object.getString(RESP_NAME));
+                            profileRealm.setLink(object.getString(RESP_LINK));
                         } catch (JSONException e) {
                             Log.e(TAG, "Error: " + e);
                         }
@@ -127,43 +143,52 @@ public class ProfilePresenter
                 });
 
         Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,name,link");
+        parameters.putString(PARAM_FIELDS,
+                TextUtils.join(",", new String[]{ RESP_ID, RESP_NAME, RESP_LINK }));
         request.setParameters(parameters);
 
         request.executeAsync();
     }
 
-    // TODO: 5/20/16 refactor add GSON
+    /**
+     * Retrieves profile photos and saves the profile and photos
+     * to the database
+     * Updates View on completion
+     * @param profileRealm for which photos are required
+     */
     private void getPhotos(final ProfileRealm profileRealm) {
         GraphRequest request = new GraphRequest(
                 mAccessToken,
-                "/" + profileRealm.getId() + "/photos",
+                "/" + profileRealm.getId() + PARAM_PHOTOS,
                 null,
                 HttpMethod.GET,
                 new GraphRequest.Callback() {
                     public void onCompleted(GraphResponse response) {
-
                         RealmList<ProfilePhotosRealm> photosRealms = new RealmList<>();
 
+                        Log.d(TAG, response.toString());
                         try {
-                            JSONArray photos = response.getJSONObject().getJSONArray("data");
+                            JSONArray photos = response.getJSONObject().getJSONArray(RESP_DATA);
                             for (int i = 0, n = photos.length(); i < n; i++) {
                                 ProfilePhotosRealm photoRealm = new ProfilePhotosRealm();
 
-                                String id = photos.getJSONObject(i).getString("id");
+                                String id = photos.getJSONObject(i).getString(RESP_ID);
 
-                                if (photos.getJSONObject(i).has("name")) {
-                                    String description = photos.getJSONObject(i).getString("name");
+                                if (photos.getJSONObject(i).has(RESP_NAME)) {
+                                    String description = photos.getJSONObject(i).getString(RESP_NAME);
                                     photoRealm.setDescription(description);
                                 }
 
-                                if (photos.getJSONObject(i).has("created_time")) {
-                                    String createdTime = photos.getJSONObject(i).getString("created_time");
+                                if (photos.getJSONObject(i).has(RESP_CREATED)) {
+                                    String createdTime = photos.getJSONObject(i).getString(RESP_CREATED);
                                     photoRealm.setCreatedTime(createdTime);
                                 }
 
-                                if (photos.getJSONObject(i).has("picture")) {
-                                    String link = photos.getJSONObject(i).getJSONArray("images").getJSONObject(0).getString("source");
+                                if (photos.getJSONObject(i).has(RESP_IMAGE)) {
+                                    String link = photos.getJSONObject(i)
+                                            .getJSONArray(RESP_IMAGE)
+                                            .getJSONObject(0).getString(RESP_SOURCE);
+                                    Log.d(TAG, link);
                                     photoRealm.setUrl(link);
                                 }
 
@@ -178,32 +203,40 @@ public class ProfilePresenter
 
                         getMvpView().showData(profileRealm);
 
-                        // add to the database
-                        mSubscription.add(mDataManager.saveProfile(profileRealm).subscribe(new Subscriber<Boolean>() {
-                            @Override
-                            public void onCompleted() {
-                                Log.d(TAG, "onCompleted: ");
-                            }
+                        // add to the database and confirm that is was successfully
+                        // added to the db while debugging
+                        mSubscription.add(mDataManager.saveProfile(profileRealm)
+                                .subscribe(new Subscriber<Boolean>() {
+                                    @Override
+                                    public void onCompleted() {
+                                        Log.d(TAG, "onCompleted: ");
+                                    }
 
-                            @Override
-                            public void onError(Throwable e) {
-                                Log.e(TAG, "Error: " + e);
-                            }
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        Log.e(TAG, "Error: " + e);
+                                    }
 
-                            @Override
-                            public void onNext(Boolean aBoolean) {
-                                Log.d(TAG, "onNext: " + aBoolean);
-                            }
-                        }));
+                                    @Override
+                                    public void onNext(Boolean aBoolean) {
+                                        Log.d(TAG, "onNext: " + aBoolean);
+                                    }
+                                }));
                     }
                 }
         );
 
         Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,name,link,url,picture,images");
+        parameters.putString(PARAM_FIELDS,
+                TextUtils.join(",", new String[]{
+                        RESP_ID,
+                        RESP_NAME,
+                        RESP_LINK,
+                        RESP_URL,
+                        RESP_PICTURE,
+                        RESP_IMAGE
+                }));
         request.setParameters(parameters);
-
         request.executeAsync();
-
     }
 }

@@ -114,7 +114,6 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
 
     @Override
     public void showData(ProfileRealm profileRealm) {
-
         mTextId.setText(profileRealm.getId());
         mTextName.setText(profileRealm.getName());
         mTextUrl.setText(profileRealm.getLink());
