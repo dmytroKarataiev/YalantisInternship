@@ -81,7 +81,7 @@ public class TasksPresenter
         mPreferenceManager.getSharedPrefs().unregisterOnSharedPreferenceChangeListener(this);
     }
 
-    public void getData(int query, final boolean isReplace) {
+    public void getData(final int query, final boolean isReplace) {
         checkViewAttached();
         getMvpView().showProgress(true);
 
@@ -114,7 +114,7 @@ public class TasksPresenter
         getMvpView().showProgress(false);
     }
 
-    public void fetchData(final int query, final int page, int offset) {
+    public void fetchData(final int query, final int page, final int offset) {
         checkViewAttached();
         getMvpView().showProgress(true);
 

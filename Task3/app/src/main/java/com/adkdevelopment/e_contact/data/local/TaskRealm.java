@@ -26,6 +26,7 @@ package com.adkdevelopment.e_contact.data.local;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
@@ -34,7 +35,7 @@ import io.realm.annotations.PrimaryKey;
 /**
  * Created by karataev on 5/11/16.
  */
-public class TaskRealm extends RealmObject implements Parcelable {
+public class TaskRealm extends RealmObject implements Parcelable, Comparable<TaskRealm> {
 
     public static final String TASK_EXTRA = "task_realm_extra";
     public static final String TASK_EXTRA_TITLE = "task_title";
@@ -328,5 +329,16 @@ public class TaskRealm extends RealmObject implements Parcelable {
     @Override
     public boolean equals(Object o) {
         return o instanceof TaskRealm && id == ((TaskRealm) o).getId();
+    }
+
+    @Override
+    public int compareTo(@NonNull TaskRealm another) {
+        if (id > another.getId()) {
+            return 1;
+        } else if (id < another.getId()) {
+            return -1;
+        } else {
+            return 0;
+        }
     }
 }

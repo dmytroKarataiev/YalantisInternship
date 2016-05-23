@@ -33,6 +33,8 @@ import com.adkdevelopment.e_contact.data.local.TokenRealm;
 import com.adkdevelopment.e_contact.injection.ApplicationContext;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -147,12 +149,29 @@ public class DatabaseRealm {
 
         // maps indices to the correct categories according to the db schema
         String[] mapCategories = mContext.getString(R.string.filter_map).split(", ");
-        for (int each : categories) {
-            arrayList.addAll(realmList.where().equalTo(TaskRealm.CATEGORY, Integer.valueOf(mapCategories[each])).findAll());
+
+        // if selection is equal to the number of possible categories - return all
+        if (!(mapCategories.length == categories.length)) {
+            for (int each : categories) {
+                arrayList.addAll(realmList.where().equalTo(TaskRealm.CATEGORY,
+                        Integer.valueOf(mapCategories[each])).findAll());
+            }
+        } else {
+            arrayList.addAll(realmList);
         }
 
-        return arrayList;
+        // As we are querying db step by step, we need to sort it by id
+        Collections.sort(arrayList, new Comparator<TaskRealm>() {
+            @Override
+            public int compare(TaskRealm lhs, TaskRealm rhs) {
+                return lhs.compareTo(rhs);
+            }
+        });
 
+        // and return tasks in descending order starting from the latest
+        Collections.sort(arrayList, Collections.reverseOrder());
+
+        return arrayList;
     }
 
     /**
@@ -163,4 +182,13 @@ public class DatabaseRealm {
         return getRealmInstance().where(TokenRealm.class).findFirst();
     }
 
+    /**
+     * Debugging function to delete all from the db
+     */
+    public void deleteAll() {
+        Realm realm = getRealmInstance();
+        realm.beginTransaction();
+        realm.deleteAll();
+        realm.commitTransaction();
+    }
 }

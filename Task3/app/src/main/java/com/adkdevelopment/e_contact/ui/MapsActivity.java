@@ -40,6 +40,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
@@ -132,6 +133,12 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Ma
         for (TaskRealm each : realmList) {
             LatLng latLng = new LatLng(each.getLatitude(), each.getLongitude());
             mGoogleMap.addMarker(new MarkerOptions().position(latLng).title(each.getTitle()));
+            mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                @Override
+                public void onInfoWindowClick(Marker marker) {
+                    // TODO: 5/21/16 start detail activity 
+                }
+            });
         }
 
         if (realmList.size() > 0) {
