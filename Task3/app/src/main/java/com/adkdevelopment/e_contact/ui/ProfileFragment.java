@@ -65,7 +65,7 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
     TextView mTextName;
     @BindView(R.id.profile_url)
     TextView mTextUrl;
-    @BindView(R.id.my_recycler_view)
+    @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
 
     private Unbinder mUnbinder;

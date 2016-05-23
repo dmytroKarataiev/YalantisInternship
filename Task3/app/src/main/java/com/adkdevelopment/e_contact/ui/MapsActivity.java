@@ -43,6 +43,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -62,6 +63,9 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Ma
 
     private GoogleMap mGoogleMap;
     public static final int ZOOM_DEFAULT = 12;
+
+    // data to start detail activity on info window click
+    private HashMap<String, Intent> mMarkers = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,33 +117,47 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Ma
 
     @Override
     public void showMarker(Intent intent) {
-        // TODO: 5/21/16 add more markers if started from a drawer or show 1 marker if come from Detail Activity 
-        // Add a marker in Dnipro (Yalantis office) and move the camera
-        LatLng dnipr = new LatLng(48.4517867, 35.0669826);
+        TaskRealm taskRealm = intent.getParcelableExtra(TaskRealm.TASK_EXTRA);
 
-        mGoogleMap.addMarker(new MarkerOptions().position(dnipr).title(getString(R.string.map_marker)));
+        if (taskRealm != null) {
+            LatLng position = new LatLng(taskRealm.getLatitude(), taskRealm.getLongitude());
 
-        CameraPosition cameraPosition = CameraPosition.builder()
-                .target(dnipr)
-                .zoom(ZOOM_DEFAULT)
-                .build();
+            mGoogleMap.addMarker(new MarkerOptions().position(position)
+                    .title(taskRealm.getTitle())
+                    .snippet(taskRealm.getDescription()));
 
-        mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            CameraPosition cameraPosition = CameraPosition.builder()
+                    .target(position)
+                    .zoom(ZOOM_DEFAULT)
+                    .build();
+
+            mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        }
+
     }
 
     @Override
     public void showMarkers(List<TaskRealm> realmList) {
-        // TODO: 5/21/16 add links to markers 
         for (TaskRealm each : realmList) {
             LatLng latLng = new LatLng(each.getLatitude(), each.getLongitude());
-            mGoogleMap.addMarker(new MarkerOptions().position(latLng).title(each.getTitle()));
-            mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-                @Override
-                public void onInfoWindowClick(Marker marker) {
-                    // TODO: 5/21/16 start detail activity 
-                }
-            });
+            String id = mGoogleMap.addMarker(new MarkerOptions()
+                    .position(latLng)
+                    .snippet(each.getDescription())
+                    .title(each.getTitle()))
+                    .getId();
+
+            Intent intent = new Intent(this, DetailActivity.class);
+            intent.putExtra(TaskRealm.TASK_EXTRA, each);
+            intent.putExtra(TaskRealm.TASK_EXTRA_TITLE, String.valueOf(each.getId()));
+            mMarkers.put(id, intent);
         }
+
+        mGoogleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                startActivity(mMarkers.get(marker.getId()));
+            }
+        });
 
         if (realmList.size() > 0) {
             LatLng position = new LatLng(realmList.get(0).getLatitude(),

@@ -56,24 +56,24 @@ public class MapsPresenter
 
     @Override
     public void loadMarkers(Intent intent) {
-        // TODO: 5/21/16 fix intent extra 
-        if (!intent.hasExtra("marker")) {
-            mSubscription = mDataManager.getTaskMarkers().subscribe(new Subscriber<List<TaskRealm>>() {
-                @Override
-                public void onCompleted() {
+        if (!intent.hasExtra(TaskRealm.TASK_EXTRA)) {
+            mSubscription = mDataManager.getTaskMarkers()
+                    .subscribe(new Subscriber<List<TaskRealm>>() {
+                        @Override
+                        public void onCompleted() {
 
-                }
+                        }
 
-                @Override
-                public void onError(Throwable e) {
-                    Log.d("MapsPresenter", "e:" + e);
-                }
+                        @Override
+                        public void onError(Throwable e) {
+                            Log.d("MapsPresenter", "e:" + e);
+                        }
 
-                @Override
-                public void onNext(List<TaskRealm> taskRealms) {
-                    getMvpView().showMarkers(taskRealms);
-                }
-            });
+                        @Override
+                        public void onNext(List<TaskRealm> taskRealms) {
+                            getMvpView().showMarkers(taskRealms);
+                        }
+                    });
         } else {
             getMvpView().showMarker(intent);
         }

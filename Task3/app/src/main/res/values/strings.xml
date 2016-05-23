@@ -51,6 +51,7 @@
     <string name="dialog_accept">OK</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="action_settings">Settings</string>
+    <string name="button_map">See on the map</string>
 
     <!-- Facebook strings TODO change to the real one -->
     <!-- <string name="facebook_app_id">111</string> -->

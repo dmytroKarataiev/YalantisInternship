@@ -25,6 +25,7 @@
 package com.adkdevelopment.e_contact.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -35,6 +36,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,8 +81,10 @@ public class DetailFragment extends BaseFragment
     TextView mTaskDescription;
     @BindView(R.id.task_responsible_name)
     TextView mTaskResponsibleName;
-    @BindView(R.id.my_recycler_view)
+    @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
+    @BindView(R.id.map_button)
+    Button mButtonMap;
     private Unbinder mUnbinder;
 
     // As per specification - each element (or button? or what?) should have an onClickListener
@@ -160,7 +164,7 @@ public class DetailFragment extends BaseFragment
     }
 
     @Override
-    public void showData(TaskRealm taskObject) {
+    public void showData(final TaskRealm taskObject) {
 
         // Time parsing and creating a nice textual version (should be changed to Calendar)
         String dateCreated = Utilities.getFormattedDate(taskObject.getCreated());
@@ -186,6 +190,18 @@ public class DetailFragment extends BaseFragment
         // send a title to an activity's actionBar
         if (mListener != null) {
             mListener.onFragmentInteraction(String.valueOf(taskObject.getId()));
+        }
+
+        if (taskObject.getLatitude() > 0.0) {
+            mButtonMap.setVisibility(View.VISIBLE);
+            mButtonMap.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), MapsActivity.class);
+                    intent.putExtra(TaskRealm.TASK_EXTRA, taskObject);
+                    startActivity(intent);
+                }
+            });
         }
     }
 

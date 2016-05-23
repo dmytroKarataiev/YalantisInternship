@@ -196,13 +196,21 @@
         android:text="@string/task_description" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/my_recycler_view"
+        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/task_description"
         android:minHeight="@dimen/recycler_minheight"
         android:paddingTop="@dimen/recycler_padding"
         android:scrollbars="horizontal" />
+
+    <Button
+        android:id="@+id/map_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recyclerview"
+        android:text="@string/button_map"
+        android:visibility="gone" />
 
 </RelativeLayout>
 
