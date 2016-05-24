@@ -48,23 +48,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class DetailFragment extends Fragment implements PhotoAdapter.OnImageClick{
 
-    @Bind(R.id.task_title_text) TextView mTaskTitleText;
-    @Bind(R.id.task_status) TextView mTaskStatus;
-    @Bind(R.id.task_created_date) TextView mTaskCreatedDate;
-    @Bind(R.id.task_registered_date) TextView mTaskRegisteredDate;
-    @Bind(R.id.task_assigned_date) TextView mTaskAssignedDate;
-    @Bind(R.id.task_description) TextView mTaskDescription;
-    @Bind(R.id.task_responsible_name) TextView mTaskResponsibleName;
-    @Bind(R.id.my_recycler_view) RecyclerView mRecyclerView;
+    @BindView(R.id.task_title_text) TextView mTaskTitleText;
+    @BindView(R.id.task_status) TextView mTaskStatus;
+    @BindView(R.id.task_created_date) TextView mTaskCreatedDate;
+    @BindView(R.id.task_registered_date) TextView mTaskRegisteredDate;
+    @BindView(R.id.task_assigned_date) TextView mTaskAssignedDate;
+    @BindView(R.id.task_description) TextView mTaskDescription;
+    @BindView(R.id.task_responsible_name) TextView mTaskResponsibleName;
+    @BindView(R.id.my_recycler_view) RecyclerView mRecyclerView;
+    private Unbinder mUnbinder;
 
     // As per specification - each element (or button? or what?) should have an onClickListener
     // which shows a toast with element name
@@ -93,7 +95,7 @@ public class DetailFragment extends Fragment implements PhotoAdapter.OnImageClic
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.detail_fragment_task, container, false);
-        ButterKnife.bind(this, rootView);
+        mUnbinder = ButterKnife.bind(this, rootView);
 
         // to prevent multiple calls to getContext()
         Context context = getContext();
@@ -172,7 +174,7 @@ public class DetailFragment extends Fragment implements PhotoAdapter.OnImageClic
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        mUnbinder.unbind();
     }
 
     @Override

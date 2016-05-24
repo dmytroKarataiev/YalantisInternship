@@ -31,7 +31,7 @@ import android.view.MenuItem;
 
 import com.adkdevelopment.e_contact.remote.TaskItem;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -40,7 +40,7 @@ import butterknife.ButterKnife;
  */
 public class DetailActivity extends AppCompatActivity {
 
-    @Bind(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

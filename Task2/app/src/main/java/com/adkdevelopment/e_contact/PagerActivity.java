@@ -53,7 +53,7 @@ import com.adkdevelopment.e_contact.utils.Utilities;
 import com.adkdevelopment.e_contact.utils.ZoomOutPageTransformer;
 import com.melnykov.fab.FloatingActionButton;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -61,17 +61,17 @@ import butterknife.ButterKnife;
  */
 public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
-    @Bind(R.id.layout_drawer) DrawerLayout mDrawerLayout;
-    @Bind(R.id.drawer_view_navigation) NavigationView mNavigationView;
-    @Bind(R.id.toolbar) Toolbar mToolbar;
-    @Bind(R.id.appbar) AppBarLayout mAppBar;
-    @Bind(R.id.tabs) TabLayout mTabLayout;
-    @Bind(R.id.viewpager) ViewPager mViewPager;
-    @Bind(R.id.drawer_footer_links) TextView mFooterLinks;
-    @Bind(R.id.fab) FloatingActionButton mFab;
+    @BindView(R.id.layout_drawer) DrawerLayout mDrawerLayout;
+    @BindView(R.id.drawer_view_navigation) NavigationView mNavigationView;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.appbar) AppBarLayout mAppBar;
+    @BindView(R.id.tabs) TabLayout mTabLayout;
+    @BindView(R.id.viewpager) ViewPager mViewPager;
+    @BindView(R.id.drawer_footer_links) TextView mFooterLinks;
+    @BindView(R.id.fab) FloatingActionButton mFab;
 
     // tab indicator
-    @Bind(R.id.indicator) UnderlinePageIndicator mTabIndicator;
+    @BindView(R.id.indicator) UnderlinePageIndicator mTabIndicator;
 
     private PagerAdapter mPagerAdapter;
 
