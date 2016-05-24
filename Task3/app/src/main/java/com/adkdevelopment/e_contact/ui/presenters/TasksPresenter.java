@@ -46,6 +46,7 @@ import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
 /**
+ * Presenter for the Tasks Fragment
  * Created by karataev on 5/10/16.
  */
 public class TasksPresenter
@@ -54,9 +55,9 @@ public class TasksPresenter
     private static final String TAG = TasksPresenter.class.getSimpleName();
 
     private final DataManager mDataManager;
-    private PrefsManager mPreferenceManager;
-    private CompositeSubscription mSubscription;
-    private Context mContext;
+    private final PrefsManager mPreferenceManager;
+    private final CompositeSubscription mSubscription;
+    private final Context mContext;
 
     @Inject
     public TasksPresenter(@ApplicationContext Context context, DataManager dataManager, PrefsManager preferenceManager) {
@@ -75,7 +76,7 @@ public class TasksPresenter
     @Override
     public void detachView() {
         super.detachView();
-        if (mSubscription != null) {
+        if (!mSubscription.isUnsubscribed()) {
             mSubscription.unsubscribe();
         }
         mPreferenceManager.getSharedPrefs().unregisterOnSharedPreferenceChangeListener(this);

@@ -29,6 +29,7 @@ import com.adkdevelopment.e_contact.ui.base.MvpView;
 import com.facebook.AccessToken;
 
 /**
+ * MVP Contract for Login Activity
  * Created by karataev on 5/10/16.
  */
 public class LoginContract {

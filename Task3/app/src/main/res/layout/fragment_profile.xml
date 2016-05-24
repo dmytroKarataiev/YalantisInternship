@@ -34,7 +34,7 @@
         android:id="@+id/profile_text_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Id:" />
+        android:text="@string/profile_id" />
 
     <TextView
         android:id="@+id/profile_id"
@@ -44,8 +44,7 @@
         android:layout_alignParentRight="true"
         android:layout_toEndOf="@id/profile_text_id"
         android:layout_toRightOf="@id/profile_text_id"
-        android:gravity="end"
-        android:text="1234321231" />
+        android:gravity="end" />
 
     <View
         android:id="@+id/divider1"
@@ -59,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/divider1"
-        android:text="User name:" />
+        android:text="@string/profile_name" />
 
     <TextView
         android:id="@+id/profile_name"
@@ -70,8 +69,7 @@
         android:layout_below="@id/divider1"
         android:layout_toEndOf="@id/profile_text_name"
         android:layout_toRightOf="@id/profile_text_name"
-        android:gravity="end"
-        android:text="Dmytro Karataiev" />
+        android:gravity="end" />
 
     <View
         android:id="@+id/divider2"
@@ -85,7 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/divider2"
-        android:text="Link to the profile:" />
+        android:text="@string/profile_link" />
 
     <TextView
         android:id="@+id/profile_url"
@@ -97,8 +95,7 @@
         android:layout_below="@id/divider2"
         android:layout_toEndOf="@id/profile_text_url"
         android:layout_toRightOf="@id/profile_text_url"
-        android:gravity="end"
-        android:text="http://www.facebook.com/" />
+        android:gravity="end" />
 
     <View
         android:id="@+id/divider3"

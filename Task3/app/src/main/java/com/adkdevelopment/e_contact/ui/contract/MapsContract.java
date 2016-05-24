@@ -33,6 +33,7 @@ import com.adkdevelopment.e_contact.ui.base.MvpView;
 import java.util.List;
 
 /**
+ * MVP Contract for Maps Activity
  * Created by karataev on 5/10/16.
  */
 public class MapsContract {

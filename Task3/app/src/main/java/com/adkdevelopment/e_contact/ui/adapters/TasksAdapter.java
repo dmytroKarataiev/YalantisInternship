@@ -39,6 +39,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
+ * Adapter to show all tasks
  * Created by karataev on 5/11/16.
  */
 public class TasksAdapter extends RecyclerView.Adapter<TasksViewHolder> {

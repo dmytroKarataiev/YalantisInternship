@@ -40,6 +40,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
+ * Photo Adapter for the Details and Profile Activities.
+ * Shows photos and resizes them to improve performance.
  * Created by karataev on 5/13/16.
  */
 public class PhotoAdapter extends RecyclerView.Adapter<PhotoViewHolder> {

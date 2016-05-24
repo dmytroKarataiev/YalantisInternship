@@ -27,6 +27,7 @@ package com.adkdevelopment.e_contact.data.local;
 import io.realm.RealmObject;
 
 /**
+ * Class to help store Strings in Realm
  * Created by karataev on 5/19/16.
  */
 public class StringRealm extends RealmObject {

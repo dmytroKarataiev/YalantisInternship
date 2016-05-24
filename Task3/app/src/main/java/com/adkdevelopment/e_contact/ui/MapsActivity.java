@@ -52,6 +52,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * Shows a Map with tasks if open independently
+ * or centers on a particular task
+ * Each Task can open additional Details View
  * Created by karataev on 5/21/16.
  */
 public class MapsActivity extends BaseActivity implements OnMapReadyCallback, MapsContract.View {
@@ -62,10 +65,10 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Ma
     Toolbar mToolbar;
 
     private GoogleMap mGoogleMap;
-    public static final int ZOOM_DEFAULT = 12;
+    private static final int ZOOM_DEFAULT = 12;
 
     // data to start detail activity on info window click
-    private HashMap<String, Intent> mMarkers = new HashMap<>();
+    private final HashMap<String, Intent> mMarkers = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -49,6 +49,7 @@ import rx.Subscriber;
 import rx.subscriptions.CompositeSubscription;
 
 /**
+ * Presenter to the Profile Activity
  * Created by karataev on 5/10/16.
  */
 public class ProfilePresenter
@@ -59,20 +60,20 @@ public class ProfilePresenter
 
     private final DataManager mDataManager;
     private AccessToken mAccessToken;
-    private CompositeSubscription mSubscription;
+    private final CompositeSubscription mSubscription;
 
-    public static final String RESP_ID = "id";
-    public static final String RESP_NAME = "name";
-    public static final String RESP_LINK = "link";
-    public static final String RESP_DATA = "data";
-    public static final String RESP_PICTURE = "picture";
-    public static final String RESP_IMAGE = "images";
-    public static final String RESP_SOURCE = "source";
-    public static final String RESP_URL = "url";
-    public static final String RESP_CREATED = "created_time";
+    private static final String RESP_ID = "id";
+    private static final String RESP_NAME = "name";
+    private static final String RESP_LINK = "link";
+    private static final String RESP_DATA = "data";
+    private static final String RESP_PICTURE = "picture";
+    private static final String RESP_IMAGE = "images";
+    private static final String RESP_SOURCE = "source";
+    private static final String RESP_URL = "url";
+    private static final String RESP_CREATED = "created_time";
 
-    public static final String PARAM_FIELDS = "fields";
-    public static final String PARAM_PHOTOS = "/photos";
+    private static final String PARAM_FIELDS = "fields";
+    private static final String PARAM_PHOTOS = "/photos";
 
     @Inject
     public ProfilePresenter(DataManager dataManager) {
@@ -83,7 +84,7 @@ public class ProfilePresenter
     @Override
     public void detachView() {
         super.detachView();
-        if (mSubscription != null) {
+        if (!mSubscription.isUnsubscribed()) {
             mSubscription.unsubscribe();
         }
     }
@@ -166,29 +167,27 @@ public class ProfilePresenter
                     public void onCompleted(GraphResponse response) {
                         RealmList<ProfilePhotosRealm> photosRealms = new RealmList<>();
 
-                        Log.d(TAG, response.toString());
                         try {
                             JSONArray photos = response.getJSONObject().getJSONArray(RESP_DATA);
                             for (int i = 0, n = photos.length(); i < n; i++) {
                                 ProfilePhotosRealm photoRealm = new ProfilePhotosRealm();
+                                JSONObject object = photos.getJSONObject(i);
 
-                                String id = photos.getJSONObject(i).getString(RESP_ID);
+                                String id = object.getString(RESP_ID);
 
-                                if (photos.getJSONObject(i).has(RESP_NAME)) {
-                                    String description = photos.getJSONObject(i).getString(RESP_NAME);
+                                if (object.has(RESP_NAME)) {
+                                    String description = object.getString(RESP_NAME);
                                     photoRealm.setDescription(description);
                                 }
 
-                                if (photos.getJSONObject(i).has(RESP_CREATED)) {
-                                    String createdTime = photos.getJSONObject(i).getString(RESP_CREATED);
+                                if (object.has(RESP_CREATED)) {
+                                    String createdTime = object.getString(RESP_CREATED);
                                     photoRealm.setCreatedTime(createdTime);
                                 }
 
-                                if (photos.getJSONObject(i).has(RESP_IMAGE)) {
-                                    String link = photos.getJSONObject(i)
-                                            .getJSONArray(RESP_IMAGE)
+                                if (object.has(RESP_IMAGE)) {
+                                    String link = object.getJSONArray(RESP_IMAGE)
                                             .getJSONObject(0).getString(RESP_SOURCE);
-                                    Log.d(TAG, link);
                                     photoRealm.setUrl(link);
                                 }
 

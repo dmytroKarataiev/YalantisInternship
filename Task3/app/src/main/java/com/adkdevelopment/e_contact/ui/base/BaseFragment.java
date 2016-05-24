@@ -27,6 +27,7 @@ package com.adkdevelopment.e_contact.ui.base;
 import android.support.v4.app.Fragment;
 
 /**
+ * Base for all fragments in the app
  * Created by karataev on 5/10/16.
  */
 public class BaseFragment extends Fragment {

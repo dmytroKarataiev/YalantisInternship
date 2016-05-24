@@ -61,6 +61,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * Main navigation activity
  * Created by karataev on 5/10/16.
  */
 public class MainActivity extends BaseActivity implements MainContract.View {
@@ -168,7 +169,6 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         mViewPager.setOffscreenPageLimit(pagerAdapter.getCount());
         mTabLayout.setViewPager(mViewPager);
 
-        // TODO: 5/14/16 add create an inquiry activity 
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -206,7 +206,6 @@ public class MainActivity extends BaseActivity implements MainContract.View {
             public boolean onNavigationItemSelected(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.drawer_map:
-                        // TODO: 5/13/16 add MapsActivity
                         if (Utilities.checkPlayServices(MainActivity.this)) {
                             Intent intent = new Intent(MainActivity.this, MapsActivity.class);
                             startActivity(intent);

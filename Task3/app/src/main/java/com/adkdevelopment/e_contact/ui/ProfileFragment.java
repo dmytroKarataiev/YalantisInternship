@@ -25,7 +25,6 @@
 package com.adkdevelopment.e_contact.ui;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -53,8 +52,6 @@ import butterknife.Unbinder;
  * Facebook Login fragment
  */
 public class ProfileFragment extends BaseFragment implements ProfileContract.View {
-    
-    private static final String TAG = ProfileFragment.class.getSimpleName();
 
     @Inject ProfilePresenter mPresenter;
     @Inject PhotoAdapter mAdapter;
@@ -98,11 +95,6 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mPresenter.getProfile();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

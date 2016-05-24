@@ -33,6 +33,7 @@ import com.adkdevelopment.e_contact.ui.contract.DetailContract;
 import javax.inject.Inject;
 
 /**
+ * Presenter for the Details Fragment
  * Created by karataev on 5/10/16.
  */
 public class DetailPresenter
@@ -47,8 +48,6 @@ public class DetailPresenter
     public void loadData(Intent intent) {
         if (intent == null) {
             getMvpView().showError();
-        } else if (!intent.hasExtra(TaskRealm.TASK_EXTRA)) {
-            getMvpView().showTaskEmpty();
         } else {
             TaskRealm taskRealm = intent.getParcelableExtra(TaskRealm.TASK_EXTRA);
             getMvpView().showData(taskRealm);

@@ -436,9 +436,9 @@ public class TaskObject implements Parcelable {
         this.completedDate = in.readLong();
         this.state = in.readParcelable(TaskState.class.getClassLoader());
         this.ticketId = in.readString();
-        this.files = new ArrayList<TaskFile>();
+        this.files = new ArrayList<>();
         in.readList(this.files, TaskFile.class.getClassLoader());
-        this.performers = new ArrayList<TaskPerformer>();
+        this.performers = new ArrayList<>();
         in.readList(this.performers, TaskPerformer.class.getClassLoader());
         this.deadline = in.readLong();
         this.likesCounter = in.readInt();

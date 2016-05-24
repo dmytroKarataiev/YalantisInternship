@@ -31,6 +31,7 @@ import com.adkdevelopment.e_contact.ui.base.MvpView;
 import java.util.List;
 
 /**
+ * MVP Contract for the Tasks Activity.
  * Created by karataev on 5/10/16.
  */
 public class TasksContract {

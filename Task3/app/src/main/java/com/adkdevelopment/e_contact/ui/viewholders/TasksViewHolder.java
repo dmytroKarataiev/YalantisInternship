@@ -38,6 +38,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * Separate ViewHolder for Tasks
  * Created by karataev on 5/11/16.
  */
 public class TasksViewHolder extends RecyclerView.ViewHolder {
@@ -54,7 +55,6 @@ public class TasksViewHolder extends RecyclerView.ViewHolder {
     TextView mRegistered;
     @BindView(R.id.task_item_elapsed)
     TextView mElapsed;
-    // TODO: 5/15/16 shared transition
     @BindView(R.id.task_item_card)
     CardView mCardView;
 

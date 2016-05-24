@@ -33,6 +33,7 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 /**
+ * Main Task class
  * Created by karataev on 5/11/16.
  */
 public class TaskRealm extends RealmObject implements Parcelable, Comparable<TaskRealm> {

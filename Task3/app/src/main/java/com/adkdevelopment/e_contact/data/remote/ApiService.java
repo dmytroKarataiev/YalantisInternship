@@ -36,6 +36,7 @@ import retrofit2.http.Query;
 import rx.Observable;
 
 /**
+ * Service to retrieve data from Yalantis API
  * Created by karataev on 5/10/16.
  */
 public interface ApiService {

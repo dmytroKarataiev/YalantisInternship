@@ -28,12 +28,12 @@
     android:id="@+id/relative_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
     android:focusableInTouchMode="true"
     android:padding="@dimen/padding_default"
     android:transitionName="@string/transition_card"
     tools:context=".ui.DetailActivity"
-    tools:showIn="@layout/activity_detail">
+    tools:showIn="@layout/activity_detail"
+    tools:targetApi="lollipop">
 
     <RelativeLayout
         android:id="@+id/task_title"

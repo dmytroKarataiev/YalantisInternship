@@ -47,6 +47,7 @@ import rx.Observable;
 import rx.Subscriber;
 
 /**
+ * Database manager
  * Created by karataev on 5/12/16.
  */
 public class RealmManager implements Manager.RealmManager {

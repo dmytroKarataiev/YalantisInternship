@@ -40,6 +40,7 @@ import rx.Observable;
 import rx.functions.Func1;
 
 /**
+ * DataManager which controls API, Realm database
  * Created by karataev on 5/10/16.
  */
 @Singleton

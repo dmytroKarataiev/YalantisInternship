@@ -28,6 +28,7 @@ import com.adkdevelopment.e_contact.ui.base.MvpPresenter;
 import com.adkdevelopment.e_contact.ui.base.MvpView;
 
 /**
+ * MVP Contract for the Main Activity
  * Created by karataev on 5/10/16.
  */
 public class MainContract {

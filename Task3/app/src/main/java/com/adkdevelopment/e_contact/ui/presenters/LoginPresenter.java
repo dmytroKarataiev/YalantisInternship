@@ -32,6 +32,7 @@ import com.facebook.AccessToken;
 import javax.inject.Inject;
 
 /**
+ * Presenter for the Login Activity
  * Created by karataev on 5/10/16.
  */
 public class LoginPresenter

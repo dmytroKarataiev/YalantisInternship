@@ -35,6 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * Activity for the Details Fragment
  * Created by karataev on 5/12/16.
  */
 public class DetailActivity extends BaseActivity implements DetailFragment.OnFragmentInteraction {

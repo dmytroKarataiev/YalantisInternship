@@ -41,6 +41,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 /**
+ * Main Dagger class
  * Created by karataev on 5/10/16.
  */
 @Singleton

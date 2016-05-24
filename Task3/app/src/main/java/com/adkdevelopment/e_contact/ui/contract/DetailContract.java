@@ -31,6 +31,7 @@ import com.adkdevelopment.e_contact.ui.base.MvpPresenter;
 import com.adkdevelopment.e_contact.ui.base.MvpView;
 
 /**
+ * MVP contract for Details Activity and Fragment
  * Created by karataev on 5/10/16.
  */
 public class DetailContract {
@@ -41,8 +42,6 @@ public class DetailContract {
 
     public interface View extends MvpView {
         void showData(TaskRealm taskObject);
-
-        void showTaskEmpty();
 
         void showError();
     }

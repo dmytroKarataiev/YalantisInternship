@@ -31,13 +31,14 @@ import com.adkdevelopment.e_contact.ui.contract.MainContract;
 import javax.inject.Inject;
 
 /**
+ * Presenter for the Main Activity
  * Created by karataev on 5/10/16.
  */
 public class MainPresenter
         extends BaseMvpPresenter<MainContract.View>
         implements MainContract.Presenter {
 
-    private PrefsManager mPreferenceManager;
+    private final PrefsManager mPreferenceManager;
 
     @Inject
     public MainPresenter(PrefsManager preferenceManager) {

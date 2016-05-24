@@ -45,7 +45,7 @@ import javax.inject.Singleton;
 public class PrefsManager implements Manager.PrefsManager {
 
     private final SharedPreferences mPref;
-    private Context mContext;
+    private final Context mContext;
 
     @Inject
     public PrefsManager(@ApplicationContext Context context) {
@@ -71,8 +71,8 @@ public class PrefsManager implements Manager.PrefsManager {
 
     /**
      * Retrieves filter preferences from the SharedPreferences as a String and performs
-     * convertion to the Integer[] array
-     * @return Integer[] array of checked elements in a multichoice dialog
+     * convertation to the Integer[] array
+     * @return Integer[] array of checked elements in a multi-choice dialog
      */
     @Override
     public Integer[] getFilterSelection() {

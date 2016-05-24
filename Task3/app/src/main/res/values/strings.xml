@@ -2,7 +2,7 @@
     <string name="app_name">E-Contact</string>
     <string name="recyclerview_empty_text">Oops! Something is wrong. Please check your internet connection and try again.</string>
     <string name="title_activity_maps">Map</string>
-    <string name="map_marker">Marker in Dnipro</string>
+    <string name="fragment_error">Error somewhere</string>
 
     <!-- Navigation Drawer Strings -->
     <string name="drawer_title">@string/app_name</string>
@@ -28,7 +28,7 @@
     <string name="task_created_date">Jan. 27th 2016</string>
     <string name="task_registered_date">Jan. 27th 2016</string>
     <string name="task_assigned_date">Jan. 27th 2016</string>
-    <string name="task_responsible_name">Dnipropetrovsk MVK</string>
+    <string name="task_responsible_name">Dnipro MVK</string>
     <string name="task_description">Open drainage near billboard, close to a turn of 18th and 19th trolleys to the Peace avenue of Donetsk Highway.</string>
 
     <!-- Task Deatiled View -->
@@ -38,6 +38,7 @@
     <string name="task_assigned_text">Assigned </string>
     <string name="task_responsible_text">Responsible </string>
     <string name="task_image_text">Image: </string>
+    <string name="task_not_assignded">N/A</string>
 
     <!-- Fragments -->
     <string name="title_inprogress">In progress</string>
@@ -50,11 +51,10 @@
     <string name="dialog_select_none">Clear all</string>
     <string name="dialog_accept">OK</string>
     <string name="title_activity_login">LoginActivity</string>
-    <string name="action_settings">Settings</string>
     <string name="button_map">See on the map</string>
 
-    <!-- Facebook strings TODO change to the real one -->
-    <!-- <string name="facebook_app_id">111</string> -->
+    <!-- Facebook strings -->
+    <string name="facebook_app_id">267376626947734</string>
     <string-array name="facebook_permissions">
         <item>public_profile</item>
         <item>email</item>
@@ -63,7 +63,12 @@
     </string-array>
 
     <!-- Google maps todo key -->
-    <!-- <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">DUMMY_KEY</string> -->
+    <string name="google_maps_key" translatable="false">DUMMY_KEY</string>
 
+    <!-- Profile Activity Strings -->
+    <string name="profile_id">Id:</string>
+    <string name="profile_name">User name:</string>
+    <string name="profile_link">Link to the profile:</string>
+    <string name="menu_profile">Profile</string>
 
 </resources>

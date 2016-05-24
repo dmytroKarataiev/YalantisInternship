@@ -24,11 +24,10 @@
 * [SmartTabLayout](https://github.com/ogaclejapan/SmartTabLayout) to have a round-shaped Tab indicator.
 * [Material Dialogs](https://github.com/afollestad/material-dialogs) as AlertDialogs with multiple choice lists don't work correctly with Android 6+ ([see the error](https://code.google.com/p/android/issues/detail?can=2&start=0&num=100&q=&colspec=ID%20Status%20Priority%20Owner%20Summary%20Stars%20Reporter%20Opened&groupby=&sort=&id=208886)).
 
-## Additionally implemented (TBC)
+## Additionally implemented
 * Maps Activity with task markers.
-* Create an inquiry activity.
 * Filtering of tasks.
-* Material Design improvements (SharedTransitions).
 
-## Possible Improvements
-* Lambda support to improve readability via Retrolambda plugin.
+## Other
+* Possible improvement: Lambda support to improve readability via Retrolambda plugin.
+* Google Play Services Bug Acknowledged by Google: [link](http://stackoverflow.com/questions/37333220/googlesignatureverifier-signature-not-valid-message-not-using-the-google-maps-a)

@@ -36,12 +36,13 @@ import com.facebook.FacebookSdk;
 import javax.inject.Inject;
 
 /**
+ * Custom App class to init all the needed components
  * Created by karataev on 5/10/16.
  */
 public class App extends Application {
 
     @Inject DatabaseRealm mDatabaseRealm;
-    static AppComponent mAppComponent;
+    private static AppComponent mAppComponent;
 
     @Override
     public void onCreate() {
@@ -57,7 +58,7 @@ public class App extends Application {
         return (App) context.getApplicationContext();
     }
 
-    public static void initAppComponent(App app) {
+    private static void initAppComponent(App app) {
         mAppComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(app))
                 .build();

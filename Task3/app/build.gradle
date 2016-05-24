@@ -88,7 +88,7 @@ dependencies {
     compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
 
     // Maps dependency
-    compile "com.google.android.gms:play-services-maps:8.4.0"
+    compile "com.google.android.gms:play-services-maps:9.0.0"
 
     // Dagger 2 injection library
     apt "com.google.dagger:dagger-compiler:$daggerVersion"

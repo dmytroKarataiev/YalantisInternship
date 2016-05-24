@@ -57,10 +57,13 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
+ * Fragment which shows detailed information about Tasks
  * Created by karataev on 5/12/16.
  */
 public class DetailFragment extends BaseFragment
         implements DetailContract.View, ItemClickListener<Integer, View> {
+
+    private static final String TAG = DetailFragment.class.getSimpleName();
 
     @Inject PhotoAdapter mAdapter;
     @Inject DetailPresenter mPresenter;
@@ -169,7 +172,13 @@ public class DetailFragment extends BaseFragment
         // Time parsing and creating a nice textual version (should be changed to Calendar)
         String dateCreated = Utilities.getFormattedDate(taskObject.getCreated());
         String dateRegistered = Utilities.getFormattedDate(taskObject.getRegistered());
-        String dateAssigned = Utilities.getFormattedDate(taskObject.getAssigned());
+
+        String dateAssigned;
+        if (taskObject.getAssigned() != 0) {
+            dateAssigned = Utilities.getFormattedDate(taskObject.getAssigned());
+        } else {
+            dateAssigned = getString(R.string.task_not_assignded);
+        }
 
         mTaskTitleText.setText(taskObject.getCategoryText());
         mTaskStatus.setText(taskObject.getStatusText());
@@ -206,14 +215,8 @@ public class DetailFragment extends BaseFragment
     }
 
     @Override
-    public void showTaskEmpty() {
-        // TODO: 5/13/16 add some logic
-        Log.d("DetailFragment", "empty");
-    }
-
-    @Override
     public void showError() {
-        Log.d("DetailFragment", "error");
+        Log.d(TAG, "Error");
     }
 
     // interface to communicate with an activity to set a title

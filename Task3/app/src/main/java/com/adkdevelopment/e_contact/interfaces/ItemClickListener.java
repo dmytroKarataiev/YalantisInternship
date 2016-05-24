@@ -25,6 +25,7 @@
 package com.adkdevelopment.e_contact.interfaces;
 
 /**
+ * Controls clicks in fragments
  * Created by karataev on 5/11/16.
  */
 public interface ItemClickListener<M, V> {

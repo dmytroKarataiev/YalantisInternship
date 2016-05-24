@@ -40,6 +40,7 @@ import rx.Subscriber;
 import rx.Subscription;
 
 /**
+ * Presenter for the Maps Activity
  * Created by karataev on 5/10/16.
  */
 public class MapsPresenter

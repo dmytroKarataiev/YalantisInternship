@@ -30,7 +30,6 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,11 +53,13 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
+ * Fragment which shows all the available tasks
+ * Responds to Swipe to refresh, double-click on tabs (scroll to the top),
+ * Pagination of downloads
  * Created by karataev on 5/10/16.
  */
-public class TasksFragment extends BaseFragment implements TasksContract.View, ItemClickListener<TaskRealm, View> {
-
-    private static final String TAG = TasksFragment.class.getSimpleName();
+public class TasksFragment extends BaseFragment implements TasksContract.View,
+        ItemClickListener<TaskRealm, View> {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     private static final String ARG_SECTION_STATE = "section_state";
@@ -161,7 +162,6 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
 
     @Override
     public void addData(List<TaskRealm> taskObjects) {
-        Log.d(TAG, "addData: ");
         mListEmpty.setVisibility(View.GONE);
         isUpdating = false;
         mAdapter.addTasks(taskObjects, this);
@@ -170,7 +170,6 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
 
     @Override
     public void getData(List<TaskRealm> taskObjects) {
-        Log.d(TAG, "getData taskObjects.size():" + taskObjects.size());
         mListEmpty.setVisibility(View.GONE);
         isUpdating = false;
         mAdapter.setTasks(taskObjects, this);
@@ -179,7 +178,6 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
 
     @Override
     public void showEmpty() {
-        Log.d(TAG, "showEmpty: ");
         mListEmpty.setText(getString(R.string.recyclerview_empty_text));
         mListEmpty.setVisibility(View.VISIBLE);
         mAdapter.setTasks(null, null);
@@ -188,15 +186,12 @@ public class TasksFragment extends BaseFragment implements TasksContract.View, I
 
     @Override
     public void showError() {
-        Log.d(TAG, "showError: ");
         mListEmpty.setVisibility(View.VISIBLE);
-        // TODO: 5/13/16 add meaningfull something 
-        mListEmpty.setText("Error somewhere");
+        mListEmpty.setText(R.string.fragment_error);
     }
 
     @Override
     public void showProgress(boolean isInProgress) {
-        Log.d(TAG, "showProgress: " + isInProgress);
         if (isInProgress) {
             mProgressBar.setVisibility(View.VISIBLE);
         } else {

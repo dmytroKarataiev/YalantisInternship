@@ -26,7 +26,6 @@ package com.adkdevelopment.e_contact.injection.component;
 
 import com.adkdevelopment.e_contact.ui.LoginFragment;
 import com.adkdevelopment.e_contact.injection.PerActivity;
-import com.adkdevelopment.e_contact.injection.module.ActivityModule;
 import com.adkdevelopment.e_contact.ui.DetailFragment;
 import com.adkdevelopment.e_contact.ui.MainActivity;
 import com.adkdevelopment.e_contact.ui.MapsActivity;
@@ -41,7 +40,7 @@ import dagger.Component;
  * Created by karataev on 5/10/16.
  */
 @PerActivity
-@Component(dependencies = AppComponent.class, modules = ActivityModule.class)
+@Component(dependencies = AppComponent.class)
 public interface ActivityComponent {
     void injectFragment(TasksFragment tasksFragment);
     void injectFragment(DetailFragment detailFragment);

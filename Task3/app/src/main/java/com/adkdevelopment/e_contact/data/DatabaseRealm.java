@@ -50,7 +50,7 @@ import io.realm.RealmResults;
  */
 public class DatabaseRealm {
 
-    RealmConfiguration realmConfiguration;
+    private RealmConfiguration realmConfiguration;
 
     @Inject
     @ApplicationContext
@@ -75,7 +75,7 @@ public class DatabaseRealm {
         }
     }
 
-    public Realm getRealmInstance() {
+    private Realm getRealmInstance() {
         return Realm.getDefaultInstance();
     }
 
@@ -108,7 +108,7 @@ public class DatabaseRealm {
     /**
      * Returns all matching objects to the query parameter
      * @param clazz which we are looking for
-     * @param state of the object accroding to the schema
+     * @param state of the object according to the schema
      * @param <T> type of the object
      * @return all objects of the specified state
      */

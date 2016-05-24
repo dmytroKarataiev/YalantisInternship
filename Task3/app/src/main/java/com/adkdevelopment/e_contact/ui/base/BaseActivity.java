@@ -24,27 +24,21 @@
 
 package com.adkdevelopment.e_contact.ui.base;
 
-import android.os.Bundle;
+import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
 
 import com.adkdevelopment.e_contact.App;
 import com.adkdevelopment.e_contact.injection.component.ActivityComponent;
 import com.adkdevelopment.e_contact.injection.component.DaggerActivityComponent;
-import com.adkdevelopment.e_contact.injection.module.ActivityModule;
 
+@SuppressLint("Registered")
 public class BaseActivity extends AppCompatActivity {
 
     private ActivityComponent mActivityComponent;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     public ActivityComponent getActivityComponent() {
         if (mActivityComponent == null) {
             mActivityComponent = DaggerActivityComponent.builder()
-                    .activityModule(new ActivityModule(this))
                     .appComponent(App.get(this).getComponent())
                     .build();
         }
