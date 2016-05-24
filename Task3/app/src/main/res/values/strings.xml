@@ -22,15 +22,6 @@
     <!-- SharedTransitions -->
     <string name="transition_card" translatable="false">card</string>
 
-    <!-- Task Detailed Fragment Strings for the test purposes TODO -->
-    <string name="task_title_text">Public utilities</string>
-    <string name="task_status">In progress</string>
-    <string name="task_created_date">Jan. 27th 2016</string>
-    <string name="task_registered_date">Jan. 27th 2016</string>
-    <string name="task_assigned_date">Jan. 27th 2016</string>
-    <string name="task_responsible_name">Dnipro MVK</string>
-    <string name="task_description">Open drainage near billboard, close to a turn of 18th and 19th trolleys to the Peace avenue of Donetsk Highway.</string>
-
     <!-- Task Deatiled View -->
     <string name="task_title">Task: </string>
     <string name="task_created_text">Created </string>
@@ -50,12 +41,12 @@
     <string name="dialog_select_all">Select all</string>
     <string name="dialog_select_none">Clear all</string>
     <string name="dialog_accept">OK</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_login">Login </string>
     <string name="button_map">See on the map</string>
 
     <!-- Facebook strings -->
-    <string name="facebook_app_id">267376626947734</string>
-    <string-array name="facebook_permissions">
+    <string name="facebook_app_id" translatable="false">267376626947734</string>
+    <string-array name="facebook_permissions" translatable="false">
         <item>public_profile</item>
         <item>email</item>
         <item>user_photos</item>

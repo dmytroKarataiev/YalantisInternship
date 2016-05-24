@@ -24,12 +24,15 @@
 
 package com.adkdevelopment.e_contact.ui;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -202,10 +205,22 @@ public class TasksFragment extends BaseFragment implements TasksContract.View,
 
     @Override
     public void onItemClicked(TaskRealm item, View view) {
+
         Intent intent = new Intent(getContext(), DetailActivity.class);
         intent.putExtra(TaskRealm.TASK_EXTRA, item);
         intent.putExtra(TaskRealm.TASK_EXTRA_TITLE, String.valueOf(item.getId()));
-        startActivity(intent);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Pair pair = Pair.create(view.findViewById(R.id.task_item_card),
+                    view.findViewById(R.id.task_item_card).getTransitionName());
+            Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(getActivity(), pair)
+                    .toBundle();
+
+            startActivity(intent, bundle);
+        } else {
+            startActivity(intent);
+        }
+
     }
 
     @Override

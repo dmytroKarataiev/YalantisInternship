@@ -21,17 +21,18 @@
   ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   ~ SOFTWARE.
   -->
-
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relative_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@android:color/white"
     android:focusableInTouchMode="true"
     android:padding="@dimen/padding_default"
+    android:transitionGroup="true"
     android:transitionName="@string/transition_card"
     tools:context=".ui.DetailActivity"
+    tools:ignore="Overdraw"
     tools:showIn="@layout/activity_detail"
     tools:targetApi="lollipop">
 
@@ -50,7 +51,6 @@
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/task_status"
             android:layout_toStartOf="@+id/task_status"
-            android:text="@string/task_title_text"
             android:textStyle="bold" />
 
         <TextView
@@ -62,8 +62,7 @@
             android:layout_alignParentRight="true"
             android:layout_below="@id/toolbar"
             android:layout_centerInParent="true"
-            android:background="@drawable/shape_oval"
-            android:text="@string/task_status" />
+            android:background="@drawable/shape_oval" />
 
     </RelativeLayout>
 
@@ -91,8 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/divider1"
-        android:text="@string/task_created_date" />
+        android:layout_below="@id/divider1" />
 
     <View
         android:id="@+id/divider2"
@@ -118,8 +116,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/divider2"
-        android:text="@string/task_registered_date" />
+        android:layout_below="@id/divider2" />
 
     <View
         android:id="@+id/divider3"
@@ -145,8 +142,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/divider3"
-        android:text="@string/task_assigned_date" />
+        android:layout_below="@id/divider3" />
 
     <View
         android:id="@+id/divider4"
@@ -175,8 +171,7 @@
         android:layout_below="@id/divider4"
         android:layout_toEndOf="@+id/task_responsible_text"
         android:layout_toRightOf="@+id/task_responsible_text"
-        android:gravity="end"
-        android:text="@string/task_responsible_name" />
+        android:gravity="end" />
 
     <View
         android:id="@+id/divider5"
@@ -192,8 +187,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@id/divider5"
-        android:text="@string/task_description" />
+        android:layout_below="@id/divider5" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview"

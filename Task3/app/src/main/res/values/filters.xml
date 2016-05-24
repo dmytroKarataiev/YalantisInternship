@@ -25,7 +25,7 @@
 
 <resources>
 
-    <string-array name="filter_strings">
+    <string-array name="filter_strings" translatable="false">
         <item>Архіви та статистика</item>
         <item>Діяльність засобів масової інформації</item>
         <item>Культура та культурна спадщина, туризм</item>

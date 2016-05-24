@@ -52,8 +52,6 @@ captures/
 *.idea
 *.iml
 out/
-.idea/
 
 # API Keys
 google_maps_api.xml
-facebook_api.xml

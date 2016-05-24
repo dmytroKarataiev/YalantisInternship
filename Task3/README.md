@@ -1,5 +1,8 @@
 # Yalantis Android Internship - Task #3
 * Client-Server Application with a Model View Presenter (MVP) Architecture, Database, Retrofit and RxJava.
+* Used Realm database this time instead of SQLite.
+
+![Animated final screen](materials/yalantis_task3.gif)
 
 ## Requirements
 * [Technical specifications from Yalantis.](materials/YalantisAndroidInternship.Task3.pdf)
@@ -12,6 +15,9 @@
 * No hardcoded values, use styles.
 * App should conform to [google coding style](https://source.android.com/source/code-style.html).
 * Only portrait orientation.
+
+## Important
+* You must add Google Maps API key for Maps Activity to work correctly.
 
 ## Used libraries
 * [RxJava + RxAndroid.](https://github.com/ReactiveX/RxAndroid)
@@ -27,6 +33,7 @@
 ## Additionally implemented
 * Maps Activity with task markers.
 * Filtering of tasks.
+* SharedTransitions, Zoom Out page transitions.
 
 ## Other
 * Possible improvement: Lambda support to improve readability via Retrolambda plugin.

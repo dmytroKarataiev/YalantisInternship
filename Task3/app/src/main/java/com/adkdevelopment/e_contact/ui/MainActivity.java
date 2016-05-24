@@ -47,6 +47,7 @@ import com.adkdevelopment.e_contact.R;
 import com.adkdevelopment.e_contact.data.local.TaskRealm;
 import com.adkdevelopment.e_contact.ui.adapters.PagerAdapter;
 import com.adkdevelopment.e_contact.ui.base.BaseActivity;
+import com.adkdevelopment.e_contact.ui.behavior.ZoomOutPageTransformer;
 import com.adkdevelopment.e_contact.ui.contract.MainContract;
 import com.adkdevelopment.e_contact.ui.presenters.MainPresenter;
 import com.adkdevelopment.e_contact.utils.Utilities;
@@ -167,6 +168,10 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
         mViewPager.setAdapter(pagerAdapter);
         mViewPager.setOffscreenPageLimit(pagerAdapter.getCount());
+
+        // zoom effect on swipe
+        mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+
         mTabLayout.setViewPager(mViewPager);
 
         mFab.setOnClickListener(new View.OnClickListener() {

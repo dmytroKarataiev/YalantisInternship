@@ -1,0 +1,73 @@
+<!--
+  ~ MIT License
+  ~
+  ~ Copyright (c) 2016. Dmytro Karataiev
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<resources>
+    <string name="recyclerview_empty_text">Упс! Щось пішло не так. Перевірте з\'єднання до інтернету та спробуйте ще раз.</string>
+    <string name="title_activity_maps">Карта</string>
+    <string name="fragment_error">Виникла помилка. Спробуйте перезавантажити дані.</string>
+
+    <!-- Navigation Drawer Strings -->
+    <string name="drawer_title">@string/app_name</string>
+    <string name="drawer_item_all">Всі заявки</string>
+    <string name="drawer_item_map">Заявки на карті</string>
+    <string name="drawer_item_login">Увійти в акаунт</string>
+    <string name="drawer_footer_links">Зроблено з любов\'ю\n<a href="http://www.itruh.dp.ua/">IT Ruh Dnipro</a> та <a href="https://yalantis.com/">Yalantis</a></string>
+
+    <!-- Accessibility strings -->
+    <string name="fab_description">Створити заявку</string>
+    <string name="image_description_type">Тип заявки</string>
+    <string name="image_description_like">Палець вверх зображення</string>
+
+    <!-- Menu Items -->
+    <string name="menu_item_sort">Сортувати</string>
+
+    <!-- Task Deatiled View -->
+    <string name="task_title">Завдання:</string>
+    <string name="task_created_text">Створено</string>
+    <string name="task_registered_text">Зареєстровано</string>
+    <string name="task_assigned_text">Зареєстровано</string>
+    <string name="task_responsible_text">Відповідальний</string>
+    <string name="task_image_text">Зображення:</string>
+    <string name="task_not_assignded">Немає даних</string>
+
+    <!-- Fragments -->
+    <string name="title_inprogress">В роботі</string>
+    <string name="title_done">Виконано</string>
+    <string name="title_pending">Очікує</string>
+
+    <!-- AlertDialog with filters -->
+    <string name="dialog_title">Відображати:</string>
+    <string name="dialog_select_all">Виділити все</string>
+    <string name="dialog_select_none">Очистити все</string>
+    <string name="dialog_accept">OK</string>
+    <string name="title_activity_login">Ввійти в акаунт</string>
+    <string name="button_map">Подивитися на карті</string>
+
+    <!-- Profile Activity Strings -->
+    <string name="profile_id">Ідентифікаційний номер:</string>
+    <string name="profile_name">Ім\'я:</string>
+    <string name="profile_link">Посилання на профіль:</string>
+    <string name="menu_profile">Профіль</string>
+    <string name="app_name">Е-Контакт</string>
+</resources>

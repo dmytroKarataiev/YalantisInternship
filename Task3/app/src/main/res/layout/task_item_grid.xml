@@ -29,8 +29,8 @@
     android:layout_height="@dimen/cardview_height"
     android:layout_marginBottom="@dimen/cardview_task_padding"
     android:background="@android:color/white"
-    app:cardCornerRadius="@dimen/cardview_corner_radius"
     android:transitionName="@string/transition_card"
+    app:cardCornerRadius="@dimen/cardview_corner_radius"
     tools:targetApi="lollipop">
 
     <GridLayout
