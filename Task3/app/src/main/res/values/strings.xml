@@ -53,9 +53,6 @@
         <item>user_birthday</item>
     </string-array>
 
-    <!-- Google maps todo key -->
-    <string name="google_maps_key" translatable="false">DUMMY_KEY</string>
-
     <!-- Profile Activity Strings -->
     <string name="profile_id">Id:</string>
     <string name="profile_name">User name:</string>

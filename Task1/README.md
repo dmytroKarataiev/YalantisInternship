@@ -1,7 +1,7 @@
 # Yalantis Android Internship Task #1
 * Simple static application with a ScrollView, RecyclerView.
 
-<img src="http://adkdevelopment.com/download/photos/yalantis_1_task.gif" alt="alt text" style="width:200;height:200">
+![ScreenShot](yalantis_1_task.gif)
 
 ## Required behaviour - (build variant: lite version)
 * Dimensions, Styles in XML (/res)
@@ -15,7 +15,8 @@
 * App should conform to [google coding style](https://source.android.com/source/code-style.html)
 * UI bug fixes, improvements.
 
-<img src="http://adkdevelopment.com/download/photos/yalantis_1task.png" alt="alt text" style="width:250;height:225">
+![ScreenShot](yalantis_1task.png)
+
 ## UI Improvements
 1. Back button isn't necessary in 1 Activity program.
 2. Too much whitespace.

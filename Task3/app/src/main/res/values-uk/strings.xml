@@ -61,7 +61,7 @@
     <string name="dialog_select_all">Виділити все</string>
     <string name="dialog_select_none">Очистити все</string>
     <string name="dialog_accept">OK</string>
-    <string name="title_activity_login">Ввійти в акаунт</string>
+    <string name="title_activity_login">Увійти в акаунт</string>
     <string name="button_map">Подивитися на карті</string>
 
     <!-- Profile Activity Strings -->
