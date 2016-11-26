@@ -27,13 +27,13 @@ apply plugin: 'realm-android'
 apply plugin: 'com.neenbedankt.android-apt'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 25
+    buildToolsVersion "24.0.3"
 
     defaultConfig {
         applicationId "com.adkdevelopment.e_contact"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
     }
@@ -49,10 +49,10 @@ android {
 }
 
 ext {
-    compatLibVersion = '23.4.0'
+    compatLibVersion = '25.0.1'
     retrofitVersion = '2.0.2'
-    butterknifeVersion = '8.0.1'
-    daggerVersion = '2.2'
+    butterknifeVersion = '8.4.0'
+    daggerVersion = '2.8'
 }
 
 dependencies {
@@ -88,7 +88,7 @@ dependencies {
     compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
 
     // Maps dependency
-    compile "com.google.android.gms:play-services-maps:9.0.0"
+    compile "com.google.android.gms:play-services-maps:10.0.0"
 
     // Dagger 2 injection library
     apt "com.google.dagger:dagger-compiler:$daggerVersion"
